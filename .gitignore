@@ -34,6 +34,11 @@ playwright-report/
 # Built escript binary
 /vibeguru
 
-# Generated report output (CLAUDE.md, vibecheck-report.md, vibecheck-findings.json)
+# Generated report output (CLAUDE.md, vibeguru-report.md, vibeguru-findings.json)
 /tmp_out/
 /tmp_out_*/
+
+# Generated run artifacts in the bundled test app (vibeguru.json is kept as a sample)
+/test-app/CLAUDE.md
+/test-app/vibeguru-report.md
+/test-app/vibeguru-findings.json

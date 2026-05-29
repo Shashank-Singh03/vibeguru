@@ -48,7 +48,8 @@ defmodule VibeGuru.Reporter.Markdown do
     """
   end
 
-  defp summary_table([]), do: "**No issues found.** All checked routes returned memory to baseline after GC."
+  defp summary_table([]),
+    do: "**No issues found.** All checked routes returned memory to baseline after GC."
 
   defp summary_table(findings) do
     counts = Enum.frequencies_by(findings, & &1.severity)

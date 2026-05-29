@@ -180,7 +180,11 @@ defmodule VibeGuru.Analyzers.Memory do
         "Detached DOM nodes retained on #{route}",
         "Visiting #{route} retains ~#{per_cycle} DOM nodes per visit that survive GC " <>
           "(node recovery #{pct(rec)}). Unbounded — node count climbs every cycle.",
-        %{nodes_per_visit: per_cycle, nodes_total_retained: m.nodes.total, node_recovery_ratio: round3(rec)},
+        %{
+          nodes_per_visit: per_cycle,
+          nodes_total_retained: m.nodes.total,
+          node_recovery_ratio: round3(rec)
+        },
         %{
           summary: "Free per-mount allocations and remove references on unmount",
           hint:
@@ -194,7 +198,8 @@ defmodule VibeGuru.Analyzers.Memory do
   defp listener_findings(attrib, overall, th, config) do
     chart_hint = chart_libs_present?(config)
 
-    for {route, m} <- attrib, leak?(m.listeners, th.per_route_min_listeners, th.consistency_min) do
+    for {route, m} <- attrib,
+        leak?(m.listeners, th.per_route_min_listeners, th.consistency_min) do
       per_cycle = round(m.listeners.avg)
 
       base_fix =
@@ -216,8 +221,16 @@ defmodule VibeGuru.Analyzers.Memory do
         "Event listeners leak on #{route}",
         "Visiting #{route} retains ~#{per_cycle} event listener(s) per visit that are never removed. " <>
           "jsEventListeners grows monotonically across cycles.",
-        %{listeners_per_visit: per_cycle, listeners_total_retained: m.listeners.total, listener_recovery_ratio: round3(overall.listeners.recovery)},
-        %{summary: "Remove listeners/subscriptions on unmount", hint: fix_hint, files_to_check: ["component rendered at route #{route}"]}
+        %{
+          listeners_per_visit: per_cycle,
+          listeners_total_retained: m.listeners.total,
+          listener_recovery_ratio: round3(overall.listeners.recovery)
+        },
+        %{
+          summary: "Remove listeners/subscriptions on unmount",
+          hint: fix_hint,
+          files_to_check: ["component rendered at route #{route}"]
+        }
       )
     end
   end
@@ -236,7 +249,11 @@ defmodule VibeGuru.Analyzers.Memory do
         "JS heap retained on #{route}",
         "Visiting #{route} retains ~#{bytes(per_cycle)} of JS heap per visit that survives GC " <>
           "(heap recovery #{pct(overall.heap.recovery)}). Memory is held after the view unmounts.",
-        %{heap_bytes_per_visit: per_cycle, heap_bytes_total_retained: m.heap.total, heap_recovery_ratio: round3(overall.heap.recovery)},
+        %{
+          heap_bytes_per_visit: per_cycle,
+          heap_bytes_total_retained: m.heap.total,
+          heap_recovery_ratio: round3(overall.heap.recovery)
+        },
         %{
           summary: "Stop accumulating data in module-globals / stores across mounts",
           hint:
@@ -263,7 +280,8 @@ defmodule VibeGuru.Analyzers.Memory do
           %{baseline_heap_bytes: base_heap},
           %{
             summary: "Code-split and lazy-load heavy modules",
-            hint: "Use dynamic import()/React.lazy for routes and heavy libs (charts, editors, maps) so they load on demand.",
+            hint:
+              "Use dynamic import()/React.lazy for routes and heavy libs (charts, editors, maps) so they load on demand.",
             files_to_check: ["entry/bootstrap module", "top-level route imports"]
           }
         )
@@ -288,7 +306,12 @@ defmodule VibeGuru.Analyzers.Memory do
         "#{metric_label(name)} recovers slowly after load",
         "#{metric_label(name)} only recovers #{pct(m.recovery)} after GC. Not a hard leak, but worth a look (cache sizing / retained closures).",
         %{metric: name, recovery_ratio: round3(m.recovery), growth: m.growth},
-        %{summary: "Review cache/retention sizing", hint: "Bound caches and ensure transient buffers are released; consider weak references for memoized data.", files_to_check: []}
+        %{
+          summary: "Review cache/retention sizing",
+          hint:
+            "Bound caches and ensure transient buffers are released; consider weak references for memoized data.",
+          files_to_check: []
+        }
       )
     end
   end
@@ -331,7 +354,10 @@ defmodule VibeGuru.Analyzers.Memory do
 
   defp format_value(k, v) when is_integer(v) do
     key = to_string(k)
-    if String.contains?(key, "bytes") or String.contains?(key, "heap"), do: bytes(v), else: Integer.to_string(v)
+
+    if String.contains?(key, "bytes") or String.contains?(key, "heap"),
+      do: bytes(v),
+      else: Integer.to_string(v)
   end
 
   defp format_value(_k, v), do: to_string(v)

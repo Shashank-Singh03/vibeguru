@@ -1,0 +1,9 @@
+{
+  "cycles": 12,
+  "dev_command": "npm run dev",
+  "flow": null,
+  "port": 5173,
+  "routes_limit": 8,
+  "settle_ms": 400,
+  "url": "http://localhost:5173"
+}

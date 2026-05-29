@@ -115,7 +115,13 @@ defmodule VibeGuru.Probes.Memory.Client do
   end
 
   # Safe, whitelisted string→atom mapping (never String.to_atom on dynamic input).
-  @kinds %{"sample" => :sample, "snapshot" => :snapshot, "profile" => :profile, "config" => :config, "marker" => :marker}
+  @kinds %{
+    "sample" => :sample,
+    "snapshot" => :snapshot,
+    "profile" => :profile,
+    "config" => :config,
+    "marker" => :marker
+  }
   @phases %{"baseline" => :baseline, "cycle" => :cycle, "cooldown" => :cooldown}
 
   defp to_evidence(obj) do
