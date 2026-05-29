@@ -1,0 +1,22 @@
+{
+  "name": "vibecheck-test-app",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Deliberately leaky React SPA used to verify Vibecheck's memory.client vector. Each route isolates one leak signature; /clean is the control.",
+  "scripts": {
+    "dev": "vite --port 5173 --strictPort",
+    "build": "vite build",
+    "preview": "vite preview --port 4173 --strictPort"
+  },
+  "dependencies": {
+    "chart.js": "^4.4.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.26.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.0",
+    "vite": "^5.4.0"
+  }
+}
