@@ -1,4 +1,4 @@
-defmodule Vibecheck.Detector.Stack do
+defmodule VibeGuru.Detector.Stack do
   @moduledoc """
   Structural stack detection from `package.json`. No AI, no code parsing — just
   manifest reading. Determines framework, bundler and overall surface.

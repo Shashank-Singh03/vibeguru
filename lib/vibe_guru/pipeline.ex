@@ -1,14 +1,14 @@
-defmodule Vibecheck.Pipeline do
+defmodule VibeGuru.Pipeline do
   @moduledoc """
   Wires the four layers for a single vector run: Detector → Probe → Analyzer →
   Reporters. Returns the profile, raw evidence and findings so callers (CLI today,
   LiveView dashboard later) can render however they like.
   """
 
-  alias Vibecheck.{Detector, Finding}
-  alias Vibecheck.Probes.Memory.Client, as: MemoryProbe
-  alias Vibecheck.Analyzers.Memory, as: MemoryAnalyzer
-  alias Vibecheck.Reporter
+  alias VibeGuru.{Detector, Finding}
+  alias VibeGuru.Probes.Memory.Client, as: MemoryProbe
+  alias VibeGuru.Analyzers.Memory, as: MemoryAnalyzer
+  alias VibeGuru.Reporter
 
   @doc """
   Run the `memory.client` vector against `url`.
@@ -36,8 +36,12 @@ defmodule Vibecheck.Pipeline do
 
     with {:ok, evidence} <- MemoryProbe.run(profile, config),
          {:ok, findings} <- MemoryAnalyzer.analyze(evidence, config) do
+      out_dir = Keyword.get(opts, :out_dir, File.cwd!())
+      # Ensure the output directory exists so reporters don't silently fail with :enoent.
+      File.mkdir_p!(out_dir)
+
       report_config = %{
-        out_dir: Keyword.get(opts, :out_dir, File.cwd!()),
+        out_dir: out_dir,
         profile: profile,
         evidence: evidence,
         vector: "memory.client"

@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// index.js — entry point for the Vibecheck browser-driver.
+// index.js — entry point for the Vibe Guru browser-driver.
 //
 // Protocol (kept dead-simple so the Elixir side is trivial to implement):
 //   * Config IN  : a JSON object on stdin (preferred), or a bare URL as argv[2].

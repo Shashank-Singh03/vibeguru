@@ -17,7 +17,7 @@ erl_crash.dump
 *.ez
 
 # Ignore package tarball (built via "mix hex.build").
-vibecheck-*.tar
+vibeguru-*.tar
 
 # Temporary files, for example, from tests.
 /tmp/
@@ -32,7 +32,7 @@ playwright-report/
 /test-app/dist/
 
 # Built escript binary
-/vibecheck
+/vibeguru
 
 # Generated report output (CLAUDE.md, vibecheck-report.md, vibecheck-findings.json)
 /tmp_out/

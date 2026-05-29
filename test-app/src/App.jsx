@@ -7,11 +7,11 @@ import Listeners from "./pages/Listeners.jsx";
 import Charts from "./pages/Charts.jsx";
 
 // The nav renders real <a href> elements (react-router <Link>), which is exactly what
-// Vibecheck's auto-crawler discovers and clicks client-side.
+// Vibe Guru's auto-crawler discovers and clicks client-side.
 export default function App() {
   return (
     <div style={{ fontFamily: "system-ui", padding: 24 }}>
-      <h1>Vibecheck Test App</h1>
+      <h1>Vibe Guru Test App</h1>
       <nav style={{ display: "flex", gap: 12, marginBottom: 24 }}>
         <Link to="/">Home</Link>
         <Link to="/clean">Clean</Link>

@@ -1,5 +1,5 @@
 // Control flow: exercises only the /clean route (which cleans up correctly).
-// Expected result: ZERO findings — proves Vibecheck does not false-positive.
+// Expected result: ZERO findings — proves Vibe Guru does not false-positive.
 export default async function flow(page, { mark }) {
   await page.getByRole("link", { name: "Clean" }).click();
   await page.waitForTimeout(200);

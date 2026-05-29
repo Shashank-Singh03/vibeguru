@@ -1,6 +1,6 @@
-defmodule Vibecheck.Detector do
+defmodule VibeGuru.Detector do
   @moduledoc """
-  Orchestrates structural detection into a `Vibecheck.StackProfile`.
+  Orchestrates structural detection into a `VibeGuru.StackProfile`.
 
   Detection is **always best-effort and never blocks a run**: with only a URL and no
   local project we still return a usable profile (`surface: :unknown`) because the
@@ -8,7 +8,7 @@ defmodule Vibecheck.Detector do
   themselves (e.g. enable the chart-leak signature, warn on missing source maps).
   """
 
-  alias Vibecheck.{StackProfile, Detector}
+  alias VibeGuru.{StackProfile, Detector}
 
   @doc """
   Build a profile from a target `url` and optional project `root`.

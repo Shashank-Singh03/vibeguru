@@ -1,13 +1,13 @@
-defmodule Vibecheck.Reporter.Json do
+defmodule VibeGuru.Reporter.Json do
   @moduledoc """
-  Writes `vibecheck-findings.json` — the machine-readable artifact for piping into
+  Writes `vibeguru-findings.json` — the machine-readable artifact for piping into
   other tools or programmatic consumption. Includes the detected profile, a severity
   summary, and the full findings (each with its `ai_prompt`).
   """
 
-  @behaviour Vibecheck.Reporter
+  @behaviour VibeGuru.Reporter
 
-  alias Vibecheck.{Finding, StackProfile}
+  alias VibeGuru.{Finding, StackProfile}
 
   @impl true
   def id, do: :json
@@ -15,10 +15,10 @@ defmodule Vibecheck.Reporter.Json do
   @impl true
   def render(findings, config) do
     out_dir = Map.fetch!(config, :out_dir)
-    path = Path.join(out_dir, "vibecheck-findings.json")
+    path = Path.join(out_dir, "vibeguru-findings.json")
 
     payload = %{
-      tool: "vibecheck",
+      tool: "vibeguru",
       schema_version: 1,
       vector: Map.get(config, :vector, "memory.client"),
       generated_at: DateTime.utc_now() |> DateTime.to_iso8601(),

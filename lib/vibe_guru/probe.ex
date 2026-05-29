@@ -1,8 +1,8 @@
-defmodule Vibecheck.Probe do
+defmodule VibeGuru.Probe do
   @moduledoc """
   Behaviour for a **probe** — the layer that *gathers evidence*. A probe observes the
   target (drives a browser, hammers HTTP, reads a config) and returns raw
-  `Vibecheck.Evidence`. It must not interpret: no severity, no findings.
+  `VibeGuru.Evidence`. It must not interpret: no severity, no findings.
 
   Adding a new vector's data-collection = implementing these four callbacks. This is
   the primary extension point (incl. paid-tier custom probes), which is why probes are
@@ -21,7 +21,7 @@ defmodule Vibecheck.Probe do
   @callback id() :: atom()
 
   @doc "Whether this probe is relevant to the detected stack."
-  @callback applies_to?(Vibecheck.StackProfile.t()) :: boolean()
+  @callback applies_to?(VibeGuru.StackProfile.t()) :: boolean()
 
   @doc """
   Rough cost, so the UI/CLI can warn before running expensive probes.
@@ -36,6 +36,6 @@ defmodule Vibecheck.Probe do
   Run the probe against a detected stack with a config map, returning gathered
   evidence (or an error). Implementations should be crash-isolated by the caller.
   """
-  @callback run(Vibecheck.StackProfile.t(), map()) ::
-              {:ok, [Vibecheck.Evidence.t()]} | {:error, term()}
+  @callback run(VibeGuru.StackProfile.t(), map()) ::
+              {:ok, [VibeGuru.Evidence.t()]} | {:error, term()}
 end

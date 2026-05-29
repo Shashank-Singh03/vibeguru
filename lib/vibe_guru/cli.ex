@@ -1,8 +1,8 @@
-defmodule Vibecheck.CLI do
+defmodule VibeGuru.CLI do
   @moduledoc """
   Command-line entry point.
 
-      vibecheck memory:client <url> [options]
+      vibeguru memory:client <url> [options]
 
   Options:
       --cycles N        interaction cycles to run (default 20; ~8 is plenty for a quick check)
@@ -16,7 +16,7 @@ defmodule Vibecheck.CLI do
       --quiet           suppress progress logs
   """
 
-  alias Vibecheck.Pipeline
+  alias VibeGuru.Pipeline
 
   @switches [
     cycles: :integer,
@@ -31,19 +31,19 @@ defmodule Vibecheck.CLI do
   ]
 
   def main(argv) do
-    {opts, args, invalid} = OptionParser.parse(argv, switches: @switches)
+    {opts, args, _invalid} = OptionParser.parse(argv, switches: @switches)
 
     case args do
-      ["memory:client", url | _] -> run_memory_client(url, opts, invalid)
+      ["memory:client", url | _] -> run_memory_client(url, opts)
       _ -> usage()
     end
   end
 
-  defp run_memory_client(url, opts, _invalid) do
+  defp run_memory_client(url, opts) do
     quiet = Keyword.get(opts, :quiet, false)
     out_dir = Keyword.get(opts, :out, File.cwd!())
 
-    info("Vibecheck · memory.client → #{url}")
+    info("Vibe Guru · memory.client → #{url}")
 
     pipeline_opts = [
       root: Keyword.get(opts, :root),
@@ -87,8 +87,8 @@ defmodule Vibecheck.CLI do
 
     IO.puts("\nReports written to #{out_dir}:")
     IO.puts("  • CLAUDE.md                (hand this to your coding agent)")
-    IO.puts("  • vibecheck-report.md      (human-readable)")
-    IO.puts("  • vibecheck-findings.json  (machine-readable)")
+    IO.puts("  • vibeguru-report.md       (human-readable)")
+    IO.puts("  • vibeguru-findings.json   (machine-readable)")
     IO.puts(String.duplicate("─", 60))
   end
 

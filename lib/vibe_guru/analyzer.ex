@@ -1,4 +1,4 @@
-defmodule Vibecheck.Analyzer do
+defmodule VibeGuru.Analyzer do
   @moduledoc """
   Behaviour for an **analyzer** — the layer that turns `Evidence` into `Finding`s.
 
@@ -18,6 +18,6 @@ defmodule Vibecheck.Analyzer do
   Analyze a batch of evidence with a config map, returning findings (or an error).
   Returning `{:ok, []}` is the healthy, no-issues result — not an error.
   """
-  @callback analyze([Vibecheck.Evidence.t()], map()) ::
-              {:ok, [Vibecheck.Finding.t()]} | {:error, term()}
+  @callback analyze([VibeGuru.Evidence.t()], map()) ::
+              {:ok, [VibeGuru.Finding.t()]} | {:error, term()}
 end

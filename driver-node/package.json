@@ -1,12 +1,12 @@
 {
-  "name": "vibecheck-driver",
+  "name": "vibeguru-driver",
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "description": "Vibecheck browser-driver: drives headless Chrome via CDP to gather frontend memory evidence (memory.client vector).",
+  "description": "Vibe Guru browser-driver: drives headless Chrome via CDP to gather frontend memory evidence (memory.client vector).",
   "main": "index.js",
   "bin": {
-    "vibecheck-driver": "index.js"
+    "vibeguru-driver": "index.js"
   },
   "scripts": {
     "start": "node index.js",

@@ -1,15 +1,15 @@
-defmodule Vibecheck.Reporter.Markdown do
+defmodule VibeGuru.Reporter.Markdown do
   @moduledoc """
   Writes two markdown artifacts from the same findings:
 
-    * `vibecheck-report.md` — human-readable summary (table + per-finding detail)
+    * `vibeguru-report.md` — human-readable summary (table + per-finding detail)
     * `CLAUDE.md` — agent-readable: a task list of `ai_prompt` blocks a coding agent
       (Claude Code / Cursor) can act on directly. This is the product's core output.
   """
 
-  @behaviour Vibecheck.Reporter
+  @behaviour VibeGuru.Reporter
 
-  alias Vibecheck.StackProfile
+  alias VibeGuru.StackProfile
 
   @impl true
   def id, do: :markdown
@@ -20,7 +20,7 @@ defmodule Vibecheck.Reporter.Markdown do
     profile = config[:profile]
     vector = Map.get(config, :vector, "memory.client")
 
-    report_path = Path.join(out_dir, "vibecheck-report.md")
+    report_path = Path.join(out_dir, "vibeguru-report.md")
     claude_path = Path.join(out_dir, "CLAUDE.md")
 
     with :ok <- File.write(report_path, human_report(findings, profile, vector)),
@@ -33,7 +33,7 @@ defmodule Vibecheck.Reporter.Markdown do
 
   defp human_report(findings, profile, vector) do
     """
-    # Vibecheck Report — #{vector}
+    # Vibe Guru Report — #{vector}
 
     Generated: #{now()}
     #{profile_line(profile)}
@@ -83,17 +83,17 @@ defmodule Vibecheck.Reporter.Markdown do
 
   defp claude_md([], vector) do
     """
-    # Vibecheck — #{vector}
+    # Vibe Guru — #{vector}
 
-    Vibecheck ran a frontend memory analysis and found **no issues**. No action needed.
+    Vibe Guru ran a frontend memory analysis and found **no issues**. No action needed.
     """
   end
 
   defp claude_md(findings, vector) do
     """
-    # Vibecheck findings — #{vector}
+    # Vibe Guru findings — #{vector}
 
-    Vibecheck stress-tested this app's frontend memory by repeatedly mounting and
+    Vibe Guru stress-tested this app's frontend memory by repeatedly mounting and
     unmounting each route and measuring **retained** memory after forced garbage
     collection. The issues below are concrete and measured. Work through them top to
     bottom (most severe first). For each, open the component rendered at the named

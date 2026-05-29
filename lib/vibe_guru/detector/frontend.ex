@@ -1,6 +1,6 @@
-defmodule Vibecheck.Detector.Frontend do
+defmodule VibeGuru.Detector.Frontend do
   @moduledoc """
-  Frontend-specific detection layered on top of `Vibecheck.Detector.Stack`:
+  Frontend-specific detection layered on top of `VibeGuru.Detector.Stack`:
   router, chart/graphics libraries (enables the canvas/WebGL signature), and a
   source-map availability heuristic (absent → allocation attribution degrades to
   coarse, with a warning rather than a crash).

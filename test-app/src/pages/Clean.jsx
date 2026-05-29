@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 // CONTROL — does everything correctly. Adds a listener and a timer, both cleaned up
-// on unmount. No module-global accumulation. Vibecheck must NOT flag this route.
+// on unmount. No module-global accumulation. Vibe Guru must NOT flag this route.
 export default function Clean() {
   const [ticks, setTicks] = useState(0);
 

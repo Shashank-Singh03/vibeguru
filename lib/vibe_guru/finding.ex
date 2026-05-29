@@ -1,9 +1,9 @@
-defmodule Vibecheck.Finding do
+defmodule VibeGuru.Finding do
   @moduledoc """
   An interpreted *conclusion* produced by an `Analyzer` from one or more `Evidence`.
 
   A Finding is the opinionated half of the pipeline: it has a severity, a confidence,
-  a human title, and — critically for Vibecheck — an `:ai_prompt`: a pre-templated,
+  a human title, and — critically for VibeGuru — an `:ai_prompt`: a pre-templated,
   agent-ready instruction block written so a coding agent (Claude/Cursor) can act on
   it directly. The `:ai_prompt` is generated deterministically from the signature and
   the measured numbers; **no LLM is involved at generation time** (zero API cost).

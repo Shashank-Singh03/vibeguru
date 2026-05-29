@@ -1,4 +1,4 @@
-defmodule Vibecheck.Analyzers.Memory do
+defmodule VibeGuru.Analyzers.Memory do
   @moduledoc """
   Turns `memory.client` evidence into memory `Finding`s — deterministically.
 
@@ -25,13 +25,13 @@ defmodule Vibecheck.Analyzers.Memory do
     * `slow_recovery`      — a metric only partially recovers (advisory)
 
   `timer_leak`, `canvas_webgl_leak` (precise) and `allocation_hotspot` need heap-snapshot
-  / allocation-sampling evidence and are produced once Task #5 lands; this analyzer
-  never false-fires them.
+  / allocation-sampling evidence and are produced once the v1.1 milestone lands; this
+  analyzer never false-fires them.
   """
 
-  @behaviour Vibecheck.Analyzer
+  @behaviour VibeGuru.Analyzer
 
-  alias Vibecheck.Finding
+  alias VibeGuru.Finding
 
   @defaults %{
     per_route_min_nodes: 100,
@@ -147,7 +147,16 @@ defmodule Vibecheck.Analyzers.Memory do
       peak = if cyc_vals == [], do: base, else: Enum.max([base | cyc_vals])
       final = if cyc_vals == [], do: base, else: List.last(cyc_vals)
       cool = (cooldown && num(cooldown.data[key])) || final
-      {name, %{baseline: base, peak: peak, final: final, cooldown: cool, recovery: recovery(base, peak, cool), growth: final - base}}
+
+      {name,
+       %{
+         baseline: base,
+         peak: peak,
+         final: final,
+         cooldown: cool,
+         recovery: recovery(base, peak, cool),
+         growth: final - base
+       }}
     end)
   end
 
@@ -174,7 +183,8 @@ defmodule Vibecheck.Analyzers.Memory do
         %{nodes_per_visit: per_cycle, nodes_total_retained: m.nodes.total, node_recovery_ratio: round3(rec)},
         %{
           summary: "Free per-mount allocations and remove references on unmount",
-          hint: "Look for nodes/objects created on mount and pushed into a module-global, ref, or closure that outlives the component. Add cleanup in the useEffect return (or componentWillUnmount).",
+          hint:
+            "Look for nodes/objects created on mount and pushed into a module-global, ref, or closure that outlives the component. Add cleanup in the useEffect return (or componentWillUnmount).",
           files_to_check: ["component rendered at route #{route}"]
         }
       )
@@ -193,7 +203,9 @@ defmodule Vibecheck.Analyzers.Memory do
 
       fix_hint =
         if chart_hint,
-          do: base_fix <> " This app uses a chart library — if this view renders a chart, also call chart.destroy() in the cleanup; Chart.js attaches its own window resize listener.",
+          do:
+            base_fix <>
+              " This app uses a chart library — if this view renders a chart, also call chart.destroy() in the cleanup; Chart.js attaches its own window resize listener.",
           else: base_fix
 
       finding(
@@ -227,7 +239,8 @@ defmodule Vibecheck.Analyzers.Memory do
         %{heap_bytes_per_visit: per_cycle, heap_bytes_total_retained: m.heap.total, heap_recovery_ratio: round3(overall.heap.recovery)},
         %{
           summary: "Stop accumulating data in module-globals / stores across mounts",
-          hint: "Look for arrays/maps/caches at module scope (or a global store slice) that are appended on mount and never cleared, and for subscriptions/timers that retain large closures.",
+          hint:
+            "Look for arrays/maps/caches at module scope (or a global store slice) that are appended on mount and never cleared, and for subscriptions/timers that retain large closures.",
           files_to_check: ["component rendered at route #{route}"]
         }
       )
@@ -248,7 +261,11 @@ defmodule Vibecheck.Analyzers.Memory do
           "The app uses #{bytes(base_heap)} of JS heap at idle before any interaction. " <>
             "Heavy eager imports inflate the initial footprint.",
           %{baseline_heap_bytes: base_heap},
-          %{summary: "Code-split and lazy-load heavy modules", hint: "Use dynamic import()/React.lazy for routes and heavy libs (charts, editors, maps) so they load on demand.", files_to_check: ["entry/bootstrap module", "top-level route imports"]}
+          %{
+            summary: "Code-split and lazy-load heavy modules",
+            hint: "Use dynamic import()/React.lazy for routes and heavy libs (charts, editors, maps) so they load on demand.",
+            files_to_check: ["entry/bootstrap module", "top-level route imports"]
+          }
         )
       ]
     else
@@ -296,7 +313,7 @@ defmodule Vibecheck.Analyzers.Memory do
 
   defp ai_prompt(signature, route, summary, metrics, fix) do
     """
-    [Vibecheck finding: #{signature}]
+    [Vibe Guru finding: #{signature}]
     Where: route #{route}
     Problem: #{summary}
     Evidence: #{format_metrics(metrics)}

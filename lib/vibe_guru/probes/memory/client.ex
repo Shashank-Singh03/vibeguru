@@ -1,21 +1,21 @@
-defmodule Vibecheck.Probes.Memory.Client do
+defmodule VibeGuru.Probes.Memory.Client do
   @moduledoc """
   The `memory.client` probe — gathers frontend memory evidence by driving a headless
   Chrome through the Node/Playwright/CDP sidecar in `driver-node/`.
 
   Communication is an Elixir `Port`: we write the run config to a temp JSON file, spawn
   `node driver-node/index.js --config <file>`, and read newline-delimited JSON events
-  off stdout, converting `evidence`/`marker` lines into `Vibecheck.Evidence` structs.
+  off stdout, converting `evidence`/`marker` lines into `VibeGuru.Evidence` structs.
 
   Returns raw evidence only — interpretation is the analyzer's job.
   """
 
-  @behaviour Vibecheck.Probe
+  @behaviour VibeGuru.Probe
 
-  alias Vibecheck.Evidence
+  alias VibeGuru.Evidence
 
   # Resolved at compile time relative to this source file:
-  # lib/vibecheck/probes/memory -> (../../../..) -> project root.
+  # lib/vibeguru/probes/memory -> (../../../..) -> project root.
   @project_root Path.expand("../../../..", __DIR__)
   @default_driver Path.join(@project_root, "driver-node/index.js")
 
@@ -140,7 +140,7 @@ defmodule Vibecheck.Probes.Memory.Client do
   defp find_driver(config) do
     path =
       Map.get(config, :driver_path) ||
-        Application.get_env(:vibecheck, :driver_path) ||
+        Application.get_env(:vibe_guru, :driver_path) ||
         @default_driver
 
     if File.exists?(path), do: {:ok, path}, else: {:error, {:driver_not_found, path}}
@@ -157,7 +157,7 @@ defmodule Vibecheck.Probes.Memory.Client do
       "flow" => Map.get(config, :flow, nil)
     }
 
-    path = Path.join(System.tmp_dir!(), "vibecheck_cfg_#{System.unique_integer([:positive])}.json")
+    path = Path.join(System.tmp_dir!(), "vibeguru_cfg_#{System.unique_integer([:positive])}.json")
 
     case File.write(path, Jason.encode!(cfg)) do
       :ok -> {:ok, path}

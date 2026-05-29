@@ -1,4 +1,4 @@
-defmodule Vibecheck.Evidence do
+defmodule VibeGuru.Evidence do
   @moduledoc """
   A single raw, interpretation-free *fact* produced by a probe.
 

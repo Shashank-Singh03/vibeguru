@@ -1,8 +1,8 @@
-defmodule Vibecheck.StackProfile do
+defmodule VibeGuru.StackProfile do
   @moduledoc """
   The structurally-detected description of the target app.
 
-  Produced by `Vibecheck.Detector` purely from file presence + manifest parsing
+  Produced by `VibeGuru.Detector` purely from file presence + manifest parsing
   (package.json, lockfiles, build config) — **no AI, no code semantics**. Probes use
   it to decide `applies_to?/1` and to tune their behaviour (e.g. enable the
   canvas/WebGL signature only when a chart lib is present; warn when source maps are

@@ -1,6 +1,6 @@
-defmodule Vibecheck do
+defmodule VibeGuru do
   @moduledoc """
-  Documentation for `Vibecheck`.
+  Documentation for `VibeGuru`.
   """
 
   @doc """
@@ -8,7 +8,7 @@ defmodule Vibecheck do
 
   ## Examples
 
-      iex> Vibecheck.hello()
+      iex> VibeGuru.hello()
       :world
 
   """
