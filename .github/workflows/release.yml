@@ -1,0 +1,66 @@
+name: release
+
+# Builds the self-contained Burrito binaries (no Erlang/Elixir needed on the user's
+# machine) and attaches them to a GitHub Release. The `npx vibeguru` wrapper fetches
+# the matching asset from releases/download/v<version>/<asset> — so the git tag MUST
+# be v<version> and match the "version" in package.json / mix.exs.
+#
+# Burrito CANNOT build on Windows, but Linux can cross-compile ALL targets (Zig), so
+# this is a single Ubuntu job. See deps/burrito README build-host matrix.
+#
+# To cut a release:
+#   1. bump version in package.json + mix.exs
+#   2. git tag v0.1.0 && git push --tags   (this workflow builds + publishes assets)
+#   3. npm publish                          (publishes the wrapper that downloads them)
+
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    env:
+      MIX_ENV: prod
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: erlef/setup-beam@v1
+        with:
+          otp-version: "27"
+          elixir-version: "1.18"
+
+      # Burrito 1.5 pins this EXACTLY — it errors if the version differs. Bump only
+      # in lockstep with the burrito version in mix.lock.
+      - uses: mlugg/setup-zig@v2
+        with:
+          version: "0.15.2"
+
+      # Burrito needs xz (all targets) and 7z (for the Windows target) on PATH.
+      - name: Install xz + 7z
+        run: sudo apt-get update && sudo apt-get install -y xz-utils p7zip-full
+
+      - name: Fetch deps
+        run: mix deps.get
+
+      # No BURRITO_TARGET -> builds every target in mix.exs releases/0.
+      - name: Build all Burrito targets
+        run: mix release
+
+      - name: Stage assets
+        run: |
+          mkdir -p dist
+          mv burrito_out/vibeguru_linux        dist/vibeguru-linux-x64
+          mv burrito_out/vibeguru_windows.exe  dist/vibeguru-windows-x64.exe
+          mv burrito_out/vibeguru_macos_x86    dist/vibeguru-macos-x64
+          mv burrito_out/vibeguru_macos_arm    dist/vibeguru-macos-arm64
+          ls -la dist
+
+      - uses: softprops/action-gh-release@v2
+        with:
+          files: dist/*
+          fail_on_unmatched_files: true

@@ -10,6 +10,14 @@ defmodule VibeGuru.CLI do
 
   alias VibeGuru.CLI.{Init, Run, Presenter}
 
+  @doc """
+  Release entry point. An escript calls `main/1` directly with its argv, but a
+  Mix/Burrito release boots the OTP application instead — so `VibeGuru.Application`
+  calls this in release mode to fetch the wrapped binary's argv and dispatch.
+  """
+  @spec boot() :: no_return()
+  def boot, do: Burrito.Util.Args.argv() |> main()
+
   @spec main([String.t()]) :: no_return()
   def main(argv), do: argv |> dispatch() |> halt()
 

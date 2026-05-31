@@ -11,11 +11,20 @@ detection for React/Vue/SPA apps.
 
 ## Quick start (2 steps)
 
-From your app's project directory:
+No toolchain required — just Node. From your app's project directory:
 
 ```bash
-vibeguru init     # 1. detect your stack + dev command, write vibeguru.json
-vibeguru run      # 2. start the app if needed, analyze it, write CLAUDE.md
+npx vibeguru init     # 1. detect your stack + dev command, write vibeguru.json
+npx vibeguru run      # 2. start the app if needed, analyze it, write CLAUDE.md
+```
+
+`npx` pulls a self-contained binary for your OS (no Erlang/Elixir to install) and
+auto-fetches Chromium on first use. Prefer a global install? `npm i -g vibeguru`, then
+drop the `npx` prefix:
+
+```bash
+vibeguru init
+vibeguru run
 ```
 
 `run` reuses your dev server if it's already up, otherwise it starts it
@@ -79,8 +88,8 @@ vibeguru memory:client <url> [--cycles N] [--flow FILE] [--out DIR]   # low-leve
 
 ## Building from source (contributors)
 
-End users will get prebuilt binaries via `npx` (packaging is on the roadmap). To build
-the engine locally you need Elixir 1.18+ and Node 18+:
+End users get prebuilt binaries via `npx` (see Quick start). To build the engine
+locally you need Elixir 1.18+ and Node 18+:
 
 ```bash
 cd driver-node && npm install   # downloads Playwright Chromium (~150 MB), one time
@@ -89,12 +98,30 @@ cd .. && mix deps.get && mix escript.build
 ./vibeguru run  --root /path/to/app
 ```
 
+### How the `npx` distribution is built
+
+- **Self-contained binaries** come from [Burrito](https://github.com/burrito-elixir/burrito)
+  (`mix release`), which bundles the BEAM + ERTS so users need no Erlang/Elixir. Targets
+  are defined in [`mix.exs`](mix.exs); CI cross-compiles one per OS in
+  [`.github/workflows/release.yml`](.github/workflows/release.yml) and attaches them to a
+  GitHub Release.
+- **The `npx vibeguru` wrapper** ([`package.json`](package.json), [`bin/`](bin/),
+  [`scripts/`](scripts/)) is a thin Node shim: it downloads the binary matching the host
+  from the Release, ensures Chromium, bundles `driver-node/`, points the binary at it via
+  `VIBEGURU_DRIVER_PATH`, and forwards argv.
+
+**Cutting a release:** bump the version in `package.json` *and* `mix.exs`, push a matching
+`v<version>` tag (CI builds + publishes the binaries), then `npm publish`.
+
 ## Repo layout
 
 ```
 lib/vibe_guru/            # Elixir: behaviours, structs, detector, probe, analyzer,
                           #   reporters, config, project/dev-server, CLI
 driver-node/              # Node + Playwright + CDP browser-driver (the harness)
+bin/ · scripts/           # npx wrapper: launcher + install (binary fetch, Chromium)
+package.json              # the published `vibeguru` npm package
+.github/workflows/        # release.yml — Burrito cross-build + GitHub Release
 test-app/                 # deliberately-leaky React app for verification (+ /clean control)
 test-app/flows/           # example recorded flows
 docs/                     # architecture

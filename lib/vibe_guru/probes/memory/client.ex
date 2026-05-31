@@ -14,8 +14,10 @@ defmodule VibeGuru.Probes.Memory.Client do
 
   alias VibeGuru.Evidence
 
-  # Resolved at compile time relative to this source file:
-  # lib/vibeguru/probes/memory -> (../../../..) -> project root.
+  # Dev fallback only: resolved at compile time relative to this source file
+  # (lib/vibe_guru/probes/memory -> ../../../.. -> project root). In a packaged
+  # Burrito release this path points at the *build* machine and won't exist, so
+  # resolution falls through to VIBEGURU_DRIVER_PATH (set by the npm wrapper).
   @project_root Path.expand("../../../..", __DIR__)
   @default_driver Path.join(@project_root, "driver-node/index.js")
 
@@ -143,13 +145,29 @@ defmodule VibeGuru.Probes.Memory.Client do
     end
   end
 
+  # Resolution order, first existing wins: explicit config -> app env ->
+  # VIBEGURU_DRIVER_PATH (the npm wrapper points this at the bundled driver-node)
+  # -> compile-time source path (dev only). A directory is accepted and resolved
+  # to its index.js, so the wrapper can pass either form.
   defp find_driver(config) do
-    path =
-      Map.get(config, :driver_path) ||
-        Application.get_env(:vibe_guru, :driver_path) ||
+    candidates =
+      [
+        Map.get(config, :driver_path),
+        Application.get_env(:vibe_guru, :driver_path),
+        System.get_env("VIBEGURU_DRIVER_PATH"),
         @default_driver
+      ]
+      |> Enum.reject(&is_nil/1)
+      |> Enum.map(&normalize_driver/1)
 
-    if File.exists?(path), do: {:ok, path}, else: {:error, {:driver_not_found, path}}
+    case Enum.find(candidates, &File.exists?/1) do
+      nil -> {:error, {:driver_not_found, candidates}}
+      path -> {:ok, path}
+    end
+  end
+
+  defp normalize_driver(path) do
+    if File.dir?(path), do: Path.join(path, "index.js"), else: path
   end
 
   defp write_config(profile, config) do

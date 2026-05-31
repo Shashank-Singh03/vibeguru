@@ -7,14 +7,21 @@ defmodule VibeGuru.Application do
 
   @impl true
   def start(_type, _args) do
-    children = [
-      # Starts a worker by calling: VibeGuru.Worker.start_link(arg)
-      # {VibeGuru.Worker, arg}
-    ]
+    children = []
 
-    # See https://hexdocs.pm/elixir/Supervisor.html
-    # for other strategies and supported options
     opts = [strategy: :one_for_one, name: VibeGuru.Supervisor]
-    Supervisor.start_link(children, opts)
+
+    with {:ok, _pid} = ok <- Supervisor.start_link(children, opts) do
+      maybe_run_cli()
+      ok
+    end
+  end
+
+  # In a packaged release the binary's only job is the CLI, so once the (empty)
+  # supervision tree is up we run it and halt. `RELEASE_NAME` is set only when
+  # running as a release — never under `mix`, `iex -S mix`, the escript, or the
+  # test suite — which keeps those paths from triggering a CLI run + halt.
+  defp maybe_run_cli do
+    if System.get_env("RELEASE_NAME"), do: VibeGuru.CLI.boot()
   end
 end

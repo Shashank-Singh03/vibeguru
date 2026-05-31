@@ -1,0 +1,44 @@
+{
+  "name": "vibeguru",
+  "version": "0.1.0",
+  "description": "Frontend memory-leak analysis for vibe coders. Attaches to your web app, stress-tests it, and writes AI-readable findings (CLAUDE.md) a coding agent can fix — no LLM, no API cost.",
+  "bin": {
+    "vibeguru": "bin/vibeguru.js"
+  },
+  "type": "commonjs",
+  "files": [
+    "bin/",
+    "scripts/",
+    "driver-node/index.js",
+    "driver-node/lib/",
+    "driver-node/package.json"
+  ],
+  "scripts": {
+    "postinstall": "node scripts/postinstall.js"
+  },
+  "dependencies": {
+    "playwright": "^1.48.0"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": [
+    "memory-leak",
+    "performance",
+    "react",
+    "vue",
+    "spa",
+    "vibe-coding",
+    "ai",
+    "claude"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/Shashank-Singh03/vibeguru#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Shashank-Singh03/vibeguru.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Shashank-Singh03/vibeguru/issues"
+  }
+}

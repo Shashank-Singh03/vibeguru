@@ -34,6 +34,11 @@ playwright-report/
 # Built escript binary
 /vibeguru
 
+# Burrito release output (self-contained binaries) and the npm wrapper's
+# downloaded copy of the platform binary.
+/burrito_out/
+/vendor/
+
 # Generated report output (CLAUDE.md, vibeguru-report.md, vibeguru-findings.json)
 /tmp_out/
 /tmp_out_*/
@@ -42,3 +47,4 @@ playwright-report/
 /test-app/CLAUDE.md
 /test-app/vibeguru-report.md
 /test-app/vibeguru-findings.json
+handover.md

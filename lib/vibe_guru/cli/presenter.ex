@@ -123,8 +123,10 @@ defmodule VibeGuru.CLI.Presenter do
     |> Enum.map_join(", ", fn {severity, count} -> "#{count} #{severity}" end)
   end
 
-  defp explain({:driver_not_found, path}),
-    do: "Browser driver not found at #{path}. Run `npm install` in driver-node/."
+  defp explain({:driver_not_found, candidates}),
+    do:
+      "Browser driver (driver-node) not found. Tried: #{Enum.join(candidates, ", ")}. " <>
+        "Set VIBEGURU_DRIVER_PATH, or run `npm install` in driver-node/."
 
   defp explain(:node_not_found), do: "Node.js was not found on PATH. Install Node 18+ and retry."
 
