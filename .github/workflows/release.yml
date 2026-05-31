@@ -60,7 +60,18 @@ jobs:
           mv burrito_out/vibeguru_macos_arm    dist/vibeguru-macos-arm64
           ls -la dist
 
+      # Always uploaded — grab them from the run's "Artifacts" section. This makes a
+      # manual (workflow_dispatch) run a safe build-only dry run with no tag needed.
+      - uses: actions/upload-artifact@v4
+        with:
+          name: vibeguru-binaries
+          path: dist/*
+          if-no-files-found: error
+
+      # Publishing a GitHub Release needs a tag to attach to, so this runs ONLY on a
+      # v* tag push — never on a manual run (that's the "requires a tag" error you hit).
       - uses: softprops/action-gh-release@v2
+        if: startsWith(github.ref, 'refs/tags/')
         with:
           files: dist/*
           fail_on_unmatched_files: true
