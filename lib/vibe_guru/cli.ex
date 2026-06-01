@@ -14,9 +14,16 @@ defmodule VibeGuru.CLI do
   Release entry point. An escript calls `main/1` directly with its argv, but a
   Mix/Burrito release boots the OTP application instead — so `VibeGuru.Application`
   calls this in release mode to fetch the wrapped binary's argv and dispatch.
+
+  Uses `get_arguments/0` (reads `:init.get_plain_arguments/0` directly), NOT `argv/0`.
+  `argv/0` only returns real args when the `__BURRITO` env var is set, and on Windows
+  Burrito launches Erlang via a child process whose env doesn't carry that var — so
+  `argv/0` silently falls back to an empty `System.argv()` and every command hit the
+  usage screen. The actual args still arrive on the command line (after `-extra`),
+  which `get_arguments/0` reads regardless of platform.
   """
   @spec boot() :: no_return()
-  def boot, do: Burrito.Util.Args.argv() |> main()
+  def boot, do: Burrito.Util.Args.get_arguments() |> main()
 
   @spec main([String.t()]) :: no_return()
   def main(argv), do: argv |> dispatch() |> halt()

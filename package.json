@@ -1,6 +1,6 @@
 {
   "name": "vibeguru",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Frontend memory-leak analysis for vibe coders. Attaches to your web app, stress-tests it, and writes AI-readable findings (CLAUDE.md) a coding agent can fix — no LLM, no API cost.",
   "bin": {
     "vibeguru": "bin/vibeguru.js"
