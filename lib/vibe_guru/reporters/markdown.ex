@@ -9,7 +9,7 @@ defmodule VibeGuru.Reporter.Markdown do
 
   @behaviour VibeGuru.Reporter
 
-  alias VibeGuru.StackProfile
+  alias VibeGuru.{Coverage, StackProfile}
 
   @impl true
   def id, do: :markdown
@@ -20,18 +20,20 @@ defmodule VibeGuru.Reporter.Markdown do
     profile = config[:profile]
     vector = Map.get(config, :vector, "memory.client")
 
+    coverage = Map.get(config, :coverage)
+
     report_path = Path.join(out_dir, "vibeguru-report.md")
     claude_path = Path.join(out_dir, "CLAUDE.md")
 
-    with :ok <- File.write(report_path, human_report(findings, profile, vector)),
-         :ok <- File.write(claude_path, claude_md(findings, vector)) do
+    with :ok <- File.write(report_path, human_report(findings, profile, vector, coverage)),
+         :ok <- File.write(claude_path, claude_md(findings, vector, coverage)) do
       {:ok, %{report: report_path, claude: claude_path}}
     end
   end
 
   # --- human report -------------------------------------------------------
 
-  defp human_report(findings, profile, vector) do
+  defp human_report(findings, profile, vector, coverage) do
     """
     # Vibe Guru Report — #{vector}
 
@@ -41,6 +43,7 @@ defmodule VibeGuru.Reporter.Markdown do
     ## Summary
 
     #{summary_table(findings)}
+    #{coverage_block(coverage)}
 
     ## Findings
 
@@ -84,7 +87,10 @@ defmodule VibeGuru.Reporter.Markdown do
 
   # --- CLAUDE.md (agent-readable) -----------------------------------------
 
-  defp claude_md([], _vector) do
+  defp claude_md(findings, vector, coverage),
+    do: claude_body(findings, vector) <> coverage_block(coverage)
+
+  defp claude_body([], _vector) do
     """
     # Vibe Guru
 
@@ -92,7 +98,7 @@ defmodule VibeGuru.Reporter.Markdown do
     """
   end
 
-  defp claude_md(findings, _vector) do
+  defp claude_body(findings, _vector) do
     """
     # Vibe Guru findings
 
@@ -120,6 +126,22 @@ defmodule VibeGuru.Reporter.Markdown do
   end
 
   # --- helpers ------------------------------------------------------------
+
+  # Stated in the agent-facing file too: an agent that treats a low-coverage pass
+  # as "done" will report work as verified that was never looked at.
+  defp coverage_block(nil), do: ""
+
+  defp coverage_block(coverage) do
+    gaps =
+      case Coverage.gaps(coverage) do
+        [] -> ""
+        list -> "\n" <> Enum.map_join(list, "\n", &"- #{&1}")
+      end
+
+    header = if Coverage.low?(coverage), do: "## Coverage (low)", else: "## Coverage"
+
+    "\n#{header}\n\n#{Coverage.summary(coverage)}#{gaps}\n"
+  end
 
   defp profile_line(%StackProfile{} = p) do
     libs = if p.chart_libs == [], do: "none", else: Enum.join(p.chart_libs, ", ")

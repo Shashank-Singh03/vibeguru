@@ -124,3 +124,59 @@ test("a malformed report degrades to PASS rather than throwing", () => {
   assert.doesNotThrow(() => renderReport({}));
   assert.doesNotThrow(() => renderReport({ findings: null }));
 });
+
+// --- coverage -------------------------------------------------------------
+
+const lowCoverage = {
+  low: true,
+  visited: ["/"],
+  routes_known: 10,
+  ratio: 0.1,
+  unreachable: [
+    { path: "/admin", reason: "auth_required" },
+    { path: "/billing", reason: "auth_required" },
+    { path: "/users/[id]", reason: "dynamic" },
+  ],
+};
+
+const fullCoverage = { low: false, visited: ["/", "/a"], routes_known: 2, ratio: 1, unreachable: [] };
+
+test("a clean run with low coverage is INCONCLUSIVE, not PASS", () => {
+  // The whole point: an agent told PASS after seeing a tenth of the app will
+  // report work as verified that was never looked at.
+  const out = renderReport({ ...report, findings: [], coverage: lowCoverage });
+
+  assert.match(out, /^INCONCLUSIVE/);
+  assert.doesNotMatch(out, /^PASS/m);
+  assert.match(flat(out), /not the same as the app being healthy/);
+});
+
+test("a clean run with full coverage still passes", () => {
+  const out = renderReport({ ...report, findings: [], coverage: fullCoverage });
+  assert.match(out, /^PASS/);
+});
+
+test("a run with no coverage data at all still passes rather than blocking", () => {
+  // Flow-mode runs measure no routes. Absent evidence is not evidence of blindness.
+  const out = renderReport({ ...report, findings: [] });
+  assert.match(out, /^PASS/);
+});
+
+test("coverage gaps are grouped by cause, biggest first", () => {
+  const out = renderReport({ ...report, findings: [], coverage: lowCoverage });
+
+  assert.match(out, /Coverage: 1 of 10 routes reached \(10%\)/);
+  const auth = out.indexOf("2 need authentication");
+  const dyn = out.indexOf("1 take a dynamic segment");
+  assert.ok(auth !== -1 && dyn !== -1, "both causes should be listed");
+  assert.ok(auth < dyn, "the larger gap should be reported first");
+});
+
+test("coverage is reported alongside findings too", () => {
+  const out = renderReport(report, { cycles: 4 });
+  assert.doesNotMatch(out, /Coverage:/, "no coverage data means no coverage line");
+
+  const withCov = renderReport({ ...report, coverage: lowCoverage }, { cycles: 4 });
+  assert.match(withCov, /Coverage: 1 of 10 routes reached/);
+  assert.match(withCov, /^FAIL/);
+});

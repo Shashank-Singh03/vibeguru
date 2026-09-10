@@ -44,6 +44,13 @@ function withDefaults(cfg) {
     routesLimit: Number.isInteger(cfg.routesLimit) ? cfg.routesLimit : 8,
     headless: cfg.headless !== false,
     flow: cfg.flow || null,
+    // Routes the Elixir detector read out of the app's own source, and values for
+    // any dynamic segments. Both must be listed explicitly: this function builds a
+    // fresh object rather than spreading cfg, so anything not named here is dropped
+    // silently — which is how coverage reported a confident 100% while never
+    // receiving the declared route list at all.
+    declaredRoutes: Array.isArray(cfg.declaredRoutes) ? cfg.declaredRoutes : [],
+    routeParams: cfg.routeParams && typeof cfg.routeParams === "object" ? cfg.routeParams : {},
   };
   if (!out.url) throw new Error("config.url is required (pass JSON on stdin or a URL as the first argument)");
   return out;

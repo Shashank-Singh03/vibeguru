@@ -22,6 +22,7 @@ defmodule VibeGuru.StackProfile do
           router: atom() | nil,
           chart_libs: [atom()],
           source_maps: tristate(),
+          declared_routes: [map()],
           meta: map()
         }
 
@@ -33,6 +34,7 @@ defmodule VibeGuru.StackProfile do
             router: nil,
             chart_libs: [],
             source_maps: :unknown,
+            declared_routes: [],
             meta: %{}
 
   @doc "Plain-map form for JSON reporters."
@@ -47,6 +49,7 @@ defmodule VibeGuru.StackProfile do
       router: p.router,
       chart_libs: p.chart_libs,
       source_maps: p.source_maps,
+      declared_routes: p.declared_routes,
       meta: p.meta
     }
   end

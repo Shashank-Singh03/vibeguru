@@ -4,7 +4,7 @@ defmodule VibeGuru.CLI.Presenter do
   control flow and the wording/format is consistent in one place.
   """
 
-  alias VibeGuru.{Config, Finding}
+  alias VibeGuru.{Config, Coverage, Finding}
 
   @rule String.duplicate("─", 60)
   @severity_order [:critical, :high, :medium, :low, :info]
@@ -29,14 +29,18 @@ defmodule VibeGuru.CLI.Presenter do
 
   @doc "Print the findings summary and where the reports were written."
   @spec summary(map(), Path.t()) :: :ok
-  def summary(%{findings: findings, profile: profile}, out_dir) do
+  def summary(result, out_dir) do
+    %{findings: findings, profile: profile} = result
+    coverage = Map.get(result, :coverage)
+
     IO.puts("\n#{@rule}")
 
     IO.puts(
       "Detected: #{profile.stack}/#{profile.bundler || "?"} · router #{profile.router || "?"} · chart libs #{inspect(profile.chart_libs)}"
     )
 
-    print_findings(findings)
+    print_findings(findings, coverage)
+    print_coverage(coverage)
     print_outputs(out_dir)
     IO.puts(@rule)
   end
@@ -90,11 +94,17 @@ defmodule VibeGuru.CLI.Presenter do
 
   # --- internals ----------------------------------------------------------
 
-  defp print_findings([]) do
-    IO.puts("\n✓ No memory issues found. All routes returned to baseline after GC.")
+  defp print_findings([], coverage) do
+    if Coverage.low?(coverage) do
+      IO.puts("\n⚠ No issues found in the routes that could be exercised — but coverage was low.")
+    else
+      IO.puts(
+        "\n✓ No issues found. Every route returned to baseline after GC and none misbehaved."
+      )
+    end
   end
 
-  defp print_findings(findings) do
+  defp print_findings(findings, _coverage) do
     IO.puts("\nFound #{length(findings)} issue(s): #{counts(findings)}\n")
     Enum.each(findings, &print_finding/1)
   end
@@ -105,6 +115,17 @@ defmodule VibeGuru.CLI.Presenter do
     IO.puts(
       "      route #{Map.get(f.location, :route)} · #{f.signature} · #{f.confidence} confidence"
     )
+  end
+
+  defp print_coverage(nil), do: :ok
+
+  defp print_coverage(coverage) do
+    IO.puts("\n#{Coverage.summary(coverage)}")
+
+    case Coverage.gaps(coverage) do
+      [] -> :ok
+      gaps -> Enum.each(gaps, &IO.puts("  · #{&1}"))
+    end
   end
 
   defp print_outputs(out_dir) do

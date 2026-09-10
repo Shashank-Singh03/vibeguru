@@ -5,7 +5,7 @@ defmodule VibeGuru.Pipeline do
   LiveView dashboard later) can render however they like.
   """
 
-  alias VibeGuru.{Detector, Finding}
+  alias VibeGuru.{Coverage, Detector, Finding}
   alias VibeGuru.Probes.Memory.Client, as: MemoryProbe
   alias VibeGuru.Analyzers.Memory, as: MemoryAnalyzer
   alias VibeGuru.Analyzers.Runtime, as: RuntimeAnalyzer
@@ -43,10 +43,13 @@ defmodule VibeGuru.Pipeline do
       # Ensure the output directory exists so reporters don't silently fail with :enoent.
       File.mkdir_p!(out_dir)
 
+      coverage = Coverage.from_evidence(evidence)
+
       report_config = %{
         out_dir: out_dir,
         profile: profile,
         evidence: evidence,
+        coverage: coverage,
         vector: "memory.client"
       }
 
@@ -57,6 +60,7 @@ defmodule VibeGuru.Pipeline do
        %{
          profile: profile,
          evidence: evidence,
+         coverage: coverage,
          findings: findings,
          outputs: outputs
        }}

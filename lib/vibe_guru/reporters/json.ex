@@ -7,7 +7,7 @@ defmodule VibeGuru.Reporter.Json do
 
   @behaviour VibeGuru.Reporter
 
-  alias VibeGuru.{Finding, StackProfile}
+  alias VibeGuru.{Coverage, Finding, StackProfile}
 
   @impl true
   def id, do: :json
@@ -24,6 +24,7 @@ defmodule VibeGuru.Reporter.Json do
       generated_at: DateTime.utc_now() |> DateTime.to_iso8601(),
       profile: profile_map(config[:profile]),
       summary: summary(findings),
+      coverage: Coverage.to_map(Map.get(config, :coverage)),
       evidence_count: length(Map.get(config, :evidence, [])),
       findings: Enum.map(findings, &Finding.to_map/1)
     }

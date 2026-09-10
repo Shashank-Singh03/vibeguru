@@ -10,7 +10,7 @@
 
 import { chromium } from "playwright";
 import { sample, collectGarbage } from "./sampler.js";
-import { discover, visitRoute } from "./crawl.js";
+import { plan, visitRoute } from "./crawl.js";
 import { loadFlow } from "./flow.js";
 import { observe } from "./observer.js";
 
@@ -42,7 +42,24 @@ export async function run(config, emit) {
     await settle(page, config.settleMs);
 
     const flowFn = config.mode === "flow" ? await loadFlow(config.flow) : null;
-    const routes = config.mode === "auto" ? await discover(page, config) : [];
+    const plannedRun =
+      config.mode === "auto"
+        ? await plan(page, config)
+        : { routes: [], skipped: [], declaredCount: 0, discoveredCount: 0 };
+
+    const routes = plannedRun.routes;
+
+    // Which routes were attempted and how each turned out. A run that reports "no
+    // issues" having reached three of nineteen routes has not found an app healthy;
+    // it has found it mostly invisible, and must say so.
+    const coverage = {
+      declared: plannedRun.declaredCount,
+      discovered: plannedRun.discoveredCount,
+      planned: routes.map((r) => r.path),
+      visited: [],
+      unreachable: [...plannedRun.skipped],
+    };
+
     emit({
       type: "marker",
       kind: "config",
@@ -62,7 +79,7 @@ export async function run(config, emit) {
         type: "log",
         level: "warn",
         message:
-          "no same-origin route links found on the landing page; cycles will only re-settle home (limited signal). Consider --flow for app-specific navigation.",
+          "no routes to exercise: none declared in the app's source and none linked from the landing page. Cycles will only re-settle home (limited signal). Consider --flow for app-specific navigation.",
       });
     }
 
@@ -109,7 +126,21 @@ export async function run(config, emit) {
           await observer.mutations();
           const mutStart = Date.now();
 
-          await visitRoute(page, route, config.settleMs); // mount then unmount (client-side)
+          const visit = await visitRoute(page, route, config.settleMs); // mount+unmount, client-side
+
+          // Recorded once: cycle 1 establishes whether a route is reachable at all,
+          // and repeating the same verdict every cycle would just inflate the report.
+          if (i === 1) {
+            if (visit.ok) {
+              coverage.visited.push(route.path);
+            } else {
+              coverage.unreachable.push({
+                path: route.path,
+                reason: visit.reason,
+                detail: visit.detail || null,
+              });
+            }
+          }
 
           const mutations = await observer.mutations();
           const mutationWindowMs = Date.now() - mutStart;
@@ -150,6 +181,8 @@ export async function run(config, emit) {
     // One evidence per distinct problem, carrying how often it fired and where.
     // Emitted at the end because the count only means something once every cycle
     // has run: an error seen in all cycles is systematic, one seen once is a fluke.
+    emit({ type: "evidence", kind: "coverage", phase: "cooldown", cycle: config.cycles, timestamp: Date.now(), context: {}, data: coverage });
+
     const runtimeEvents = observer.events();
     for (const ev of runtimeEvents) {
       emit({
@@ -174,6 +207,7 @@ export async function run(config, emit) {
       url: config.url,
       cycles: config.cycles,
       routeCount: routes.length,
+      coverage,
       durationMs: Date.now() - startedAt,
     };
   } finally {

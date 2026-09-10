@@ -71,6 +71,43 @@ drops three files in your repo:
 
 It exits non-zero when high/critical issues exist, so it works in CI too.
 
+## How much of your app it actually saw
+
+A crawler only finds what the landing page links to. On a real app that is a small,
+unrepresentative slice — anything behind a login, behind a collapsed menu, or two
+clicks in simply does not exist as far as crawling is concerned.
+
+The dangerous part was not the missed routes. It was that a run could not tell
+**clean** from **blind**: reaching 3 of 19 routes and finding nothing printed the same
+confident "no issues found" as reaching all 19.
+
+So Vibe Guru reads routes from the app's own source, and every run reports what it
+reached:
+
+```
+Exercised 4 of 19 routes (21%).
+  · 12 routes redirected to a sign-in page — the app needs authentication to reach them
+  · 3 routes take a dynamic segment with no value configured. Set `routeParams` in vibeguru.json
+```
+
+Routes come from the framework, not from guesswork — `app/**/page.tsx` for Next,
+`src/routes/**` for SvelteKit, `pages/**` for Nuxt, and `<Route path>` /
+`createBrowserRouter` for React Router and Vue Router. Routes with no clickable link
+are reached by pushing history state, so they are exercised client-side without the
+full reload that would reset the heap.
+
+Dynamic segments are **not** guessed. Visiting `/users/[id]` with an invented id
+renders an error page, and reporting that as healthy is worse than admitting the gap —
+so they count as uncovered until you supply values:
+
+```json
+{ "routeParams": { "id": "1", "slug": "example" } }
+```
+
+When coverage is low, a clean result is reported as **inconclusive** rather than a
+pass. That matters most for the MCP path: an agent told `PASS` after a tenth of the app
+was reached will report work as verified that was never looked at.
+
 ## What it catches
 
 **Runtime** — the app broke while it ran:

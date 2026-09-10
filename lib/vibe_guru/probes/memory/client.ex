@@ -123,7 +123,8 @@ defmodule VibeGuru.Probes.Memory.Client do
     "profile" => :profile,
     "config" => :config,
     "marker" => :marker,
-    "runtime_event" => :runtime_event
+    "runtime_event" => :runtime_event,
+    "coverage" => :coverage
   }
   @phases %{"baseline" => :baseline, "cycle" => :cycle, "cooldown" => :cooldown}
 
@@ -179,7 +180,14 @@ defmodule VibeGuru.Probes.Memory.Client do
       "settleMs" => Map.get(config, :settle_ms, 500),
       "routesLimit" => Map.get(config, :routes_limit, 8),
       "headless" => Map.get(config, :headless, true),
-      "flow" => Map.get(config, :flow, nil)
+      "flow" => Map.get(config, :flow, nil),
+      # Routes read from the app's own source. The driver visits these in addition
+      # to whatever it can discover by crawling, and reports which it could not
+      # reach — that gap is the coverage number.
+      "declaredRoutes" => Enum.map(profile.declared_routes || [], &declared_route/1),
+      # Values for dynamic segments, e.g. %{"id" => "1"}. Without them a route like
+      # /users/[id] cannot be visited and is counted as uncovered rather than guessed.
+      "routeParams" => Map.get(config, :route_params, %{})
     }
 
     path = Path.join(System.tmp_dir!(), "vibeguru_cfg_#{System.unique_integer([:positive])}.json")
@@ -189,6 +197,11 @@ defmodule VibeGuru.Probes.Memory.Client do
       {:error, reason} -> {:error, {:config_write_failed, reason}}
     end
   end
+
+  defp declared_route(%{path: path, dynamic: dynamic}),
+    do: %{"path" => path, "dynamic" => dynamic}
+
+  defp declared_route(path) when is_binary(path), do: %{"path" => path, "dynamic" => false}
 
   defp safe_close(port) do
     if Port.info(port), do: Port.close(port)

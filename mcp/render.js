@@ -67,6 +67,45 @@ function renderFinding(finding) {
   return lines.join("\n");
 }
 
+/** "9 of 10 routes (90%)" — the denominator is the point. */
+function describeCoverage(coverage) {
+  const visited = (coverage.visited || []).length;
+  const known = coverage.routes_known ?? visited;
+  const pct = Math.round((coverage.ratio ?? 1) * 100);
+  return `${visited} of ${known} routes reached (${pct}%)`;
+}
+
+/** Coverage lines for the report tail: what was missed, grouped by cause. */
+function coverageGaps(coverage) {
+  if (!coverage) return [];
+
+  const lines = ["", `Coverage: ${describeCoverage(coverage)}.`];
+  const byReason = new Map();
+
+  for (const entry of coverage.unreachable || []) {
+    const list = byReason.get(entry.reason) || [];
+    list.push(entry.path);
+    byReason.set(entry.reason, list);
+  }
+
+  // One actionable line per cause, biggest gap first, so the agent is not handed a
+  // list of paths it has to classify itself.
+  const explain = {
+    auth_required: "need authentication",
+    dynamic: "take a dynamic segment with no configured value",
+    over_limit: "were beyond the route limit",
+    redirected: "redirected elsewhere and never rendered",
+    navigation_failed: "could not be navigated to",
+  };
+
+  for (const [reason, paths] of [...byReason.entries()].sort((a, b) => b[1].length - a[1].length)) {
+    const shown = paths.slice(0, 5).join(", ") + (paths.length > 5 ? ", …" : "");
+    lines.push(`  ${paths.length} ${explain[reason] || reason}: ${shown}`);
+  }
+
+  return lines;
+}
+
 /**
  * Render a full report. `verdict` is the headline an agent can act on without
  * reading further: whether the change it just made is safe to call done.
@@ -75,12 +114,28 @@ function renderReport(report, { cycles, wroteReport, outDir } = {}) {
   const findings = Array.isArray(report.findings) ? report.findings : [];
   const target = describeTarget(report);
 
+  const coverage = report.coverage || null;
+
   if (findings.length === 0) {
+    // A pass is only a pass if the run actually saw the app. An agent told "PASS"
+    // after three of nineteen routes were reached will report work as verified that
+    // was never looked at — so the verdict itself changes, not just a footnote.
+    if (coverage && coverage.low) {
+      return [
+        `INCONCLUSIVE — no issues found, but only ${describeCoverage(coverage)}.`,
+        "",
+        "Nothing was wrong with what could be reached, which is not the same as the app",
+        "being healthy. Treat this as unverified rather than passing.",
+        ...coverageGaps(coverage),
+      ].join("\n");
+    }
+
     return [
       `PASS — no issues found${target ? ` in ${target}` : ""}.`,
       "",
       "Every route returned memory to baseline after forced GC, and none threw, logged an",
       "error, or failed a request while it was exercised.",
+      ...coverageGaps(coverage),
     ].join("\n");
   }
 
@@ -100,6 +155,7 @@ function renderReport(report, { cycles, wroteReport, outDir } = {}) {
     tail.push(`…and ${findings.length - shown.length} more, ordered by severity.`);
   }
   tail.push("Fix the most severe first, then call verify_runtime again to confirm they are gone.");
+  tail.push(...coverageGaps(coverage));
   if (wroteReport && outDir) {
     tail.push(`Full report written to ${outDir} (CLAUDE.md, vibeguru-report.md, vibeguru-findings.json).`);
   }

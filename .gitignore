@@ -40,8 +40,8 @@ playwright-report/
 /vendor/
 
 # Generated report output (CLAUDE.md, vibeguru-report.md, vibeguru-findings.json)
-/tmp_out/
-/tmp_out_*/
+# Generated run output from local verification (tmp_out, tmp_low, any scratch dir)
+/tmp_*/
 
 # Generated run artifacts in the bundled test app (vibeguru.json is kept as a sample)
 /test-app/CLAUDE.md
