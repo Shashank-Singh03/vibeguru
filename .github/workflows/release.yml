@@ -60,20 +60,37 @@ jobs:
       - name: Fetch deps
         run: mix deps.get --check-locked
 
-      # Recorded up front so a failure is diagnosable from the run page alone,
-      # without pulling the raw log.
-      - name: Toolchain versions
+      - name: Verify Burrito toolchain
         run: |
-          {
-            echo "### Toolchain"
-            echo '```'
-            echo "runner : $ImageOS / $(lsb_release -ds 2>/dev/null || echo unknown)"
-            echo "elixir : $(elixir --version | tr '\n' ' ')"
-            echo "zig    : $(zig version)"
-            echo "xz     : $(xz --version | head -1)"
-            echo "7z     : $(command -v 7z)"
-            echo '```'
-          } >> "$GITHUB_STEP_SUMMARY"
+          set -euo pipefail
+          ZIG_EXPECTED=0.15.2
+
+          # Burrito's pre_check exits immediately when `zig` or `xz` are missing, or
+          # when zig is not EXACTLY the version it pins — before compiling anything,
+          # so it looks identical to a build failure. Assert it here, where the
+          # message can say which one was wrong.
+          #
+          # `set -e` is load-bearing: without it a missing binary inside $(...) just
+          # prints an empty string and the step still passes, which is exactly how
+          # this went undiagnosed.
+          for tool in zig xz; do
+            command -v "$tool" >/dev/null 2>&1 || {
+              echo "::error title=Missing toolchain::Burrito requires '$tool' on PATH and it is not there."
+              exit 1
+            }
+          done
+
+          ZIG_ACTUAL=$(zig version)
+          echo "runner : ${ImageOS:-unknown} / $(lsb_release -ds 2>/dev/null || echo unknown)"
+          echo "elixir : $(elixir --version | tail -1)"
+          echo "zig    : $ZIG_ACTUAL (burrito requires exactly $ZIG_EXPECTED)"
+          echo "xz     : $(xz --version | head -1)"
+          echo "7z     : $(command -v 7z || echo 'not found')"
+
+          if [ "$ZIG_ACTUAL" != "$ZIG_EXPECTED" ]; then
+            echo "::error title=Zig version mismatch::Burrito requires exactly $ZIG_EXPECTED, runner has $ZIG_ACTUAL. Bump the setup-zig pin in lockstep with the burrito version in mix.lock."
+            exit 1
+          fi
 
       # No BURRITO_TARGET -> builds every target in mix.exs releases/0.
       # Output is teed so the tail can be surfaced in the job summary on failure —
@@ -81,15 +98,22 @@ jobs:
       - name: Build all Burrito targets
         run: set -o pipefail && mix release 2>&1 | tee /tmp/release.log
 
+      # Two channels, because this repo's Actions logs AND its job summaries both
+      # require a signed-in session to read, while annotations do not. The ::error::
+      # workflow command puts the failure on the run page where anyone can see it.
       - name: Surface build failure
         if: failure()
         run: |
+          tail -n 120 /tmp/release.log 2>/dev/null > /tmp/tail.log || echo "(no output captured)" > /tmp/tail.log
           {
             echo "### \`mix release\` failed"
             echo '```'
-            tail -n 120 /tmp/release.log 2>/dev/null || echo "(no output captured)"
+            cat /tmp/tail.log
             echo '```'
           } >> "$GITHUB_STEP_SUMMARY"
+          # Annotations are single-line, so flatten and cap.
+          FLAT=$(paste -sd' ' /tmp/tail.log | tr -s ' ' | cut -c1-900)
+          echo "::error title=mix release failed::${FLAT}"
 
       - name: Stage assets
         run: |
