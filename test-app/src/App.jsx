@@ -9,6 +9,8 @@ import Crash from "./pages/Crash.jsx";
 import LogError from "./pages/LogError.jsx";
 import BadFetch from "./pages/BadFetch.jsx";
 import RenderLoop from "./pages/RenderLoop.jsx";
+import Login from "./pages/Login.jsx";
+import Protected from "./pages/Protected.jsx";
 
 // The nav renders real <a href> elements (react-router <Link>), which is exactly what
 // Vibe Guru's auto-crawler discovers and clicks client-side.
@@ -17,6 +19,10 @@ import RenderLoop from "./pages/RenderLoop.jsx";
 // /charts) each isolate one retention signature, and the runtime fixtures (/crash,
 // /log-error, /bad-fetch, /render-loop) each isolate one runtime signature. /clean is
 // the control for both — it must never produce a finding of any kind.
+//
+// /protected is the auth fixture: it bounces to /login without a session, and it is
+// deliberately absent from the nav — so it is only found by reading routes from
+// source, and only entered with a session saved by `vibeguru auth`.
 export default function App() {
   return (
     <div style={{ fontFamily: "system-ui", padding: 24 }}>
@@ -32,6 +38,7 @@ export default function App() {
         <Link to="/log-error">Log Error</Link>
         <Link to="/bad-fetch">Bad Fetch</Link>
         <Link to="/render-loop">Render Loop</Link>
+        <Link to="/login">Login</Link>
       </nav>
       <Routes>
         <Route path="/" element={<Home />} />
@@ -44,6 +51,8 @@ export default function App() {
         <Route path="/log-error" element={<LogError />} />
         <Route path="/bad-fetch" element={<BadFetch />} />
         <Route path="/render-loop" element={<RenderLoop />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/protected" element={<Protected />} />
       </Routes>
     </div>
   );

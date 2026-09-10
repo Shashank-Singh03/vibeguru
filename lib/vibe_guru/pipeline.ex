@@ -32,6 +32,8 @@ defmodule VibeGuru.Pipeline do
         flow: Keyword.get(opts, :flow),
         mode: if(Keyword.get(opts, :flow), do: "flow", else: "auto"),
         timeout_ms: Keyword.get(opts, :timeout_ms, 600_000),
+        storage_state: Keyword.get(opts, :storage_state),
+        route_params: Keyword.get(opts, :route_params, %{}),
         on_log: Keyword.get(opts, :on_log, fn _ -> :ok end)
       }
 

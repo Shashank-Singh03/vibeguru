@@ -1,25 +1,18 @@
 defmodule VibeGuru.Probes.Memory.Client do
   @moduledoc """
-  The `memory.client` probe — gathers frontend memory evidence by driving a headless
-  Chrome through the Node/Playwright/CDP sidecar in `driver-node/`.
+  The `memory.client` probe — gathers frontend evidence by driving a headless Chrome
+  through the Node/Playwright/CDP sidecar in `driver-node/`.
 
-  Communication is an Elixir `Port`: we write the run config to a temp JSON file, spawn
-  `node driver-node/index.js --config <file>`, and read newline-delimited JSON events
-  off stdout, converting `evidence`/`marker` lines into `VibeGuru.Evidence` structs.
+  `VibeGuru.Driver` owns the mechanics of talking to that sidecar. What lives here is
+  the vector's own vocabulary: the config the driver needs for this kind of run, and
+  how to turn its raw events into `VibeGuru.Evidence`.
 
   Returns raw evidence only — interpretation is the analyzer's job.
   """
 
   @behaviour VibeGuru.Probe
 
-  alias VibeGuru.Evidence
-
-  # Dev fallback only: resolved at compile time relative to this source file
-  # (lib/vibe_guru/probes/memory -> ../../../.. -> project root). In a packaged
-  # Burrito release this path points at the *build* machine and won't exist, so
-  # resolution falls through to VIBEGURU_DRIVER_PATH (set by the npm wrapper).
-  @project_root Path.expand("../../../..", __DIR__)
-  @default_driver Path.join(@project_root, "driver-node/index.js")
+  alias VibeGuru.{Driver, Evidence}
 
   @impl true
   def id, do: :"memory.client"
@@ -32,89 +25,47 @@ defmodule VibeGuru.Probes.Memory.Client do
 
   @impl true
   def run(profile, config) do
-    with {:ok, node} <- find_node(),
-         {:ok, driver} <- find_driver(config),
-         {:ok, cfg_path} <- write_config(profile, config) do
-      try do
-        drive(node, driver, cfg_path, config)
-      after
-        File.rm(cfg_path)
-      end
+    opts = [
+      on_log: Map.get(config, :on_log, fn _ -> :ok end),
+      timeout_ms: Map.get(config, :timeout_ms, 600_000),
+      driver_path: Map.get(config, :driver_path)
+    ]
+
+    case Driver.run(driver_config(profile, config), opts) do
+      {:ok, %{events: events}} -> {:ok, Enum.map(events, &to_evidence/1)}
+      {:error, reason} -> {:error, reason}
     end
   end
 
-  # --- port orchestration -------------------------------------------------
+  # --- config -------------------------------------------------------------
 
-  defp drive(node, driver, cfg_path, config) do
-    on_log = Map.get(config, :on_log, fn _ -> :ok end)
-    timeout = Map.get(config, :timeout_ms, 600_000)
-
-    port =
-      Port.open({:spawn_executable, node}, [
-        :binary,
-        :exit_status,
-        :hide,
-        {:line, 4_000_000},
-        {:args, [driver, "--config", cfg_path]}
-      ])
-
-    loop(port, %{evidences: [], result: nil, error: nil, buffer: "", on_log: on_log}, timeout)
+  defp driver_config(profile, config) do
+    %{
+      "url" => profile.url,
+      "mode" => to_string(Map.get(config, :mode, "auto")),
+      "cycles" => Map.get(config, :cycles, 20),
+      "settleMs" => Map.get(config, :settle_ms, 500),
+      "routesLimit" => Map.get(config, :routes_limit, 8),
+      "headless" => Map.get(config, :headless, true),
+      "flow" => Map.get(config, :flow, nil),
+      # Routes read from the app's own source. The driver visits these in addition
+      # to whatever it can discover by crawling, and reports which it could not
+      # reach — that gap is the coverage number.
+      "declaredRoutes" => Enum.map(profile.declared_routes || [], &declared_route/1),
+      # Values for dynamic segments, e.g. %{"id" => "1"}. Without them a route like
+      # /users/[id] cannot be visited and is counted as uncovered rather than guessed.
+      "routeParams" => Map.get(config, :route_params, %{}),
+      # A session saved by `vibeguru auth`, so routes behind a login are reachable.
+      "storageState" => Map.get(config, :storage_state)
+    }
   end
 
-  defp loop(port, state, timeout) do
-    receive do
-      {^port, {:data, {:eol, chunk}}} ->
-        line = state.buffer <> chunk
-        loop(port, handle_line(line, %{state | buffer: ""}), timeout)
+  defp declared_route(%{path: path, dynamic: dynamic}),
+    do: %{"path" => path, "dynamic" => dynamic}
 
-      {^port, {:data, {:noeol, chunk}}} ->
-        loop(port, %{state | buffer: state.buffer <> chunk}, timeout)
+  defp declared_route(path) when is_binary(path), do: %{"path" => path, "dynamic" => false}
 
-      {^port, {:exit_status, 0}} ->
-        finish(state)
-
-      {^port, {:exit_status, status}} ->
-        case state.error do
-          nil -> {:error, {:driver_exit, status}}
-          msg -> {:error, {:driver_error, msg}}
-        end
-    after
-      timeout ->
-        safe_close(port)
-        {:error, {:timeout, timeout}}
-    end
-  end
-
-  defp finish(%{error: msg}) when is_binary(msg), do: {:error, {:driver_error, msg}}
-  defp finish(%{evidences: evidences}), do: {:ok, Enum.reverse(evidences)}
-
-  # --- line handling ------------------------------------------------------
-
-  defp handle_line("", state), do: state
-
-  defp handle_line(line, state) do
-    case Jason.decode(line) do
-      {:ok, %{"type" => "evidence"} = obj} ->
-        %{state | evidences: [to_evidence(obj) | state.evidences]}
-
-      {:ok, %{"type" => "marker"} = obj} ->
-        %{state | evidences: [to_evidence(obj) | state.evidences]}
-
-      {:ok, %{"type" => "log"} = obj} ->
-        state.on_log.(obj)
-        state
-
-      {:ok, %{"type" => "result"} = obj} ->
-        %{state | result: obj}
-
-      {:ok, %{"type" => "error", "message" => msg}} ->
-        %{state | error: msg}
-
-      _ ->
-        # Non-JSON noise (shouldn't happen on stdout) — ignore.
-        state
-    end
-  end
+  # --- event mapping ------------------------------------------------------
 
   # Safe, whitelisted string→atom mapping (never String.to_atom on dynamic input).
   @kinds %{
@@ -136,76 +87,5 @@ defmodule VibeGuru.Probes.Memory.Client do
       context: obj["context"] || %{},
       data: obj["data"] || %{}
     )
-  end
-
-  # --- resolution helpers -------------------------------------------------
-
-  defp find_node do
-    case System.find_executable("node") do
-      nil -> {:error, :node_not_found}
-      path -> {:ok, path}
-    end
-  end
-
-  # Resolution order, first existing wins: explicit config -> app env ->
-  # VIBEGURU_DRIVER_PATH (the npm wrapper points this at the bundled driver-node)
-  # -> compile-time source path (dev only). A directory is accepted and resolved
-  # to its index.js, so the wrapper can pass either form.
-  defp find_driver(config) do
-    candidates =
-      [
-        Map.get(config, :driver_path),
-        Application.get_env(:vibe_guru, :driver_path),
-        System.get_env("VIBEGURU_DRIVER_PATH"),
-        @default_driver
-      ]
-      |> Enum.reject(&is_nil/1)
-      |> Enum.map(&normalize_driver/1)
-
-    case Enum.find(candidates, &File.exists?/1) do
-      nil -> {:error, {:driver_not_found, candidates}}
-      path -> {:ok, path}
-    end
-  end
-
-  defp normalize_driver(path) do
-    if File.dir?(path), do: Path.join(path, "index.js"), else: path
-  end
-
-  defp write_config(profile, config) do
-    cfg = %{
-      "url" => profile.url,
-      "mode" => to_string(Map.get(config, :mode, "auto")),
-      "cycles" => Map.get(config, :cycles, 20),
-      "settleMs" => Map.get(config, :settle_ms, 500),
-      "routesLimit" => Map.get(config, :routes_limit, 8),
-      "headless" => Map.get(config, :headless, true),
-      "flow" => Map.get(config, :flow, nil),
-      # Routes read from the app's own source. The driver visits these in addition
-      # to whatever it can discover by crawling, and reports which it could not
-      # reach — that gap is the coverage number.
-      "declaredRoutes" => Enum.map(profile.declared_routes || [], &declared_route/1),
-      # Values for dynamic segments, e.g. %{"id" => "1"}. Without them a route like
-      # /users/[id] cannot be visited and is counted as uncovered rather than guessed.
-      "routeParams" => Map.get(config, :route_params, %{})
-    }
-
-    path = Path.join(System.tmp_dir!(), "vibeguru_cfg_#{System.unique_integer([:positive])}.json")
-
-    case File.write(path, Jason.encode!(cfg)) do
-      :ok -> {:ok, path}
-      {:error, reason} -> {:error, {:config_write_failed, reason}}
-    end
-  end
-
-  defp declared_route(%{path: path, dynamic: dynamic}),
-    do: %{"path" => path, "dynamic" => dynamic}
-
-  defp declared_route(path) when is_binary(path), do: %{"path" => path, "dynamic" => false}
-
-  defp safe_close(port) do
-    if Port.info(port), do: Port.close(port)
-  rescue
-    _ -> :ok
   end
 end

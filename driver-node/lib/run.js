@@ -25,7 +25,15 @@ export async function run(config, emit) {
   });
 
   try {
-    const context = await browser.newContext();
+    // A session saved by `vibeguru auth` makes everything behind the login reachable.
+    // Without it those routes show up in the coverage report as auth_required.
+    const context = await browser.newContext(
+      config.storageState ? { storageState: config.storageState } : {}
+    );
+
+    if (config.storageState) {
+      emit({ type: "log", phase: "baseline", message: "using saved session" });
+    }
     const page = await context.newPage();
     const client = await context.newCDPSession(page);
     await client.send("HeapProfiler.enable").catch(() => {});

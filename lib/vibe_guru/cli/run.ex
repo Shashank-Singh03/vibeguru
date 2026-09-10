@@ -7,7 +7,7 @@ defmodule VibeGuru.CLI.Run do
   Also hosts the low-level `memory:client <url>` entry, which skips config and autostart.
   """
 
-  alias VibeGuru.{Config, DevServer, Pipeline}
+  alias VibeGuru.{Auth, Config, DevServer, Pipeline}
   alias VibeGuru.CLI.Presenter
 
   @switches [
@@ -133,6 +133,7 @@ defmodule VibeGuru.CLI.Run do
       flow: Keyword.get(opts, :flow, config.flow),
       headless: Keyword.get(opts, :headless, true),
       timeout_ms: Keyword.get(opts, :timeout, 600_000),
+      storage_state: Auth.session(root),
       on_log: Presenter.log_fn(Keyword.get(opts, :quiet, false))
     ]
   end

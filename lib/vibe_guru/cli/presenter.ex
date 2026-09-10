@@ -15,6 +15,33 @@ defmodule VibeGuru.CLI.Presenter do
   @spec info(String.t()) :: :ok
   def info(msg), do: IO.puts(msg)
 
+  @doc "Announce the interactive login, and say what it will and will not do."
+  @spec auth_banner(String.t(), boolean()) :: :ok
+  def auth_banner(url, replacing?) do
+    IO.puts("Vibe Guru · sign in → #{url}")
+    if replacing?, do: IO.puts("  a saved session already exists and will be replaced")
+
+    IO.puts("""
+
+    A browser will open. Sign in exactly as you normally would, then close the window.
+    Vibe Guru never asks for, types, or stores your password — it keeps only the
+    session that results, so later runs can reach pages behind the login.
+    """)
+  end
+
+  @doc "Confirm what was saved, and that it is a live credential."
+  @spec auth_saved(map()) :: :ok
+  def auth_saved(%{path: path, cookies: cookies, origins: origins}) do
+    IO.puts("
+#{@rule}")
+    IO.puts("Session saved: #{cookies} cookie(s), #{origins} origin(s)")
+    IO.puts("  #{path}")
+    IO.puts("
+This file is equivalent to being logged in — it is gitignored automatically.")
+    IO.puts("Runs from this directory will now use it. Delete the file to sign out.")
+    IO.puts(@rule)
+  end
+
   @doc "Report what `init` detected and wrote."
   @spec init_done(VibeGuru.Project.t(), Config.t(), Path.t()) :: :ok
   def init_done(project, %Config{} = config, path) do
@@ -82,8 +109,12 @@ defmodule VibeGuru.CLI.Presenter do
       vibeguru init [--root DIR] [--url URL] [--port N]
           Detect the app and write vibeguru.json.
 
-      vibeguru run [--root DIR] [--out DIR] [--cycles N] [--flow FILE] [--no-headless] [--quiet]
+      vibeguru run [--root DIR] [--out DIR] [--cycles N] [--routes N] [--flow FILE] [--quiet]
           Start the app if needed, analyze it, and write CLAUDE.md + reports.
+
+      vibeguru auth [--root DIR] [--url URL] [--timeout MS]
+          Sign in once in a real browser; later runs reuse the session so they can
+          reach pages behind the login. Your password is never asked for or stored.
 
       vibeguru memory:client <url> [--cycles N] [--flow FILE] [--out DIR]
           Low-level: analyze an already-running URL (no config, no autostart).
@@ -148,6 +179,16 @@ defmodule VibeGuru.CLI.Presenter do
     do:
       "Browser driver (driver-node) not found. Tried: #{Enum.join(candidates, ", ")}. " <>
         "Set VIBEGURU_DRIVER_PATH, or run `npm install` in driver-node/."
+
+  defp explain(:no_session_captured),
+    do:
+      "The browser closed before a session could be captured. Run `vibeguru auth` again and sign in before closing it."
+
+  defp explain(:no_config_for_auth),
+    do: "No vibeguru.json found. Run `vibeguru init` first, or pass --url."
+
+  defp explain({:session_write_failed, reason}),
+    do: "Could not save the session: #{inspect(reason)}."
 
   defp explain(:node_not_found), do: "Node.js was not found on PATH. Install Node 18+ and retry."
 

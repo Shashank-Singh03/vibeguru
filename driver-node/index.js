@@ -13,6 +13,7 @@
 
 import { readFile } from "node:fs/promises";
 import { run } from "./lib/run.js";
+import { authenticate } from "./lib/auth.js";
 
 function emit(obj) {
   process.stdout.write(JSON.stringify(obj) + "\n");
@@ -38,7 +39,7 @@ function readStdin() {
 function withDefaults(cfg) {
   const out = {
     url: cfg.url,
-    mode: cfg.mode || "auto", // "auto" | "flow"
+    mode: cfg.mode || "auto", // "auto" | "flow" | "auth"
     cycles: Number.isInteger(cfg.cycles) ? cfg.cycles : 20,
     settleMs: Number.isInteger(cfg.settleMs) ? cfg.settleMs : 500,
     routesLimit: Number.isInteger(cfg.routesLimit) ? cfg.routesLimit : 8,
@@ -51,6 +52,9 @@ function withDefaults(cfg) {
     // receiving the declared route list at all.
     declaredRoutes: Array.isArray(cfg.declaredRoutes) ? cfg.declaredRoutes : [],
     routeParams: cfg.routeParams && typeof cfg.routeParams === "object" ? cfg.routeParams : {},
+    // Path to a session saved by `vibeguru auth`; null when there is none.
+    storageState: cfg.storageState || null,
+    timeoutMs: Number.isInteger(cfg.timeoutMs) ? cfg.timeoutMs : null,
   };
   if (!out.url) throw new Error("config.url is required (pass JSON on stdin or a URL as the first argument)");
   return out;
@@ -80,7 +84,7 @@ async function main() {
   }
 
   try {
-    const result = await run(cfg, emit);
+    const result = cfg.mode === "auth" ? await authenticate(cfg, emit) : await run(cfg, emit);
     emit({ type: "result", ...result });
     process.exit(0);
   } catch (e) {

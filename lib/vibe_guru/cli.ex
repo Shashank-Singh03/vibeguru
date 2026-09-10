@@ -5,10 +5,11 @@ defmodule VibeGuru.CLI do
 
       vibeguru init                      # step 1: detect + write vibeguru.json
       vibeguru run                       # step 2: start app, analyze, write CLAUDE.md
+      vibeguru auth                      # sign in once so runs can see past the login
       vibeguru memory:client <url>       # low-level: analyze a running URL directly
   """
 
-  alias VibeGuru.CLI.{Init, Run, Presenter}
+  alias VibeGuru.CLI.{Auth, Init, Run, Presenter}
 
   @doc """
   Release entry point. An escript calls `main/1` directly with its argv, but a
@@ -30,6 +31,7 @@ defmodule VibeGuru.CLI do
 
   defp dispatch(["init" | rest]), do: Init.run(rest)
   defp dispatch(["run" | rest]), do: Run.run(rest)
+  defp dispatch(["auth" | rest]), do: Auth.run(rest)
   defp dispatch(["memory:client", url | rest]), do: Run.direct(url, rest)
   defp dispatch(_), do: Presenter.usage()
 

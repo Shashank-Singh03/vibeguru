@@ -108,6 +108,24 @@ When coverage is low, a clean result is reported as **inconclusive** rather than
 pass. That matters most for the MCP path: an agent told `PASS` after a tenth of the app
 was reached will report work as verified that was never looked at.
 
+### Getting past a login
+
+Most of an app worth testing sits behind a sign-in, and coverage reporting only makes
+that *visible* — it does not get you in. `vibeguru auth` does:
+
+```bash
+vibeguru auth      # opens a real browser; sign in as you normally would, then close it
+vibeguru run       # now reaches everything behind the login
+```
+
+Your password is never asked for, typed, stored, or transmitted by this tool. You
+authenticate directly with your own app; what gets kept is the resulting session
+(cookies + localStorage), written to `.vibeguru/auth.json`.
+
+**That file is equivalent to being logged in.** The directory ships with its own
+`.gitignore` containing `*`, so it cannot be committed even in a repo whose ignore
+rules you never touch. Delete the file to sign out.
+
 ## What it catches
 
 **Runtime** — the app broke while it ran:

@@ -135,7 +135,7 @@ pipeline {
             script: """
               set -eu
               ./vibeguru init --root test-app
-              ./vibeguru run  --root test-app --out reports --cycles ${params.CYCLES} --routes 12
+              ./vibeguru run  --root test-app --out reports --cycles ${params.CYCLES} --routes 14
             """
           ).toString()
           echo "vibeguru exit status: ${env.VG_STATUS}"
@@ -165,6 +165,20 @@ pipeline {
           if (missing) {
             error "Regression: test-app fixtures no longer detected: ${missing}"
           }
+
+          // Coverage must be reported at all, and must be honest about the auth wall.
+          // CI has no saved session, so /protected is expected to be unreachable —
+          // if it silently became "covered", the auth detection has regressed into
+          // reporting a redirect to /login as a healthy page.
+          def coverage = findings.coverage
+          if (!coverage) {
+            error "Regression: the run reported no coverage at all"
+          }
+          def walled = (coverage.unreachable ?: []).find { it.path == '/protected' }
+          if (!walled || walled.reason != 'auth_required') {
+            error "Regression: /protected should be reported as auth_required without a session, got ${walled}"
+          }
+          echo "coverage: ${coverage.visited.size()} of ${coverage.routes_known} routes"
 
           // ...and must not invent problems on the control route.
           def onClean = findings.findings.findAll { it.location?.route == '/clean' }
