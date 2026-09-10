@@ -1,7 +1,7 @@
 {
   "name": "vibeguru",
   "version": "0.1.2",
-  "description": "Frontend memory-leak analysis for vibe coders. Attaches to your web app, stress-tests it, and writes AI-readable findings (CLAUDE.md) a coding agent can fix — no LLM, no API cost.",
+  "description": "Runtime verification for coding agents. Runs your web app in a real browser and reports what actually breaks — exceptions, render loops, failed requests, memory leaks — as deterministic findings. No LLM in the analysis loop.",
   "bin": {
     "vibeguru": "bin/vibeguru.js"
   },
@@ -9,15 +9,19 @@
   "files": [
     "bin/",
     "scripts/",
+    "mcp/",
     "driver-node/index.js",
     "driver-node/lib/",
     "driver-node/package.json"
   ],
   "scripts": {
-    "postinstall": "node scripts/postinstall.js"
+    "postinstall": "node scripts/postinstall.js",
+    "test": "node --test \"test-node/**/*.test.js\""
   },
   "dependencies": {
-    "playwright": "^1.48.0"
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "playwright": "^1.48.0",
+    "zod": "^4.6.1"
   },
   "engines": {
     "node": ">=18"
@@ -30,7 +34,11 @@
     "spa",
     "vibe-coding",
     "ai",
-    "claude"
+    "claude",
+    "mcp",
+    "model-context-protocol",
+    "agent",
+    "runtime-verification"
   ],
   "license": "MIT",
   "homepage": "https://github.com/Shashank-Singh03/vibeguru#readme",

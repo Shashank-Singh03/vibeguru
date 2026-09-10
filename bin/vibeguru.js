@@ -16,6 +16,15 @@ const { ensureBinary, ensureChromium, isChromiumInstalled } = require("../script
 // fetches Chromium up front, per the project's "init auto-fetches the browser" goal.
 const BROWSER_COMMANDS = new Set(["init", "run", "memory:client"]);
 
+// `mcp` is handled in Node rather than forwarded: it speaks the Model Context
+// Protocol over stdio and drives the same binary underneath, one analysis per
+// tool call. It must be intercepted before the spawn below, because stdio here
+// belongs to the protocol — anything the Elixir binary printed to stdout would
+// be read by the client as a malformed JSON-RPC frame.
+function startMcpServer() {
+  require("../mcp/server.js");
+}
+
 async function resolveBinary() {
   const cached = binaryPath();
   if (fs.existsSync(cached)) return cached;
@@ -38,6 +47,11 @@ function ensureBrowserFor(argv) {
 }
 
 async function main() {
+  if (process.argv[2] === "mcp") {
+    startMcpServer();
+    return;
+  }
+
   let bin;
 
   try {

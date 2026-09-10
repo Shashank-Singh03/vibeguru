@@ -1,0 +1,77 @@
+{
+  "tool": "vibeguru",
+  "schema_version": 1,
+  "vector": "memory.client",
+  "generated_at": "2026-09-10T18:22:04.311Z",
+  "profile": {
+    "url": "http://localhost:5173",
+    "stack": "react",
+    "bundler": "vite",
+    "router": "react_router",
+    "chart_libs": ["chartjs"],
+    "source_maps": true
+  },
+  "summary": { "total": 3, "by_severity": { "critical": 1, "high": 1, "medium": 1 } },
+  "evidence_count": 47,
+  "findings": [
+    {
+      "id": "runtime.client.render_loop.render_loop",
+      "vector": "runtime.client",
+      "signature": "render_loop",
+      "severity": "critical",
+      "confidence": "high",
+      "title": "Runaway re-render on /render-loop",
+      "summary": "/render-loop mutates the DOM ~23967 times/second for as long as it is mounted, in 4 of 4 visits. A view that has finished rendering goes quiet; one that keeps mutating is re-rendering in a loop and will pin a CPU core.",
+      "evidence_refs": [],
+      "metrics": { "mutations_per_second": 23967, "visits_affected": "4/4" },
+      "location": { "route": "/render-loop" },
+      "fix": {
+        "summary": "Break the state-update cycle in the component's effect",
+        "hint": "Look for a useEffect that sets state it also depends on, a missing or incorrect dependency array, or an object/array literal recreated every render and passed as a dependency.",
+        "files_to_check": ["component rendered at route /render-loop"]
+      },
+      "ai_prompt": "[Vibe Guru finding: render_loop]\nWhere: route /render-loop"
+    },
+    {
+      "id": "runtime.client.console_error.log_error",
+      "vector": "runtime.client",
+      "signature": "console_error",
+      "severity": "high",
+      "confidence": "high",
+      "title": "Console error on /log-error",
+      "summary": "The app logged an error 5 times on /log-error: Failed to parse user preferences, falling back to defaults. The page kept running, so this is a defect the app knows about and swallowed rather than a hard crash.",
+      "evidence_refs": [],
+      "metrics": {
+        "occurrences": 5,
+        "routes": "/log-error",
+        "message": "Failed to parse user preferences, falling back to defaults",
+        "source": "http://localhost:5173/src/pages/LogError.jsx:21:12"
+      },
+      "location": { "route": "/log-error" },
+      "fix": {
+        "summary": "Resolve the logged error rather than silencing it",
+        "hint": "Read the message and fix the underlying cause.",
+        "files_to_check": ["http://localhost:5173/src/pages/LogError.jsx:21:12"]
+      },
+      "ai_prompt": "[Vibe Guru finding: console_error]\nWhere: route /log-error"
+    },
+    {
+      "id": "memory.client.slow_recovery.root",
+      "vector": "memory.client",
+      "signature": "slow_recovery",
+      "severity": "medium",
+      "confidence": "low",
+      "title": "JS heap recovers slowly after load",
+      "summary": "JS heap only recovers 71% after GC. Not a hard leak, but worth a look (cache sizing / retained closures).",
+      "evidence_refs": [],
+      "metrics": { "metric": "heap", "recovery_ratio": 0.71, "growth": 1840112 },
+      "location": { "route": "/" },
+      "fix": {
+        "summary": "Review cache/retention sizing",
+        "hint": "Bound caches and ensure transient buffers are released.",
+        "files_to_check": []
+      },
+      "ai_prompt": "[Vibe Guru finding: slow_recovery]\nWhere: route /"
+    }
+  ]
+}
