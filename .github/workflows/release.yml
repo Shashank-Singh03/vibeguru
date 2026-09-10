@@ -32,10 +32,19 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # PINNED, and it has to stay that way. Burrito cross-compiles by downloading a
+      # prebuilt ERTS for each target from a third-party CDN (beam-machine-universal),
+      # keyed on the EXACT OTP patch this runner has. A floating "27" resolves to the
+      # newest patch, which regularly outruns that CDN: 27.3.4.17 has an official
+      # Windows installer but no Linux or macOS build there, so the mac target 404s
+      # after a full compile. 27.3.4.16 is the newest with all three.
+      #
+      # To bump: check the target below returns 200 for linux, macos AND windows
+      # before changing it. The next step asserts this at runtime anyway.
       - uses: erlef/setup-beam@v1
         with:
-          otp-version: "27"
-          elixir-version: "1.18"
+          otp-version: "27.3.4.16"
+          elixir-version: "1.18.5"
 
       # Burrito 1.5 pins this EXACTLY — it errors if the version differs. Bump only
       # in lockstep with the burrito version in mix.lock.
@@ -56,6 +65,31 @@ jobs:
             sudo ln -sf "$(command -v 7zz)" /usr/local/bin/7z
           fi
           7z i >/dev/null && echo "7z OK: $(command -v 7z)"
+
+      # Fail in seconds with a clear reason, instead of two minutes into `mix release`
+      # with a stack trace from inside Burrito's ERTS resolver. The OTP version is read
+      # exactly the way Burrito reads it, so this asks the same question it will ask.
+      - name: Verify a prebuilt ERTS exists for this OTP
+        run: |
+          set -euo pipefail
+          OTP=$(erl -noshell -eval '{ok,B}=file:read_file(filename:join([code:root_dir(),"releases",erlang:system_info(otp_release),"OTP_VERSION"])), io:format("~s",[string:trim(binary_to_list(B))]), halt().')
+          echo "OTP $OTP"
+          CDN="https://beam-machine-universal.b-cdn.net/OTP-$OTP"
+          Q="?please-respect-my-bandwidth-costs=thank-you&openssl=3.5.1&musl=1.2.5"
+
+          fail=0
+          for pair in "linux:$CDN/linux/x86_64/any/otp_${OTP}_linux_any_x86_64.tar.gz$Q" "macos:$CDN/macos/universal/otp_${OTP}_macos_universal.tar.gz$Q"; do
+            name=${pair%%:*}
+            url=${pair#*:}
+            code=$(curl -s -o /dev/null -w "%{http_code}" --max-time 30 "$url" || echo 000)
+            echo "  $name -> $code"
+            [ "$code" = "200" ] || fail=1
+          done
+
+          if [ "$fail" -ne 0 ]; then
+            echo "::error title=No prebuilt ERTS for OTP $OTP::beam-machine-universal has not built OTP $OTP for every target, so Burrito cannot cross-compile. Pin otp-version in this workflow to a patch that is fully published (27.3.4.16 was, at the time of writing)."
+            exit 1
+          fi
 
       - name: Fetch deps
         run: mix deps.get --check-locked
