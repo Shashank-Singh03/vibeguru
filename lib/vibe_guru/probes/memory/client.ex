@@ -122,7 +122,8 @@ defmodule VibeGuru.Probes.Memory.Client do
     "snapshot" => :snapshot,
     "profile" => :profile,
     "config" => :config,
-    "marker" => :marker
+    "marker" => :marker,
+    "runtime_event" => :runtime_event
   }
   @phases %{"baseline" => :baseline, "cycle" => :cycle, "cooldown" => :cooldown}
 

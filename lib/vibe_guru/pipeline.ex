@@ -8,6 +8,7 @@ defmodule VibeGuru.Pipeline do
   alias VibeGuru.{Detector, Finding}
   alias VibeGuru.Probes.Memory.Client, as: MemoryProbe
   alias VibeGuru.Analyzers.Memory, as: MemoryAnalyzer
+  alias VibeGuru.Analyzers.Runtime, as: RuntimeAnalyzer
   alias VibeGuru.Reporter
 
   @doc """
@@ -34,8 +35,10 @@ defmodule VibeGuru.Pipeline do
         on_log: Keyword.get(opts, :on_log, fn _ -> :ok end)
       }
 
+    # One probe run feeds every analyzer: the browser session is the expensive part,
+    # and Evidence is interpretation-free, so additional analyzers are free to add.
     with {:ok, evidence} <- MemoryProbe.run(profile, config),
-         {:ok, findings} <- MemoryAnalyzer.analyze(evidence, config) do
+         {:ok, findings} <- analyze_all([MemoryAnalyzer, RuntimeAnalyzer], evidence, config) do
       out_dir = Keyword.get(opts, :out_dir, File.cwd!())
       # Ensure the output directory exists so reporters don't silently fail with :enoent.
       File.mkdir_p!(out_dir)
@@ -58,5 +61,17 @@ defmodule VibeGuru.Pipeline do
          outputs: outputs
        }}
     end
+  end
+
+  # Run every analyzer over the same evidence, concatenating their findings. A
+  # single analyzer failing aborts the run rather than silently reporting a
+  # partial picture — a "clean" result the user cannot trust is worse than an error.
+  defp analyze_all(analyzers, evidence, config) do
+    Enum.reduce_while(analyzers, {:ok, []}, fn analyzer, {:ok, acc} ->
+      case analyzer.analyze(evidence, config) do
+        {:ok, findings} -> {:cont, {:ok, acc ++ findings}}
+        {:error, reason} -> {:halt, {:error, {analyzer.id(), reason}}}
+      end
+    end)
   end
 end

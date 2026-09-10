@@ -14,10 +14,12 @@ defmodule VibeGuru.Evidence do
     * `:sample` for the baseline and cooldown phases (distinguished by `:phase`)
     * one `:snapshot`           — heap-snapshot diff (detached DOM node counts)
     * one `:profile`            — allocation sampling (hotspot stacks → source files)
+    * `:runtime_event`          — one distinct console error / exception / failed
+      request observed during the run, with an occurrence count
     * `:config` / `:marker`     — run metadata (cycles, target url, GC points)
   """
 
-  @type kind :: :sample | :snapshot | :profile | :config | :marker
+  @type kind :: :sample | :snapshot | :profile | :config | :marker | :runtime_event
   @type phase :: :baseline | :cycle | :cooldown | nil
 
   @type t :: %__MODULE__{

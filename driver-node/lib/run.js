@@ -12,6 +12,7 @@ import { chromium } from "playwright";
 import { sample, collectGarbage } from "./sampler.js";
 import { discover, visitRoute } from "./crawl.js";
 import { loadFlow } from "./flow.js";
+import { observe } from "./observer.js";
 
 const settle = (page, ms) => page.waitForTimeout(ms);
 
@@ -28,6 +29,12 @@ export async function run(config, emit) {
     const page = await context.newPage();
     const client = await context.newCDPSession(page);
     await client.send("HeapProfiler.enable").catch(() => {});
+
+    // Runtime observation rides along on this same session: the cycle loop below
+    // already mounts and unmounts every route, which is exactly the exercise that
+    // surfaces uncaught exceptions, console errors and failed requests. Attaching
+    // here costs one set of listeners and no extra navigation.
+    const observer = await observe(page);
 
     // --- baseline ---------------------------------------------------------
     emit({ type: "log", phase: "baseline", message: `loading ${config.url}` });
@@ -94,7 +101,19 @@ export async function run(config, emit) {
         emit({ type: "evidence", kind: "sample", phase: "cycle", cycle: i, timestamp: Date.now(), context: { route: "/" }, data: s });
       } else {
         for (const route of routes) {
+          observer.route(route.path);
+          // Reset the DOM-mutation counter so the window below belongs to this
+          // route alone. A route that mounts and settles produces a burst then
+          // stops; one that re-renders in a loop never stops, which is what the
+          // analyzer looks for.
+          await observer.mutations();
+          const mutStart = Date.now();
+
           await visitRoute(page, route, config.settleMs); // mount then unmount (client-side)
+
+          const mutations = await observer.mutations();
+          const mutationWindowMs = Date.now() - mutStart;
+
           // GC before sampling so we measure RETAINED state, not transient garbage.
           // This is what makes per-route attribution clean: a real leak (window
           // listener, global-retained nodes) survives GC; framework churn does not.
@@ -107,9 +126,10 @@ export async function run(config, emit) {
             cycle: i,
             timestamp: Date.now(),
             context: { route: route.path },
-            data: s,
+            data: { ...s, mutations, mutationWindowMs },
           });
         }
+        observer.route("/");
       }
       const last = await sample(page, client);
       if (i % 5 === 0 || i === config.cycles) {
@@ -125,6 +145,28 @@ export async function run(config, emit) {
     await settle(page, 200);
     const cool = await sample(page, client);
     emit({ type: "evidence", kind: "sample", phase: "cooldown", cycle: config.cycles + 1, timestamp: Date.now(), context: {}, data: cool });
+
+    // --- runtime events ---------------------------------------------------
+    // One evidence per distinct problem, carrying how often it fired and where.
+    // Emitted at the end because the count only means something once every cycle
+    // has run: an error seen in all cycles is systematic, one seen once is a fluke.
+    const runtimeEvents = observer.events();
+    for (const ev of runtimeEvents) {
+      emit({
+        type: "evidence",
+        kind: "runtime_event",
+        phase: "cycle",
+        cycle: config.cycles,
+        timestamp: Date.now(),
+        context: { route: ev.routes[0] || "/", routes: ev.routes },
+        data: ev,
+      });
+    }
+    emit({
+      type: "log",
+      phase: "cooldown",
+      message: `observed ${runtimeEvents.length} distinct runtime event(s)`,
+    });
 
     await context.close();
     return {
