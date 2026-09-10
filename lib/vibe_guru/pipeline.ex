@@ -57,7 +57,7 @@ defmodule VibeGuru.Pipeline do
        %{
          profile: profile,
          evidence: evidence,
-         findings: Finding.sort(findings),
+         findings: findings,
          outputs: outputs
        }}
     end
@@ -66,12 +66,23 @@ defmodule VibeGuru.Pipeline do
   # Run every analyzer over the same evidence, concatenating their findings. A
   # single analyzer failing aborts the run rather than silently reporting a
   # partial picture — a "clean" result the user cannot trust is worse than an error.
+  #
+  # The combined list is re-sorted here, not at the call site. Each analyzer sorts
+  # its own findings, but concatenating two sorted lists does not give a sorted one —
+  # and every consumer downstream (both reporters, the CLI summary, the MCP server)
+  # states or assumes "most severe first". Sorting once, here, is what makes that true
+  # for all of them rather than for whichever one remembered to do it.
   defp analyze_all(analyzers, evidence, config) do
-    Enum.reduce_while(analyzers, {:ok, []}, fn analyzer, {:ok, acc} ->
+    analyzers
+    |> Enum.reduce_while({:ok, []}, fn analyzer, {:ok, acc} ->
       case analyzer.analyze(evidence, config) do
         {:ok, findings} -> {:cont, {:ok, acc ++ findings}}
         {:error, reason} -> {:halt, {:error, {analyzer.id(), reason}}}
       end
     end)
+    |> case do
+      {:ok, findings} -> {:ok, Finding.sort(findings)}
+      {:error, reason} -> {:error, reason}
+    end
   end
 end

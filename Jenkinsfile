@@ -71,6 +71,8 @@ pipeline {
     stage('Dependencies') {
       steps {
         sh 'mix deps.get --check-locked'
+        // Root package: the npx wrapper and the MCP server.
+        sh 'npm ci --ignore-scripts'
         // The browser driver and its Chromium. `npm ci` needs the lockfile, which is
         // committed, so this is reproducible.
         dir('driver-node') {
@@ -93,8 +95,15 @@ pipeline {
     }
 
     stage('Test') {
-      steps {
-        sh 'mix test'
+      // Two suites, two languages: the analyzers in Elixir, the MCP server and its
+      // rendering in Node. Run in parallel — neither touches the other's files.
+      parallel {
+        stage('Elixir') {
+          steps { sh 'mix test' }
+        }
+        stage('Node') {
+          steps { sh 'npm test' }
+        }
       }
     }
 
@@ -161,6 +170,16 @@ pipeline {
           def onClean = findings.findings.findAll { it.location?.route == '/clean' }
           if (onClean) {
             error "False positive: /clean is the control and must stay clean, got ${onClean.size()} finding(s)"
+          }
+
+          // Every consumer of this file — CLAUDE.md, the CLI summary, the MCP server —
+          // tells the reader the list is most-severe-first. Two analyzers each sort
+          // their own output, and concatenating sorted lists does not produce a sorted
+          // one, so this asserts the promise rather than assuming it.
+          def rank = ['critical': 0, 'high': 1, 'medium': 2, 'low': 3, 'info': 4]
+          def ranks = findings.findings.collect { rank[it.severity] ?: 99 }
+          if (ranks != ranks.sort(false)) {
+            error "Findings are not ordered most-severe-first: ${findings.findings.collect { it.severity }}"
           }
         }
       }

@@ -12,6 +12,37 @@ Two things it checks today, in one browser run:
   errors, failed requests, and runaway re-renders.
 - **`memory.client`** — what did it *retain*? Frontend memory leaks in React/Vue/SPA apps.
 
+## Use it from a coding agent (MCP)
+
+The reason this exists. Your agent can read your code but cannot watch it run — so it
+writes a change, the tests pass, and nobody finds out the page throws on mount until a
+person opens it. Point the agent here and it can check its own work.
+
+```json
+{
+  "mcpServers": {
+    "vibeguru": { "command": "npx", "args": ["-y", "vibeguru", "mcp"] }
+  }
+}
+```
+
+That goes in your MCP client's config — `.mcp.json` for Claude Code, or the equivalent
+for Cursor / Windsurf. Two tools show up:
+
+| Tool | What it does |
+|---|---|
+| `verify_runtime` | Runs the app in a real browser and returns measured findings with a fix for each. ~1 minute. |
+| `read_findings` | Re-reads the last run without repeating it — filter by severity or route. Free. |
+
+A typical verification of a nine-route app returns **around 1,200 tokens**. Driving the
+same browser through a generic automation server costs an agent roughly
+[114,000](https://www.ytyng.com/en/blog/ai-browser-automation-tools-comparison-2026),
+because it has to look at the page and reason about what it sees. Here the looking and
+the reasoning already happened, deterministically, before the agent was handed anything.
+
+Verification leaves nothing behind in your repo by default — reports go to a temp
+directory unless you ask for `write_report`.
+
 ## Quick start (2 steps)
 
 No toolchain required — just Node. From your app's project directory:
@@ -105,8 +136,9 @@ full design.
 
 ```
 vibeguru init [--root DIR] [--url URL] [--port N]
-vibeguru run  [--root DIR] [--out DIR] [--cycles N] [--flow FILE] [--no-headless] [--quiet]
+vibeguru run  [--root DIR] [--out DIR] [--cycles N] [--routes N] [--flow FILE] [--no-headless] [--quiet]
 vibeguru memory:client <url> [--cycles N] [--flow FILE] [--out DIR]   # low-level, no autostart
+vibeguru mcp                                                          # MCP server on stdio
 ```
 
 ## Building from source (contributors)
@@ -116,10 +148,15 @@ locally you need Elixir 1.18+ and Node 18+:
 
 ```bash
 cd driver-node && npm install   # downloads Playwright Chromium (~150 MB), one time
-cd .. && mix deps.get && mix escript.build
+cd .. && npm install            # MCP server deps
+mix deps.get && mix escript.build
 ./vibeguru init --root /path/to/app
 ./vibeguru run  --root /path/to/app
 ```
+
+Tests are `mix test` (analyzers) and `npm test` (MCP server + rendering). To run the
+MCP server against a locally built binary instead of a published release, set
+`VIBEGURU_BINARY` to its path.
 
 ### How the `npx` distribution is built
 
@@ -142,7 +179,9 @@ cd .. && mix deps.get && mix escript.build
 lib/vibe_guru/            # Elixir: behaviours, structs, detector, probe, analyzer,
                           #   reporters, config, project/dev-server, CLI
 driver-node/              # Node + Playwright + CDP browser-driver (the harness)
+mcp/                      # MCP server: engine (drives the binary) + render (agent-facing text)
 bin/ · scripts/           # npx wrapper: launcher + install (binary fetch, Chromium)
+test-node/                # Node tests: rendering + a real MCP handshake over stdio
 package.json              # the published `vibeguru` npm package
 .github/workflows/        # release.yml — Burrito cross-build + GitHub Release
 test-app/                 # deliberately-leaky React app for verification (+ /clean control)
