@@ -23,7 +23,10 @@ permissions:
 
 jobs:
   release:
-    runs-on: ubuntu-latest
+    # Pinned, NOT ubuntu-latest. The v0.1.0 build passed on the then-current image and
+    # the identical workflow failed months later when `latest` rolled forward — an
+    # unpinned runner silently changes the toolchain under a reproducible build.
+    runs-on: ubuntu-24.04
     env:
       MIX_ENV: prod
     steps:
@@ -41,15 +44,52 @@ jobs:
           version: "0.15.2"
 
       # Burrito needs xz (all targets) and 7z (for the Windows target) on PATH.
+      # Ubuntu 24.04 ships the `7zip` package, whose binary is `7zz`; older images
+      # ship `p7zip-full`, whose binary is `7z`. Accept either and guarantee a `7z`
+      # on PATH, because Burrito shells out to that exact name.
       - name: Install xz + 7z
-        run: sudo apt-get update && sudo apt-get install -y xz-utils p7zip-full
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y xz-utils
+          sudo apt-get install -y p7zip-full || sudo apt-get install -y 7zip
+          if ! command -v 7z >/dev/null 2>&1; then
+            sudo ln -sf "$(command -v 7zz)" /usr/local/bin/7z
+          fi
+          7z i >/dev/null && echo "7z OK: $(command -v 7z)"
 
       - name: Fetch deps
-        run: mix deps.get
+        run: mix deps.get --check-locked
+
+      # Recorded up front so a failure is diagnosable from the run page alone,
+      # without pulling the raw log.
+      - name: Toolchain versions
+        run: |
+          {
+            echo "### Toolchain"
+            echo '```'
+            echo "runner : $ImageOS / $(lsb_release -ds 2>/dev/null || echo unknown)"
+            echo "elixir : $(elixir --version | tr '\n' ' ')"
+            echo "zig    : $(zig version)"
+            echo "xz     : $(xz --version | head -1)"
+            echo "7z     : $(command -v 7z)"
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
 
       # No BURRITO_TARGET -> builds every target in mix.exs releases/0.
+      # Output is teed so the tail can be surfaced in the job summary on failure —
+      # raw Actions logs need a signed-in session, the summary does not.
       - name: Build all Burrito targets
-        run: mix release
+        run: set -o pipefail && mix release 2>&1 | tee /tmp/release.log
+
+      - name: Surface build failure
+        if: failure()
+        run: |
+          {
+            echo "### \`mix release\` failed"
+            echo '```'
+            tail -n 120 /tmp/release.log 2>/dev/null || echo "(no output captured)"
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
 
       - name: Stage assets
         run: |
