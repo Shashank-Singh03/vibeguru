@@ -49,7 +49,9 @@ defmodule VibeGuru.Reporter.Markdown do
   end
 
   defp summary_table([]),
-    do: "**No issues found.** All checked routes returned memory to baseline after GC."
+    do:
+      "**No issues found.** Every route returned memory to baseline after GC, and none " <>
+        "threw, logged an error, or failed a request while it was exercised."
 
   defp summary_table(findings) do
     counts = Enum.frequencies_by(findings, & &1.severity)
@@ -82,24 +84,26 @@ defmodule VibeGuru.Reporter.Markdown do
 
   # --- CLAUDE.md (agent-readable) -----------------------------------------
 
-  defp claude_md([], vector) do
+  defp claude_md([], _vector) do
     """
-    # Vibe Guru — #{vector}
+    # Vibe Guru
 
-    Vibe Guru ran a frontend memory analysis and found **no issues**. No action needed.
+    Vibe Guru exercised this app in a real browser and found **no issues**. No action needed.
     """
   end
 
-  defp claude_md(findings, vector) do
+  defp claude_md(findings, _vector) do
     """
-    # Vibe Guru findings — #{vector}
+    # Vibe Guru findings
 
-    Vibe Guru stress-tested this app's frontend memory by repeatedly mounting and
-    unmounting each route and measuring **retained** memory after forced garbage
-    collection. The issues below are concrete and measured. Work through them top to
-    bottom (most severe first). For each, open the component rendered at the named
-    route, apply the fix, and ensure the effect cleanup releases everything acquired
-    on mount.
+    Vibe Guru ran this app in a real browser: it visited every route it could reach,
+    mounted and unmounted each one repeatedly, and recorded what actually happened —
+    what the app retained after forced garbage collection, what it logged, what it
+    threw, and what it requested.
+
+    Every issue below was **measured, not inferred**, and each carries its own
+    evidence and its own next action. Work through them top to bottom; they are
+    ordered most severe first. Re-run `vibeguru run` afterwards to confirm a fix.
 
     #{Enum.with_index(findings, 1) |> Enum.map_join("\n", fn {f, i} -> claude_item(f, i) end)}
     """

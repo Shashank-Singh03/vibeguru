@@ -6,8 +6,11 @@ Vibe Guru attaches to any app, stress-tests it across quality/performance **vect
 and emits **AI-readable findings** (`CLAUDE.md`, JSON) that a coding agent
 (Claude Code / Cursor) can act on directly — with **zero LLM cost** at analysis time.
 
-The first vector, shipped and verified, is **`memory.client`** — frontend memory-leak
-detection for React/Vue/SPA apps.
+Two things it checks today, in one browser run:
+
+- **`runtime.client`** — did the app actually *work*? Uncaught exceptions, console
+  errors, failed requests, and runaway re-renders.
+- **`memory.client`** — what did it *retain*? Frontend memory leaks in React/Vue/SPA apps.
 
 ## Quick start (2 steps)
 
@@ -37,7 +40,19 @@ drops three files in your repo:
 
 It exits non-zero when high/critical issues exist, so it works in CI too.
 
-## What it catches (v1 signatures)
+## What it catches
+
+**Runtime** — the app broke while it ran:
+
+| Signature | What it catches |
+|---|---|
+| `uncaught_exception` | a throw that reached `window.onerror` — the white-screen class of failure |
+| `render_loop` | a component re-rendering forever (unguarded `useEffect` setting its own state) |
+| `failed_request` | a request that never completed, or answered 5xx |
+| `console_error` | an error the app logged and swallowed |
+| `http_error` | a 4xx — usually a wrong path or an endpoint that was never built |
+
+**Memory** — the app retained what it should have released:
 
 | Signature | What it catches |
 |---|---|
@@ -46,6 +61,11 @@ It exits non-zero when high/critical issues exist, so it works in CI too.
 | `route_heap_growth` | JS heap retained per route visit (unbounded caches/stores) |
 | `initial_bundle_heap` | huge baseline heap from eager imports |
 | `slow_recovery` | partial recovery (advisory) |
+
+One defect is reported once. When React logs "Maximum update depth exceeded" on a
+route already flagged as a render loop, or Chrome logs "Failed to load resource" for
+a request already reported as failed, the weaker echo is dropped rather than sent to
+an agent as a second bug to chase.
 
 _Next milestone (v1.1):_ heap-snapshot diff + allocation sampling + **source maps** to
 name the exact component **file**, plus precise `canvas_webgl_leak`, `allocation_hotspot`
@@ -65,7 +85,10 @@ Detector → Probe (gathers Evidence) → Analyzer (Evidence → Findings) → R
   sidecar in `driver-node/`). It mounts+unmounts each route over many cycles and samples
   **retained** memory *after forced GC*, so per-route diffs cleanly attribute leaks.
   Navigation is **client-side only** (never a full reload) so leaks actually accumulate.
+- **Observer** — rides along on that same browser session, recording what the app
+  throws, logs, requests, and how hard it churns the DOM. No extra navigation.
 - **Analyzer** — deterministic signature recognition (thresholds, ratios). No LLM.
+  Every analyzer sees the same evidence, so adding a check costs no extra browser time.
 - **Reporters** — `CLAUDE.md`, `vibeguru-report.md`, `vibeguru-findings.json`.
 
 See [`docs/ARCHITECTURE-memory-client.md`](docs/ARCHITECTURE-memory-client.md) for the
@@ -129,7 +152,21 @@ docs/                     # architecture
 
 ## Verified
 
-Against `test-app/`: `/detached`→`detached_dom_leak`, `/listeners`+`/charts`→
-`listener_leak`, `/grow`+`/charts`→`route_heap_growth`, and `/clean`→**no findings**
-(no false positive). Both `run` paths verified: reuse a running server, and
-autostart + teardown when none is running.
+`test-app/` is deliberately broken, one signature per route, with `/clean` as the
+control. A run must reproduce exactly this:
+
+| Route | Expected |
+|---|---|
+| `/detached` | `detached_dom_leak` |
+| `/listeners`, `/charts` | `listener_leak` |
+| `/grow`, `/charts` | `route_heap_growth` |
+| `/crash` | `uncaught_exception` |
+| `/render-loop` | `render_loop` (and *only* that — the React warning is deduplicated) |
+| `/log-error` | `console_error` |
+| `/bad-fetch` | `failed_request` (and only that) |
+| `/clean` | **nothing** |
+
+The analyzers are unit-tested against synthetic evidence chains covering each
+signature, the thresholds, the warm-up exclusion, and the no-false-positive cases —
+so a regression fails `mix test` without needing a browser. Both `run` paths are
+verified too: reuse a running server, and autostart + teardown when none is running.

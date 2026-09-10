@@ -10,7 +10,7 @@ defmodule VibeGuru.CLI.Presenter do
   @severity_order [:critical, :high, :medium, :low, :info]
 
   @spec banner(String.t()) :: :ok
-  def banner(url), do: IO.puts("Vibe Guru · memory.client → #{url}")
+  def banner(url), do: IO.puts("Vibe Guru · runtime + memory → #{url}")
 
   @spec info(String.t()) :: :ok
   def info(msg), do: IO.puts(msg)
@@ -72,7 +72,7 @@ defmodule VibeGuru.CLI.Presenter do
   @spec usage() :: {:halt, non_neg_integer()}
   def usage do
     IO.puts("""
-    Vibe Guru — frontend memory analysis for vibe coders
+    Vibe Guru — runtime + memory analysis for vibe coders
 
     Usage:
       vibeguru init [--root DIR] [--url URL] [--port N]
