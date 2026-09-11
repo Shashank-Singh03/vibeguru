@@ -154,48 +154,11 @@ pipeline {
 
     stage('Verify fixtures still detected') {
       steps {
-        script {
-          def findings = readJSON file: 'reports/vibeguru-findings.json'
-          def signatures = findings.findings.collect { it.signature }.unique()
-          echo "signatures detected: ${signatures}"
-
-          // The engine must still catch what test-app deliberately does wrong.
-          def required = ['detached_dom_leak', 'listener_leak', 'route_heap_growth']
-          def missing = required.findAll { !signatures.contains(it) }
-          if (missing) {
-            error "Regression: test-app fixtures no longer detected: ${missing}"
-          }
-
-          // Coverage must be reported at all, and must be honest about the auth wall.
-          // CI has no saved session, so /protected is expected to be unreachable —
-          // if it silently became "covered", the auth detection has regressed into
-          // reporting a redirect to /login as a healthy page.
-          def coverage = findings.coverage
-          if (!coverage) {
-            error "Regression: the run reported no coverage at all"
-          }
-          def walled = (coverage.unreachable ?: []).find { it.path == '/protected' }
-          if (!walled || walled.reason != 'auth_required') {
-            error "Regression: /protected should be reported as auth_required without a session, got ${walled}"
-          }
-          echo "coverage: ${coverage.visited.size()} of ${coverage.routes_known} routes"
-
-          // ...and must not invent problems on the control route.
-          def onClean = findings.findings.findAll { it.location?.route == '/clean' }
-          if (onClean) {
-            error "False positive: /clean is the control and must stay clean, got ${onClean.size()} finding(s)"
-          }
-
-          // Every consumer of this file — CLAUDE.md, the CLI summary, the MCP server —
-          // tells the reader the list is most-severe-first. Two analyzers each sort
-          // their own output, and concatenating sorted lists does not produce a sorted
-          // one, so this asserts the promise rather than assuming it.
-          def rank = ['critical': 0, 'high': 1, 'medium': 2, 'low': 3, 'info': 4]
-          def ranks = findings.findings.collect { rank[it.severity] ?: 99 }
-          if (ranks != ranks.sort(false)) {
-            error "Findings are not ordered most-severe-first: ${findings.findings.collect { it.severity }}"
-          }
-        }
+        // The expectations live in scripts/verify-fixtures.mjs, not here. Two CI
+        // systems check this repo, and duplicating the assertions in Groovy and in a
+        // workflow guarantees they drift — with the drifted one quietly asserting
+        // less than you think.
+        sh 'node scripts/verify-fixtures.mjs reports/vibeguru-findings.json'
       }
     }
 

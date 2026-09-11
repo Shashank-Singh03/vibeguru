@@ -1,0 +1,158 @@
+name: ci
+
+# Runs on every pull request. Before this existed, the only check on a PR was a
+# secret scanner — the 120 tests in this repo gated nothing, which made them
+# documentation rather than a safety net.
+#
+# Three jobs, in rough order of how fast they tell you something is wrong:
+#   elixir  unit tests for the analyzers (fast, no browser)
+#   node    unit tests for the MCP server and its rendering (fast, no browser)
+#   e2e     a real browser run against test-app (slow, and the one that matters most)
+#
+# Toolchain versions are pinned to exactly what release.yml uses. CI passing on a
+# different Elixir than the one that ships is a way to find out about incompatibility
+# from a user rather than from a build.
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+# A force-push or a quick follow-up commit should cancel the previous run rather
+# than queue behind it.
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  OTP_VERSION: "27.3.4.16"
+  ELIXIR_VERSION: "1.18.5"
+
+jobs:
+  elixir:
+    name: elixir
+    runs-on: ubuntu-24.04
+    env:
+      MIX_ENV: test
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: erlef/setup-beam@v1
+        with:
+          otp-version: ${{ env.OTP_VERSION }}
+          elixir-version: ${{ env.ELIXIR_VERSION }}
+
+      - name: Cache deps and build
+        uses: actions/cache@v4
+        with:
+          path: |
+            deps
+            _build
+          key: mix-${{ runner.os }}-${{ env.OTP_VERSION }}-${{ env.ELIXIR_VERSION }}-${{ hashFiles('mix.lock') }}
+          restore-keys: mix-${{ runner.os }}-${{ env.OTP_VERSION }}-${{ env.ELIXIR_VERSION }}-
+
+      - run: mix deps.get --check-locked
+
+      # Formatting and warnings are separate steps so a failure names which one it
+      # was without anyone opening the log.
+      - name: Check formatting
+        run: mix format --check-formatted
+
+      - name: Compile without warnings
+        run: mix compile --warnings-as-errors
+
+      - name: Test
+        run: mix test
+
+  node:
+    name: node
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+
+      # --ignore-scripts because postinstall downloads the release binary for this
+      # version, which does not exist until the release is cut. The unit tests do not
+      # need it: the MCP server validates its inputs before it ever resolves a binary.
+      - run: npm ci --ignore-scripts
+
+      - run: npm test
+
+  e2e:
+    name: e2e (test-app)
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: erlef/setup-beam@v1
+        with:
+          otp-version: ${{ env.OTP_VERSION }}
+          elixir-version: ${{ env.ELIXIR_VERSION }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Cache deps and build
+        uses: actions/cache@v4
+        with:
+          path: |
+            deps
+            _build
+          key: mix-e2e-${{ runner.os }}-${{ env.OTP_VERSION }}-${{ hashFiles('mix.lock') }}
+          restore-keys: mix-e2e-${{ runner.os }}-${{ env.OTP_VERSION }}-
+
+      # Chromium is ~150MB. Keyed on the driver's lockfile so it is only re-fetched
+      # when the Playwright version actually changes.
+      - name: Cache Chromium
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ hashFiles('driver-node/package-lock.json') }}
+
+      - name: Install dependencies
+        run: |
+          mix deps.get --check-locked
+          npm ci --ignore-scripts
+          cd driver-node && npm ci && npx playwright install --with-deps chromium
+
+      - name: Install test-app
+        run: cd test-app && npm ci
+
+      - name: Build the CLI
+        run: MIX_ENV=dev mix escript.build
+
+      # The CLI exits 1 when high/critical findings exist — which is the expected and
+      # correct outcome here, because test-app is broken on purpose. The assertions
+      # about WHICH findings live in verify-fixtures.mjs, so capture the status rather
+      # than letting it abort the step.
+      - name: Analyze test-app
+        run: |
+          ./vibeguru init --root test-app
+          set +e
+          ./vibeguru run --root test-app --out reports --cycles 4 --routes 14 --quiet
+          status=$?
+          set -e
+          echo "vibeguru exit status: $status"
+          if [ "$status" -ne 0 ] && [ "$status" -ne 1 ]; then
+            echo "::error title=Run failed::vibeguru exited $status — the analysis itself failed, not the app"
+            exit 1
+          fi
+
+      # test-app is deliberately broken, so this is a real assertion about the engine:
+      # the fixtures must still be detected, /clean must stay clean, the auth wall must
+      # still be visible, and findings must be ordered most-severe-first.
+      - name: Verify fixtures still detected
+        run: node scripts/verify-fixtures.mjs reports/vibeguru-findings.json
+
+      - name: Upload reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: vibeguru-reports
+          path: reports/
+          if-no-files-found: warn
