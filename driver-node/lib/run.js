@@ -16,6 +16,41 @@ import { observe } from "./observer.js";
 
 const settle = (page, ms) => page.waitForTimeout(ms);
 
+/**
+ * Force a collection and keep score.
+ *
+ * Every memory number this tool reports is only meaningful because a GC ran first —
+ * without one we measure transient garbage, leaks wash out, and the run reports a
+ * healthy app. So a failure here does not stop the run, but it must not pass
+ * unmentioned either: a clean result nobody can trust is worse than an error.
+ */
+function gcTracker(client, emit) {
+  let failures = 0;
+
+  return {
+    async collect() {
+      const ok = await collectGarbage(client);
+      if (!ok) failures += 1;
+      return ok;
+    },
+    report() {
+      if (failures === 0) return;
+
+      emit({
+        type: "log",
+        level: "warn",
+        message:
+          `forced garbage collection failed ${failures} time(s) — memory measurements ` +
+          "in this run reflect uncollected garbage, not retained memory, so any " +
+          "clean memory result should not be trusted",
+      });
+    },
+    get failures() {
+      return failures;
+    },
+  };
+}
+
 export async function run(config, emit) {
   const startedAt = Date.now();
   const browser = await chromium.launch({
@@ -43,6 +78,7 @@ export async function run(config, emit) {
     // surfaces uncaught exceptions, console errors and failed requests. Attaching
     // here costs one set of listeners and no extra navigation.
     const observer = await observe(page);
+    const gc = gcTracker(client, emit);
 
     // --- baseline ---------------------------------------------------------
     emit({ type: "log", phase: "baseline", message: `loading ${config.url}` });
@@ -91,7 +127,7 @@ export async function run(config, emit) {
       });
     }
 
-    await collectGarbage(client);
+    await gc.collect();
     await settle(page, 200);
     const base = await sample(page, client);
     emit({ type: "evidence", kind: "sample", phase: "baseline", cycle: 0, timestamp: Date.now(), context: { route: "/" }, data: base });
@@ -107,7 +143,7 @@ export async function run(config, emit) {
         // retained-state samples; otherwise we sample once at the end as "flow".
         let marked = false;
         const mark = async (label) => {
-          await collectGarbage(client);
+          await gc.collect();
           const s = await sample(page, client);
           emit({ type: "evidence", kind: "sample", phase: "cycle", cycle: i, timestamp: Date.now(), context: { route: label || "flow" }, data: s });
           marked = true;
@@ -121,7 +157,7 @@ export async function run(config, emit) {
       } else if (routes.length === 0) {
         // No routes to cycle: just re-settle home so the run still produces a series.
         await settle(page, config.settleMs);
-        await collectGarbage(client);
+        await gc.collect();
         const s = await sample(page, client);
         emit({ type: "evidence", kind: "sample", phase: "cycle", cycle: i, timestamp: Date.now(), context: { route: "/" }, data: s });
       } else {
@@ -156,7 +192,7 @@ export async function run(config, emit) {
           // GC before sampling so we measure RETAINED state, not transient garbage.
           // This is what makes per-route attribution clean: a real leak (window
           // listener, global-retained nodes) survives GC; framework churn does not.
-          await collectGarbage(client);
+          await gc.collect();
           const s = await sample(page, client); // retained home-state, tagged with the route just exercised
           emit({
             type: "evidence",
@@ -178,9 +214,9 @@ export async function run(config, emit) {
 
     // --- cooldown ---------------------------------------------------------
     emit({ type: "log", phase: "cooldown", message: "forcing GC and sampling recovery" });
-    await collectGarbage(client);
+    await gc.collect();
     await settle(page, Math.max(config.settleMs, 500));
-    await collectGarbage(client); // second pass: let finalizers run
+    await gc.collect(); // second pass: let finalizers run
     await settle(page, 200);
     const cool = await sample(page, client);
     emit({ type: "evidence", kind: "sample", phase: "cooldown", cycle: config.cycles + 1, timestamp: Date.now(), context: {}, data: cool });
@@ -189,6 +225,8 @@ export async function run(config, emit) {
     // One evidence per distinct problem, carrying how often it fired and where.
     // Emitted at the end because the count only means something once every cycle
     // has run: an error seen in all cycles is systematic, one seen once is a fluke.
+    gc.report();
+
     emit({ type: "evidence", kind: "coverage", phase: "cooldown", cycle: config.cycles, timestamp: Date.now(), context: {}, data: coverage });
 
     const runtimeEvents = observer.events();
@@ -216,6 +254,7 @@ export async function run(config, emit) {
       cycles: config.cycles,
       routeCount: routes.length,
       coverage,
+      gcFailures: gc.failures,
       durationMs: Date.now() - startedAt,
     };
   } finally {

@@ -12,12 +12,19 @@
 export async function collectGarbage(client) {
   try {
     await client.send("HeapProfiler.collectGarbage");
+    return true;
   } catch {
     // Fallback: best-effort purge if HeapProfiler is unavailable.
     try {
       await client.send("Memory.forciblyPurgeJavaScriptMemory");
+      return true;
     } catch {
-      /* ignore — GC is best-effort */
+      // Never throws — one failed collection must not end a run that has already
+      // gathered most of its evidence. But it does REPORT, because a sample taken
+      // without a forced GC measures transient garbage instead of retained memory:
+      // every leak washes out and the run reports a healthy app. Silently swallowing
+      // this would make a broken measurement indistinguishable from a clean result.
+      return false;
     }
   }
 }
