@@ -11,6 +11,7 @@ import BadFetch from "./pages/BadFetch.jsx";
 import RenderLoop from "./pages/RenderLoop.jsx";
 import Login from "./pages/Login.jsx";
 import Protected from "./pages/Protected.jsx";
+import Observers from "./pages/Observers.jsx";
 
 // The nav renders real <a href> elements (react-router <Link>), which is exactly what
 // Vibe Guru's auto-crawler discovers and clicks client-side.
@@ -39,6 +40,7 @@ export default function App() {
         <Link to="/bad-fetch">Bad Fetch</Link>
         <Link to="/render-loop">Render Loop</Link>
         <Link to="/login">Login</Link>
+        <Link to="/observers">Observers</Link>
       </nav>
       <Routes>
         <Route path="/" element={<Home />} />
@@ -53,6 +55,7 @@ export default function App() {
         <Route path="/render-loop" element={<RenderLoop />} />
         <Route path="/login" element={<Login />} />
         <Route path="/protected" element={<Protected />} />
+        <Route path="/observers" element={<Observers />} />
       </Routes>
     </div>
   );

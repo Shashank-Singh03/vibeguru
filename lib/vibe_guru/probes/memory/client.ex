@@ -55,6 +55,9 @@ defmodule VibeGuru.Probes.Memory.Client do
       # Values for dynamic segments, e.g. %{"id" => "1"}. Without them a route like
       # /users/[id] cannot be visited and is counted as uncovered rather than guessed.
       "routeParams" => Map.get(config, :route_params, %{}),
+      # Classes to count live instances of, chosen from the libraries the detector
+      # found. Turns "retains 178KB" into "retains one Chart instance".
+      "censusTargets" => Map.get(config, :census_targets, []),
       # A session saved by `vibeguru auth`, so routes behind a login are reachable.
       "storageState" => Map.get(config, :storage_state)
     }
@@ -75,7 +78,8 @@ defmodule VibeGuru.Probes.Memory.Client do
     "config" => :config,
     "marker" => :marker,
     "runtime_event" => :runtime_event,
-    "coverage" => :coverage
+    "coverage" => :coverage,
+    "census" => :census
   }
   @phases %{"baseline" => :baseline, "cycle" => :cycle, "cooldown" => :cooldown}
 

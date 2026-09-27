@@ -19,7 +19,15 @@ defmodule VibeGuru.Evidence do
     * `:config` / `:marker`     — run metadata (cycles, target url, GC points)
   """
 
-  @type kind :: :sample | :snapshot | :profile | :config | :marker | :runtime_event | :coverage
+  @type kind ::
+          :sample
+          | :snapshot
+          | :profile
+          | :config
+          | :marker
+          | :runtime_event
+          | :coverage
+          | :census
   @type phase :: :baseline | :cycle | :cooldown | nil
 
   @type t :: %__MODULE__{

@@ -52,6 +52,11 @@ function withDefaults(cfg) {
     // receiving the declared route list at all.
     declaredRoutes: Array.isArray(cfg.declaredRoutes) ? cfg.declaredRoutes : [],
     routeParams: cfg.routeParams && typeof cfg.routeParams === "object" ? cfg.routeParams : {},
+    // Class names to count live instances of, chosen by the Elixir detector from the
+    // libraries it found. Named explicitly: this function builds a fresh object, so
+    // anything not listed here is dropped silently — which is how declaredRoutes went
+    // missing while coverage cheerfully reported 100%.
+    censusTargets: Array.isArray(cfg.censusTargets) ? cfg.censusTargets : [],
     // Path to a session saved by `vibeguru auth`; null when there is none.
     storageState: cfg.storageState || null,
     timeoutMs: Number.isInteger(cfg.timeoutMs) ? cfg.timeoutMs : null,

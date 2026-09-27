@@ -71,6 +71,41 @@ drops three files in your repo:
 
 It exits non-zero when high/critical issues exist, so it works in CI too.
 
+## Naming what is retained, not just how much
+
+A memory number tells you a route is leaking. It does not tell you what is leaking,
+so the advice can only be a list of things to go look for:
+
+```
+/charts retains ~178KB of JS heap per visit
+fix: look for arrays/maps/caches at module scope…
+```
+
+So Vibe Guru also counts **live instances** of leak-prone classes at the same
+post-GC moment, which answers the next question down:
+
+```
+[critical] ResizeObserver instances retained on /observers
+  every visit leaves ~1 live ResizeObserver alive after garbage collection
+  fix  call observer.disconnect() in the effect cleanup
+```
+
+It counts built-ins that are created constantly and released rarely — observers,
+sockets, workers — plus classes belonging to libraries found in `package.json`.
+These are invisible to every other signature: an undisconnected observer is neither
+a DOM node nor a registered event listener, and it costs too few bytes to trip a
+heap threshold.
+
+Counting instances is a runtime-agnostic idea — the same question is
+`gc.get_objects()` in Python, a heap histogram on the JVM, idle-in-transaction rows
+in `pg_stat_activity`. Only the probe is browser-specific; the analyzer that reasons
+about the counts is not.
+
+**One boundary worth knowing:** the class has to be reachable from the page's global
+scope. Built-ins are, and so are libraries loaded by script tag. A library imported
+as an ES module is not — `import { Chart } from "chart.js"` is module-scoped, so a
+bundled app's own classes report nothing. Heap-snapshot analysis is what covers those.
+
 ## How much of your app it actually saw
 
 A crawler only finds what the landing page links to. On a real app that is a small,

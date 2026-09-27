@@ -26,6 +26,7 @@ const REQUIRED_SIGNATURES = [
   "render_loop",
   "console_error",
   "failed_request",
+  "retained_instances",
 ];
 
 const SEVERITY_RANK = { critical: 0, high: 1, medium: 2, low: 3, info: 4 };

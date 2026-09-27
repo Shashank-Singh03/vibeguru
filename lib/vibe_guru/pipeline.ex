@@ -5,10 +5,11 @@ defmodule VibeGuru.Pipeline do
   LiveView dashboard later) can render however they like.
   """
 
-  alias VibeGuru.{Coverage, Detector, Finding}
+  alias VibeGuru.{CensusTargets, Coverage, Detector, Finding}
   alias VibeGuru.Probes.Memory.Client, as: MemoryProbe
   alias VibeGuru.Analyzers.Memory, as: MemoryAnalyzer
   alias VibeGuru.Analyzers.Runtime, as: RuntimeAnalyzer
+  alias VibeGuru.Analyzers.Census, as: CensusAnalyzer
   alias VibeGuru.Reporter
 
   @doc """
@@ -34,13 +35,16 @@ defmodule VibeGuru.Pipeline do
         timeout_ms: Keyword.get(opts, :timeout_ms, 600_000),
         storage_state: Keyword.get(opts, :storage_state),
         route_params: Keyword.get(opts, :route_params, %{}),
+        census_targets:
+          CensusTargets.for_profile(profile, Keyword.get(opts, :census_targets, [])),
         on_log: Keyword.get(opts, :on_log, fn _ -> :ok end)
       }
 
     # One probe run feeds every analyzer: the browser session is the expensive part,
     # and Evidence is interpretation-free, so additional analyzers are free to add.
     with {:ok, evidence} <- MemoryProbe.run(profile, config),
-         {:ok, findings} <- analyze_all([MemoryAnalyzer, RuntimeAnalyzer], evidence, config) do
+         {:ok, findings} <-
+           analyze_all([MemoryAnalyzer, RuntimeAnalyzer, CensusAnalyzer], evidence, config) do
       out_dir = Keyword.get(opts, :out_dir, File.cwd!())
       # Ensure the output directory exists so reporters don't silently fail with :enoent.
       File.mkdir_p!(out_dir)

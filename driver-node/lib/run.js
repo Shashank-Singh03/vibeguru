@@ -13,6 +13,7 @@ import { sample, collectGarbage } from "./sampler.js";
 import { plan, visitRoute } from "./crawl.js";
 import { loadFlow } from "./flow.js";
 import { observe } from "./observer.js";
+import { census } from "./census.js";
 
 const settle = (page, ms) => page.waitForTimeout(ms);
 
@@ -132,6 +133,19 @@ export async function run(config, emit) {
     const base = await sample(page, client);
     emit({ type: "evidence", kind: "sample", phase: "baseline", cycle: 0, timestamp: Date.now(), context: { route: "/" }, data: base });
 
+    const censusTargets = config.censusTargets || [];
+    if (censusTargets.length) {
+      emit({
+        type: "evidence",
+        kind: "census",
+        phase: "baseline",
+        cycle: 0,
+        timestamp: Date.now(),
+        context: { route: "/" },
+        data: { counts: await census(client, censusTargets) },
+      });
+    }
+
     // --- cycle loop -------------------------------------------------------
     // For attribution we mount+unmount ONE route at a time, then sample the
     // home state. Consecutive home-state diffs attribute retained memory to the
@@ -203,6 +217,21 @@ export async function run(config, emit) {
             context: { route: route.path },
             data: { ...s, mutations, mutationWindowMs },
           });
+
+          // Counts are taken at the same post-GC point as the sample, so "retained
+          // 178KB" and "retained one Chart instance" describe the same moment and can
+          // be reasoned about together.
+          if (censusTargets.length) {
+            emit({
+              type: "evidence",
+              kind: "census",
+              phase: "cycle",
+              cycle: i,
+              timestamp: Date.now(),
+              context: { route: route.path },
+              data: { counts: await census(client, censusTargets) },
+            });
+          }
         }
         observer.route("/");
       }
