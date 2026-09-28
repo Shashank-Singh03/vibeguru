@@ -14,6 +14,7 @@
 import { readFile } from "node:fs/promises";
 import { run } from "./lib/run.js";
 import { authenticate } from "./lib/auth.js";
+import { runSnapshot } from "./lib/snapshot-run.js";
 
 function emit(obj) {
   process.stdout.write(JSON.stringify(obj) + "\n");
@@ -39,7 +40,7 @@ function readStdin() {
 function withDefaults(cfg) {
   const out = {
     url: cfg.url,
-    mode: cfg.mode || "auto", // "auto" | "flow" | "auth"
+    mode: cfg.mode || "auto", // "auto" | "flow" | "auth" | "snapshot"
     cycles: Number.isInteger(cfg.cycles) ? cfg.cycles : 20,
     settleMs: Number.isInteger(cfg.settleMs) ? cfg.settleMs : 500,
     routesLimit: Number.isInteger(cfg.routesLimit) ? cfg.routesLimit : 8,
@@ -57,6 +58,10 @@ function withDefaults(cfg) {
     // anything not listed here is dropped silently — which is how declaredRoutes went
     // missing while coverage cheerfully reported 100%.
     censusTargets: Array.isArray(cfg.censusTargets) ? cfg.censusTargets : [],
+    // Focused snapshot probe: which route to exercise, and which constructors the
+    // investigation already suspects so they are reported whatever their count.
+    route: cfg.route || null,
+    constructorHints: Array.isArray(cfg.constructorHints) ? cfg.constructorHints : [],
     // Path to a session saved by `vibeguru auth`; null when there is none.
     storageState: cfg.storageState || null,
     timeoutMs: Number.isInteger(cfg.timeoutMs) ? cfg.timeoutMs : null,
@@ -78,6 +83,17 @@ async function loadRawConfig() {
   return firstPositional ? { url: firstPositional } : {};
 }
 
+function dispatch(cfg, emit) {
+  switch (cfg.mode) {
+    case "auth":
+      return authenticate(cfg, emit);
+    case "snapshot":
+      return runSnapshot(cfg, emit);
+    default:
+      return run(cfg, emit);
+  }
+}
+
 async function main() {
   let cfg;
   try {
@@ -89,7 +105,7 @@ async function main() {
   }
 
   try {
-    const result = cfg.mode === "auth" ? await authenticate(cfg, emit) : await run(cfg, emit);
+    const result = await dispatch(cfg, emit);
     emit({ type: "result", ...result });
     process.exit(0);
   } catch (e) {
