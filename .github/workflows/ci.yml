@@ -17,6 +17,10 @@ on:
   pull_request:
   push:
     branches: [main]
+  # So the suite can be run against any branch from the Actions tab without opening a
+  # pull request first. A pipeline that can only be triggered by a PR cannot be tested
+  # before the PR exists, which is how this one went unrun for its whole life.
+  workflow_dispatch:
 
 # A force-push or a quick follow-up commit should cancel the previous run rather
 # than queue behind it.
