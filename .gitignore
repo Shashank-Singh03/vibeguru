@@ -39,9 +39,19 @@ playwright-report/
 /burrito_out/
 /vendor/
 
-# Generated report output (CLAUDE.md, vibeguru-report.md, vibeguru-findings.json)
+# Generated report output (CLAUDE.md, vibeguru-report.md, vibeguru-findings.json).
+# This is the default --out directory, and CI writes here too, so anyone following
+# the README's build-from-source steps produces one.
+/reports/
+
 # Generated run output from local verification (tmp_out, tmp_low, any scratch dir)
 /tmp_*/
+
+# Captured browser session from `vibeguru auth`. The directory already ships its own
+# .gitignore containing "*", so this is belt and braces: auth.json is the equivalent
+# of being signed in as that user, and a single missing self-ignore would commit a
+# live session to a public repo.
+.vibeguru/
 
 # Generated run artifacts in the bundled test app (vibeguru.json is kept as a sample)
 /test-app/CLAUDE.md

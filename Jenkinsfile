@@ -12,7 +12,7 @@
 //
 // Prerequisites on the agent for the engine stages:
 //   * Elixir 1.18+ and Erlang/OTP 27+ on PATH
-//   * Node 18+ on PATH
+//   * Node 20+ on PATH (package.json "engines"; CI proves 20 and 22)
 //   * driver-node dependencies installed (the pipeline does this, including Chromium)
 //   * the "Pipeline Utility Steps" plugin, for readJSON in the fixture-check stage.
 //     Without it that stage fails with "No such DSL method 'readJSON'" — the reference

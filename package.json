@@ -1,7 +1,7 @@
 {
   "name": "vibeguru",
   "version": "0.1.2",
-  "description": "Runtime verification for coding agents. Runs your web app in a real browser and reports what actually breaks — exceptions, render loops, failed requests, memory leaks — as deterministic findings. No LLM in the analysis loop.",
+  "description": "Runtime verification for coding agents. Runs your web app in a real browser and reports what actually breaks \u00e2\u20ac\u201d exceptions, render loops, failed requests, memory leaks \u00e2\u20ac\u201d as deterministic findings. No LLM in the analysis loop.",
   "bin": {
     "vibeguru": "bin/vibeguru.js"
   },
@@ -16,7 +16,7 @@
   ],
   "scripts": {
     "postinstall": "node scripts/postinstall.js",
-    "test": "node --test \"test-node/**/*.test.js\""
+    "test": "node scripts/test-node.mjs"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.30.0",
@@ -24,7 +24,7 @@
     "zod": "^4.6.1"
   },
   "engines": {
-    "node": ">=18"
+    "node": ">=20"
   },
   "keywords": [
     "memory-leak",

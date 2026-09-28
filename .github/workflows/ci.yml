@@ -65,14 +65,24 @@ jobs:
         run: mix test
 
   node:
-    name: node
+    # A matrix over the range package.json's "engines" claims, because that claim was
+    # not tested anywhere. The bug it catches is specific: `node --test` accepts glob
+    # patterns on some versions and a directory on others, and a run that matches NO
+    # files exits 0 - so a discovery regression shows up as a GREEN build that ran
+    # nothing rather than a red one. scripts/test-node.mjs refuses to pass on zero
+    # files; this matrix is what proves it on more than the newest Node.
+    name: node (${{ matrix.node }})
     runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: false
+      matrix:
+        node: ["20", "22"]
     steps:
       - uses: actions/checkout@v4
 
       - uses: actions/setup-node@v4
         with:
-          node-version: "20"
+          node-version: ${{ matrix.node }}
           cache: npm
 
       # --ignore-scripts because postinstall downloads the release binary for this
@@ -81,6 +91,28 @@ jobs:
       - run: npm ci --ignore-scripts
 
       - run: npm test
+
+  versions:
+    # package.json and mix.exs each carry the version, and the npm wrapper downloads
+    # its binary from releases/download/v<package.json version>/. When those drift, or
+    # the tag is missing, `npm install` 404s for everyone - which is exactly how 0.1.1
+    # shipped. Seconds to check, and it has already been wrong once.
+    name: versions agree
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: package.json and mix.exs agree
+        run: |
+          set -euo pipefail
+          PKG=$(node -p "require('./package.json').version")
+          MIX=$(grep -o 'version: "[^"]*"' mix.exs | head -1 | cut -d'"' -f2)
+          echo "package.json : $PKG"
+          echo "mix.exs      : $MIX"
+          if [ "$PKG" != "$MIX" ]; then
+            echo "::error title=Version mismatch::package.json is $PKG but mix.exs is $MIX. The npm wrapper downloads its binary from the tag named after package.json, so drift here means every user gets a 404."
+            exit 1
+          fi
 
   e2e:
     name: e2e (test-app)

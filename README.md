@@ -234,7 +234,8 @@ vibeguru mcp                                                          # MCP serv
 ## Building from source (contributors)
 
 End users get prebuilt binaries via `npx` (see Quick start). To build the engine
-locally you need Elixir 1.18+ and Node 18+:
+locally you need Elixir 1.18+ and Node 20+ (CI builds on Elixir 1.18.5 / OTP 27.3.4.16,
+and runs the Node suite on 20 and 22):
 
 ```bash
 cd driver-node && npm install   # downloads Playwright Chromium (~150 MB), one time

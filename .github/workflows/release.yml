@@ -33,14 +33,20 @@ jobs:
       - uses: actions/checkout@v4
 
       # PINNED, and it has to stay that way. Burrito cross-compiles by downloading a
-      # prebuilt ERTS for each target from a third-party CDN (beam-machine-universal),
-      # keyed on the EXACT OTP patch this runner has. A floating "27" resolves to the
-      # newest patch, which regularly outruns that CDN: 27.3.4.17 has an official
-      # Windows installer but no Linux or macOS build there, so the mac target 404s
-      # after a full compile. 27.3.4.16 is the newest with all three.
+      # prebuilt ERTS for each target, keyed on the EXACT OTP patch this runner has:
+      # Linux and macOS from a third-party CDN (beam-machine-universal), Windows from
+      # erlang/otp's GitHub releases.
       #
-      # To bump: check the target below returns 200 for linux, macos AND windows
-      # before changing it. The next step asserts this at runtime anyway.
+      # The failure this pin prevents: a floating "27" resolves to whatever patch
+      # setup-beam has newest, and those publishers lag behind it. A v0.1.2 build died
+      # exactly that way — setup-beam gave 27.3.4.17, the CDN had no macOS build for it
+      # yet, and the mac target 404'd after a full compile. That gap has since closed
+      # (27.3.4.17 now serves all three), which is the point: the set of usable patches
+      # changes underneath an unpinned build, so the version that ships is chosen here
+      # rather than by whoever published last.
+      #
+      # To bump: change it and let the next step tell you. It asks all three publishers
+      # whether they actually have that patch, before anything compiles.
       - uses: erlef/setup-beam@v1
         with:
           otp-version: "27.3.4.16"
@@ -77,17 +83,29 @@ jobs:
           CDN="https://beam-machine-universal.b-cdn.net/OTP-$OTP"
           Q="?please-respect-my-bandwidth-costs=thank-you&openssl=3.5.1&musl=1.2.5"
 
-          fail=0
-          for pair in "linux:$CDN/linux/x86_64/any/otp_${OTP}_linux_any_x86_64.tar.gz$Q" "macos:$CDN/macos/universal/otp_${OTP}_macos_universal.tar.gz$Q"; do
-            name=${pair%%:*}
-            url=${pair#*:}
-            code=$(curl -s -o /dev/null -w "%{http_code}" --max-time 30 "$url" || echo 000)
-            echo "  $name -> $code"
+          # Windows ERTS does NOT come from the CDN. Burrito pulls the official
+          # installer from erlang/otp's own GitHub releases, which is a different host
+          # on a different release cadence, so it can 404 independently of the other
+          # two. 27.3.4.17 was the case in that direction — Windows published, CDN not
+          # — and the reverse is just as possible. Checking two targets out of three is
+          # how the third one's 404 gets discovered by `mix release` instead of here.
+          GH="https://github.com/erlang/otp/releases/download/OTP-$OTP"
+
+          # -I so this asks whether the asset exists instead of downloading hundreds of
+          # megabytes to find out, and -L because the GitHub download redirects.
+          check() {
+            code=$(curl -sIL -o /dev/null -w "%{http_code}" --max-time 30 "$2" || echo 000)
+            echo "  $1 -> $code"
             [ "$code" = "200" ] || fail=1
-          done
+          }
+
+          fail=0
+          check linux   "$CDN/linux/x86_64/any/otp_${OTP}_linux_any_x86_64.tar.gz$Q"
+          check macos   "$CDN/macos/universal/otp_${OTP}_macos_universal.tar.gz$Q"
+          check windows "$GH/otp_win64_$OTP.exe"
 
           if [ "$fail" -ne 0 ]; then
-            echo "::error title=No prebuilt ERTS for OTP $OTP::beam-machine-universal has not built OTP $OTP for every target, so Burrito cannot cross-compile. Pin otp-version in this workflow to a patch that is fully published (27.3.4.16 was, at the time of writing)."
+            echo "::error title=No prebuilt ERTS for OTP $OTP::A prebuilt ERTS for OTP $OTP is missing for at least one target (see the per-target codes above), so Burrito cannot cross-compile. Linux and macOS come from beam-machine-universal, Windows from erlang/otp GitHub releases. Pin otp-version in this workflow to a patch published on both (27.3.4.16 was, at the time of writing)."
             exit 1
           fi
 
