@@ -13,8 +13,10 @@ not a declaration that the product or native release is finished.
 
 The founder created US PostHog project **658479**:
 <https://us.posthog.com/project/658479/home>. The project URL is not an ingestion
-credential. Activation requires its public `phc_…` Project API key. A personal
-administrative API key is neither requested nor embedded. Browser control stopped
+credential. The founder later supplied its public Project API key in the ignored
+`hogpostkey/hogpostkey.env` file. Local activation is recorded below; the key is not
+embedded in source. A personal administrative API key is neither requested nor
+embedded. Browser control stopped
 because it could not verify the current Windows browser URL; no account changes
 were made through it.
 
@@ -99,11 +101,39 @@ retention/deletion contact before beta distribution. [Official pricing](https://
 The integration uses the official ingestion endpoint `POST /i/v0/e/` at
 `https://us.i.posthog.com` or its EU equivalent. [Capture API](https://posthog.com/docs/api/capture), checked 11 October 2026.
 
-After the public project token is supplied, save local consent/config and perform
-one deliberately opted-in smoke run. Endpoint acceptance does not prove an insight
-has updated. The capture token cannot read/administer PostHog, so founder charts
-require the signed-in account. Chart definitions and honest interpretation are in
-`docs/TELEMETRY.md`; no charts are claimed provisioned.
+On 11 October the founder supplied the public token. Consent/config is saved in
+the normal per-user configuration outside the repository, shared by local CLI/MCP
+launches using that profile. The entire key folder is ignored; the npm package's
+allowlist excludes it. Other installations remain default-off.
+
+A real local CLI run against the independent clean React fixture completed three
+cycles and six explicit assertions with `PASS`. Production HTTPS transport accepted
+both `vibeguru_run_started` and `vibeguru_run_completed` with HTTP 200 and matching
+run IDs. Total verification wall time was **13.917 seconds**; event requests took
+3.236 and 4.828 seconds. The record is
+`reports/posthog-activation-2026-10-11/attempt-3/summary.json`. No app content or
+key was printed or included in this record. This is founder fixture activity, not
+customer adoption evidence.
+
+The original 800 ms analytics deadline dropped the first validation events; a
+three-second attempt accepted completion but timed out at start. Both failed
+verification attempts remain recorded in the parent directory and `attempt-2/`.
+The transport now has a five-second per-event deadline, no retry or disk queue.
+Slow or blocked analytics still cannot alter the app verdict. Opted-in CLI/MCP
+calls await lifecycle events and can incur up to ten seconds of additional wait
+across two events. The regression check covers a successful connection beyond the
+old deadline and bounded failure of a hung connection.
+
+Endpoint acceptance alone does not prove an insight has updated. The capture token
+cannot read/administer PostHog. The connected OAuth agent subsequently created the
+unshared [Vibe Guru Usage dashboard](https://us.posthog.com/project/658479/dashboard/2197466)
+and forced recalculation of all eight saved insight tiles without errors. Two
+interpretation cards explain founder fixtures, missing optional categories and
+delivery limits. The run-ID table independently retains one orphan completion and
+two paired MCP execution errors; those categories cannot identify the error cause.
+See [POSTHOG_DASHBOARD.md](POSTHOG_DASHBOARD.md) for live verification and saved IDs,
+and [TELEMETRY.md](../TELEMETRY.md) for collection semantics. No customer adoption
+or feedback accuracy is established by this data.
 
 An installation ID is not a person or project. FAIL often means Vibe Guru found
 an application problem. A feedback confirmation is a run-level judgment, not a

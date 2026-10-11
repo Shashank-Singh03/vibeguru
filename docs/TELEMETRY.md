@@ -109,7 +109,7 @@ and MCP `verify_runtime`.
 
 Started runs without a terminal event are **potentially interrupted or missing
 delivery**, not confirmed execution failures. Forced termination can prevent any
-terminal event. Events are best effort, have an 800 ms transport deadline,
+terminal event. Events are best effort, have a 5-second transport deadline per event,
 use a bounded in-memory queue, and are not retried or saved to disk. A blocked
 endpoint, offline session or quota problem can cause missing data. MCP writes
 protocol frames only to stdout; analytics writes nothing there. The CLI and MCP
@@ -128,22 +128,23 @@ Feedback is voluntary and run-level. A `confirmed` response does not establish
 that every finding was correct. A successful HTTP ingestion response means the
 endpoint accepted the request, not that a PostHog chart has already updated.
 
-In the founder's PostHog project, create:
+Operators can summarize received metadata with these views:
 
-1. A trend of distinct installation IDs with completed runs, grouped by channel,
-   audience and framework. Label it **active installations**.
-2. A started → completed funnel, segmented by tool version and operating system.
-   Investigate error-category trends separately; account for missing delivery.
-3. A distribution of analysis duration with median and 95th percentile, segmented
-   by mode and cycle count. Keep engine duration separate from wrapper duration.
-4. A verdict breakdown and incomplete-check trend. FAIL means problems found in
-   the tested application; it is not automatically a failure of Vibe Guru.
-5. A count of each feedback kind and returning installations. Do not report
-   detection accuracy without confirmed per-finding ground truth.
+1. Active installation IDs with completed runs, plus framework breakdown.
+2. Completed CLI/MCP activity, runtime verdicts and execution-error categories.
+3. Complete, partial and unavailable check counts over time.
+4. Wrapper and engine duration p50/p95, segmented by mode and cycle count.
+5. Lifecycle receipt coverage paired by `run_id`, segmented by channel, tool
+   version and operating system. It retains orphan terminals and missing delivery
+   rather than using an installation/person funnel for independent runs.
 
-No founder PostHog charts are provisioned by this local code change. Connecting
-the real public token and checking a deliberately opted-in smoke event are
-separate activation steps. For a production beta, provide a public privacy notice
+Missing audience, use-case, team-size or feedback values mean **not provided**;
+never infer customer segments from them. Add those breakdowns and
+returning-installation analysis after suitable data exists. Founder fixture
+activity does not establish customer adoption, and run feedback does not establish
+per-finding accuracy. Dashboard queries are separate from local telemetry
+configuration: enabling reporting neither creates charts nor grants read access.
+Keep configuration outside the package. For a production beta, provide a public privacy notice
 with the operator, purposes, retention/deletion contact and third-party processing
 details; the local config cannot delete historical server-side events.
 

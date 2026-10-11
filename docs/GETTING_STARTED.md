@@ -1,6 +1,6 @@
 # Installing and using Vibe Guru
 
-Updated 11 October 2026. Local source version **0.2.0 is not a published native
+Updated 12 October 2026. Source version **1.0.0 is not a verified public native
 release**. The local website at `http://127.0.0.1:4546` keeps installation buttons
 disabled until matching downloads pass the release gates. Do not send prospects
 to an older npm version as if it contained this checkout's fixes.
@@ -101,19 +101,19 @@ cached findings with `read_findings`; a filter retains the whole-run verdict.
 
 ## Customer installation after a verified release
 
-These are **future release instructions**, not working 0.2.0 distribution claims.
+These are **future release instructions**, not working 1.0.0 distribution claims.
 Once the exact npm package and anonymously accessible native assets are verified,
 customers need Node.js 20+ and internet access for the first browser download;
 validated native assets bundle Erlang.
 
 ```sh
-npm install -g vibeguru@0.2.0
+npm install -g vibeguru@1.0.0
 vibeguru doctor
 vibeguru memory:client http://127.0.0.1:3000 --cycles 4 --out ./vibeguru-results
 ```
 
 For MCP, the future common configuration uses `"command":"npx"` and
-`"args":["-y","vibeguru@0.2.0","mcp"]`; on Windows use `npx.cmd` if your
+`"args":["-y","vibeguru@1.0.0","mcp"]`; on Windows use `npx.cmd` if your
 client requires the executable extension. Prefer installing once and checking
 `vibeguru doctor` before configuring MCP, so first-run downloads are visible.
 A bare engine executable is insufficient: it also needs the bundled Node driver,

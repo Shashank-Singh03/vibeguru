@@ -45,7 +45,7 @@ These are authored vulnerable/corrected controls, not a real-world accuracy scor
 
 ## Current release status
 
-This checkout prepares **0.2.0**, with report schema 2 and an inconclusive exit code. It has not been published by this change. The market review on 8 October 2026 found npm and GitHub releases at 0.1.0; that version does not represent this checkout. Use the source workflow below until the matching native release passes its package checks.
+This checkout prepares **1.0.0**, with report schema 2 and an inconclusive exit code. The versioned source does not establish a published npm package or working public downloads. The source repository is private; its release assets cannot serve anonymous customers. Use the source workflow below until matching native assets, public delivery and packaged installation pass the release gates. [1.0.0 release notes](CHANGELOG.md).
 
 Native build targets are Windows x64, Linux x64, macOS x64 and macOS arm64. Build configuration is not evidence of working packaged support. The release workflow now requires native CLI/browser/MCP smoke tests on all four targets before publishing assets. [Release procedure and verification status](docs/RELEASING.md).
 
@@ -165,7 +165,7 @@ and automatic reproduction reduction remain proposed capabilities.
 
 ## MCP
 
-For this checkout, launch `node /absolute/path/to/vibecheck/bin/vibeguru.js mcp` with `VIBEGURU_BINARY` set to the built escript or validated native asset. After 0.2.0 is released, a client can use `npx -y vibeguru@0.2.0 mcp`.
+For this checkout, launch `node /absolute/path/to/vibecheck/bin/vibeguru.js mcp` with `VIBEGURU_BINARY` set to the built escript or validated native asset. After 1.0.0 is released and its public installation is verified, a client can use `npx -y vibeguru@1.0.0 mcp`.
 
 The server exposes `verify_runtime` and `read_findings`. It uses the same engine, findings and verdict contract. Compact responses reduce report-reading overhead; this project makes no unverified token-saving comparison against current browser-agent tools.
 

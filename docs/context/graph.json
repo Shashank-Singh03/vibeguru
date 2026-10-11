@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
-  "generated_at_utc": "2026-10-11T14:37:48.645093+00:00",
-  "source_commit": "2f6429988a98b7ddc2833f9d312880b6fdd59353",
-  "source_branch": "feat/census-probe",
+  "generated_at_utc": "2026-10-11T18:56:50.151214+00:00",
+  "source_commit": "7196e1120e716ecd2933253da0814a83d50f3bd3",
+  "source_branch": "main",
   "source_state": "working-tree",
   "contains_uncommitted_changes": true,
   "scope": "Tracked and non-ignored repository source files; excludes vendor trees, local generated reports/binaries, and auth/session data. Public sample reports are explicitly included.",
@@ -84,9 +84,9 @@
       "id": ".github/workflows/ci.yml",
       "type": "file",
       "area": "ci-release",
-      "bytes": 7198,
-      "lines": 198,
-      "sha256": "860428079b5ec305d53b182a87d218b4bdc186a88f768e86f23a01c367551869",
+      "bytes": 7162,
+      "lines": 199,
+      "sha256": "414cec770953fc25a2a6edbe592a43247f867e7582202f388f7b74fbefd04bbd",
       "modules": [],
       "exports": [],
       "test_declarations": 0
@@ -95,9 +95,9 @@
       "id": ".github/workflows/release.yml",
       "type": "file",
       "area": "ci-release",
-      "bytes": 13310,
-      "lines": 282,
-      "sha256": "493324d18c9a3731612b4fb7aec55cff11d076443e9b2711ea90f1e33fb374d1",
+      "bytes": 13364,
+      "lines": 283,
+      "sha256": "dd0111b2c3825f191e9ae659988fbf1295a44c168f0c832ab770649c190b20d5",
       "modules": [],
       "exports": [],
       "test_declarations": 0
@@ -106,9 +106,9 @@
       "id": ".gitignore",
       "type": "file",
       "area": "root-config",
-      "bytes": 1763,
-      "lines": 65,
-      "sha256": "ede8cf79084ae2a2b4c149683c148e7f45b7cedc675e789c89acbd6ee4b69e2c",
+      "bytes": 1847,
+      "lines": 69,
+      "sha256": "fbd4931408b865ce70fabf5e726d17c281ad7bfa06f4c3d8dea7f86d98d5848d",
       "modules": [],
       "exports": [],
       "test_declarations": 0
@@ -120,6 +120,17 @@
       "bytes": 1546,
       "lines": 21,
       "sha256": "1877ffa2763fca2f76e888d2a06da4f11c7885b1f1ada36016f89e399785d94f",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "CHANGELOG.md",
+      "type": "file",
+      "area": "documentation",
+      "bytes": 2006,
+      "lines": 32,
+      "sha256": "b8befbd3d041035e24dcc5beb6d6fdf4cf51744cdf146d287defdce389d850ea",
       "modules": [],
       "exports": [],
       "test_declarations": 0
@@ -150,9 +161,9 @@
       "id": "PROJECT_CONTEXT.md",
       "type": "file",
       "area": "documentation",
-      "bytes": 9081,
-      "lines": 110,
-      "sha256": "7bf1f7fe94d068381f0663fa17f1fe7fe8667e6d0cd9eccd0c83007f7cd78c7b",
+      "bytes": 10490,
+      "lines": 129,
+      "sha256": "cdae7821e915f3dc46bf00ae9dbbf813a765619051f1c05d8e814cb9b9c486d1",
       "modules": [],
       "exports": [],
       "test_declarations": 0
@@ -161,9 +172,9 @@
       "id": "README.md",
       "type": "file",
       "area": "documentation",
-      "bytes": 12893,
+      "bytes": 13018,
       "lines": 195,
-      "sha256": "e43dafeffa4cc2acabddbd62a4414a9ad24678af2c4bc4b815c5aea63aa100ea",
+      "sha256": "c335946db40347084ad5a748e8ffd1b36c297817317689b56c4cb3b736add61c",
       "modules": [],
       "exports": [],
       "test_declarations": 0
@@ -434,9 +445,9 @@
       "id": "dashboard/activity.json",
       "type": "file",
       "area": "local-dashboard",
-      "bytes": 17138,
-      "lines": 383,
-      "sha256": "dc1dce9b8c60304b7c89f6a9b7e9cd6634e742c65afe39ced44d4916ac3f5927",
+      "bytes": 20213,
+      "lines": 442,
+      "sha256": "8cc8d72c04ff9feae43c44622e86aae47d22978bdcb3e564dcee1745006d836b",
       "modules": [],
       "exports": [],
       "test_declarations": 0
@@ -515,7 +526,7 @@
       "area": "documentation",
       "bytes": 6110,
       "lines": 150,
-      "sha256": "9ae83629dcd802c02c71792590067972f1a1289c28df4be9c82660138ccce750",
+      "sha256": "9db11c3f327387661fcdf3e74dfc65dbf8959673e5fec89badb01076d2b5bc7c",
       "modules": [],
       "exports": [],
       "test_declarations": 0
@@ -524,9 +535,9 @@
       "id": "docs/RELEASING.md",
       "type": "file",
       "area": "documentation",
-      "bytes": 3056,
-      "lines": 39,
-      "sha256": "2cff76b1113af1c5076f8747059b000c7c265619fea4c11aa4313b2a0f763e8c",
+      "bytes": 3924,
+      "lines": 45,
+      "sha256": "cb44585da8f07b1c26a455a72de4c33edc9df7ab2e6582f826f858a8b7819ecd",
       "modules": [],
       "exports": [],
       "test_declarations": 0
@@ -535,9 +546,9 @@
       "id": "docs/TELEMETRY.md",
       "type": "file",
       "area": "documentation",
-      "bytes": 8333,
-      "lines": 154,
-      "sha256": "aa877c8f5bce4284908032160345ca7fdbf0fe448e8dbbfd0411bd96136748e5",
+      "bytes": 8437,
+      "lines": 155,
+      "sha256": "3da0beac4cb83da4a1cdcd272a606a23a359c27fc30f494ef537130ea4a0afce",
       "modules": [],
       "exports": [],
       "test_declarations": 0
@@ -678,9 +689,9 @@
       "id": "docs/context/LAUNCH_PREPARATION.md",
       "type": "file",
       "area": "documentation",
-      "bytes": 7303,
-      "lines": 120,
-      "sha256": "118a705480d80e87f0269deab7b81f9d5d6d4c4bed813895f8ea52917c2e5c62",
+      "bytes": 9318,
+      "lines": 150,
+      "sha256": "afb08e7b87e80573cf7eac9adda9af9b212cd2c6952bec5cead3311739773b04",
       "modules": [],
       "exports": [],
       "test_declarations": 0
@@ -714,6 +725,17 @@
       "bytes": 17148,
       "lines": 168,
       "sha256": "6edccade44ba1266ae1ea6283351e9d1c7b5939824ef0eeff3005fd52fb928e0",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "docs/context/POSTHOG_DASHBOARD.md",
+      "type": "file",
+      "area": "documentation",
+      "bytes": 5210,
+      "lines": 86,
+      "sha256": "fd48d915ee7ba613c69eefafa754345016a87948823397f3739131fd8d1c6b53",
       "modules": [],
       "exports": [],
       "test_declarations": 0
@@ -758,6 +780,17 @@
       "bytes": 11745,
       "lines": 189,
       "sha256": "0b4ade9844b6fb93529f934c04a82fb633cbcec26a1c35b7a6906a57b6c148a8",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "docs/context/RELEASE_1_0_0.md",
+      "type": "file",
+      "area": "documentation",
+      "bytes": 4283,
+      "lines": 69,
+      "sha256": "af6d021819cc389459de3c82f7bb6cdda4bc2318b1d4d130fb11186ac787cd5d",
       "modules": [],
       "exports": [],
       "test_declarations": 0
@@ -1778,7 +1811,7 @@
       "area": "root-config",
       "bytes": 1608,
       "lines": 59,
-      "sha256": "d3c21e1e52e87de556afc90d10b8eecf95706e060ba22842aa3fabe42c832f3b",
+      "sha256": "0f486855571af2595d2743c056229032365ff884c20b6c32186b76feae80b7e1",
       "modules": [
         "VibeGuru.MixProject"
       ],
@@ -1803,9 +1836,9 @@
       "id": "package-lock.json",
       "type": "file",
       "area": "root-config",
-      "bytes": 44673,
+      "bytes": 44674,
       "lines": 1239,
-      "sha256": "a4ef7d78e83196603c0e334f12d151cf674e0bde3b56e91b6bdd944bb55ebb81",
+      "sha256": "f4e65e407728745f3ee1703033aaafc902b1ad185c60450e59ec6dc92dfcf27f",
       "modules": [],
       "exports": [],
       "test_declarations": 0
@@ -1814,9 +1847,9 @@
       "id": "package.json",
       "type": "file",
       "area": "root-config",
-      "bytes": 1894,
+      "bytes": 1912,
       "lines": 69,
-      "sha256": "c31804d1145921722bfa07ae858921889a52532dfb561544709f86e2c9aa41cb",
+      "sha256": "4ade1af1562e21ca8034120aec9a349223f71ab4a34bb16af7fd05e1b5aeb7bd",
       "modules": [],
       "exports": [],
       "test_declarations": 0
@@ -2014,9 +2047,9 @@
       "id": "scripts/lib/telemetry.js",
       "type": "file",
       "area": "tooling-distribution",
-      "bytes": 11680,
-      "lines": 230,
-      "sha256": "4e773750a4dbe508f9f152f7544d11a6d81b05e8f36f5537da4b70e40178e2bb",
+      "bytes": 11838,
+      "lines": 232,
+      "sha256": "bdc19a31a4bc159878ce27e44be50efd928fc42b7f0667f47d74e175b5a8013d",
       "modules": [],
       "exports": [
         " createTelemetry, summarizeReport, sanitize, configPath, enable, disable, status, validHost, validKey, validUuid, UUID "
@@ -2972,9 +3005,9 @@
       "id": "test-node/telemetry.test.js",
       "type": "file",
       "area": "tests",
-      "bytes": 13707,
-      "lines": 252,
-      "sha256": "0e92c4c54a9f1317b979781fc793cbfe7ae992cf6232b102fe52cb6f8152bd35",
+      "bytes": 14327,
+      "lines": 268,
+      "sha256": "b5ad78513d164be284a84a39cf5723c050dae32c3a6476809344a361883c6217",
       "modules": [],
       "exports": [],
       "test_declarations": 14
@@ -3510,6 +3543,12 @@
     },
     {
       "source": "documentation",
+      "target": "CHANGELOG.md",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "documentation",
       "target": "PROJECT_CONTEXT.md",
       "relation": "contains",
       "basis": "path"
@@ -3648,6 +3687,12 @@
     },
     {
       "source": "documentation",
+      "target": "docs/context/POSTHOG_DASHBOARD.md",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "documentation",
       "target": "docs/context/PRODUCT_STRATEGY.md",
       "relation": "contains",
       "basis": "path"
@@ -3667,6 +3712,12 @@
     {
       "source": "documentation",
       "target": "docs/context/REAL_APP_EVALUATION.md",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "documentation",
+      "target": "docs/context/RELEASE_1_0_0.md",
       "relation": "contains",
       "basis": "path"
     },

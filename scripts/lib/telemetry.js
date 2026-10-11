@@ -29,7 +29,9 @@ const EVENTS = new Set(["vibeguru_run_started", "vibeguru_run_completed", "vibeg
 const MAX_CONFIG_BYTES = 8192;
 const MAX_PENDING = 20;
 const MAX_SEEN = 256;
-const TIMEOUT_MS = 800;
+// A cold cross-region TLS connection can exceed one second. Keep reporting
+// bounded without dropping ordinary successful connections before they respond.
+const TIMEOUT_MS = 5000;
 
 function configPath(env = process.env) {
   const directory = env.VIBEGURU_CONFIG_DIR || (process.platform === "win32"

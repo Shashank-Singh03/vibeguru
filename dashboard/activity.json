@@ -1,5 +1,64 @@
 [
   {
+    "id": "release-1.0.0-preparation-2026-10-12",
+    "at": "2026-10-11T18:49:05.915497+00:00",
+    "kind": "maintenance",
+    "title": "Prepare 1.0.0 source release and preserve distribution gates",
+    "description": "Founder authorized versioning, commit and push. Align npm/engine and installation notes; include reviewed analytics follow-up, release notes and explicit Chromium setup for browser tests. Native support and public downloads remain separate gates because source hosting is private. Actual repository/package checks and remote state are retained under the release evidence directory.",
+    "vector_ids": [],
+    "files": [
+      "package.json",
+      "package-lock.json",
+      "mix.exs",
+      ".github/workflows/ci.yml",
+      ".github/workflows/release.yml",
+      "CHANGELOG.md",
+      "docs/context/RELEASE_1_0_0.md"
+    ],
+    "evidence_paths": [
+      "reports/release-1.0.0/",
+      "reports/test-history/",
+      "docs/context/RELEASE_1_0_0.md"
+    ]
+  },
+  {
+    "id": "posthog-usage-dashboard-2026-10-11",
+    "at": "2026-10-11T16:11:10Z",
+    "kind": "validation",
+    "title": "Vibe Guru Usage dashboard created and verified in PostHog",
+    "description": "Connected OAuth verified US project 658479. Saved unshared dashboard 2197466 with eight queried insights and two interpretation cards; forced recalculation passed. Seven founder events from one installation include two CLI PASS completions, two MCP execution errors and one orphan completion. Optional categories/feedback are absent, not fabricated; run_id coverage and fixture/opt-in limits stay visible.",
+    "vector_ids": [],
+    "files": [
+      "docs/context/POSTHOG_DASHBOARD.md",
+      "docs/TELEMETRY.md",
+      "docs/context/LAUNCH_PREPARATION.md"
+    ],
+    "evidence_paths": [
+      "reports/posthog-dashboard-2026-10-11/verification.json",
+      "docs/context/POSTHOG_DASHBOARD.md"
+    ]
+  },
+  {
+    "id": "posthog-local-activation-2026-10-11",
+    "at": "2026-10-11T14:48:14.720481+00:00",
+    "kind": "validation",
+    "title": "Founder PostHog activated and verified with real CLI fixture metadata",
+    "description": "Saved explicit local consent/config using the public token from the ignored key folder. Real clean React run passed three cycles and six assertions; start/completion events were accepted with HTTP 200. Retained failed 800 ms and three-second attempts; bounded transport now permits five seconds per event and regression covers slow success plus hung failure. No customer usage or provisioned charts claimed; key not embedded or uploaded to Git.",
+    "vector_ids": [],
+    "files": [
+      ".gitignore",
+      "scripts/lib/telemetry.js",
+      "test-node/telemetry.test.js",
+      "docs/TELEMETRY.md",
+      "docs/context/LAUNCH_PREPARATION.md"
+    ],
+    "evidence_paths": [
+      "reports/posthog-activation-2026-10-11/attempt-3/summary.json",
+      "reports/posthog-activation-2026-10-11/summary.json",
+      "reports/posthog-activation-2026-10-11/attempt-2/summary.json"
+    ]
+  },
+  {
     "id": "source-sync-review-2026-10-11",
     "at": "2026-10-11T14:36:32.413039+00:00",
     "kind": "maintenance",

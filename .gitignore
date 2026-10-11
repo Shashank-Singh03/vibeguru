@@ -63,3 +63,7 @@ handover.md
 __pycache__/
 *.py[cod]
 vibeguru-*.tgz
+
+# Local PostHog configuration supplied by the founder.
+/hogpostkey/
+hogpostkey.env

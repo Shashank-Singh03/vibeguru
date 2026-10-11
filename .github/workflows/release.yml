@@ -124,6 +124,7 @@ jobs:
       - name: Check source contracts before building assets
         run: |
           npm ci --ignore-scripts
+          npx playwright install --with-deps chromium
           npm test
           mix format --check-formatted
           MIX_ENV=test mix compile --warnings-as-errors

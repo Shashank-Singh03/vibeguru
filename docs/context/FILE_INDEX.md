@@ -1,6 +1,6 @@
 # Repository file index
 
-Generated from `feat/census-probe` at `2f6429988a98b7ddc2833f9d312880b6fdd59353`.
+Generated from `main` at `7196e1120e716ecd2933253da0814a83d50f3bd3`.
 
 Refresh with `python scripts/context-map.py`. SHA-256 and static edges live in [graph.json](graph.json).
 
@@ -27,8 +27,8 @@ This index covers repository-owned files. Dependencies, build output, session da
 
 | File | Lines | Module / public names | Test declarations |
 |---|---:|---|---:|
-| [.github/workflows/ci.yml](../../.github/workflows/ci.yml) | 198 | — | — |
-| [.github/workflows/release.yml](../../.github/workflows/release.yml) | 282 | — | — |
+| [.github/workflows/ci.yml](../../.github/workflows/ci.yml) | 199 | — | — |
+| [.github/workflows/release.yml](../../.github/workflows/release.yml) | 283 | — | — |
 | [Jenkinsfile](../../Jenkinsfile) | 216 | — | — |
 
 ## documentation
@@ -36,13 +36,14 @@ This index covers repository-owned files. Dependencies, build output, session da
 | File | Lines | Module / public names | Test declarations |
 |---|---:|---|---:|
 | [AGENTS.md](../../AGENTS.md) | 21 | — | — |
-| [PROJECT_CONTEXT.md](../../PROJECT_CONTEXT.md) | 110 | — | — |
+| [CHANGELOG.md](../../CHANGELOG.md) | 32 | — | — |
+| [PROJECT_CONTEXT.md](../../PROJECT_CONTEXT.md) | 129 | — | — |
 | [README.md](../../README.md) | 195 | — | — |
 | [docs/ARCHITECTURE-investigation.md](../../docs/ARCHITECTURE-investigation.md) | 272 | VibeGuru.Investigation.State | — |
 | [docs/ARCHITECTURE-memory-client.md](../../docs/ARCHITECTURE-memory-client.md) | 278 | — | — |
 | [docs/GETTING_STARTED.md](../../docs/GETTING_STARTED.md) | 150 | — | — |
-| [docs/RELEASING.md](../../docs/RELEASING.md) | 39 | — | — |
-| [docs/TELEMETRY.md](../../docs/TELEMETRY.md) | 154 | — | — |
+| [docs/RELEASING.md](../../docs/RELEASING.md) | 45 | — | — |
+| [docs/TELEMETRY.md](../../docs/TELEMETRY.md) | 155 | — | — |
 | [docs/commercial/DELIVERY_TEMPLATE.md](../../docs/commercial/DELIVERY_TEMPLATE.md) | 66 | — | — |
 | [docs/commercial/DISCOVERY.md](../../docs/commercial/DISCOVERY.md) | 36 | — | — |
 | [docs/commercial/OUTREACH_DRAFTS.md](../../docs/commercial/OUTREACH_DRAFTS.md) | 54 | — | — |
@@ -55,14 +56,16 @@ This index covers repository-owned files. Dependencies, build output, session da
 | [docs/context/DESKTOP_EVALUATION.md](../../docs/context/DESKTOP_EVALUATION.md) | 196 | — | — |
 | [docs/context/GIT_SYNC.md](../../docs/context/GIT_SYNC.md) | 79 | — | — |
 | [docs/context/IMPLEMENTATION.md](../../docs/context/IMPLEMENTATION.md) | 90 | — | — |
-| [docs/context/LAUNCH_PREPARATION.md](../../docs/context/LAUNCH_PREPARATION.md) | 120 | — | — |
+| [docs/context/LAUNCH_PREPARATION.md](../../docs/context/LAUNCH_PREPARATION.md) | 150 | — | — |
 | [docs/context/NETWORK_EVALUATION.md](../../docs/context/NETWORK_EVALUATION.md) | 208 | — | — |
 | [docs/context/NEXT_DECISIONS.md](../../docs/context/NEXT_DECISIONS.md) | 126 | — | — |
 | [docs/context/NORTH_STAR.md](../../docs/context/NORTH_STAR.md) | 168 | — | — |
+| [docs/context/POSTHOG_DASHBOARD.md](../../docs/context/POSTHOG_DASHBOARD.md) | 86 | — | — |
 | [docs/context/PRODUCT_STRATEGY.md](../../docs/context/PRODUCT_STRATEGY.md) | 98 | — | — |
 | [docs/context/PRODUCT_THESIS.md](../../docs/context/PRODUCT_THESIS.md) | 88 | — | — |
 | [docs/context/RATE_LIMIT_INVENTORY.md](../../docs/context/RATE_LIMIT_INVENTORY.md) | 219 | — | — |
 | [docs/context/REAL_APP_EVALUATION.md](../../docs/context/REAL_APP_EVALUATION.md) | 189 | — | — |
+| [docs/context/RELEASE_1_0_0.md](../../docs/context/RELEASE_1_0_0.md) | 69 | — | — |
 | [docs/context/ROBOT_MAIN_EVALUATION.md](../../docs/context/ROBOT_MAIN_EVALUATION.md) | 104 | — | — |
 | [docs/context/STATE_RESILIENCE.md](../../docs/context/STATE_RESILIENCE.md) | 207 | — | — |
 | [docs/context/TEST_TIMING.md](../../docs/context/TEST_TIMING.md) | 73 | — | — |
@@ -214,7 +217,7 @@ This index covers repository-owned files. Dependencies, build output, session da
 
 | File | Lines | Module / public names | Test declarations |
 |---|---:|---|---:|
-| [dashboard/activity.json](../../dashboard/activity.json) | 383 | — | — |
+| [dashboard/activity.json](../../dashboard/activity.json) | 442 | — | — |
 | [dashboard/app.js](../../dashboard/app.js) | 433 | — | — |
 | [dashboard/index.html](../../dashboard/index.html) | 58 | — | — |
 | [dashboard/styles.css](../../dashboard/styles.css) | 10 | — | — |
@@ -244,7 +247,7 @@ This index covers repository-owned files. Dependencies, build output, session da
 | File | Lines | Module / public names | Test declarations |
 |---|---:|---|---:|
 | [.formatter.exs](../../.formatter.exs) | 4 | — | — |
-| [.gitignore](../../.gitignore) | 65 | — | — |
+| [.gitignore](../../.gitignore) | 69 | — | — |
 | [LICENSE](../../LICENSE) | 21 | — | — |
 | [mix.exs](../../mix.exs) | 59 | VibeGuru.MixProject; application; project | — |
 | [mix.lock](../../mix.lock) | 13 | — | — |
@@ -276,7 +279,7 @@ This index covers repository-owned files. Dependencies, build output, session da
 | [test-node/snapshot-run.test.js](../../test-node/snapshot-run.test.js) | 115 | — | 6 |
 | [test-node/snapshot.test.js](../../test-node/snapshot.test.js) | 218 | — | 11 |
 | [test-node/storage-resilience.test.js](../../test-node/storage-resilience.test.js) | 169 | — | 6 |
-| [test-node/telemetry.test.js](../../test-node/telemetry.test.js) | 252 | — | 14 |
+| [test-node/telemetry.test.js](../../test-node/telemetry.test.js) | 268 | — | 14 |
 | [test-node/timing.test.js](../../test-node/timing.test.js) | 46 | — | 3 |
 | [test-node/validity.test.js](../../test-node/validity.test.js) | 202 | — | 15 |
 | [test-node/write-integrity.test.js](../../test-node/write-integrity.test.js) | 176 | — | 10 |
@@ -321,7 +324,7 @@ This index covers repository-owned files. Dependencies, build output, session da
 | [scripts/lib/platform.js](../../scripts/lib/platform.js) | 57 |  REPO, ASSETS, packageRoot, platformKey, assetName, binaryPath, driverPath, downloadUrl  | — |
 | [scripts/lib/setup.js](../../scripts/lib/setup.js) | 74 |  ensureBinary, ensureChromium, isChromiumInstalled, checksumFor, RELEASE_HOSTS  | — |
 | [scripts/lib/telemetry-cli.js](../../scripts/lib/telemetry-cli.js) | 88 |  telemetryCommand, startCliRun, reportFile  | — |
-| [scripts/lib/telemetry.js](../../scripts/lib/telemetry.js) | 230 |  createTelemetry, summarizeReport, sanitize, configPath, enable, disable, status, validHost, validKey, validUuid, UUID  | — |
+| [scripts/lib/telemetry.js](../../scripts/lib/telemetry.js) | 232 |  createTelemetry, summarizeReport, sanitize, configPath, enable, disable, status, validHost, validKey, validUuid, UUID  | — |
 | [scripts/lib/test-history.mjs](../../scripts/lib/test-history.mjs) | 65 | beginSuite; finishSuite; parseTap; saveSuite; sourceRevision | — |
 | [scripts/lib/timing.mjs](../../scripts/lib/timing.mjs) | 46 | distribution; timingAnalytics | — |
 | [scripts/package-smoke.mjs](../../scripts/package-smoke.mjs) | 134 | — | — |

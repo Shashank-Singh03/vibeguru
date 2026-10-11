@@ -2,6 +2,16 @@
 
 Code-audited context snapshot: **8 October 2026 (Asia/Calcutta)**.
 
+**12 October 1.0.0 preparation:** The founder explicitly authorized versioning,
+committing and pushing the reviewed changes for the 1.0.0 release. This supersedes
+the earlier local-only instruction for this source release. The npm manifest,
+lockfile and Elixir engine now target 1.0.0; the report schema stays 2. Read
+[RELEASE_1_0_0.md](docs/context/RELEASE_1_0_0.md) and [CHANGELOG.md](CHANGELOG.md)
+before publication. Source/tag synchronization is separate from passing native
+builds and public installation: the current private-repository download URLs
+remain a public-distribution blocker. Desktop originals, keys, local consent
+configuration and raw experiment evidence remain excluded from Git.
+
 **11 October Git synchronization:** The founder explicitly authorized review,
 staging, committing and pushing this repository's accumulated changes. The current
 `feat/census-probe` branch contains all five local branch tips; the earlier feature
@@ -20,8 +30,17 @@ Changes view. Read [LAUNCH_PREPARATION.md](docs/context/LAUNCH_PREPARATION.md),
 [GETTING_STARTED.md](docs/GETTING_STARTED.md) and
 [TEST_TIMING.md](docs/context/TEST_TIMING.md) for evidence, remaining account/release
 gates and actual durations. Repository privacy remains with the founder; Git source
-synchronization is now authorized as described above. Analytics activation awaits the public
-PostHog project token; no customer events or native support are claimed.
+synchronization is now authorized as described above. The founder subsequently supplied
+the public PostHog token in the ignored `hogpostkey/` folder. Local consent/config
+is enabled; a three-cycle clean fixture produced start/completion events accepted
+with HTTP 200. The bounded analytics deadline is now five seconds to accommodate
+observed cold connections. See the activation section in
+[LAUNCH_PREPARATION.md](docs/context/LAUNCH_PREPARATION.md). The connected PostHog
+agent subsequently created and queried all eight insights in the unshared
+[Vibe Guru Usage dashboard](https://us.posthog.com/project/658479/dashboard/2197466).
+Read [POSTHOG_DASHBOARD.md](docs/context/POSTHOG_DASHBOARD.md) for saved IDs,
+run-ID delivery coverage and missing audience/feedback data. Existing activity is
+founder fixture telemetry; customer usage and native support remain unproven.
 
 This folder is named `vibecheck`; the product and npm package are **Vibe Guru / vibeguru**. It is an Elixir orchestration and analysis engine with a Node/Playwright/Chromium measurement driver, a Node MCP server, and an npm distribution wrapper. The React app in `test-app/` is deliberately broken test infrastructure.
 

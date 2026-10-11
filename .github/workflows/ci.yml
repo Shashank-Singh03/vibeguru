@@ -93,10 +93,11 @@ jobs:
           node-version: ${{ matrix.node }}
           cache: npm
 
-      # --ignore-scripts because postinstall downloads the release binary for this
-      # version, which does not exist until the release is cut. The unit tests do not
-      # need it: the MCP server validates its inputs before it ever resolves a binary.
+      # Skip the unreleased engine download. Authored fixture tests now launch a
+      # real browser; install Chromium explicitly before running the Node suite.
       - run: npm ci --ignore-scripts
+
+      - run: npx playwright install --with-deps chromium
 
       - run: npm test
 

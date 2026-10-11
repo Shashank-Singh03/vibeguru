@@ -1,11 +1,16 @@
 # Releasing Vibe Guru
 
-This change prepares **0.2.0**; it does not publish an npm package or GitHub release.
+The founder authorized version **1.0.0** source preparation and Git synchronization
+on 12 October 2026. Source versioning, tag-triggered native builds and public
+distribution are separate steps. See [release notes](../CHANGELOG.md) and the
+[1.0.0 context record](context/RELEASE_1_0_0.md) for the current boundaries.
 
 ## Source and dependencies
 
 - Keep `mix.exs`, `package.json` and the root lockfile version aligned.
 - Pin the same Playwright version in the root and driver manifests/lockfiles.
+- Resolve public artifact hosting and customer support links before the final
+  release commit and tag. A versioned source-preparation commit can be pushed first.
 - Commit the reviewed source, tests, commercial/context artifacts and LICENSE.
 - Run formatting, warning-free compilation, Elixir tests, Node tests and the isolated package smoke test.
 
@@ -17,8 +22,9 @@ The npm wrapper accepts `VIBEGURU_BINARY` for source and staged-native testing. 
 2. The Linux build cross-compiles all four configured targets and creates `SHA256SUMS`.
 3. Separate Windows, Linux, macOS Intel and macOS ARM runners install the actual tarball and exercise each native asset. They test CLI/browser/MCP behavior, clean and defective fixtures, and exits 0/1/2/3/64.
 4. Retain those results. The workflow collects the version, commit, platform, binary hash and passed checks in `smoke-results.json`.
-5. After reviewing passing results, tag the same commit `v0.2.0`. The tag workflow repeats the gates; only passing native checks permit the GitHub release publication job.
-6. Run `npm run release:check` from the clean tagged checkout, then `npm publish`. `prepublishOnly` blocks publication unless the matching public release contains all assets, checksums and native smoke results for the exact commit.
+5. After reviewing passing results, tag the same commit `v1.0.0`. The tag workflow repeats the gates; only passing native checks permit the GitHub release publication job. With the current hosting configuration this creates a private release, not anonymous customer downloads.
+6. Once public artifact hosting is configured, run a fresh packaged installation with no `VIBEGURU_BINARY` override and no populated vendor cache. Verify actual checksum/binary downloads and CLI/browser/MCP operation. Existing staged native smoke deliberately bypasses downloading and cannot prove this.
+7. Run `npm run release:check` from the clean tagged checkout, then `npm publish`. `prepublishOnly` blocks publication unless the matching public release contains all assets, checksums and native smoke results for the exact commit. Verify the exact published npm version from a fresh environment.
 
 The versioned native assets must exist before npm publication. The installer verifies the matching asset against its release checksum and stores version/checksum metadata beside its cache. A missing checksum or mismatch is a failed installation, rather than a partially cached executable.
 

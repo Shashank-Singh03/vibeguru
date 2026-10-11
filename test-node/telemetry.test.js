@@ -245,8 +245,24 @@ test("real HTTP transport uses the documented ingest endpoint, refuses redirects
   assert.equal(captured.body.api_key, KEY);
   assert.equal(captured.body.event, "vibeguru_run_started");
   assert.equal(captured.body.properties.$process_person_profile, false);
+  https.request = (_url, _options, callback) => {
+    const request = new EventEmitter();
+    let timer;
+    request.destroy = () => clearTimeout(timer);
+    request.end = () => {
+      timer = setTimeout(() => {
+        const response = new EventEmitter();
+        response.statusCode = 200;
+        response.resume = () => queueMicrotask(() => response.emit("end"));
+        callback(response);
+      }, 1100);
+    };
+    return request;
+  };
+  assert.equal(await client.capture("vibeguru_run_started", { run_id: randomUUID() }), true,
+    "a normal cold connection slower than the old 800 ms deadline must succeed");
   https.request = () => { const request = new EventEmitter(); request.end = () => {}; request.destroy = () => {}; return request; };
   const started = performance.now();
   assert.equal(await client.capture("vibeguru_run_started", { run_id: randomUUID() }), false);
-  assert.ok(performance.now() - started < 1500, "hung ingestion must have a bounded deadline");
+  assert.ok(performance.now() - started < 6000, "hung ingestion must have a bounded deadline");
 });
