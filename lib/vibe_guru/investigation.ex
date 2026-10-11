@@ -1,32 +1,9 @@
 defmodule VibeGuru.Investigation do
   @moduledoc """
-  Drives one symptom at a time from "something is wrong here" to "this is why".
-
-  The survey pass reports facts with no explanation — `/charts` retains 178.8KB per
-  visit, leaks 5 listeners per visit, and holds 2 MutationObservers per visit. Three
-  findings, almost certainly one bug. This loop is what turns them into one cause with
-  one fix.
-
-  ## The loop spends nothing it does not have to
-
-  Its first move on every symptom is to read the evidence the survey **already
-  gathered**. A census ran during pass 0, so for `/charts` the loop can eliminate
-  "retained DOM subtree" and support "unreleased subscription" before it costs a single
-  millisecond. Many investigations resolve there, having run no probe at all.
-
-  Only when the free evidence runs out does it ask the policy for something new.
-
-  ## Budget is per run, not per symptom
-
-  A symptom that resolves cheaply leaves more for the next one. When the run budget is
-  gone the remaining symptoms are abandoned with a reason rather than silently dropped —
-  an investigation that stopped early is a different thing from one that found nothing,
-  and the report has to be able to say which.
-
-  ## Causes absorb their siblings
-
-  When a cause explains several findings, those findings are not investigated again. That
-  is the difference between one answer and three restatements of the same question.
+  Experimental, bounded investigation of individual findings. Survey observations may
+  support hypotheses, but flat or unavailable counts do not eliminate possible causes.
+  Findings on the same route remain independent. Results preserve the decision trail,
+  observations and unresolved hypotheses; a hypothesis is not a verified cause or fix.
   """
 
   alias VibeGuru.{Evidence, Finding}
@@ -69,20 +46,25 @@ defmodule VibeGuru.Investigation do
       findings: findings
     }
 
-    findings
-    |> symptoms(Keyword.get(opts, :max_symptoms, @default_symptoms))
-    |> Enum.reduce(%{causes: [], unresolved: [], budget: budget, explained: MapSet.new()}, fn
-      finding, acc -> investigate(finding, context, acc)
+    {selected, deferred} =
+      findings
+      |> Finding.sort()
+      |> Enum.split(Keyword.get(opts, :max_symptoms, @default_symptoms))
+
+    investigated =
+      Enum.reduce(
+        selected,
+        %{causes: [], unresolved: [], budget: budget, explained: MapSet.new()},
+        fn
+          finding, acc -> investigate(finding, context, acc)
+        end
+      )
+
+    Enum.reduce(deferred, investigated, fn finding, acc ->
+      state = initial_state(finding, context, acc.budget)
+      %{acc | unresolved: acc.unresolved ++ [record(finding, state, [], reason: :symptom_limit)]}
     end)
     |> finish()
-  end
-
-  # Worst first, because a budget that runs out should cost you the least important
-  # answers rather than an arbitrary slice.
-  defp symptoms(findings, limit) do
-    findings
-    |> Finding.sort()
-    |> Enum.take(limit)
   end
 
   defp investigate(finding, context, acc) do
@@ -110,8 +92,7 @@ defmodule VibeGuru.Investigation do
     )
   end
 
-  # Other findings on the same route. A cause that explains all of them is the outcome
-  # worth having, and it cannot be claimed without knowing what else is there.
+  # Co-located findings are context, not evidence of a shared cause.
   defp siblings(finding, findings) do
     route = Map.get(finding.location, :route)
 
@@ -143,15 +124,27 @@ defmodule VibeGuru.Investigation do
   # Recording happens whether the probe succeeded or not. A failed probe still consumed
   # an attempt, and without recording it the loop would ask for the same probe forever.
   defp execute(state, probe_id, focus, context) do
-    case context.run_probe.(probe_id, focus) do
+    started = System.monotonic_time(:millisecond)
+    outcome = context.run_probe.(probe_id, focus)
+    elapsed = System.monotonic_time(:millisecond) - started
+
+    case outcome do
       {:ok, result} ->
-        State.record(state, probe_id, result, Map.get(result, :updates, %{}))
+        reported = Map.get(result, :cost_ms, 0)
+        cost = if is_number(reported) and reported >= 0, do: max(elapsed, reported), else: elapsed
+
+        updates =
+          if get_in(result, [:measurement_validity, :status]) in [:partial, :unavailable],
+            do: %{},
+            else: Map.get(result, :updates, %{})
+
+        State.record(state, probe_id, Map.put(result, :cost_ms, cost), updates)
 
       {:error, reason} ->
         State.record(
           state,
           probe_id,
-          %{cost_ms: 0, summary: "probe failed: #{inspect(reason)}"},
+          %{cost_ms: elapsed, summary: "probe failed: #{inspect(reason)}", error: reason},
           %{}
         )
     end
@@ -188,7 +181,9 @@ defmodule VibeGuru.Investigation do
         symptom: state.symptom,
         finding_id: finding.id,
         decisions: trail,
-        probes_run: State.attempted(state)
+        probes_run: State.attempted(state),
+        hypotheses: state.hypotheses,
+        history: state.history
       },
       Map.new(extra)
     )
@@ -196,8 +191,7 @@ defmodule VibeGuru.Investigation do
 
   defp finish(acc), do: Map.take(acc, [:causes, :unresolved, :budget])
 
-  defp finding_key(%Finding{} = f),
-    do: "#{f.signature}@#{Map.get(f.location, :route, "/")}"
+  defp finding_key(%Finding{} = f), do: f.id
 
   # --- free evidence ------------------------------------------------------
 
@@ -219,19 +213,25 @@ defmodule VibeGuru.Investigation do
     ]
     |> Enum.reduce(state, fn
       {_probe, [], _read}, acc -> acc
-      {probe, found, read}, acc -> seed_step(acc, probe, read.(found))
+      {probe, found, read}, acc -> seed_step(acc, probe, read.(found), found)
     end)
   end
 
   # A probe whose evidence exists is recorded even when it changed nothing: it ran, it
   # answered, and asking for it again would buy the same answer twice.
-  defp seed_step(state, probe, updates) do
+  defp seed_step(state, probe, updates, evidence) do
     hypotheses = Enum.map(state.hypotheses, &apply_seed(&1, updates))
 
     step = %{
       probe: probe,
+      source: :survey,
       cost_ms: 0,
-      result: summarize(updates),
+      result:
+        if(map_size(updates) == 0,
+          do: "observations do not settle a hypothesis",
+          else: summarize(updates)
+        ),
+      observations: Enum.map(evidence, &Evidence.to_map/1),
       changed: hypotheses != state.hypotheses
     }
 
@@ -245,31 +245,25 @@ defmodule VibeGuru.Investigation do
     end
   end
 
-  # Node counts flat across cycles means nothing detached is being held, whatever else is
-  # wrong. Eliminating a candidate for free is worth as much as supporting one.
+  # Counts are aggregate observations, not retaining paths. Small positive growth and
+  # missing values must not be turned into evidence that no DOM objects are retained.
   defp dom_reading(samples) do
-    deltas =
-      samples
-      |> Enum.map(&Map.get(&1.data, "nodes"))
-      |> Enum.filter(&is_number/1)
-      |> Enum.chunk_every(2, 1, :discard)
-      |> Enum.map(fn [a, b] -> b - a end)
+    numbers = Enum.map(samples, &Map.get(&1.data, "nodes"))
 
-    cond do
-      deltas == [] ->
-        %{}
-
-      Enum.all?(deltas, &(&1 < 100)) ->
-        %{retained_dom_subtree: {:eliminated, "node count flat across cycles"}}
-
-      true ->
-        %{}
+    if length(numbers) >= 2 and Enum.all?(numbers, &numeric?/1) and
+         Enum.all?(samples, &(&1.data["gcOk"] == true)) and increasing?(numbers) do
+      %{
+        retained_dom_subtree:
+          {:supported,
+           "DOM node counts increased between sampled visits; retaining paths are unverified"}
+      }
+    else
+      %{}
     end
   end
 
-  # A class whose live count climbs every visit is a subscription nobody released — and
-  # a census that found nothing growing is evidence against one, not an absence of
-  # evidence.
+  # Valid growing counts support an investigation lead. They do not establish the
+  # owning component or rule out subscriptions invisible to the global census.
   defp census_reading(censuses) do
     growing =
       censuses
@@ -278,23 +272,48 @@ defmodule VibeGuru.Investigation do
 
     case growing do
       [] ->
-        %{unreleased_subscription: {:eliminated, "no live instance counts grew"}}
+        %{}
 
       classes ->
         names = classes |> Enum.map(fn {class, _} -> class end) |> Enum.sort() |> Enum.join(", ")
-        %{unreleased_subscription: {:supported, "live #{names} count grows every visit"}}
+
+        %{
+          unreleased_subscription:
+            {:supported,
+             "live #{names} counts increased between sampled visits; ownership and cleanup are unverified"}
+        }
     end
   end
 
   defp census_growth(censuses) do
     censuses
-    |> Enum.flat_map(fn ev -> ev.data |> Map.get("counts", %{}) |> Enum.to_list() end)
-    |> Enum.group_by(fn {class, _} -> class end, fn {_, count} -> count end)
-    |> Enum.map(fn {class, counts} ->
-      numbers = Enum.filter(counts, &is_number/1)
-      {class, if(length(numbers) < 2, do: 0, else: List.last(numbers) - List.first(numbers))}
+    |> Enum.flat_map(fn ev ->
+      case Map.get(ev.data, "counts") do
+        counts when is_map(counts) -> Map.keys(counts)
+        _ -> []
+      end
+    end)
+    |> Enum.uniq()
+    |> Enum.map(fn class ->
+      counts =
+        Enum.map(censuses, fn ev ->
+          case Map.get(ev.data, "counts") do
+            counts when is_map(counts) -> Map.get(counts, class)
+            _ -> nil
+          end
+        end)
+
+      valid = length(counts) >= 2 and Enum.all?(counts, &(is_integer(&1) and &1 >= 0))
+
+      {class,
+       if(valid and increasing?(counts), do: List.last(counts) - List.first(counts), else: 0)}
     end)
   end
+
+  defp numeric?(value), do: is_number(value) and value >= 0
+
+  defp increasing?(values),
+    do: values |> Enum.chunk_every(2, 1, :discard) |> Enum.all?(fn [a, b] -> b > a end)
 
   defp samples(evidence, route),
     do:

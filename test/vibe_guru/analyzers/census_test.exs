@@ -96,13 +96,14 @@ defmodule VibeGuru.Analyzers.CensusTest do
       assert finding.location == %{route: "/charts"}
     end
 
-    test "the finding says what it costs and how to release it" do
-      # The point of counting instances is advice that names the actual call, instead
-      # of "look for arrays/maps/caches at module scope".
+    test "class-specific suggestions require ownership and expected lifetime verification" do
       [finding] = chain([{"/charts", %{"Chart" => 1}}], 5) |> analyze()
 
       assert finding.summary =~ "canvas"
       assert finding.fix.hint =~ "chart.destroy()"
+      assert finding.fix.hint =~ "if these are confirmed Chart.js instances with ended lifetimes"
+      assert finding.summary =~ "Ownership and expected lifetime remain unverified"
+      refute finding.summary =~ "nothing will reclaim"
       assert finding.ai_prompt =~ "[Vibe Guru finding: retained_instances]"
       assert finding.ai_prompt =~ "/charts"
     end
@@ -128,8 +129,32 @@ defmodule VibeGuru.Analyzers.CensusTest do
       [finding] = chain([{"/x", %{"MyCustomThing" => 2}}], 5) |> analyze()
 
       assert finding.metrics.class == "MyCustomThing"
-      assert finding.summary =~ "holds whatever it references"
-      assert finding.fix.hint =~ "release it explicitly"
+      assert finding.summary =~ "whether that retention is expected"
+      assert finding.fix.hint =~ "if ownership and ended lifetimes are confirmed"
+    end
+
+    test "flow labels and constructor counts do not prove active resources or view unmount" do
+      for class <- ["MutationObserver", "Texture", "WebSocket", "Worker"] do
+        [finding] = chain([{"flow", %{class => 1}}], 5) |> analyze()
+        assert finding.signature == :retained_instances
+        assert finding.severity == :high
+        assert finding.metrics.instances_per_visit == 1
+        assert finding.metrics.instances_total == 4
+        assert finding.metrics.visits_measured == 4
+        assert finding.title == "#{class} count growth associated with flow"
+        assert finding.summary =~ "Samples labeled flow"
+        assert finding.summary =~ "remain unverified"
+        refute finding.summary =~ "keeps firing"
+        refute finding.summary =~ "never reclaimed"
+        refute finding.summary =~ "holds an open connection"
+        refute finding.summary =~ "is a live thread"
+        assert finding.ai_prompt =~ "does not confirm a view unmount or source location"
+
+        assert finding.ai_prompt =~
+                 "Constructor names alone do not establish a library or a cleanup bug"
+
+        refute finding.ai_prompt =~ "release the #{class} in its unmount"
+      end
     end
   end
 

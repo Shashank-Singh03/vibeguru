@@ -26,6 +26,23 @@ const cfg = (over = {}) => ({ routesLimit: 12, declaredRoutes: [], routeParams: 
 const paths = (routes) => routes.map((r) => r.path);
 const reasons = (skipped) => Object.fromEntries(skipped.map((s) => [s.path, s.reason]));
 
+test("history fallback without a rendered-view assertion is unverified", async()=>{
+  const {visitRoute}=await load();
+  const result=await visitRoute(fakePage(),{path:"/hidden",hrefAttr:null},0);
+  assert.equal(result.ok,false);
+  assert.equal(result.reason,"render_unverified");
+});
+
+test("a full document reload invalidates retained-state measurements", async()=>{
+  const {visitRoute}=await load();
+  const page=fakePage();let generation=0;
+  const evaluate=page.evaluate;
+  page.evaluate=async(fn,arg)=>String(fn).includes("__vibeguru_doc_token")?String(generation++):evaluate(fn,arg);
+  const result=await visitRoute(page,{path:"/a",hrefAttr:"/a"},0);
+  assert.equal(result.reason,"document_reloaded");
+  assert.equal(result.retentionInvalid,true);
+});
+
 // --- the invariant --------------------------------------------------------
 
 test("navigation never reloads the document", async () => {
@@ -177,7 +194,7 @@ test("a route with no link is entered by pushing history", async () => {
   const { visitRoute } = await load();
   const page = fakePage();
 
-  const result = await visitRoute(page, { path: "/hidden", hrefAttr: null }, 0);
+  const result = await visitRoute(page, { path: "/hidden", hrefAttr: null, expectedSelector: "h1" }, 0);
 
   assert.equal(result.ok, true);
   assert.deepEqual(page.calls.pushes, ["/hidden"]);
@@ -188,7 +205,7 @@ test("a link that cannot be clicked falls back rather than giving up", async () 
   const { visitRoute } = await load();
   const page = fakePage({ clickFails: true });
 
-  const result = await visitRoute(page, { path: "/a", hrefAttr: "/a" }, 0);
+  const result = await visitRoute(page, { path: "/a", hrefAttr: "/a", expectedSelector: "h1" }, 0);
 
   assert.equal(result.ok, true);
   assert.equal(page.calls.clicks.length, 1, "it tried the link first");
@@ -225,7 +242,7 @@ test("a trailing slash is not treated as a different route", async () => {
   const { visitRoute } = await load();
   const page = fakePage();
 
-  assert.equal((await visitRoute(page, { path: "/about/", hrefAttr: null }, 0)).ok, true);
+  assert.equal((await visitRoute(page, { path: "/about/", hrefAttr: null, expectedSelector: "h1" }, 0)).ok, true);
 });
 
 test("the run returns home after a route, so the next one starts clean", async () => {

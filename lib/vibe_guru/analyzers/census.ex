@@ -1,17 +1,8 @@
 defmodule VibeGuru.Analyzers.Census do
   @moduledoc """
-  Turns live-instance counts into findings — the first analyzer that can say what is
-  being retained, not just how much.
-
-  `Analyzers.Memory` reports that a route holds 178KB after every visit. True, and
-  almost impossible to act on: the fix advice can only be a list of things to go look
-  for. A census answers the next question down:
-
-      /charts retains 1 live Chart instance per visit
-
-  Same measurement discipline, one level more specific. That is the whole point of
-  probing adaptively rather than reporting a single pass — each extra measurement
-  should narrow *where*, never adjust *how confident*.
+  Turns observed instance-count growth into findings. Constructor names narrow the
+  investigation, but counts do not establish ownership, resource activity, a source
+  location, a confirmed view unmount or a specific cleanup fix.
 
   ## Runtime-agnostic on purpose
 
@@ -23,10 +14,10 @@ defmodule VibeGuru.Analyzers.Census do
   ## Method
 
   Identical to the memory analyzer, and deliberately so — consecutive diffs of the
-  count chain attribute growth to the route that caused it, the warm-up cycle is
+  count chain associate growth with a route or flow label, the warm-up cycle is
   dropped, and a route is only flagged when growth is both large enough and
-  consistent. A count that goes up and down is a cache doing its job; one that only
-  goes up is a leak.
+  consistent. Expected caching, delayed cleanup and leaks require further evidence
+  to distinguish; this analyzer retains the `retained_instances` compatibility signature.
   """
 
   @behaviour VibeGuru.Analyzer
@@ -34,43 +25,54 @@ defmodule VibeGuru.Analyzers.Census do
   alias VibeGuru.Finding
 
   @defaults %{
-    # One retained instance per visit is a leak — these are not objects an app should
-    # be accumulating. The floor exists to ignore a single stray allocation, not to
-    # tolerate growth.
+    # A reporting floor for growth, not proof of an incorrect object lifetime.
     per_route_min_instances: 1,
     census_consistency_min: 0.6
   }
 
-  # What each class costs when it is retained, in words a developer can act on.
+  # Investigation questions, not resource states inferred from an instance count.
   @consequence %{
-    "Chart" => "each retained chart keeps its canvas and full dataset alive",
-    "WebGLRenderer" => "each retained renderer holds a GPU context, and browsers cap those",
-    "Scene" => "each retained scene keeps its whole object graph and textures alive",
-    "Texture" => "each retained texture holds GPU memory that is never reclaimed",
+    "Chart" =>
+      "check whether the counted objects retain a canvas or dataset beyond its expected lifetime",
+    "WebGLRenderer" => "check whether the counted renderers still own active GPU resources",
+    "Scene" => "inspect the counted scenes' object graphs and expected lifetime",
+    "Texture" => "check whether the counted textures still own allocated GPU resources",
     "MutationObserver" =>
-      "each observer keeps firing and retains everything its callback closes over",
+      "check whether the counted observers are connected and which callbacks they retain",
     "ResizeObserver" =>
-      "each observer keeps firing and retains everything its callback closes over",
+      "check whether the counted observers are connected and which callbacks they retain",
     "IntersectionObserver" =>
-      "each observer keeps firing and retains everything its callback closes over",
-    "PerformanceObserver" => "each observer keeps buffering entries",
-    "WebSocket" => "each socket holds an open connection and its handlers",
-    "EventSource" => "each stream holds an open connection and keeps reconnecting",
-    "Worker" => "each worker is a live thread with its own heap"
+      "check whether the counted observers are connected and which callbacks they retain",
+    "PerformanceObserver" =>
+      "check whether the counted observers are active or buffering entries",
+    "WebSocket" => "check the counted sockets' connection states and handler ownership",
+    "EventSource" => "check the counted streams' connection states and retry behavior",
+    "Worker" => "check whether the counted worker objects represent running workers"
   }
 
   @cleanup %{
-    "Chart" => "call chart.destroy() in the effect cleanup",
-    "WebGLRenderer" => "call renderer.dispose() and lose the WebGL context in the cleanup",
-    "Scene" => "dispose geometries, materials and textures, then drop the scene reference",
-    "Texture" => "call texture.dispose() when the material is torn down",
-    "MutationObserver" => "call observer.disconnect() in the effect cleanup",
-    "ResizeObserver" => "call observer.disconnect() in the effect cleanup",
-    "IntersectionObserver" => "call observer.disconnect() in the effect cleanup",
-    "PerformanceObserver" => "call observer.disconnect() in the effect cleanup",
-    "WebSocket" => "call socket.close() in the effect cleanup",
-    "EventSource" => "call source.close() in the effect cleanup",
-    "Worker" => "call worker.terminate() in the effect cleanup"
+    "Chart" =>
+      "if these are confirmed Chart.js instances with ended lifetimes, inspect the chart.destroy() disposal path",
+    "WebGLRenderer" =>
+      "if renderer ownership and ended lifetimes are confirmed, inspect the library's documented disposal path",
+    "Scene" =>
+      "if scene ownership and ended lifetimes are confirmed, inspect disposal of owned geometries, materials and textures",
+    "Texture" =>
+      "if texture ownership and ended lifetimes are confirmed, inspect the texture.dispose() path",
+    "MutationObserver" =>
+      "if an observer remains connected beyond its expected lifetime, inspect the observer.disconnect() path",
+    "ResizeObserver" =>
+      "if an observer remains connected beyond its expected lifetime, inspect the observer.disconnect() path",
+    "IntersectionObserver" =>
+      "if an observer remains connected beyond its expected lifetime, inspect the observer.disconnect() path",
+    "PerformanceObserver" =>
+      "if an observer remains active beyond its expected lifetime, inspect the observer.disconnect() path",
+    "WebSocket" =>
+      "if an owned socket remains open beyond its expected lifetime, inspect the socket.close() path",
+    "EventSource" =>
+      "if an owned stream remains open beyond its expected lifetime, inspect the source.close() path",
+    "Worker" =>
+      "if an owned worker still runs beyond its expected lifetime, inspect the worker.terminate() path"
   }
 
   @impl true
@@ -167,11 +169,11 @@ defmodule VibeGuru.Analyzers.Census do
           signature: :retained_instances,
           severity: :high,
           confidence: confidence(stats),
-          title: "#{class} instances retained on #{route}",
+          title: "#{class} count growth associated with #{route}",
           summary:
-            "Visiting #{route} leaves ~#{per_visit} live #{class} instance(s) behind every " <>
-              "time (#{stats.total} total across #{stats.n} visits). They survive garbage " <>
-              "collection, so nothing will reclaim them — #{consequence(class)}.",
+            "Samples labeled #{route} show an average increase of ~#{per_visit} counted #{class} instance(s) " <>
+              "per measured interval (#{stats.total} net increase across #{stats.n} intervals; " <>
+              "positive deltas #{round(stats.pos_frac * 100)}%). Ownership and expected lifetime remain unverified; #{consequence(class)}.",
           metrics: %{
             class: class,
             instances_per_visit: per_visit,
@@ -180,12 +182,11 @@ defmodule VibeGuru.Analyzers.Census do
           },
           location: %{route: route},
           fix: %{
-            summary: "Release the #{class} when the view unmounts",
+            summary: "Investigate #{class} ownership and expected lifetime",
             hint:
-              "#{cleanup(class)}. The count rising on every visit means the reference " <>
-                "outlives the component — check for one held in a ref, a module-level " <>
-                "variable, or a closure passed to something longer-lived.",
-            files_to_check: ["component rendered at route #{route}"]
+              "Trace retaining paths and verify resource state before proposing a change; #{cleanup(class)}. " <>
+                "Compare the same measurement against an unchanged control and verify any candidate change by re-running it.",
+            files_to_check: ["code exercised by route or flow label #{route}"]
           },
           ai_prompt: ai_prompt(route, class, per_visit, stats)
         }
@@ -205,20 +206,30 @@ defmodule VibeGuru.Analyzers.Census do
   defp ai_prompt(route, class, per_visit, stats) do
     """
     [Vibe Guru finding: retained_instances]
-    Where: route #{route}
-    Problem: every visit to #{route} leaves ~#{per_visit} live #{class} instance(s) alive after garbage collection (#{stats.total} across #{stats.n} visits). #{String.capitalize(consequence(class))}.
+    Where: route or flow label #{route}
+    Observation: the count of #{class} increases by an average ~#{per_visit} per measured interval labeled #{route} (#{stats.total} net increase across #{stats.n} intervals). Ownership, resource state and expected lifetime require verification. #{String.capitalize(consequence(class))}.
     Evidence: class=#{class}, instances_per_visit=#{per_visit}, instances_total=#{stats.total}
-    Fix: #{cleanup(class)}, and make sure nothing outside the component still holds the reference.
-    Action: open the component rendered at #{route}, release the #{class} in its unmount/cleanup path, then re-run to confirm the count stops growing.
+    Investigation suggestions: #{cleanup(class)}. Constructor names alone do not establish a library or a cleanup bug.
+    Action: verify measurement coverage and GC status, reproduce against an unchanged control, and trace the counted objects to their owners and expected lifetimes. A route or flow label does not confirm a view unmount or source location. Propose a change only when supporting evidence identifies a cause, then repeat the same measurement to check its effect.
     """
     |> String.trim()
   end
 
   defp consequence(class),
-    do: Map.get(@consequence, class, "each retained instance holds whatever it references")
+    do:
+      Map.get(
+        @consequence,
+        class,
+        "inspect what the counted objects reference and whether that retention is expected"
+      )
 
   defp cleanup(class),
-    do: Map.get(@cleanup, class, "release it explicitly when the view unmounts")
+    do:
+      Map.get(
+        @cleanup,
+        class,
+        "if ownership and ended lifetimes are confirmed, inspect the object's documented release or disposal path"
+      )
 
   # --- helpers ------------------------------------------------------------
 
@@ -234,8 +245,7 @@ defmodule VibeGuru.Analyzers.Census do
   defp num(value) when is_number(value), do: value
   defp num(_), do: nil
 
-  # Half an instance per visit is still an instance the app never releases, so round
-  # up rather than reporting a leak as "0 per visit".
+  # Keep small positive average growth visible in the compatibility metric.
   defp round_up(avg) when avg > 0, do: max(1, round(avg))
   defp round_up(_), do: 0
 

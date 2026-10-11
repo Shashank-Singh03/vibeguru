@@ -53,6 +53,7 @@ function withDefaults(cfg) {
     // receiving the declared route list at all.
     declaredRoutes: Array.isArray(cfg.declaredRoutes) ? cfg.declaredRoutes : [],
     routeParams: cfg.routeParams && typeof cfg.routeParams === "object" ? cfg.routeParams : {},
+    routeExpectations: cfg.routeExpectations && typeof cfg.routeExpectations === "object" ? cfg.routeExpectations : {},
     // Class names to count live instances of, chosen by the Elixir detector from the
     // libraries it found. Named explicitly: this function builds a fresh object, so
     // anything not listed here is dropped silently — which is how declaredRoutes went

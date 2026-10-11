@@ -32,8 +32,18 @@ defmodule VibeGuru.Probes.Memory.Client do
     ]
 
     case Driver.run(driver_config(profile, config), opts) do
-      {:ok, %{events: events}} -> {:ok, Enum.map(events, &to_evidence/1)}
-      {:error, reason} -> {:error, reason}
+      {:ok, %{events: events, result: result}} ->
+        evidence =
+          events
+          |> Enum.with_index()
+          |> Enum.map(fn {event, index} ->
+            event |> to_evidence() |> then(&%{&1 | id: "ev_#{index}_#{&1.id}"})
+          end)
+
+        {:ok, evidence ++ [Evidence.new(id(), :run_result, data: result)]}
+
+      {:error, reason} ->
+        {:error, reason}
     end
   end
 
@@ -55,11 +65,13 @@ defmodule VibeGuru.Probes.Memory.Client do
       # Values for dynamic segments, e.g. %{"id" => "1"}. Without them a route like
       # /users/[id] cannot be visited and is counted as uncovered rather than guessed.
       "routeParams" => Map.get(config, :route_params, %{}),
+      "routeExpectations" => Map.get(config, :route_expectations, %{}),
       # Classes to count live instances of, chosen from the libraries the detector
       # found. Turns "retains 178KB" into "retains one Chart instance".
       "censusTargets" => Map.get(config, :census_targets, []),
       # A session saved by `vibeguru auth`, so routes behind a login are reachable.
-      "storageState" => Map.get(config, :storage_state)
+      "storageState" => Map.get(config, :storage_state),
+      "timeoutMs" => Map.get(config, :timeout_ms, 600_000)
     }
   end
 
@@ -79,7 +91,10 @@ defmodule VibeGuru.Probes.Memory.Client do
     "marker" => :marker,
     "runtime_event" => :runtime_event,
     "coverage" => :coverage,
-    "census" => :census
+    "census" => :census,
+    "journey_assertion" => :journey_assertion,
+    "journey_result" => :journey_result,
+    "experiment_observation" => :experiment_observation
   }
   @phases %{"baseline" => :baseline, "cycle" => :cycle, "cooldown" => :cooldown}
 

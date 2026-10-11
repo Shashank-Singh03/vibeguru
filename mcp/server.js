@@ -2,11 +2,9 @@
 
 // server.js — Vibe Guru as an MCP server.
 //
-// The bet this file makes: a coding agent can read source all day and still not know
-// whether the app runs. It can drive a browser itself through a generic automation
-// server, but then it pays to look at the page and reason about what it sees — on the
-// order of a hundred thousand tokens for one verification. Here the looking and the
-// reasoning happen in Elixir, deterministically, and the agent gets a verdict back.
+// A browser measurement run returns a scoped verdict and retained evidence for
+// a coding agent to investigate. It does not establish all business outcomes or
+// prove that a suspicious retention trend is an application memory leak.
 //
 // So the tool surface is deliberately small. Every tool definition is schema the
 // client loads into context before the agent has done anything at all, and a server
@@ -14,6 +12,8 @@
 
 const { analyze, readFindings } = require("./engine");
 const { renderReport, filterFindings } = require("./render");
+const { createTelemetry, summarizeReport } = require("../scripts/lib/telemetry");
+const telemetry = createTelemetry();
 
 const NAME = "vibeguru";
 
@@ -55,12 +55,13 @@ async function main() {
       title: "Verify the app actually runs",
       description:
         "Run the web app in a real browser and report what breaks at runtime: uncaught " +
-        "exceptions, runaway re-renders, failed requests, console errors, and memory leaks. " +
-        "Starts the dev server if it is not already running, exercises every route it can " +
-        "reach, and returns measured findings with a fix for each. The analysis is " +
-        "deterministic — no model is involved, so the same defect reports identically every " +
-        "time. Call this after making changes, before reporting work as done. Takes roughly " +
-        "one to three minutes.",
+        "exceptions, excessive DOM mutation, failed requests, console errors, and resource-retention signals. " +
+        "Exercises reachable routes within configured limits and returns findings with " +
+        "evidence and suggested investigations. Supply url for an already-running app; " +
+        "starting project scripts or configured flows requires allow_project_execution. The analysis is " +
+        "deterministic — no model is involved; browser measurements may vary. Verdicts are " +
+        "PASS, FAIL, INCONCLUSIVE or ERROR within the tested scope. Call this after making changes, before reporting work as done. Takes roughly " +
+        "a variable amount of time depending on the app and requested cycles; repeated runs can take minutes.",
       inputSchema: {
         root: z
           .string()
@@ -95,12 +96,25 @@ async function main() {
           .optional()
           .describe(
             "Also write CLAUDE.md and the report files into the project directory. " +
-              "Off by default so a verification leaves no trace in the repo."
+              "Off by default. Config-driven first runs may still create vibeguru.json."
+          ),
+        allow_project_execution: z
+          .boolean()
+          .optional()
+          .describe(
+            "Required for config-driven runs without url: explicitly authorize executing " +
+              "this trusted local project's dev command and configured JavaScript flow. " +
+              "Prefer url for an already-running app when project execution is unnecessary."
           ),
       },
     },
-    async ({ root, url, cycles, routes, write_report }) => {
+    async ({ root, url, cycles, routes, write_report, allow_project_execution }) => {
       const runCycles = cycles ?? DEFAULT_CYCLES;
+      const runId = telemetry.runId();
+      const analytics = telemetry.enabled();
+      const metadata = { run_id: runId, channel: "mcp", command: "verify_runtime" };
+      await telemetry.capture("vibeguru_run_started", metadata);
+      const started = performance.now();
 
       try {
         log(`analyzing ${url || root || process.cwd()} (${runCycles} cycles)`);
@@ -111,17 +125,28 @@ async function main() {
           cycles: runCycles,
           routes: routes ?? DEFAULT_ROUTES,
           writeReport: write_report,
+          allowProjectExecution: allow_project_execution === true,
           onLog: log,
         });
 
         lastRun = { report, root: root || process.cwd(), outDir, cycles: runCycles };
         log(`done — ${report.findings?.length ?? 0} finding(s)`);
-
-        return text(renderReport(report, { cycles: runCycles, wroteReport, outDir }));
+        const summary = summarizeReport(report);
+        await telemetry.capture(summary ? "vibeguru_run_completed" : "vibeguru_run_error", {
+          ...metadata, ...(summary || { verdict: "ERROR", error_category: "report_invalid" }),
+          duration_ms: performance.now() - started,
+        });
+        await telemetry.flush();
+        const feedback = analytics ? `\n\nOptional usage-feedback run ID: ${runId}. Share feedback with ` +
+          `vibeguru telemetry feedback --run ${runId} --kind helpful|not_helpful|confirmed|dismissed.` : "";
+        return text(renderReport(report, { cycles: runCycles, wroteReport, outDir }) + feedback);
       } catch (err) {
+        await telemetry.capture("vibeguru_run_error", { ...metadata, verdict: "ERROR",
+          error_category: "execution", duration_ms: performance.now() - started });
+        await telemetry.flush();
         log(`failed — ${err.message}`);
         return failure(
-          `Could not complete the run: ${err.message}\n\n` +
+          `ERROR — Could not complete the run: ${err.message}\n\n` +
             "Common causes: the dev server failed to start, the project has no package.json, " +
             "or nothing is listening at the URL given."
         );
@@ -156,7 +181,8 @@ async function main() {
       let report = lastRun?.report;
 
       if (root) {
-        report = readFindings(root);
+        try { report = readFindings(root); }
+        catch (err) { return failure(`ERROR — ${err.message}`); }
         if (!report) {
           return failure(
             `No findings file in ${root}. Run verify_runtime with write_report enabled to leave one there.`
@@ -174,7 +200,7 @@ async function main() {
         const scope = [severity && `severity ${severity} or worse`, route && `route ${route}`]
           .filter(Boolean)
           .join(" and ");
-        return text(`No findings matching ${scope}. The last run reported ${report.findings.length} in total.`);
+        return text(`No findings matching ${scope}. The last run reported ${report.findings.length} in total.\n\n` + renderReport(filtered, { cycles: lastRun?.cycles }));
       }
 
       return text(renderReport(filtered, { cycles: lastRun?.cycles }));

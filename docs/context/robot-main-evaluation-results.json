@@ -1,0 +1,1263 @@
+{
+  "reviewed_date": "2026-10-10",
+  "app": "robot-main",
+  "original": "C:/Users/Shashank/Desktop/robot-programming-main",
+  "workspace": "reports/robot-main-evaluation-1791611919310",
+  "original_inventory_files": 1598,
+  "original_source_verification": {
+    "originals_unchanged": true,
+    "changed": []
+  },
+  "setup": {
+    "stock_frontend_build": "PASS",
+    "stock_backend_install": "PASS",
+    "pip_check": "PASS",
+    "application_source_edits": false,
+    "first_user_bootstrap": true,
+    "ordinary_ui_signup_signin": true,
+    "api_mocked": false,
+    "provider_configured": false
+  },
+  "totals": {
+    "cases": 6,
+    "planned_cycles": 42,
+    "completed_cycles": 36,
+    "passed_assertions": 438,
+    "failed_assertions": 0,
+    "unverified_assertion_slots": 48,
+    "observations": 72,
+    "verdicts": {
+      "PASS": 1,
+      "FAIL": 4,
+      "INCONCLUSIVE": 1,
+      "ERROR": 0
+    }
+  },
+  "cases": [
+    {
+      "campaign_id": "campaign-1791612536984-robot-main",
+      "variant": "configuration",
+      "verdict": "FAIL",
+      "planned_cycles": 6,
+      "completed_cycles": 6,
+      "passed_assertions": 84,
+      "failed_assertions": 0,
+      "unverified_assertion_slots": 0,
+      "observations": 6,
+      "declared_expectation_met": true,
+      "validity_reasons": [],
+      "findings": [
+        {
+          "signature": "detached_dom_leak",
+          "severity": "high",
+          "metrics": {
+            "node_recovery_ratio": 0,
+            "nodes_per_visit": 298,
+            "nodes_total_retained": 1490
+          }
+        },
+        {
+          "signature": "listener_leak",
+          "severity": "high",
+          "metrics": {
+            "listener_recovery_ratio": 0,
+            "listeners_per_visit": 19,
+            "listeners_total_retained": 95
+          }
+        }
+      ],
+      "samples": [
+        {
+          "phase": "baseline",
+          "cycle": 0,
+          "canvases": 0,
+          "documents": 2,
+          "gcOk": true,
+          "heapLimit": 4395630592,
+          "heapTotal": 6442650,
+          "heapUsed": 5636522,
+          "listeners": 341,
+          "nodes": 454,
+          "webglContexts": 0
+        },
+        {
+          "phase": "cycle",
+          "cycle": 1,
+          "canvases": 0,
+          "documents": 2,
+          "gcOk": true,
+          "heapLimit": 4395630592,
+          "heapTotal": 8409763,
+          "heapUsed": 7616575,
+          "listeners": 386,
+          "mutationWindowMs": 8981,
+          "mutations": 266,
+          "nodes": 753,
+          "webglContexts": 0
+        },
+        {
+          "phase": "cycle",
+          "cycle": 2,
+          "canvases": 0,
+          "documents": 2,
+          "gcOk": true,
+          "heapLimit": 4395630592,
+          "heapTotal": 8676861,
+          "heapUsed": 7889609,
+          "listeners": 405,
+          "mutationWindowMs": 11827,
+          "mutations": 266,
+          "nodes": 1051,
+          "webglContexts": 0
+        },
+        {
+          "phase": "cycle",
+          "cycle": 3,
+          "canvases": 0,
+          "documents": 2,
+          "gcOk": true,
+          "heapLimit": 4395630592,
+          "heapTotal": 9201189,
+          "heapUsed": 7964645,
+          "listeners": 424,
+          "mutationWindowMs": 9640,
+          "mutations": 266,
+          "nodes": 1349,
+          "webglContexts": 0
+        },
+        {
+          "phase": "cycle",
+          "cycle": 4,
+          "canvases": 0,
+          "documents": 2,
+          "gcOk": true,
+          "heapLimit": 4395630592,
+          "heapTotal": 8939085,
+          "heapUsed": 7998877,
+          "listeners": 443,
+          "mutationWindowMs": 11145,
+          "mutations": 266,
+          "nodes": 1647,
+          "webglContexts": 0
+        },
+        {
+          "phase": "cycle",
+          "cycle": 5,
+          "canvases": 0,
+          "documents": 2,
+          "gcOk": true,
+          "heapLimit": 4395630592,
+          "heapTotal": 8939125,
+          "heapUsed": 8078153,
+          "listeners": 462,
+          "mutationWindowMs": 11808,
+          "mutations": 266,
+          "nodes": 1945,
+          "webglContexts": 0
+        },
+        {
+          "phase": "cycle",
+          "cycle": 6,
+          "canvases": 0,
+          "documents": 2,
+          "gcOk": true,
+          "heapLimit": 4395630592,
+          "heapTotal": 8939165,
+          "heapUsed": 8110285,
+          "listeners": 481,
+          "mutationWindowMs": 9967,
+          "mutations": 266,
+          "nodes": 2243,
+          "webglContexts": 0
+        },
+        {
+          "phase": "cooldown",
+          "cycle": 7,
+          "canvases": 0,
+          "documents": 2,
+          "gcOk": true,
+          "heapLimit": 4395630592,
+          "heapTotal": 8939165,
+          "heapUsed": 7993617,
+          "listeners": 481,
+          "nodes": 2243,
+          "webglContexts": 0
+        }
+      ],
+      "integrity": {
+        "execution_stable": true,
+        "source_snapshot_stable": true,
+        "artifacts_stable": true,
+        "lab_stable": true
+      },
+      "graph_nodes": 119,
+      "graph_edges": 132,
+      "report": "reports/robot-main-evaluation-1791611919310/campaign-1791612536984-robot-main/robot-main-configuration/vibeguru-findings.json",
+      "html_report": "reports/robot-main-evaluation-1791611919310/campaign-1791612536984-robot-main/robot-main-configuration/vibeguru-report.html",
+      "capsule": "reports/robot-main-evaluation-1791611919310/campaign-1791612536984-robot-main/robot-main-configuration/incident-capsule.json",
+      "identities": {
+        "engine": "77816b2be65a0ea9ba08dbb8805509219ef3399998240e47abbf4662c494b807",
+        "source": "79910a90449fce6674d5e51b0e54934c14e18484c395ca27f4abd3ba1eb80f77",
+        "build": "b3d6c7fe85e09b9400e4b62b1900c55d5ff34fcce8c8cce23ea151537f59bcac",
+        "flow": "68b8495028ce2f3045a2b5b68ed7d4a1236b0b2cc56e813ad047ec67db977a32"
+      }
+    },
+    {
+      "campaign_id": "campaign-1791612536984-robot-main",
+      "variant": "missing-provider",
+      "verdict": "FAIL",
+      "planned_cycles": 6,
+      "completed_cycles": 6,
+      "passed_assertions": 42,
+      "failed_assertions": 0,
+      "unverified_assertion_slots": 0,
+      "observations": 18,
+      "declared_expectation_met": true,
+      "validity_reasons": [],
+      "findings": [
+        {
+          "signature": "detached_dom_leak",
+          "severity": "high",
+          "metrics": {
+            "node_recovery_ratio": 0.016,
+            "nodes_per_visit": 113,
+            "nodes_total_retained": 565
+          }
+        },
+        {
+          "signature": "listener_leak",
+          "severity": "high",
+          "metrics": {
+            "listener_recovery_ratio": 0.016,
+            "listeners_per_visit": 8,
+            "listeners_total_retained": 40
+          }
+        },
+        {
+          "signature": "failed_request",
+          "severity": "high",
+          "metrics": {
+            "message": "HTTP 503 — http://127.0.0.1:65343/api/v1/analysis/upload",
+            "source": "http://127.0.0.1:65343/api/v1/analysis/upload",
+            "routes": "flow",
+            "attribution": "request_origin",
+            "occurrences": 6
+          }
+        },
+        {
+          "signature": "console_error",
+          "severity": "high",
+          "metrics": {
+            "message": "[Rbt-prg-agnt] Upload error: Error: No live OpenAI configuration is available. Admin must create and activate one. at eS (http://127.0.0.1:65342/_next/static/chunks/eca9f6eb71510660.js:2:8986) at asyn…",
+            "source": "http://127.0.0.1:65342/_next/static/chunks/12a71c628c0c3bc0.js:467:106645",
+            "routes": "flow",
+            "attribution": "observed_route",
+            "occurrences": 6
+          }
+        }
+      ],
+      "samples": [
+        {
+          "phase": "baseline",
+          "cycle": 0,
+          "canvases": 0,
+          "documents": 2,
+          "gcOk": true,
+          "heapLimit": 4395630592,
+          "heapTotal": 6180506,
+          "heapUsed": 5608074,
+          "listeners": 341,
+          "nodes": 454,
+          "webglContexts": 0
+        },
+        {
+          "phase": "cycle",
+          "cycle": 1,
+          "canvases": 0,
+          "documents": 2,
+          "gcOk": true,
+          "heapLimit": 4395630592,
+          "heapTotal": 7819116,
+          "heapUsed": 6853320,
+          "listeners": 363,
+          "mutationWindowMs": 8806,
+          "mutations": 151,
+          "nodes": 583,
+          "webglContexts": 0
+        },
+        {
+          "phase": "cycle",
+          "cycle": 2,
+          "canvases": 0,
+          "documents": 2,
+          "gcOk": true,
+          "heapLimit": 4395630592,
+          "heapTotal": 8090349,
+          "heapUsed": 7223165,
+          "listeners": 371,
+          "mutationWindowMs": 8497,
+          "mutations": 127,
+          "nodes": 696,
+          "webglContexts": 0
+        },
+        {
+          "phase": "cycle",
+          "cycle": 3,
+          "canvases": 0,
+          "documents": 2,
+          "gcOk": true,
+          "heapLimit": 4395630592,
+          "heapTotal": 8090367,
+          "heapUsed": 7284887,
+          "listeners": 379,
+          "mutationWindowMs": 9118,
+          "mutations": 134,
+          "nodes": 809,
+          "webglContexts": 0
+        },
+        {
+          "phase": "cycle",
+          "cycle": 4,
+          "canvases": 0,
+          "documents": 2,
+          "gcOk": true,
+          "heapLimit": 4395630592,
+          "heapTotal": 8352529,
+          "heapUsed": 7329825,
+          "listeners": 387,
+          "mutationWindowMs": 7815,
+          "mutations": 134,
+          "nodes": 922,
+          "webglContexts": 0
+        },
+        {
+          "phase": "cycle",
+          "cycle": 5,
+          "canvases": 0,
+          "documents": 2,
+          "gcOk": true,
+          "heapLimit": 4395630592,
+          "heapTotal": 8352547,
+          "heapUsed": 7367495,
+          "listeners": 395,
+          "mutationWindowMs": 7679,
+          "mutations": 137,
+          "nodes": 1035,
+          "webglContexts": 0
+        },
+        {
+          "phase": "cycle",
+          "cycle": 6,
+          "canvases": 0,
+          "documents": 2,
+          "gcOk": true,
+          "heapLimit": 4395630592,
+          "heapTotal": 8352565,
+          "heapUsed": 7369973,
+          "listeners": 403,
+          "mutationWindowMs": 9106,
+          "mutations": 136,
+          "nodes": 1148,
+          "webglContexts": 0
+        },
+        {
+          "phase": "cooldown",
+          "cycle": 7,
+          "canvases": 0,
+          "documents": 2,
+          "gcOk": true,
+          "heapLimit": 4395630592,
+          "heapTotal": 8352565,
+          "heapUsed": 7289893,
+          "listeners": 402,
+          "nodes": 1137,
+          "webglContexts": 0
+        }
+      ],
+      "integrity": {
+        "execution_stable": true,
+        "source_snapshot_stable": true,
+        "artifacts_stable": true,
+        "lab_stable": true
+      },
+      "graph_nodes": 94,
+      "graph_edges": 107,
+      "report": "reports/robot-main-evaluation-1791611919310/campaign-1791612536984-robot-main/robot-main-missing-provider/vibeguru-findings.json",
+      "html_report": "reports/robot-main-evaluation-1791611919310/campaign-1791612536984-robot-main/robot-main-missing-provider/vibeguru-report.html",
+      "capsule": "reports/robot-main-evaluation-1791611919310/campaign-1791612536984-robot-main/robot-main-missing-provider/incident-capsule.json",
+      "identities": {
+        "engine": "77816b2be65a0ea9ba08dbb8805509219ef3399998240e47abbf4662c494b807",
+        "source": "79910a90449fce6674d5e51b0e54934c14e18484c395ca27f4abd3ba1eb80f77",
+        "build": "b3d6c7fe85e09b9400e4b62b1900c55d5ff34fcce8c8cce23ea151537f59bcac",
+        "flow": "5efd362d7fa686a418133d9d8ab82b83f31f694d7b02e17b2c07ac123f933843"
+      }
+    },
+    {
+      "campaign_id": "campaign-1791612536984-robot-main",
+      "variant": "projects",
+      "verdict": "INCONCLUSIVE",
+      "planned_cycles": 6,
+      "completed_cycles": 0,
+      "passed_assertions": 12,
+      "failed_assertions": 0,
+      "unverified_assertion_slots": 48,
+      "observations": 12,
+      "declared_expectation_met": false,
+      "validity_reasons": [
+        "incomplete_journey_assertions",
+        "failed_interactions",
+        "incomplete_flow"
+      ],
+      "findings": [],
+      "samples": [
+        {
+          "phase": "baseline",
+          "cycle": 0,
+          "canvases": 0,
+          "documents": 2,
+          "gcOk": true,
+          "heapLimit": 4395630592,
+          "heapTotal": 6443935,
+          "heapUsed": 5729843,
+          "listeners": 341,
+          "nodes": 454,
+          "webglContexts": 0
+        },
+        {
+          "phase": "cycle",
+          "cycle": 1,
+          "canvases": 0,
+          "documents": 2,
+          "gcOk": true,
+          "heapLimit": 4395630592,
+          "heapTotal": 7292235,
+          "heapUsed": 6438895,
+          "listeners": 354,
+          "mutationWindowMs": 10098,
+          "mutations": 0,
+          "nodes": 456,
+          "webglContexts": 0
+        },
+        {
+          "phase": "cycle",
+          "cycle": 2,
+          "canvases": 0,
+          "documents": 2,
+          "gcOk": true,
+          "heapLimit": 4395630592,
+          "heapTotal": 7292235,
+          "heapUsed": 6447323,
+          "listeners": 354,
+          "mutationWindowMs": 10049,
+          "mutations": 0,
+          "nodes": 456,
+          "webglContexts": 0
+        },
+        {
+          "phase": "cycle",
+          "cycle": 3,
+          "canvases": 0,
+          "documents": 2,
+          "gcOk": true,
+          "heapLimit": 4395630592,
+          "heapTotal": 7292235,
+          "heapUsed": 6451795,
+          "listeners": 354,
+          "mutationWindowMs": 10055,
+          "mutations": 0,
+          "nodes": 456,
+          "webglContexts": 0
+        },
+        {
+          "phase": "cycle",
+          "cycle": 4,
+          "canvases": 0,
+          "documents": 2,
+          "gcOk": true,
+          "heapLimit": 4395630592,
+          "heapTotal": 7292235,
+          "heapUsed": 6462667,
+          "listeners": 354,
+          "mutationWindowMs": 10051,
+          "mutations": 0,
+          "nodes": 456,
+          "webglContexts": 0
+        },
+        {
+          "phase": "cycle",
+          "cycle": 5,
+          "canvases": 0,
+          "documents": 2,
+          "gcOk": true,
+          "heapLimit": 4395630592,
+          "heapTotal": 7554379,
+          "heapUsed": 6512867,
+          "listeners": 354,
+          "mutationWindowMs": 10054,
+          "mutations": 0,
+          "nodes": 456,
+          "webglContexts": 0
+        },
+        {
+          "phase": "cycle",
+          "cycle": 6,
+          "canvases": 0,
+          "documents": 2,
+          "gcOk": true,
+          "heapLimit": 4395630592,
+          "heapTotal": 7554379,
+          "heapUsed": 6516463,
+          "listeners": 354,
+          "mutationWindowMs": 10044,
+          "mutations": 0,
+          "nodes": 456,
+          "webglContexts": 0
+        },
+        {
+          "phase": "cooldown",
+          "cycle": 7,
+          "canvases": 0,
+          "documents": 2,
+          "gcOk": true,
+          "heapLimit": 4395630592,
+          "heapTotal": 7554379,
+          "heapUsed": 6500895,
+          "listeners": 354,
+          "nodes": 456,
+          "webglContexts": 0
+        }
+      ],
+      "integrity": {
+        "execution_stable": true,
+        "source_snapshot_stable": true,
+        "artifacts_stable": true,
+        "lab_stable": true
+      },
+      "graph_nodes": 51,
+      "graph_edges": 50,
+      "report": "reports/robot-main-evaluation-1791611919310/campaign-1791612536984-robot-main/robot-main-projects/vibeguru-findings.json",
+      "html_report": "reports/robot-main-evaluation-1791611919310/campaign-1791612536984-robot-main/robot-main-projects/vibeguru-report.html",
+      "capsule": "reports/robot-main-evaluation-1791611919310/campaign-1791612536984-robot-main/robot-main-projects/incident-capsule.json",
+      "identities": {
+        "engine": "77816b2be65a0ea9ba08dbb8805509219ef3399998240e47abbf4662c494b807",
+        "source": "79910a90449fce6674d5e51b0e54934c14e18484c395ca27f4abd3ba1eb80f77",
+        "build": "b3d6c7fe85e09b9400e4b62b1900c55d5ff34fcce8c8cce23ea151537f59bcac",
+        "flow": "c3dc6ea78bbc87375020c758767134f2f33e88211d3db665deb4748fa9f97a8e"
+      }
+    },
+    {
+      "campaign_id": "campaign-1791612782906-robot-main",
+      "variant": "configuration-long",
+      "verdict": "FAIL",
+      "planned_cycles": 12,
+      "completed_cycles": 12,
+      "passed_assertions": 168,
+      "failed_assertions": 0,
+      "unverified_assertion_slots": 0,
+      "observations": 12,
+      "declared_expectation_met": true,
+      "validity_reasons": [],
+      "findings": [
+        {
+          "signature": "detached_dom_leak",
+          "severity": "high",
+          "metrics": {
+            "node_recovery_ratio": 0,
+            "nodes_per_visit": 298,
+            "nodes_total_retained": 3278
+          }
+        },
+        {
+          "signature": "listener_leak",
+          "severity": "high",
+          "metrics": {
+            "listener_recovery_ratio": 0,
+            "listeners_per_visit": 19,
+            "listeners_total_retained": 209
+          }
+        }
+      ],
+      "samples": [
+        {
+          "phase": "baseline",
+          "cycle": 0,
+          "canvases": 0,
+          "documents": 2,
+          "gcOk": true,
+          "heapLimit": 4395630592,
+          "heapTotal": 6442650,
+          "heapUsed": 5608654,
+          "listeners": 341,
+          "nodes": 454,
+          "webglContexts": 0
+        },
+        {
+          "phase": "cycle",
+          "cycle": 1,
+          "canvases": 0,
+          "documents": 2,
+          "gcOk": true,
+          "heapLimit": 4395630592,
+          "heapTotal": 8676335,
+          "heapUsed": 7574179,
+          "listeners": 386,
+          "mutationWindowMs": 9458,
+          "mutations": 266,
+          "nodes": 753,
+          "webglContexts": 0
+        },
+        {
+          "phase": "cycle",
+          "cycle": 2,
+          "canvases": 0,
+          "documents": 2,
+          "gcOk": true,
+          "heapLimit": 4395630592,
+          "heapTotal": 8676861,
+          "heapUsed": 7864205,
+          "listeners": 405,
+          "mutationWindowMs": 8887,
+          "mutations": 266,
+          "nodes": 1051,
+          "webglContexts": 0
+        },
+        {
+          "phase": "cycle",
+          "cycle": 3,
+          "canvases": 0,
+          "documents": 2,
+          "gcOk": true,
+          "heapLimit": 4395630592,
+          "heapTotal": 8939045,
+          "heapUsed": 7938877,
+          "listeners": 424,
+          "mutationWindowMs": 9332,
+          "mutations": 266,
+          "nodes": 1349,
+          "webglContexts": 0
+        },
+        {
+          "phase": "cycle",
+          "cycle": 4,
+          "canvases": 0,
+          "documents": 2,
+          "gcOk": true,
+          "heapLimit": 4395630592,
+          "heapTotal": 8939085,
+          "heapUsed": 7996129,
+          "listeners": 443,
+          "mutationWindowMs": 11696,
+          "mutations": 266,
+          "nodes": 1647,
+          "webglContexts": 0
+        },
+        {
+          "phase": "cycle",
+          "cycle": 5,
+          "canvases": 0,
+          "documents": 2,
+          "gcOk": true,
+          "heapLimit": 4395630592,
+          "heapTotal": 8939125,
+          "heapUsed": 8045033,
+          "listeners": 462,
+          "mutationWindowMs": 9398,
+          "mutations": 266,
+          "nodes": 1945,
+          "webglContexts": 0
+        },
+        {
+          "phase": "cycle",
+          "cycle": 6,
+          "canvases": 0,
+          "documents": 2,
+          "gcOk": true,
+          "heapLimit": 4395630592,
+          "heapTotal": 9463453,
+          "heapUsed": 8075633,
+          "listeners": 481,
+          "mutationWindowMs": 9793,
+          "mutations": 266,
+          "nodes": 2243,
+          "webglContexts": 0
+        },
+        {
+          "phase": "cycle",
+          "cycle": 7,
+          "canvases": 0,
+          "documents": 2,
+          "gcOk": true,
+          "heapLimit": 4395630592,
+          "heapTotal": 8939205,
+          "heapUsed": 8106949,
+          "listeners": 500,
+          "mutationWindowMs": 10723,
+          "mutations": 266,
+          "nodes": 2541,
+          "webglContexts": 0
+        },
+        {
+          "phase": "cycle",
+          "cycle": 8,
+          "canvases": 0,
+          "documents": 2,
+          "gcOk": true,
+          "heapLimit": 4395630592,
+          "heapTotal": 8939245,
+          "heapUsed": 8151789,
+          "listeners": 519,
+          "mutationWindowMs": 12473,
+          "mutations": 266,
+          "nodes": 2839,
+          "webglContexts": 0
+        },
+        {
+          "phase": "cycle",
+          "cycle": 9,
+          "canvases": 0,
+          "documents": 2,
+          "gcOk": true,
+          "heapLimit": 4395630592,
+          "heapTotal": 8939285,
+          "heapUsed": 8206333,
+          "listeners": 538,
+          "mutationWindowMs": 9937,
+          "mutations": 266,
+          "nodes": 3137,
+          "webglContexts": 0
+        },
+        {
+          "phase": "cycle",
+          "cycle": 10,
+          "canvases": 0,
+          "documents": 2,
+          "gcOk": true,
+          "heapLimit": 4395630592,
+          "heapTotal": 9201471,
+          "heapUsed": 8242279,
+          "listeners": 557,
+          "mutationWindowMs": 10482,
+          "mutations": 266,
+          "nodes": 3435,
+          "webglContexts": 0
+        },
+        {
+          "phase": "cycle",
+          "cycle": 11,
+          "canvases": 0,
+          "documents": 2,
+          "gcOk": true,
+          "heapLimit": 4395630592,
+          "heapTotal": 9201513,
+          "heapUsed": 8272897,
+          "listeners": 576,
+          "mutationWindowMs": 8656,
+          "mutations": 266,
+          "nodes": 3733,
+          "webglContexts": 0
+        },
+        {
+          "phase": "cycle",
+          "cycle": 12,
+          "canvases": 0,
+          "documents": 2,
+          "gcOk": true,
+          "heapLimit": 4395630592,
+          "heapTotal": 9463699,
+          "heapUsed": 8309083,
+          "listeners": 595,
+          "mutationWindowMs": 7875,
+          "mutations": 266,
+          "nodes": 4031,
+          "webglContexts": 0
+        },
+        {
+          "phase": "cooldown",
+          "cycle": 13,
+          "canvases": 0,
+          "documents": 2,
+          "gcOk": true,
+          "heapLimit": 4395630592,
+          "heapTotal": 8939411,
+          "heapUsed": 8192295,
+          "listeners": 595,
+          "nodes": 4031,
+          "webglContexts": 0
+        }
+      ],
+      "integrity": {
+        "execution_stable": true,
+        "source_snapshot_stable": true,
+        "artifacts_stable": true,
+        "lab_stable": true
+      },
+      "graph_nodes": 227,
+      "graph_edges": 252,
+      "report": "reports/robot-main-evaluation-1791611919310/campaign-1791612782906-robot-main/robot-main-configuration-long/vibeguru-findings.json",
+      "html_report": "reports/robot-main-evaluation-1791611919310/campaign-1791612782906-robot-main/robot-main-configuration-long/vibeguru-report.html",
+      "capsule": "reports/robot-main-evaluation-1791611919310/campaign-1791612782906-robot-main/robot-main-configuration-long/incident-capsule.json",
+      "identities": {
+        "engine": "77816b2be65a0ea9ba08dbb8805509219ef3399998240e47abbf4662c494b807",
+        "source": "79910a90449fce6674d5e51b0e54934c14e18484c395ca27f4abd3ba1eb80f77",
+        "build": "b3d6c7fe85e09b9400e4b62b1900c55d5ff34fcce8c8cce23ea151537f59bcac",
+        "flow": "68b8495028ce2f3045a2b5b68ed7d4a1236b0b2cc56e813ad047ec67db977a32"
+      }
+    },
+    {
+      "campaign_id": "campaign-1791612782906-robot-main",
+      "variant": "projects",
+      "verdict": "PASS",
+      "planned_cycles": 6,
+      "completed_cycles": 6,
+      "passed_assertions": 60,
+      "failed_assertions": 0,
+      "unverified_assertion_slots": 0,
+      "observations": 18,
+      "declared_expectation_met": true,
+      "validity_reasons": [],
+      "findings": [],
+      "samples": [
+        {
+          "phase": "baseline",
+          "cycle": 0,
+          "canvases": 0,
+          "documents": 2,
+          "gcOk": true,
+          "heapLimit": 4395630592,
+          "heapTotal": 6180502,
+          "heapUsed": 5608362,
+          "listeners": 341,
+          "nodes": 454,
+          "webglContexts": 0
+        },
+        {
+          "phase": "cycle",
+          "cycle": 1,
+          "canvases": 0,
+          "documents": 2,
+          "gcOk": true,
+          "heapLimit": 4395630592,
+          "heapTotal": 7553560,
+          "heapUsed": 6561256,
+          "listeners": 354,
+          "mutationWindowMs": 761,
+          "mutations": 73,
+          "nodes": 483,
+          "webglContexts": 0
+        },
+        {
+          "phase": "cycle",
+          "cycle": 2,
+          "canvases": 0,
+          "documents": 2,
+          "gcOk": true,
+          "heapLimit": 4395630592,
+          "heapTotal": 7553673,
+          "heapUsed": 6577417,
+          "listeners": 354,
+          "mutationWindowMs": 871,
+          "mutations": 73,
+          "nodes": 484,
+          "webglContexts": 0
+        },
+        {
+          "phase": "cycle",
+          "cycle": 3,
+          "canvases": 0,
+          "documents": 2,
+          "gcOk": true,
+          "heapLimit": 4395630592,
+          "heapTotal": 7553673,
+          "heapUsed": 6590665,
+          "listeners": 354,
+          "mutationWindowMs": 833,
+          "mutations": 73,
+          "nodes": 485,
+          "webglContexts": 0
+        },
+        {
+          "phase": "cycle",
+          "cycle": 4,
+          "canvases": 0,
+          "documents": 2,
+          "gcOk": true,
+          "heapLimit": 4395630592,
+          "heapTotal": 7553673,
+          "heapUsed": 6604825,
+          "listeners": 354,
+          "mutationWindowMs": 799,
+          "mutations": 73,
+          "nodes": 486,
+          "webglContexts": 0
+        },
+        {
+          "phase": "cycle",
+          "cycle": 5,
+          "canvases": 0,
+          "documents": 2,
+          "gcOk": true,
+          "heapLimit": 4395630592,
+          "heapTotal": 7553673,
+          "heapUsed": 6608469,
+          "listeners": 354,
+          "mutationWindowMs": 778,
+          "mutations": 73,
+          "nodes": 487,
+          "webglContexts": 0
+        },
+        {
+          "phase": "cycle",
+          "cycle": 6,
+          "canvases": 0,
+          "documents": 2,
+          "gcOk": true,
+          "heapLimit": 4395630592,
+          "heapTotal": 7553695,
+          "heapUsed": 6612975,
+          "listeners": 354,
+          "mutationWindowMs": 904,
+          "mutations": 101,
+          "nodes": 488,
+          "webglContexts": 0
+        },
+        {
+          "phase": "cooldown",
+          "cycle": 7,
+          "canvases": 0,
+          "documents": 2,
+          "gcOk": true,
+          "heapLimit": 4395630592,
+          "heapTotal": 7553695,
+          "heapUsed": 6563123,
+          "listeners": 354,
+          "nodes": 488,
+          "webglContexts": 0
+        }
+      ],
+      "integrity": {
+        "execution_stable": true,
+        "source_snapshot_stable": true,
+        "artifacts_stable": true,
+        "lab_stable": true
+      },
+      "graph_nodes": 105,
+      "graph_edges": 104,
+      "report": "reports/robot-main-evaluation-1791611919310/campaign-1791612782906-robot-main/robot-main-projects/vibeguru-findings.json",
+      "html_report": "reports/robot-main-evaluation-1791611919310/campaign-1791612782906-robot-main/robot-main-projects/vibeguru-report.html",
+      "capsule": "reports/robot-main-evaluation-1791611919310/campaign-1791612782906-robot-main/robot-main-projects/incident-capsule.json",
+      "identities": {
+        "engine": "77816b2be65a0ea9ba08dbb8805509219ef3399998240e47abbf4662c494b807",
+        "source": "79910a90449fce6674d5e51b0e54934c14e18484c395ca27f4abd3ba1eb80f77",
+        "build": "b3d6c7fe85e09b9400e4b62b1900c55d5ff34fcce8c8cce23ea151537f59bcac",
+        "flow": "2f7bcd11058d82b32c7c284b699b12edf31ed332ad0d52f59c89a33961b85c17"
+      }
+    },
+    {
+      "campaign_id": "campaign-1791612976708-robot-main",
+      "variant": "configuration-no-pdf",
+      "verdict": "FAIL",
+      "planned_cycles": 6,
+      "completed_cycles": 6,
+      "passed_assertions": 72,
+      "failed_assertions": 0,
+      "unverified_assertion_slots": 0,
+      "observations": 6,
+      "declared_expectation_met": true,
+      "validity_reasons": [],
+      "findings": [
+        {
+          "signature": "detached_dom_leak",
+          "severity": "high",
+          "metrics": {
+            "node_recovery_ratio": 0,
+            "nodes_per_visit": 294,
+            "nodes_total_retained": 1470
+          }
+        },
+        {
+          "signature": "listener_leak",
+          "severity": "high",
+          "metrics": {
+            "listener_recovery_ratio": 0,
+            "listeners_per_visit": 19,
+            "listeners_total_retained": 95
+          }
+        }
+      ],
+      "samples": [
+        {
+          "phase": "baseline",
+          "cycle": 0,
+          "canvases": 0,
+          "documents": 2,
+          "gcOk": true,
+          "heapLimit": 4395630592,
+          "heapTotal": 6442650,
+          "heapUsed": 5617346,
+          "listeners": 341,
+          "nodes": 454,
+          "webglContexts": 0
+        },
+        {
+          "phase": "cycle",
+          "cycle": 1,
+          "canvases": 0,
+          "documents": 2,
+          "gcOk": true,
+          "heapLimit": 4395630592,
+          "heapTotal": 8414031,
+          "heapUsed": 7578027,
+          "listeners": 386,
+          "mutationWindowMs": 8520,
+          "mutations": 249,
+          "nodes": 749,
+          "webglContexts": 0
+        },
+        {
+          "phase": "cycle",
+          "cycle": 2,
+          "canvases": 0,
+          "documents": 2,
+          "gcOk": true,
+          "heapLimit": 4395630592,
+          "heapTotal": 8676701,
+          "heapUsed": 7859769,
+          "listeners": 405,
+          "mutationWindowMs": 10774,
+          "mutations": 249,
+          "nodes": 1043,
+          "webglContexts": 0
+        },
+        {
+          "phase": "cycle",
+          "cycle": 3,
+          "canvases": 0,
+          "documents": 2,
+          "gcOk": true,
+          "heapLimit": 4395630592,
+          "heapTotal": 8938885,
+          "heapUsed": 7935841,
+          "listeners": 424,
+          "mutationWindowMs": 9725,
+          "mutations": 249,
+          "nodes": 1337,
+          "webglContexts": 0
+        },
+        {
+          "phase": "cycle",
+          "cycle": 4,
+          "canvases": 0,
+          "documents": 2,
+          "gcOk": true,
+          "heapLimit": 4395630592,
+          "heapTotal": 8938925,
+          "heapUsed": 7976761,
+          "listeners": 443,
+          "mutationWindowMs": 9728,
+          "mutations": 249,
+          "nodes": 1631,
+          "webglContexts": 0
+        },
+        {
+          "phase": "cycle",
+          "cycle": 5,
+          "canvases": 0,
+          "documents": 2,
+          "gcOk": true,
+          "heapLimit": 4395630592,
+          "heapTotal": 9201109,
+          "heapUsed": 8047517,
+          "listeners": 462,
+          "mutationWindowMs": 9133,
+          "mutations": 249,
+          "nodes": 1925,
+          "webglContexts": 0
+        },
+        {
+          "phase": "cycle",
+          "cycle": 6,
+          "canvases": 0,
+          "documents": 2,
+          "gcOk": true,
+          "heapLimit": 4395630592,
+          "heapTotal": 8939005,
+          "heapUsed": 8081689,
+          "listeners": 481,
+          "mutationWindowMs": 10584,
+          "mutations": 249,
+          "nodes": 2219,
+          "webglContexts": 0
+        },
+        {
+          "phase": "cooldown",
+          "cycle": 7,
+          "canvases": 0,
+          "documents": 2,
+          "gcOk": true,
+          "heapLimit": 4395630592,
+          "heapTotal": 8939005,
+          "heapUsed": 7965369,
+          "listeners": 481,
+          "nodes": 2219,
+          "webglContexts": 0
+        }
+      ],
+      "integrity": {
+        "execution_stable": true,
+        "source_snapshot_stable": true,
+        "artifacts_stable": true,
+        "lab_stable": true
+      },
+      "graph_nodes": 107,
+      "graph_edges": 120,
+      "report": "reports/robot-main-evaluation-1791611919310/campaign-1791612976708-robot-main/robot-main-configuration-no-pdf/vibeguru-findings.json",
+      "html_report": "reports/robot-main-evaluation-1791611919310/campaign-1791612976708-robot-main/robot-main-configuration-no-pdf/vibeguru-report.html",
+      "capsule": "reports/robot-main-evaluation-1791611919310/campaign-1791612976708-robot-main/robot-main-configuration-no-pdf/incident-capsule.json",
+      "identities": {
+        "engine": "77816b2be65a0ea9ba08dbb8805509219ef3399998240e47abbf4662c494b807",
+        "source": "79910a90449fce6674d5e51b0e54934c14e18484c395ca27f4abd3ba1eb80f77",
+        "build": "b3d6c7fe85e09b9400e4b62b1900c55d5ff34fcce8c8cce23ea151537f59bcac",
+        "flow": "e01a7c44c987e75481cca92ad69a3a293abf4fa726bffc528cbce6a0afd9084f"
+      }
+    }
+  ],
+  "state_before": {
+    "checked_at": "2026-10-10T06:06:22.029147+00:00",
+    "scope": "isolated backend state only; counts without identifiers or secrets",
+    "database": {
+      "exists": true,
+      "read_only": true,
+      "table_counts": {
+        "embedding_config_audit": 0,
+        "embedding_configs": 0,
+        "hitl_runtime_settings": 0,
+        "openai_config_audit": 0,
+        "openai_configs": 0,
+        "user_notifications": 0,
+        "users": 0,
+        "workflow_events": 0,
+        "workflow_fragments": 0,
+        "workflow_runs": 0,
+        "workflow_sessions": 0
+      },
+      "users": {
+        "count": 0,
+        "approved_count": 0,
+        "pending_count": 0,
+        "active_count": 0
+      },
+      "provider_configured": false,
+      "embedding_provider_configured": false
+    },
+    "job_queue": {
+      "available": true,
+      "total_jobs": 0,
+      "processing_jobs": 0,
+      "pending_jobs": 0
+    },
+    "uploads": {
+      "exists": true,
+      "file_count": 0,
+      "directory_count": 0,
+      "total_bytes": 0,
+      "suffix_counts": {},
+      "skipped_symlinks": 0
+    },
+    "outputs": {
+      "exists": true,
+      "file_count": 0,
+      "directory_count": 0,
+      "total_bytes": 0,
+      "suffix_counts": {},
+      "skipped_symlinks": 0
+    },
+    "runtime": {
+      "exists": true,
+      "file_count": 2,
+      "directory_count": 3,
+      "total_bytes": 188416,
+      "suffix_counts": {
+        ".db": 1,
+        ".sqlite3": 1
+      },
+      "skipped_symlinks": 0
+    }
+  },
+  "state_after": {
+    "checked_at": "2026-10-10T06:18:42.024613+00:00",
+    "scope": "isolated backend state only; counts without identifiers or secrets",
+    "database": {
+      "exists": true,
+      "read_only": true,
+      "table_counts": {
+        "embedding_config_audit": 0,
+        "embedding_configs": 0,
+        "hitl_runtime_settings": 0,
+        "openai_config_audit": 0,
+        "openai_configs": 0,
+        "user_notifications": 0,
+        "users": 1,
+        "workflow_events": 0,
+        "workflow_fragments": 0,
+        "workflow_runs": 0,
+        "workflow_sessions": 0
+      },
+      "users": {
+        "count": 1,
+        "approved_count": 1,
+        "pending_count": 0,
+        "active_count": 1
+      },
+      "provider_configured": false,
+      "embedding_provider_configured": false
+    },
+    "job_queue": {
+      "available": true,
+      "total_jobs": 0,
+      "processing_jobs": 0,
+      "pending_jobs": 0
+    },
+    "uploads": {
+      "exists": true,
+      "file_count": 0,
+      "directory_count": 0,
+      "total_bytes": 0,
+      "suffix_counts": {},
+      "skipped_symlinks": 0
+    },
+    "outputs": {
+      "exists": true,
+      "file_count": 0,
+      "directory_count": 0,
+      "total_bytes": 0,
+      "suffix_counts": {},
+      "skipped_symlinks": 0
+    },
+    "runtime": {
+      "exists": true,
+      "file_count": 3,
+      "directory_count": 3,
+      "total_bytes": 189577,
+      "suffix_counts": {
+        ".db": 1,
+        ".log": 1,
+        ".sqlite3": 1
+      },
+      "skipped_symlinks": 0
+    }
+  },
+  "dashboard_qa": "reports/robot-main-evaluation-1791611919310/dashboard-qa.json",
+  "comparison": {
+    "same_engine": true,
+    "same_source": true,
+    "same_build": true,
+    "pdf_skip": "Diagnostic omits only PDF preview opening/closing; it still selects a PDF and exercises the text preview. It does not establish component ownership or an app fix."
+  },
+  "limitations": [
+    "Six cases are repeated authored workflows on one app, not accuracy or independent app success rate.",
+    "One initial search locator mismatch remains INCONCLUSIVE, with 48 unverified assertion slots. A separate setup filename error occurred before browser execution.",
+    "Resource counts recur after GC but attached/detached ownership and retaining paths remain unverified. No permanent leak cause is established.",
+    "No successful generation/provider, durable project restore/delete, live jobs, HITL/editor, export, robot hardware, auth bypass or rate/load enforcement test.",
+    "Session expiry and sustained responsiveness remain planned. The full regression suite overlapped the longer diagnostic; no latency or capacity conclusion is made."
+  ]
+}

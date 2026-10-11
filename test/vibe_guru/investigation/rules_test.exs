@@ -41,8 +41,7 @@ defmodule VibeGuru.Investigation.Policy.RulesTest do
     }
   end
 
-  # The real /charts case: heap growth is the symptom, and the listener leak and the
-  # retained MutationObservers are siblings that the same cause should account for.
+  # Co-located findings provide context but require independent attribution.
   defp charts_state(opts \\ []) do
     State.new(
       finding(:route_heap_growth, "/charts", "178.8KB retained per visit, 4 of 4 visits"),
@@ -96,7 +95,7 @@ defmodule VibeGuru.Investigation.Policy.RulesTest do
       assert {:probe, "heap.snapshot", %{constructor_hint: "Chart"}} = Rules.next_step(state)
     end
 
-    test "with one explanation left standing, it concludes" do
+    test "one supported candidate produces a qualified hypothesis, never a library fix" do
       state =
         charts_state()
         |> State.record("census.client", %{cost_ms: 118}, %{
@@ -115,14 +114,17 @@ defmodule VibeGuru.Investigation.Policy.RulesTest do
 
       assert {:conclude, cause} = Rules.next_step(state)
       assert cause.id == :retained_library_object
-      assert cause.what =~ "Chart instance"
-      assert cause.fix == "call chart.destroy() in the effect cleanup"
+      assert cause.what =~ "ownership is unverified"
+      assert cause.fix =~ "trace retaining references"
+      refute cause.fix =~ "chart.destroy"
+      assert cause.status == :hypothesis
+      assert cause.verified == false
+      assert cause.location_kind == :observed_route
       assert cause.where == "/charts"
       assert cause.because =~ "4 Chart instances"
     end
 
-    test "the conclusion accounts for all three findings, not just the symptom" do
-      # This is the payoff. Three findings, one cause, one fix.
+    test "the conclusion refers only to its originating finding" do
       state =
         charts_state()
         |> State.record("census.client", %{cost_ms: 118}, %{
@@ -137,11 +139,7 @@ defmodule VibeGuru.Investigation.Policy.RulesTest do
 
       assert {:conclude, cause} = Rules.next_step(state)
 
-      assert Enum.sort(cause.explains) == [
-               "listener_leak@/charts",
-               "retained_instances@/charts",
-               "route_heap_growth@/charts"
-             ]
+      assert cause.explains == ["route_heap_growth./charts"]
     end
   end
 
@@ -326,8 +324,8 @@ defmodule VibeGuru.Investigation.Policy.RulesTest do
         })
 
       assert {:conclude, cause} = Rules.next_step(state)
-      assert cause.what == "a library object is retained on every visit"
-      assert cause.fix == "dispose it in the unmount path"
+      assert cause.what =~ "ownership is unverified"
+      assert cause.fix =~ "trace retaining references"
     end
   end
 end

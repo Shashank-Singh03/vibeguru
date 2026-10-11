@@ -1,0 +1,3745 @@
+{
+  "coverage": {
+    "declared": 13,
+    "discovered": 11,
+    "flow_completed": 0,
+    "flow_failures": 0,
+    "flow_planned": 0,
+    "low": false,
+    "mode": "auto",
+    "ratio": 0.923,
+    "routes_known": 13,
+    "unreachable": [
+      {
+        "detail": "landed on /login",
+        "path": "/protected",
+        "reason": "auth_required"
+      }
+    ],
+    "visited": [
+      "/",
+      "/bad-fetch",
+      "/charts",
+      "/clean",
+      "/crash",
+      "/detached",
+      "/grow",
+      "/listeners",
+      "/log-error",
+      "/login",
+      "/observers",
+      "/render-loop"
+    ]
+  },
+  "evidence": [
+    {
+      "context": {},
+      "cycle": null,
+      "data": {
+        "cycles": 4,
+        "flow": null,
+        "mode": "auto",
+        "routeCount": 13,
+        "routes": [
+          "/",
+          "/bad-fetch",
+          "/charts",
+          "/clean",
+          "/crash",
+          "/detached",
+          "/grow",
+          "/listeners",
+          "/log-error",
+          "/login",
+          "/observers",
+          "/protected",
+          "/render-loop"
+        ],
+        "settleMs": 400,
+        "url": "http://localhost:5173"
+      },
+      "id": "ev_0_ev_memory.client_config_d7f34381af7ab666",
+      "kind": "config",
+      "phase": null,
+      "probe_id": "memory.client",
+      "timestamp": null
+    },
+    {
+      "context": {
+        "route": "/"
+      },
+      "cycle": 0,
+      "data": {
+        "canvases": 0,
+        "documents": 1,
+        "gcOk": true,
+        "heapLimit": 4395630592,
+        "heapTotal": 6310908,
+        "heapUsed": 5390528,
+        "listeners": 162,
+        "nodes": 62,
+        "webglContexts": 0
+      },
+      "id": "ev_1_ev_memory.client_sample_baseline_0_95732b9940385f1b",
+      "kind": "sample",
+      "phase": "baseline",
+      "probe_id": "memory.client",
+      "timestamp": 1791471643320
+    },
+    {
+      "context": {
+        "route": "/"
+      },
+      "cycle": 0,
+      "data": {
+        "counts": {
+          "Chart": null,
+          "EventSource": 0,
+          "IntersectionObserver": 0,
+          "MutationObserver": 2,
+          "PerformanceObserver": 0,
+          "ResizeObserver": 0,
+          "WebSocket": 1,
+          "Worker": 0
+        }
+      },
+      "id": "ev_2_ev_memory.client_census_baseline_0_5869687cb26d31bb",
+      "kind": "census",
+      "phase": "baseline",
+      "probe_id": "memory.client",
+      "timestamp": 1791471643320
+    },
+    {
+      "context": {
+        "route": "/"
+      },
+      "cycle": 1,
+      "data": {
+        "canvases": 0,
+        "documents": 1,
+        "gcOk": true,
+        "heapLimit": 4395630592,
+        "heapTotal": 6310922,
+        "heapUsed": 5420818,
+        "listeners": 162,
+        "mutationWindowMs": 833,
+        "mutations": 0,
+        "nodes": 62,
+        "webglContexts": 0
+      },
+      "id": "ev_3_ev_memory.client_sample_cycle_1_14e6f0ebb843c209",
+      "kind": "sample",
+      "phase": "cycle",
+      "probe_id": "memory.client",
+      "timestamp": 1791471644389
+    },
+    {
+      "context": {
+        "route": "/"
+      },
+      "cycle": 1,
+      "data": {
+        "counts": {
+          "Chart": null,
+          "EventSource": 0,
+          "IntersectionObserver": 0,
+          "MutationObserver": 2,
+          "PerformanceObserver": 0,
+          "ResizeObserver": 0,
+          "WebSocket": 1,
+          "Worker": 0
+        }
+      },
+      "id": "ev_4_ev_memory.client_census_cycle_1_5869687cb26d31bb",
+      "kind": "census",
+      "phase": "cycle",
+      "probe_id": "memory.client",
+      "timestamp": 1791471644389
+    },
+    {
+      "context": {
+        "route": "/bad-fetch"
+      },
+      "cycle": 1,
+      "data": {
+        "canvases": 0,
+        "documents": 1,
+        "gcOk": true,
+        "heapLimit": 4395630592,
+        "heapTotal": 7159269,
+        "heapUsed": 6380249,
+        "listeners": 175,
+        "mutationWindowMs": 948,
+        "mutations": 5,
+        "nodes": 63,
+        "webglContexts": 0
+      },
+      "id": "ev_5_ev_memory.client_sample_cycle_1_9846a616284fbd40",
+      "kind": "sample",
+      "phase": "cycle",
+      "probe_id": "memory.client",
+      "timestamp": 1791471645891
+    },
+    {
+      "context": {
+        "route": "/bad-fetch"
+      },
+      "cycle": 1,
+      "data": {
+        "counts": {
+          "Chart": null,
+          "EventSource": 0,
+          "IntersectionObserver": 0,
+          "MutationObserver": 2,
+          "PerformanceObserver": 0,
+          "ResizeObserver": 0,
+          "WebSocket": 1,
+          "Worker": 0
+        }
+      },
+      "id": "ev_6_ev_memory.client_census_cycle_1_97fcac7953af9aed",
+      "kind": "census",
+      "phase": "cycle",
+      "probe_id": "memory.client",
+      "timestamp": 1791471645891
+    },
+    {
+      "context": {
+        "route": "/charts"
+      },
+      "cycle": 1,
+      "data": {
+        "canvases": 0,
+        "documents": 1,
+        "gcOk": true,
+        "heapLimit": 4395630592,
+        "heapTotal": 7945905,
+        "heapUsed": 7017173,
+        "listeners": 180,
+        "mutationWindowMs": 1006,
+        "mutations": 12,
+        "nodes": 71,
+        "webglContexts": 0
+      },
+      "id": "ev_7_ev_memory.client_sample_cycle_1_1c829f991a490baf",
+      "kind": "sample",
+      "phase": "cycle",
+      "probe_id": "memory.client",
+      "timestamp": 1791471647686
+    },
+    {
+      "context": {
+        "route": "/charts"
+      },
+      "cycle": 1,
+      "data": {
+        "counts": {
+          "Chart": null,
+          "EventSource": 0,
+          "IntersectionObserver": 0,
+          "MutationObserver": 4,
+          "PerformanceObserver": 0,
+          "ResizeObserver": 0,
+          "WebSocket": 1,
+          "Worker": 0
+        }
+      },
+      "id": "ev_8_ev_memory.client_census_cycle_1_f2e7373e2e1404ed",
+      "kind": "census",
+      "phase": "cycle",
+      "probe_id": "memory.client",
+      "timestamp": 1791471647686
+    },
+    {
+      "context": {
+        "route": "/clean"
+      },
+      "cycle": 1,
+      "data": {
+        "canvases": 0,
+        "documents": 1,
+        "gcOk": true,
+        "heapLimit": 4395630592,
+        "heapTotal": 7945977,
+        "heapUsed": 7120509,
+        "listeners": 180,
+        "mutationWindowMs": 879,
+        "mutations": 4,
+        "nodes": 72,
+        "webglContexts": 0
+      },
+      "id": "ev_9_ev_memory.client_sample_cycle_1_fb9c8c2748b1f3d1",
+      "kind": "sample",
+      "phase": "cycle",
+      "probe_id": "memory.client",
+      "timestamp": 1791471649458
+    },
+    {
+      "context": {
+        "route": "/clean"
+      },
+      "cycle": 1,
+      "data": {
+        "counts": {
+          "Chart": null,
+          "EventSource": 0,
+          "IntersectionObserver": 0,
+          "MutationObserver": 4,
+          "PerformanceObserver": 0,
+          "ResizeObserver": 0,
+          "WebSocket": 1,
+          "Worker": 0
+        }
+      },
+      "id": "ev_10_ev_memory.client_census_cycle_1_4e137a1d3fd704b9",
+      "kind": "census",
+      "phase": "cycle",
+      "probe_id": "memory.client",
+      "timestamp": 1791471649458
+    },
+    {
+      "context": {
+        "route": "/crash"
+      },
+      "cycle": 1,
+      "data": {
+        "canvases": 0,
+        "documents": 1,
+        "gcOk": true,
+        "heapLimit": 4395630592,
+        "heapTotal": 7946047,
+        "heapUsed": 7190359,
+        "listeners": 180,
+        "mutationWindowMs": 886,
+        "mutations": 4,
+        "nodes": 73,
+        "webglContexts": 0
+      },
+      "id": "ev_11_ev_memory.client_sample_cycle_1_7db0f76e97e79541",
+      "kind": "sample",
+      "phase": "cycle",
+      "probe_id": "memory.client",
+      "timestamp": 1791471651300
+    },
+    {
+      "context": {
+        "route": "/crash"
+      },
+      "cycle": 1,
+      "data": {
+        "counts": {
+          "Chart": null,
+          "EventSource": 0,
+          "IntersectionObserver": 0,
+          "MutationObserver": 4,
+          "PerformanceObserver": 0,
+          "ResizeObserver": 0,
+          "WebSocket": 1,
+          "Worker": 0
+        }
+      },
+      "id": "ev_12_ev_memory.client_census_cycle_1_233fac467d9b53cb",
+      "kind": "census",
+      "phase": "cycle",
+      "probe_id": "memory.client",
+      "timestamp": 1791471651300
+    },
+    {
+      "context": {
+        "route": "/detached"
+      },
+      "cycle": 1,
+      "data": {
+        "canvases": 0,
+        "documents": 1,
+        "gcOk": true,
+        "heapLimit": 4395630592,
+        "heapTotal": 8470409,
+        "heapUsed": 7396841,
+        "listeners": 180,
+        "mutationWindowMs": 889,
+        "mutations": 4,
+        "nodes": 9074,
+        "webglContexts": 0
+      },
+      "id": "ev_13_ev_memory.client_sample_cycle_1_47283fd583b5c040",
+      "kind": "sample",
+      "phase": "cycle",
+      "probe_id": "memory.client",
+      "timestamp": 1791471653112
+    },
+    {
+      "context": {
+        "route": "/detached"
+      },
+      "cycle": 1,
+      "data": {
+        "counts": {
+          "Chart": null,
+          "EventSource": 0,
+          "IntersectionObserver": 0,
+          "MutationObserver": 4,
+          "PerformanceObserver": 0,
+          "ResizeObserver": 0,
+          "WebSocket": 1,
+          "Worker": 0
+        }
+      },
+      "id": "ev_14_ev_memory.client_census_cycle_1_9ca9c9d5090a3fd6",
+      "kind": "census",
+      "phase": "cycle",
+      "probe_id": "memory.client",
+      "timestamp": 1791471653112
+    },
+    {
+      "context": {
+        "route": "/grow"
+      },
+      "cycle": 1,
+      "data": {
+        "canvases": 0,
+        "documents": 1,
+        "gcOk": true,
+        "heapLimit": 4395630592,
+        "heapTotal": 8671182,
+        "heapUsed": 7605946,
+        "listeners": 180,
+        "mutationWindowMs": 869,
+        "mutations": 4,
+        "nodes": 9075,
+        "webglContexts": 0
+      },
+      "id": "ev_15_ev_memory.client_sample_cycle_1_25af60f6ae99f37f",
+      "kind": "sample",
+      "phase": "cycle",
+      "probe_id": "memory.client",
+      "timestamp": 1791471654965
+    },
+    {
+      "context": {
+        "route": "/grow"
+      },
+      "cycle": 1,
+      "data": {
+        "counts": {
+          "Chart": null,
+          "EventSource": 0,
+          "IntersectionObserver": 0,
+          "MutationObserver": 4,
+          "PerformanceObserver": 0,
+          "ResizeObserver": 0,
+          "WebSocket": 1,
+          "Worker": 0
+        }
+      },
+      "id": "ev_16_ev_memory.client_census_cycle_1_c0d472562f465012",
+      "kind": "census",
+      "phase": "cycle",
+      "probe_id": "memory.client",
+      "timestamp": 1791471654965
+    },
+    {
+      "context": {
+        "route": "/listeners"
+      },
+      "cycle": 1,
+      "data": {
+        "canvases": 0,
+        "documents": 1,
+        "gcOk": true,
+        "heapLimit": 4395630592,
+        "heapTotal": 8671256,
+        "heapUsed": 7618080,
+        "listeners": 182,
+        "mutationWindowMs": 869,
+        "mutations": 4,
+        "nodes": 9076,
+        "webglContexts": 0
+      },
+      "id": "ev_17_ev_memory.client_sample_cycle_1_1dd64c591d18f973",
+      "kind": "sample",
+      "phase": "cycle",
+      "probe_id": "memory.client",
+      "timestamp": 1791471656936
+    },
+    {
+      "context": {
+        "route": "/listeners"
+      },
+      "cycle": 1,
+      "data": {
+        "counts": {
+          "Chart": null,
+          "EventSource": 0,
+          "IntersectionObserver": 0,
+          "MutationObserver": 4,
+          "PerformanceObserver": 0,
+          "ResizeObserver": 0,
+          "WebSocket": 1,
+          "Worker": 0
+        }
+      },
+      "id": "ev_18_ev_memory.client_census_cycle_1_a876966498ba7396",
+      "kind": "census",
+      "phase": "cycle",
+      "probe_id": "memory.client",
+      "timestamp": 1791471656936
+    },
+    {
+      "context": {
+        "route": "/log-error"
+      },
+      "cycle": 1,
+      "data": {
+        "canvases": 0,
+        "documents": 1,
+        "gcOk": true,
+        "heapLimit": 4395630592,
+        "heapTotal": 8671300,
+        "heapUsed": 7627240,
+        "listeners": 182,
+        "mutationWindowMs": 871,
+        "mutations": 4,
+        "nodes": 9077,
+        "webglContexts": 0
+      },
+      "id": "ev_19_ev_memory.client_sample_cycle_1_69daece7d72122b9",
+      "kind": "sample",
+      "phase": "cycle",
+      "probe_id": "memory.client",
+      "timestamp": 1791471658860
+    },
+    {
+      "context": {
+        "route": "/log-error"
+      },
+      "cycle": 1,
+      "data": {
+        "counts": {
+          "Chart": null,
+          "EventSource": 0,
+          "IntersectionObserver": 0,
+          "MutationObserver": 4,
+          "PerformanceObserver": 0,
+          "ResizeObserver": 0,
+          "WebSocket": 1,
+          "Worker": 0
+        }
+      },
+      "id": "ev_20_ev_memory.client_census_cycle_1_d1a5456dabc0f717",
+      "kind": "census",
+      "phase": "cycle",
+      "probe_id": "memory.client",
+      "timestamp": 1791471658860
+    },
+    {
+      "context": {
+        "route": "/login"
+      },
+      "cycle": 1,
+      "data": {
+        "canvases": 0,
+        "documents": 1,
+        "gcOk": true,
+        "heapLimit": 4395630592,
+        "heapTotal": 8671370,
+        "heapUsed": 7679862,
+        "listeners": 182,
+        "mutationWindowMs": 880,
+        "mutations": 4,
+        "nodes": 9078,
+        "webglContexts": 0
+      },
+      "id": "ev_21_ev_memory.client_sample_cycle_1_a304faa78406225a",
+      "kind": "sample",
+      "phase": "cycle",
+      "probe_id": "memory.client",
+      "timestamp": 1791471660690
+    },
+    {
+      "context": {
+        "route": "/login"
+      },
+      "cycle": 1,
+      "data": {
+        "counts": {
+          "Chart": null,
+          "EventSource": 0,
+          "IntersectionObserver": 0,
+          "MutationObserver": 4,
+          "PerformanceObserver": 0,
+          "ResizeObserver": 0,
+          "WebSocket": 1,
+          "Worker": 0
+        }
+      },
+      "id": "ev_22_ev_memory.client_census_cycle_1_f4cf1ddf16723467",
+      "kind": "census",
+      "phase": "cycle",
+      "probe_id": "memory.client",
+      "timestamp": 1791471660690
+    },
+    {
+      "context": {
+        "route": "/observers"
+      },
+      "cycle": 1,
+      "data": {
+        "canvases": 0,
+        "documents": 1,
+        "gcOk": true,
+        "heapLimit": 4395630592,
+        "heapTotal": 8671490,
+        "heapUsed": 7682758,
+        "listeners": 182,
+        "mutationWindowMs": 871,
+        "mutations": 4,
+        "nodes": 9079,
+        "webglContexts": 0
+      },
+      "id": "ev_23_ev_memory.client_sample_cycle_1_46d3d5722ae9234a",
+      "kind": "sample",
+      "phase": "cycle",
+      "probe_id": "memory.client",
+      "timestamp": 1791471662624
+    },
+    {
+      "context": {
+        "route": "/observers"
+      },
+      "cycle": 1,
+      "data": {
+        "counts": {
+          "Chart": null,
+          "EventSource": 0,
+          "IntersectionObserver": 0,
+          "MutationObserver": 4,
+          "PerformanceObserver": 0,
+          "ResizeObserver": 1,
+          "WebSocket": 1,
+          "Worker": 0
+        }
+      },
+      "id": "ev_24_ev_memory.client_census_cycle_1_26196dc88f02152c",
+      "kind": "census",
+      "phase": "cycle",
+      "probe_id": "memory.client",
+      "timestamp": 1791471662624
+    },
+    {
+      "context": {
+        "route": "/protected"
+      },
+      "cycle": 1,
+      "data": {
+        "canvases": 0,
+        "documents": 1,
+        "gcOk": true,
+        "heapLimit": 4395630592,
+        "heapTotal": 8671506,
+        "heapUsed": 7679794,
+        "listeners": 182,
+        "mutationWindowMs": 845,
+        "mutations": 4,
+        "nodes": 9079,
+        "webglContexts": 0
+      },
+      "id": "ev_25_ev_memory.client_sample_cycle_1_d4d245004c4623ca",
+      "kind": "sample",
+      "phase": "cycle",
+      "probe_id": "memory.client",
+      "timestamp": 1791471664510
+    },
+    {
+      "context": {
+        "route": "/protected"
+      },
+      "cycle": 1,
+      "data": {
+        "counts": {
+          "Chart": null,
+          "EventSource": 0,
+          "IntersectionObserver": 0,
+          "MutationObserver": 4,
+          "PerformanceObserver": 0,
+          "ResizeObserver": 1,
+          "WebSocket": 1,
+          "Worker": 0
+        }
+      },
+      "id": "ev_26_ev_memory.client_census_cycle_1_dbe67245855f4ad7",
+      "kind": "census",
+      "phase": "cycle",
+      "probe_id": "memory.client",
+      "timestamp": 1791471664510
+    },
+    {
+      "context": {
+        "route": "/render-loop"
+      },
+      "cycle": 1,
+      "data": {
+        "canvases": 0,
+        "documents": 1,
+        "gcOk": true,
+        "heapLimit": 4395630592,
+        "heapTotal": 9457992,
+        "heapUsed": 8182396,
+        "listeners": 182,
+        "mutationWindowMs": 867,
+        "mutations": 5807,
+        "nodes": 9080,
+        "webglContexts": 0
+      },
+      "id": "ev_27_ev_memory.client_sample_cycle_1_677a62e5dde72046",
+      "kind": "sample",
+      "phase": "cycle",
+      "probe_id": "memory.client",
+      "timestamp": 1791471666377
+    },
+    {
+      "context": {
+        "route": "/render-loop"
+      },
+      "cycle": 1,
+      "data": {
+        "counts": {
+          "Chart": null,
+          "EventSource": 0,
+          "IntersectionObserver": 0,
+          "MutationObserver": 4,
+          "PerformanceObserver": 0,
+          "ResizeObserver": 1,
+          "WebSocket": 1,
+          "Worker": 0
+        }
+      },
+      "id": "ev_28_ev_memory.client_census_cycle_1_81220dbd8e4a4cd1",
+      "kind": "census",
+      "phase": "cycle",
+      "probe_id": "memory.client",
+      "timestamp": 1791471666377
+    },
+    {
+      "context": {
+        "route": "/"
+      },
+      "cycle": 2,
+      "data": {
+        "canvases": 0,
+        "documents": 1,
+        "gcOk": true,
+        "heapLimit": 4395630592,
+        "heapTotal": 8933704,
+        "heapUsed": 8089060,
+        "listeners": 182,
+        "mutationWindowMs": 829,
+        "mutations": 0,
+        "nodes": 9080,
+        "webglContexts": 0
+      },
+      "id": "ev_29_ev_memory.client_sample_cycle_2_5a50d810ac741a11",
+      "kind": "sample",
+      "phase": "cycle",
+      "probe_id": "memory.client",
+      "timestamp": 1791471668220
+    },
+    {
+      "context": {
+        "route": "/"
+      },
+      "cycle": 2,
+      "data": {
+        "counts": {
+          "Chart": null,
+          "EventSource": 0,
+          "IntersectionObserver": 0,
+          "MutationObserver": 4,
+          "PerformanceObserver": 0,
+          "ResizeObserver": 1,
+          "WebSocket": 1,
+          "Worker": 0
+        }
+      },
+      "id": "ev_30_ev_memory.client_census_cycle_2_2f7eab9b2d7f0974",
+      "kind": "census",
+      "phase": "cycle",
+      "probe_id": "memory.client",
+      "timestamp": 1791471668220
+    },
+    {
+      "context": {
+        "route": "/bad-fetch"
+      },
+      "cycle": 2,
+      "data": {
+        "canvases": 0,
+        "documents": 1,
+        "gcOk": true,
+        "heapLimit": 4395630592,
+        "heapTotal": 8933702,
+        "heapUsed": 8111746,
+        "listeners": 182,
+        "mutationWindowMs": 855,
+        "mutations": 5,
+        "nodes": 9080,
+        "webglContexts": 0
+      },
+      "id": "ev_31_ev_memory.client_sample_cycle_2_9440a51b8b3cce68",
+      "kind": "sample",
+      "phase": "cycle",
+      "probe_id": "memory.client",
+      "timestamp": 1791471670100
+    },
+    {
+      "context": {
+        "route": "/bad-fetch"
+      },
+      "cycle": 2,
+      "data": {
+        "counts": {
+          "Chart": null,
+          "EventSource": 0,
+          "IntersectionObserver": 0,
+          "MutationObserver": 4,
+          "PerformanceObserver": 0,
+          "ResizeObserver": 1,
+          "WebSocket": 1,
+          "Worker": 0
+        }
+      },
+      "id": "ev_32_ev_memory.client_census_cycle_2_c4673d399bb65d4a",
+      "kind": "census",
+      "phase": "cycle",
+      "probe_id": "memory.client",
+      "timestamp": 1791471670100
+    },
+    {
+      "context": {
+        "route": "/charts"
+      },
+      "cycle": 2,
+      "data": {
+        "canvases": 0,
+        "documents": 1,
+        "gcOk": true,
+        "heapLimit": 4395630592,
+        "heapTotal": 9457987,
+        "heapUsed": 8259091,
+        "listeners": 187,
+        "mutationWindowMs": 882,
+        "mutations": 12,
+        "nodes": 9087,
+        "webglContexts": 0
+      },
+      "id": "ev_33_ev_memory.client_sample_cycle_2_eeaa6553bbe8aef9",
+      "kind": "sample",
+      "phase": "cycle",
+      "probe_id": "memory.client",
+      "timestamp": 1791471672033
+    },
+    {
+      "context": {
+        "route": "/charts"
+      },
+      "cycle": 2,
+      "data": {
+        "counts": {
+          "Chart": null,
+          "EventSource": 0,
+          "IntersectionObserver": 0,
+          "MutationObserver": 6,
+          "PerformanceObserver": 0,
+          "ResizeObserver": 1,
+          "WebSocket": 1,
+          "Worker": 0
+        }
+      },
+      "id": "ev_34_ev_memory.client_census_cycle_2_d1d891bc2c1c814c",
+      "kind": "census",
+      "phase": "cycle",
+      "probe_id": "memory.client",
+      "timestamp": 1791471672034
+    },
+    {
+      "context": {
+        "route": "/clean"
+      },
+      "cycle": 2,
+      "data": {
+        "canvases": 0,
+        "documents": 1,
+        "gcOk": true,
+        "heapLimit": 4395630592,
+        "heapTotal": 9458001,
+        "heapUsed": 8243133,
+        "listeners": 187,
+        "mutationWindowMs": 855,
+        "mutations": 4,
+        "nodes": 9087,
+        "webglContexts": 0
+      },
+      "id": "ev_35_ev_memory.client_sample_cycle_2_552fb797b8da503f",
+      "kind": "sample",
+      "phase": "cycle",
+      "probe_id": "memory.client",
+      "timestamp": 1791471673956
+    },
+    {
+      "context": {
+        "route": "/clean"
+      },
+      "cycle": 2,
+      "data": {
+        "counts": {
+          "Chart": null,
+          "EventSource": 0,
+          "IntersectionObserver": 0,
+          "MutationObserver": 6,
+          "PerformanceObserver": 0,
+          "ResizeObserver": 1,
+          "WebSocket": 1,
+          "Worker": 0
+        }
+      },
+      "id": "ev_36_ev_memory.client_census_cycle_2_019d41017ad329b5",
+      "kind": "census",
+      "phase": "cycle",
+      "probe_id": "memory.client",
+      "timestamp": 1791471673956
+    },
+    {
+      "context": {
+        "route": "/crash"
+      },
+      "cycle": 2,
+      "data": {
+        "canvases": 0,
+        "documents": 1,
+        "gcOk": true,
+        "heapLimit": 4395630592,
+        "heapTotal": 9195857,
+        "heapUsed": 8249217,
+        "listeners": 187,
+        "mutationWindowMs": 880,
+        "mutations": 4,
+        "nodes": 9087,
+        "webglContexts": 0
+      },
+      "id": "ev_37_ev_memory.client_sample_cycle_2_d235ef92e8f988fc",
+      "kind": "sample",
+      "phase": "cycle",
+      "probe_id": "memory.client",
+      "timestamp": 1791471675974
+    },
+    {
+      "context": {
+        "route": "/crash"
+      },
+      "cycle": 2,
+      "data": {
+        "counts": {
+          "Chart": null,
+          "EventSource": 0,
+          "IntersectionObserver": 0,
+          "MutationObserver": 6,
+          "PerformanceObserver": 0,
+          "ResizeObserver": 1,
+          "WebSocket": 1,
+          "Worker": 0
+        }
+      },
+      "id": "ev_38_ev_memory.client_census_cycle_2_8c53e78f85dff5c0",
+      "kind": "census",
+      "phase": "cycle",
+      "probe_id": "memory.client",
+      "timestamp": 1791471675975
+    },
+    {
+      "context": {
+        "route": "/detached"
+      },
+      "cycle": 2,
+      "data": {
+        "canvases": 0,
+        "documents": 1,
+        "gcOk": true,
+        "heapLimit": 4395630592,
+        "heapTotal": 9458004,
+        "heapUsed": 8364088,
+        "listeners": 187,
+        "mutationWindowMs": 864,
+        "mutations": 4,
+        "nodes": 18087,
+        "webglContexts": 0
+      },
+      "id": "ev_39_ev_memory.client_sample_cycle_2_44109e74c4731adc",
+      "kind": "sample",
+      "phase": "cycle",
+      "probe_id": "memory.client",
+      "timestamp": 1791471677963
+    },
+    {
+      "context": {
+        "route": "/detached"
+      },
+      "cycle": 2,
+      "data": {
+        "counts": {
+          "Chart": null,
+          "EventSource": 0,
+          "IntersectionObserver": 0,
+          "MutationObserver": 6,
+          "PerformanceObserver": 0,
+          "ResizeObserver": 1,
+          "WebSocket": 1,
+          "Worker": 0
+        }
+      },
+      "id": "ev_40_ev_memory.client_census_cycle_2_6bd5f110ef808855",
+      "kind": "census",
+      "phase": "cycle",
+      "probe_id": "memory.client",
+      "timestamp": 1791471677963
+    },
+    {
+      "context": {
+        "route": "/grow"
+      },
+      "cycle": 2,
+      "data": {
+        "canvases": 0,
+        "documents": 1,
+        "gcOk": true,
+        "heapLimit": 4395630592,
+        "heapTotal": 9658704,
+        "heapUsed": 8571672,
+        "listeners": 187,
+        "mutationWindowMs": 879,
+        "mutations": 4,
+        "nodes": 18087,
+        "webglContexts": 0
+      },
+      "id": "ev_41_ev_memory.client_sample_cycle_2_4af504dce6b7fe8e",
+      "kind": "sample",
+      "phase": "cycle",
+      "probe_id": "memory.client",
+      "timestamp": 1791471680008
+    },
+    {
+      "context": {
+        "route": "/grow"
+      },
+      "cycle": 2,
+      "data": {
+        "counts": {
+          "Chart": null,
+          "EventSource": 0,
+          "IntersectionObserver": 0,
+          "MutationObserver": 6,
+          "PerformanceObserver": 0,
+          "ResizeObserver": 1,
+          "WebSocket": 1,
+          "Worker": 0
+        }
+      },
+      "id": "ev_42_ev_memory.client_census_cycle_2_2c288e728c0353cf",
+      "kind": "census",
+      "phase": "cycle",
+      "probe_id": "memory.client",
+      "timestamp": 1791471680008
+    },
+    {
+      "context": {
+        "route": "/listeners"
+      },
+      "cycle": 2,
+      "data": {
+        "canvases": 0,
+        "documents": 1,
+        "gcOk": true,
+        "heapLimit": 4395630592,
+        "heapTotal": 9658709,
+        "heapUsed": 8574329,
+        "listeners": 189,
+        "mutationWindowMs": 879,
+        "mutations": 4,
+        "nodes": 18087,
+        "webglContexts": 0
+      },
+      "id": "ev_43_ev_memory.client_sample_cycle_2_7ef49271888a4270",
+      "kind": "sample",
+      "phase": "cycle",
+      "probe_id": "memory.client",
+      "timestamp": 1791471682104
+    },
+    {
+      "context": {
+        "route": "/listeners"
+      },
+      "cycle": 2,
+      "data": {
+        "counts": {
+          "Chart": null,
+          "EventSource": 0,
+          "IntersectionObserver": 0,
+          "MutationObserver": 6,
+          "PerformanceObserver": 0,
+          "ResizeObserver": 1,
+          "WebSocket": 1,
+          "Worker": 0
+        }
+      },
+      "id": "ev_44_ev_memory.client_census_cycle_2_0abea9dd19166cfd",
+      "kind": "census",
+      "phase": "cycle",
+      "probe_id": "memory.client",
+      "timestamp": 1791471682104
+    },
+    {
+      "context": {
+        "route": "/log-error"
+      },
+      "cycle": 2,
+      "data": {
+        "canvases": 0,
+        "documents": 1,
+        "gcOk": true,
+        "heapLimit": 4395630592,
+        "heapTotal": 9658709,
+        "heapUsed": 8575729,
+        "listeners": 189,
+        "mutationWindowMs": 876,
+        "mutations": 4,
+        "nodes": 18087,
+        "webglContexts": 0
+      },
+      "id": "ev_45_ev_memory.client_sample_cycle_2_5a456d005614ca7b",
+      "kind": "sample",
+      "phase": "cycle",
+      "probe_id": "memory.client",
+      "timestamp": 1791471684232
+    },
+    {
+      "context": {
+        "route": "/log-error"
+      },
+      "cycle": 2,
+      "data": {
+        "counts": {
+          "Chart": null,
+          "EventSource": 0,
+          "IntersectionObserver": 0,
+          "MutationObserver": 6,
+          "PerformanceObserver": 0,
+          "ResizeObserver": 1,
+          "WebSocket": 1,
+          "Worker": 0
+        }
+      },
+      "id": "ev_46_ev_memory.client_census_cycle_2_4d2236ab20119847",
+      "kind": "census",
+      "phase": "cycle",
+      "probe_id": "memory.client",
+      "timestamp": 1791471684232
+    },
+    {
+      "context": {
+        "route": "/login"
+      },
+      "cycle": 2,
+      "data": {
+        "canvases": 0,
+        "documents": 1,
+        "gcOk": true,
+        "heapLimit": 4395630592,
+        "heapTotal": 9658705,
+        "heapUsed": 8574829,
+        "listeners": 189,
+        "mutationWindowMs": 880,
+        "mutations": 4,
+        "nodes": 18087,
+        "webglContexts": 0
+      },
+      "id": "ev_47_ev_memory.client_sample_cycle_2_bcf98b490eb95305",
+      "kind": "sample",
+      "phase": "cycle",
+      "probe_id": "memory.client",
+      "timestamp": 1791471686277
+    },
+    {
+      "context": {
+        "route": "/login"
+      },
+      "cycle": 2,
+      "data": {
+        "counts": {
+          "Chart": null,
+          "EventSource": 0,
+          "IntersectionObserver": 0,
+          "MutationObserver": 6,
+          "PerformanceObserver": 0,
+          "ResizeObserver": 1,
+          "WebSocket": 1,
+          "Worker": 0
+        }
+      },
+      "id": "ev_48_ev_memory.client_census_cycle_2_3c5561233337d635",
+      "kind": "census",
+      "phase": "cycle",
+      "probe_id": "memory.client",
+      "timestamp": 1791471686277
+    },
+    {
+      "context": {
+        "route": "/observers"
+      },
+      "cycle": 2,
+      "data": {
+        "canvases": 0,
+        "documents": 1,
+        "gcOk": true,
+        "heapLimit": 4395630592,
+        "heapTotal": 9658709,
+        "heapUsed": 8576193,
+        "listeners": 189,
+        "mutationWindowMs": 869,
+        "mutations": 4,
+        "nodes": 18087,
+        "webglContexts": 0
+      },
+      "id": "ev_49_ev_memory.client_sample_cycle_2_5c4d48f02d011395",
+      "kind": "sample",
+      "phase": "cycle",
+      "probe_id": "memory.client",
+      "timestamp": 1791471688333
+    },
+    {
+      "context": {
+        "route": "/observers"
+      },
+      "cycle": 2,
+      "data": {
+        "counts": {
+          "Chart": null,
+          "EventSource": 0,
+          "IntersectionObserver": 0,
+          "MutationObserver": 6,
+          "PerformanceObserver": 0,
+          "ResizeObserver": 2,
+          "WebSocket": 1,
+          "Worker": 0
+        }
+      },
+      "id": "ev_50_ev_memory.client_census_cycle_2_10a9a3ffed63d21b",
+      "kind": "census",
+      "phase": "cycle",
+      "probe_id": "memory.client",
+      "timestamp": 1791471688333
+    },
+    {
+      "context": {
+        "route": "/protected"
+      },
+      "cycle": 2,
+      "data": {
+        "canvases": 0,
+        "documents": 1,
+        "gcOk": true,
+        "heapLimit": 4395630592,
+        "heapTotal": 9658705,
+        "heapUsed": 8566521,
+        "listeners": 189,
+        "mutationWindowMs": 844,
+        "mutations": 4,
+        "nodes": 18087,
+        "webglContexts": 0
+      },
+      "id": "ev_51_ev_memory.client_sample_cycle_2_aef3ae1cabb4d0f1",
+      "kind": "sample",
+      "phase": "cycle",
+      "probe_id": "memory.client",
+      "timestamp": 1791471690338
+    },
+    {
+      "context": {
+        "route": "/protected"
+      },
+      "cycle": 2,
+      "data": {
+        "counts": {
+          "Chart": null,
+          "EventSource": 0,
+          "IntersectionObserver": 0,
+          "MutationObserver": 6,
+          "PerformanceObserver": 0,
+          "ResizeObserver": 2,
+          "WebSocket": 1,
+          "Worker": 0
+        }
+      },
+      "id": "ev_52_ev_memory.client_census_cycle_2_adcbd646f4685859",
+      "kind": "census",
+      "phase": "cycle",
+      "probe_id": "memory.client",
+      "timestamp": 1791471690338
+    },
+    {
+      "context": {
+        "route": "/render-loop"
+      },
+      "cycle": 2,
+      "data": {
+        "canvases": 0,
+        "documents": 1,
+        "gcOk": true,
+        "heapLimit": 4395630592,
+        "heapTotal": 9658711,
+        "heapUsed": 8673259,
+        "listeners": 189,
+        "mutationWindowMs": 869,
+        "mutations": 5662,
+        "nodes": 18087,
+        "webglContexts": 0
+      },
+      "id": "ev_53_ev_memory.client_sample_cycle_2_ffc9461254effcd0",
+      "kind": "sample",
+      "phase": "cycle",
+      "probe_id": "memory.client",
+      "timestamp": 1791471692342
+    },
+    {
+      "context": {
+        "route": "/render-loop"
+      },
+      "cycle": 2,
+      "data": {
+        "counts": {
+          "Chart": null,
+          "EventSource": 0,
+          "IntersectionObserver": 0,
+          "MutationObserver": 6,
+          "PerformanceObserver": 0,
+          "ResizeObserver": 2,
+          "WebSocket": 1,
+          "Worker": 0
+        }
+      },
+      "id": "ev_54_ev_memory.client_census_cycle_2_c253ba80b2445289",
+      "kind": "census",
+      "phase": "cycle",
+      "probe_id": "memory.client",
+      "timestamp": 1791471692342
+    },
+    {
+      "context": {
+        "route": "/"
+      },
+      "cycle": 3,
+      "data": {
+        "canvases": 0,
+        "documents": 1,
+        "gcOk": true,
+        "heapLimit": 4395630592,
+        "heapTotal": 9658711,
+        "heapUsed": 8618867,
+        "listeners": 189,
+        "mutationWindowMs": 830,
+        "mutations": 0,
+        "nodes": 18087,
+        "webglContexts": 0
+      },
+      "id": "ev_55_ev_memory.client_sample_cycle_3_76f01a28c8d17cda",
+      "kind": "sample",
+      "phase": "cycle",
+      "probe_id": "memory.client",
+      "timestamp": 1791471694247
+    },
+    {
+      "context": {
+        "route": "/"
+      },
+      "cycle": 3,
+      "data": {
+        "counts": {
+          "Chart": null,
+          "EventSource": 0,
+          "IntersectionObserver": 0,
+          "MutationObserver": 6,
+          "PerformanceObserver": 0,
+          "ResizeObserver": 2,
+          "WebSocket": 1,
+          "Worker": 0
+        }
+      },
+      "id": "ev_56_ev_memory.client_census_cycle_3_18482f3bf8c492a7",
+      "kind": "census",
+      "phase": "cycle",
+      "probe_id": "memory.client",
+      "timestamp": 1791471694248
+    },
+    {
+      "context": {
+        "route": "/bad-fetch"
+      },
+      "cycle": 3,
+      "data": {
+        "canvases": 0,
+        "documents": 1,
+        "gcOk": true,
+        "heapLimit": 4395630592,
+        "heapTotal": 9658709,
+        "heapUsed": 8644753,
+        "listeners": 189,
+        "mutationWindowMs": 871,
+        "mutations": 5,
+        "nodes": 18087,
+        "webglContexts": 0
+      },
+      "id": "ev_57_ev_memory.client_sample_cycle_3_7f826eef1f6a7e68",
+      "kind": "sample",
+      "phase": "cycle",
+      "probe_id": "memory.client",
+      "timestamp": 1791471696192
+    },
+    {
+      "context": {
+        "route": "/bad-fetch"
+      },
+      "cycle": 3,
+      "data": {
+        "counts": {
+          "Chart": null,
+          "EventSource": 0,
+          "IntersectionObserver": 0,
+          "MutationObserver": 6,
+          "PerformanceObserver": 0,
+          "ResizeObserver": 2,
+          "WebSocket": 1,
+          "Worker": 0
+        }
+      },
+      "id": "ev_58_ev_memory.client_census_cycle_3_7f803d035d343d50",
+      "kind": "census",
+      "phase": "cycle",
+      "probe_id": "memory.client",
+      "timestamp": 1791471696192
+    },
+    {
+      "context": {
+        "route": "/charts"
+      },
+      "cycle": 3,
+      "data": {
+        "canvases": 0,
+        "documents": 1,
+        "gcOk": true,
+        "heapLimit": 4395630592,
+        "heapTotal": 9920850,
+        "heapUsed": 8858550,
+        "listeners": 194,
+        "mutationWindowMs": 901,
+        "mutations": 12,
+        "nodes": 18094,
+        "webglContexts": 0
+      },
+      "id": "ev_59_ev_memory.client_sample_cycle_3_309a3f5918f8c03c",
+      "kind": "sample",
+      "phase": "cycle",
+      "probe_id": "memory.client",
+      "timestamp": 1791471698215
+    },
+    {
+      "context": {
+        "route": "/charts"
+      },
+      "cycle": 3,
+      "data": {
+        "counts": {
+          "Chart": null,
+          "EventSource": 0,
+          "IntersectionObserver": 0,
+          "MutationObserver": 8,
+          "PerformanceObserver": 0,
+          "ResizeObserver": 2,
+          "WebSocket": 1,
+          "Worker": 0
+        }
+      },
+      "id": "ev_60_ev_memory.client_census_cycle_3_eedb83997ddc5de7",
+      "kind": "census",
+      "phase": "cycle",
+      "probe_id": "memory.client",
+      "timestamp": 1791471698215
+    },
+    {
+      "context": {
+        "route": "/clean"
+      },
+      "cycle": 3,
+      "data": {
+        "canvases": 0,
+        "documents": 1,
+        "gcOk": true,
+        "heapLimit": 4395630592,
+        "heapTotal": 9658705,
+        "heapUsed": 8840033,
+        "listeners": 194,
+        "mutationWindowMs": 880,
+        "mutations": 4,
+        "nodes": 18094,
+        "webglContexts": 0
+      },
+      "id": "ev_61_ev_memory.client_sample_cycle_3_e7a5bc7cbc905151",
+      "kind": "sample",
+      "phase": "cycle",
+      "probe_id": "memory.client",
+      "timestamp": 1791471700348
+    },
+    {
+      "context": {
+        "route": "/clean"
+      },
+      "cycle": 3,
+      "data": {
+        "counts": {
+          "Chart": null,
+          "EventSource": 0,
+          "IntersectionObserver": 0,
+          "MutationObserver": 8,
+          "PerformanceObserver": 0,
+          "ResizeObserver": 2,
+          "WebSocket": 1,
+          "Worker": 0
+        }
+      },
+      "id": "ev_62_ev_memory.client_census_cycle_3_444bed0d385cc371",
+      "kind": "census",
+      "phase": "cycle",
+      "probe_id": "memory.client",
+      "timestamp": 1791471700348
+    },
+    {
+      "context": {
+        "route": "/crash"
+      },
+      "cycle": 3,
+      "data": {
+        "canvases": 0,
+        "documents": 1,
+        "gcOk": true,
+        "heapLimit": 4395630592,
+        "heapTotal": 9658705,
+        "heapUsed": 8842509,
+        "listeners": 194,
+        "mutationWindowMs": 878,
+        "mutations": 4,
+        "nodes": 18094,
+        "webglContexts": 0
+      },
+      "id": "ev_63_ev_memory.client_sample_cycle_3_3b057a14b77b4540",
+      "kind": "sample",
+      "phase": "cycle",
+      "probe_id": "memory.client",
+      "timestamp": 1791471702459
+    },
+    {
+      "context": {
+        "route": "/crash"
+      },
+      "cycle": 3,
+      "data": {
+        "counts": {
+          "Chart": null,
+          "EventSource": 0,
+          "IntersectionObserver": 0,
+          "MutationObserver": 8,
+          "PerformanceObserver": 0,
+          "ResizeObserver": 2,
+          "WebSocket": 1,
+          "Worker": 0
+        }
+      },
+      "id": "ev_64_ev_memory.client_census_cycle_3_3a356f4b14df8a3a",
+      "kind": "census",
+      "phase": "cycle",
+      "probe_id": "memory.client",
+      "timestamp": 1791471702459
+    },
+    {
+      "context": {
+        "route": "/detached"
+      },
+      "cycle": 3,
+      "data": {
+        "canvases": 0,
+        "documents": 1,
+        "gcOk": true,
+        "heapLimit": 4395630592,
+        "heapTotal": 9920852,
+        "heapUsed": 8957700,
+        "listeners": 194,
+        "mutationWindowMs": 878,
+        "mutations": 4,
+        "nodes": 27094,
+        "webglContexts": 0
+      },
+      "id": "ev_65_ev_memory.client_sample_cycle_3_e40c34c87228bbe0",
+      "kind": "sample",
+      "phase": "cycle",
+      "probe_id": "memory.client",
+      "timestamp": 1791471704604
+    },
+    {
+      "context": {
+        "route": "/detached"
+      },
+      "cycle": 3,
+      "data": {
+        "counts": {
+          "Chart": null,
+          "EventSource": 0,
+          "IntersectionObserver": 0,
+          "MutationObserver": 8,
+          "PerformanceObserver": 0,
+          "ResizeObserver": 2,
+          "WebSocket": 1,
+          "Worker": 0
+        }
+      },
+      "id": "ev_66_ev_memory.client_census_cycle_3_c2d1f541c698fdae",
+      "kind": "census",
+      "phase": "cycle",
+      "probe_id": "memory.client",
+      "timestamp": 1791471704604
+    },
+    {
+      "context": {
+        "route": "/grow"
+      },
+      "cycle": 3,
+      "data": {
+        "canvases": 0,
+        "documents": 1,
+        "gcOk": true,
+        "heapLimit": 4395630592,
+        "heapTotal": 10121552,
+        "heapUsed": 9156388,
+        "listeners": 194,
+        "mutationWindowMs": 868,
+        "mutations": 4,
+        "nodes": 27094,
+        "webglContexts": 0
+      },
+      "id": "ev_67_ev_memory.client_sample_cycle_3_04d5efd487922445",
+      "kind": "sample",
+      "phase": "cycle",
+      "probe_id": "memory.client",
+      "timestamp": 1791471706806
+    },
+    {
+      "context": {
+        "route": "/grow"
+      },
+      "cycle": 3,
+      "data": {
+        "counts": {
+          "Chart": null,
+          "EventSource": 0,
+          "IntersectionObserver": 0,
+          "MutationObserver": 8,
+          "PerformanceObserver": 0,
+          "ResizeObserver": 2,
+          "WebSocket": 1,
+          "Worker": 0
+        }
+      },
+      "id": "ev_68_ev_memory.client_census_cycle_3_5c4bf9c6287ffae2",
+      "kind": "census",
+      "phase": "cycle",
+      "probe_id": "memory.client",
+      "timestamp": 1791471706807
+    },
+    {
+      "context": {
+        "route": "/listeners"
+      },
+      "cycle": 3,
+      "data": {
+        "canvases": 0,
+        "documents": 1,
+        "gcOk": true,
+        "heapLimit": 4395630592,
+        "heapTotal": 10121557,
+        "heapUsed": 9161789,
+        "listeners": 196,
+        "mutationWindowMs": 877,
+        "mutations": 4,
+        "nodes": 27094,
+        "webglContexts": 0
+      },
+      "id": "ev_69_ev_memory.client_sample_cycle_3_0d5683d1186039f9",
+      "kind": "sample",
+      "phase": "cycle",
+      "probe_id": "memory.client",
+      "timestamp": 1791471708979
+    },
+    {
+      "context": {
+        "route": "/listeners"
+      },
+      "cycle": 3,
+      "data": {
+        "counts": {
+          "Chart": null,
+          "EventSource": 0,
+          "IntersectionObserver": 0,
+          "MutationObserver": 8,
+          "PerformanceObserver": 0,
+          "ResizeObserver": 2,
+          "WebSocket": 1,
+          "Worker": 0
+        }
+      },
+      "id": "ev_70_ev_memory.client_census_cycle_3_3fee2b03034c879e",
+      "kind": "census",
+      "phase": "cycle",
+      "probe_id": "memory.client",
+      "timestamp": 1791471708979
+    },
+    {
+      "context": {
+        "route": "/log-error"
+      },
+      "cycle": 3,
+      "data": {
+        "canvases": 0,
+        "documents": 1,
+        "gcOk": true,
+        "heapLimit": 4395630592,
+        "heapTotal": 10121557,
+        "heapUsed": 9158485,
+        "listeners": 196,
+        "mutationWindowMs": 873,
+        "mutations": 4,
+        "nodes": 27094,
+        "webglContexts": 0
+      },
+      "id": "ev_71_ev_memory.client_sample_cycle_3_07b25a43b8c07387",
+      "kind": "sample",
+      "phase": "cycle",
+      "probe_id": "memory.client",
+      "timestamp": 1791471711159
+    },
+    {
+      "context": {
+        "route": "/log-error"
+      },
+      "cycle": 3,
+      "data": {
+        "counts": {
+          "Chart": null,
+          "EventSource": 0,
+          "IntersectionObserver": 0,
+          "MutationObserver": 8,
+          "PerformanceObserver": 0,
+          "ResizeObserver": 2,
+          "WebSocket": 1,
+          "Worker": 0
+        }
+      },
+      "id": "ev_72_ev_memory.client_census_cycle_3_d3665927c5a60db2",
+      "kind": "census",
+      "phase": "cycle",
+      "probe_id": "memory.client",
+      "timestamp": 1791471711159
+    },
+    {
+      "context": {
+        "route": "/login"
+      },
+      "cycle": 3,
+      "data": {
+        "canvases": 0,
+        "documents": 1,
+        "gcOk": true,
+        "heapLimit": 4395630592,
+        "heapTotal": 10121553,
+        "heapUsed": 9161385,
+        "listeners": 196,
+        "mutationWindowMs": 863,
+        "mutations": 4,
+        "nodes": 27094,
+        "webglContexts": 0
+      },
+      "id": "ev_73_ev_memory.client_sample_cycle_3_fd19a94fd6f8ae9a",
+      "kind": "sample",
+      "phase": "cycle",
+      "probe_id": "memory.client",
+      "timestamp": 1791471713294
+    },
+    {
+      "context": {
+        "route": "/login"
+      },
+      "cycle": 3,
+      "data": {
+        "counts": {
+          "Chart": null,
+          "EventSource": 0,
+          "IntersectionObserver": 0,
+          "MutationObserver": 8,
+          "PerformanceObserver": 0,
+          "ResizeObserver": 2,
+          "WebSocket": 1,
+          "Worker": 0
+        }
+      },
+      "id": "ev_74_ev_memory.client_census_cycle_3_52e4238bed371dd8",
+      "kind": "census",
+      "phase": "cycle",
+      "probe_id": "memory.client",
+      "timestamp": 1791471713294
+    },
+    {
+      "context": {
+        "route": "/observers"
+      },
+      "cycle": 3,
+      "data": {
+        "canvases": 0,
+        "documents": 1,
+        "gcOk": true,
+        "heapLimit": 4395630592,
+        "heapTotal": 10121557,
+        "heapUsed": 9164901,
+        "listeners": 196,
+        "mutationWindowMs": 880,
+        "mutations": 4,
+        "nodes": 27094,
+        "webglContexts": 0
+      },
+      "id": "ev_75_ev_memory.client_sample_cycle_3_87fc48ee4f8c6de9",
+      "kind": "sample",
+      "phase": "cycle",
+      "probe_id": "memory.client",
+      "timestamp": 1791471715537
+    },
+    {
+      "context": {
+        "route": "/observers"
+      },
+      "cycle": 3,
+      "data": {
+        "counts": {
+          "Chart": null,
+          "EventSource": 0,
+          "IntersectionObserver": 0,
+          "MutationObserver": 8,
+          "PerformanceObserver": 0,
+          "ResizeObserver": 3,
+          "WebSocket": 1,
+          "Worker": 0
+        }
+      },
+      "id": "ev_76_ev_memory.client_census_cycle_3_4a472f599590c5ca",
+      "kind": "census",
+      "phase": "cycle",
+      "probe_id": "memory.client",
+      "timestamp": 1791471715537
+    },
+    {
+      "context": {
+        "route": "/protected"
+      },
+      "cycle": 3,
+      "data": {
+        "canvases": 0,
+        "documents": 1,
+        "gcOk": true,
+        "heapLimit": 4395630592,
+        "heapTotal": 10121553,
+        "heapUsed": 9157569,
+        "listeners": 196,
+        "mutationWindowMs": 839,
+        "mutations": 4,
+        "nodes": 27094,
+        "webglContexts": 0
+      },
+      "id": "ev_77_ev_memory.client_sample_cycle_3_d1ef377ed7c728f1",
+      "kind": "sample",
+      "phase": "cycle",
+      "probe_id": "memory.client",
+      "timestamp": 1791471717676
+    },
+    {
+      "context": {
+        "route": "/protected"
+      },
+      "cycle": 3,
+      "data": {
+        "counts": {
+          "Chart": null,
+          "EventSource": 0,
+          "IntersectionObserver": 0,
+          "MutationObserver": 8,
+          "PerformanceObserver": 0,
+          "ResizeObserver": 3,
+          "WebSocket": 1,
+          "Worker": 0
+        }
+      },
+      "id": "ev_78_ev_memory.client_census_cycle_3_bef766bee4ab7729",
+      "kind": "census",
+      "phase": "cycle",
+      "probe_id": "memory.client",
+      "timestamp": 1791471717676
+    },
+    {
+      "context": {
+        "route": "/render-loop"
+      },
+      "cycle": 3,
+      "data": {
+        "canvases": 0,
+        "documents": 1,
+        "gcOk": true,
+        "heapLimit": 4395630592,
+        "heapTotal": 10121559,
+        "heapUsed": 9213003,
+        "listeners": 196,
+        "mutationWindowMs": 883,
+        "mutations": 5314,
+        "nodes": 27094,
+        "webglContexts": 0
+      },
+      "id": "ev_79_ev_memory.client_sample_cycle_3_8b67bcd0c155f86b",
+      "kind": "sample",
+      "phase": "cycle",
+      "probe_id": "memory.client",
+      "timestamp": 1791471719941
+    },
+    {
+      "context": {
+        "route": "/render-loop"
+      },
+      "cycle": 3,
+      "data": {
+        "counts": {
+          "Chart": null,
+          "EventSource": 0,
+          "IntersectionObserver": 0,
+          "MutationObserver": 8,
+          "PerformanceObserver": 0,
+          "ResizeObserver": 3,
+          "WebSocket": 1,
+          "Worker": 0
+        }
+      },
+      "id": "ev_80_ev_memory.client_census_cycle_3_edb4f5ba1f56fefe",
+      "kind": "census",
+      "phase": "cycle",
+      "probe_id": "memory.client",
+      "timestamp": 1791471719942
+    },
+    {
+      "context": {
+        "route": "/"
+      },
+      "cycle": 4,
+      "data": {
+        "canvases": 0,
+        "documents": 1,
+        "gcOk": true,
+        "heapLimit": 4395630592,
+        "heapTotal": 10121559,
+        "heapUsed": 9163539,
+        "listeners": 196,
+        "mutationWindowMs": 839,
+        "mutations": 0,
+        "nodes": 27094,
+        "webglContexts": 0
+      },
+      "id": "ev_81_ev_memory.client_sample_cycle_4_beab7614f62edc93",
+      "kind": "sample",
+      "phase": "cycle",
+      "probe_id": "memory.client",
+      "timestamp": 1791471722069
+    },
+    {
+      "context": {
+        "route": "/"
+      },
+      "cycle": 4,
+      "data": {
+        "counts": {
+          "Chart": null,
+          "EventSource": 0,
+          "IntersectionObserver": 0,
+          "MutationObserver": 8,
+          "PerformanceObserver": 0,
+          "ResizeObserver": 3,
+          "WebSocket": 1,
+          "Worker": 0
+        }
+      },
+      "id": "ev_82_ev_memory.client_census_cycle_4_08d850d5ff1bd084",
+      "kind": "census",
+      "phase": "cycle",
+      "probe_id": "memory.client",
+      "timestamp": 1791471722069
+    },
+    {
+      "context": {
+        "route": "/bad-fetch"
+      },
+      "cycle": 4,
+      "data": {
+        "canvases": 0,
+        "documents": 1,
+        "gcOk": true,
+        "heapLimit": 4395630592,
+        "heapTotal": 10121557,
+        "heapUsed": 9188313,
+        "listeners": 196,
+        "mutationWindowMs": 874,
+        "mutations": 5,
+        "nodes": 27094,
+        "webglContexts": 0
+      },
+      "id": "ev_83_ev_memory.client_sample_cycle_4_ae7a1fb7f5078271",
+      "kind": "sample",
+      "phase": "cycle",
+      "probe_id": "memory.client",
+      "timestamp": 1791471724313
+    },
+    {
+      "context": {
+        "route": "/bad-fetch"
+      },
+      "cycle": 4,
+      "data": {
+        "counts": {
+          "Chart": null,
+          "EventSource": 0,
+          "IntersectionObserver": 0,
+          "MutationObserver": 8,
+          "PerformanceObserver": 0,
+          "ResizeObserver": 3,
+          "WebSocket": 1,
+          "Worker": 0
+        }
+      },
+      "id": "ev_84_ev_memory.client_census_cycle_4_acf420a4b424bfe0",
+      "kind": "census",
+      "phase": "cycle",
+      "probe_id": "memory.client",
+      "timestamp": 1791471724314
+    },
+    {
+      "context": {
+        "route": "/charts"
+      },
+      "cycle": 4,
+      "data": {
+        "canvases": 0,
+        "documents": 1,
+        "gcOk": true,
+        "heapLimit": 4395630592,
+        "heapTotal": 10383698,
+        "heapUsed": 9322698,
+        "listeners": 201,
+        "mutationWindowMs": 903,
+        "mutations": 12,
+        "nodes": 27101,
+        "webglContexts": 0
+      },
+      "id": "ev_85_ev_memory.client_sample_cycle_4_7f829369241c6eab",
+      "kind": "sample",
+      "phase": "cycle",
+      "probe_id": "memory.client",
+      "timestamp": 1791471726424
+    },
+    {
+      "context": {
+        "route": "/charts"
+      },
+      "cycle": 4,
+      "data": {
+        "counts": {
+          "Chart": null,
+          "EventSource": 0,
+          "IntersectionObserver": 0,
+          "MutationObserver": 10,
+          "PerformanceObserver": 0,
+          "ResizeObserver": 3,
+          "WebSocket": 1,
+          "Worker": 0
+        }
+      },
+      "id": "ev_86_ev_memory.client_census_cycle_4_9d27d6fe6ae887eb",
+      "kind": "census",
+      "phase": "cycle",
+      "probe_id": "memory.client",
+      "timestamp": 1791471726424
+    },
+    {
+      "context": {
+        "route": "/clean"
+      },
+      "cycle": 4,
+      "data": {
+        "canvases": 0,
+        "documents": 1,
+        "gcOk": true,
+        "heapLimit": 4395630592,
+        "heapTotal": 10383697,
+        "heapUsed": 9293669,
+        "listeners": 201,
+        "mutationWindowMs": 863,
+        "mutations": 4,
+        "nodes": 27101,
+        "webglContexts": 0
+      },
+      "id": "ev_87_ev_memory.client_sample_cycle_4_f18f85057f3ff65f",
+      "kind": "sample",
+      "phase": "cycle",
+      "probe_id": "memory.client",
+      "timestamp": 1791471728600
+    },
+    {
+      "context": {
+        "route": "/clean"
+      },
+      "cycle": 4,
+      "data": {
+        "counts": {
+          "Chart": null,
+          "EventSource": 0,
+          "IntersectionObserver": 0,
+          "MutationObserver": 10,
+          "PerformanceObserver": 0,
+          "ResizeObserver": 3,
+          "WebSocket": 1,
+          "Worker": 0
+        }
+      },
+      "id": "ev_88_ev_memory.client_census_cycle_4_caf206241a4deaad",
+      "kind": "census",
+      "phase": "cycle",
+      "probe_id": "memory.client",
+      "timestamp": 1791471728600
+    },
+    {
+      "context": {
+        "route": "/crash"
+      },
+      "cycle": 4,
+      "data": {
+        "canvases": 0,
+        "documents": 1,
+        "gcOk": true,
+        "heapLimit": 4395630592,
+        "heapTotal": 10383697,
+        "heapUsed": 9295245,
+        "listeners": 201,
+        "mutationWindowMs": 862,
+        "mutations": 4,
+        "nodes": 27101,
+        "webglContexts": 0
+      },
+      "id": "ev_89_ev_memory.client_sample_cycle_4_5e9105df02b90b80",
+      "kind": "sample",
+      "phase": "cycle",
+      "probe_id": "memory.client",
+      "timestamp": 1791471730737
+    },
+    {
+      "context": {
+        "route": "/crash"
+      },
+      "cycle": 4,
+      "data": {
+        "counts": {
+          "Chart": null,
+          "EventSource": 0,
+          "IntersectionObserver": 0,
+          "MutationObserver": 10,
+          "PerformanceObserver": 0,
+          "ResizeObserver": 3,
+          "WebSocket": 1,
+          "Worker": 0
+        }
+      },
+      "id": "ev_90_ev_memory.client_census_cycle_4_57aa30d348b80dee",
+      "kind": "census",
+      "phase": "cycle",
+      "probe_id": "memory.client",
+      "timestamp": 1791471730737
+    },
+    {
+      "context": {
+        "route": "/detached"
+      },
+      "cycle": 4,
+      "data": {
+        "canvases": 0,
+        "documents": 1,
+        "gcOk": true,
+        "heapLimit": 4395630592,
+        "heapTotal": 10383700,
+        "heapUsed": 9407812,
+        "listeners": 201,
+        "mutationWindowMs": 865,
+        "mutations": 4,
+        "nodes": 36101,
+        "webglContexts": 0
+      },
+      "id": "ev_91_ev_memory.client_sample_cycle_4_60288bdfbc38f007",
+      "kind": "sample",
+      "phase": "cycle",
+      "probe_id": "memory.client",
+      "timestamp": 1791471732957
+    },
+    {
+      "context": {
+        "route": "/detached"
+      },
+      "cycle": 4,
+      "data": {
+        "counts": {
+          "Chart": null,
+          "EventSource": 0,
+          "IntersectionObserver": 0,
+          "MutationObserver": 10,
+          "PerformanceObserver": 0,
+          "ResizeObserver": 3,
+          "WebSocket": 1,
+          "Worker": 0
+        }
+      },
+      "id": "ev_92_ev_memory.client_census_cycle_4_be345790c46a9eeb",
+      "kind": "census",
+      "phase": "cycle",
+      "probe_id": "memory.client",
+      "timestamp": 1791471732957
+    },
+    {
+      "context": {
+        "route": "/grow"
+      },
+      "cycle": 4,
+      "data": {
+        "canvases": 0,
+        "documents": 1,
+        "gcOk": true,
+        "heapLimit": 4395630592,
+        "heapTotal": 10584400,
+        "heapUsed": 9609172,
+        "listeners": 201,
+        "mutationWindowMs": 857,
+        "mutations": 4,
+        "nodes": 36101,
+        "webglContexts": 0
+      },
+      "id": "ev_93_ev_memory.client_sample_cycle_4_6fcade74d91bbaa3",
+      "kind": "sample",
+      "phase": "cycle",
+      "probe_id": "memory.client",
+      "timestamp": 1791471735258
+    },
+    {
+      "context": {
+        "route": "/grow"
+      },
+      "cycle": 4,
+      "data": {
+        "counts": {
+          "Chart": null,
+          "EventSource": 0,
+          "IntersectionObserver": 0,
+          "MutationObserver": 10,
+          "PerformanceObserver": 0,
+          "ResizeObserver": 3,
+          "WebSocket": 1,
+          "Worker": 0
+        }
+      },
+      "id": "ev_94_ev_memory.client_census_cycle_4_7a021fd18632e7cb",
+      "kind": "census",
+      "phase": "cycle",
+      "probe_id": "memory.client",
+      "timestamp": 1791471735258
+    },
+    {
+      "context": {
+        "route": "/listeners"
+      },
+      "cycle": 4,
+      "data": {
+        "canvases": 0,
+        "documents": 1,
+        "gcOk": true,
+        "heapLimit": 4395630592,
+        "heapTotal": 10584405,
+        "heapUsed": 9611901,
+        "listeners": 203,
+        "mutationWindowMs": 860,
+        "mutations": 4,
+        "nodes": 36101,
+        "webglContexts": 0
+      },
+      "id": "ev_95_ev_memory.client_sample_cycle_4_7a618f0c35dbc79e",
+      "kind": "sample",
+      "phase": "cycle",
+      "probe_id": "memory.client",
+      "timestamp": 1791471737491
+    },
+    {
+      "context": {
+        "route": "/listeners"
+      },
+      "cycle": 4,
+      "data": {
+        "counts": {
+          "Chart": null,
+          "EventSource": 0,
+          "IntersectionObserver": 0,
+          "MutationObserver": 10,
+          "PerformanceObserver": 0,
+          "ResizeObserver": 3,
+          "WebSocket": 1,
+          "Worker": 0
+        }
+      },
+      "id": "ev_96_ev_memory.client_census_cycle_4_9040f53eba9aa646",
+      "kind": "census",
+      "phase": "cycle",
+      "probe_id": "memory.client",
+      "timestamp": 1791471737491
+    },
+    {
+      "context": {
+        "route": "/log-error"
+      },
+      "cycle": 4,
+      "data": {
+        "canvases": 0,
+        "documents": 1,
+        "gcOk": true,
+        "heapLimit": 4395630592,
+        "heapTotal": 10584405,
+        "heapUsed": 9613273,
+        "listeners": 203,
+        "mutationWindowMs": 869,
+        "mutations": 4,
+        "nodes": 36101,
+        "webglContexts": 0
+      },
+      "id": "ev_97_ev_memory.client_sample_cycle_4_917dad07bc265063",
+      "kind": "sample",
+      "phase": "cycle",
+      "probe_id": "memory.client",
+      "timestamp": 1791471739593
+    },
+    {
+      "context": {
+        "route": "/log-error"
+      },
+      "cycle": 4,
+      "data": {
+        "counts": {
+          "Chart": null,
+          "EventSource": 0,
+          "IntersectionObserver": 0,
+          "MutationObserver": 10,
+          "PerformanceObserver": 0,
+          "ResizeObserver": 3,
+          "WebSocket": 1,
+          "Worker": 0
+        }
+      },
+      "id": "ev_98_ev_memory.client_census_cycle_4_73576fb41d3cb1a9",
+      "kind": "census",
+      "phase": "cycle",
+      "probe_id": "memory.client",
+      "timestamp": 1791471739593
+    },
+    {
+      "context": {
+        "route": "/login"
+      },
+      "cycle": 4,
+      "data": {
+        "canvases": 0,
+        "documents": 1,
+        "gcOk": true,
+        "heapLimit": 4395630592,
+        "heapTotal": 10584401,
+        "heapUsed": 9612401,
+        "listeners": 203,
+        "mutationWindowMs": 862,
+        "mutations": 4,
+        "nodes": 36101,
+        "webglContexts": 0
+      },
+      "id": "ev_99_ev_memory.client_sample_cycle_4_91dd4ab11cf786ba",
+      "kind": "sample",
+      "phase": "cycle",
+      "probe_id": "memory.client",
+      "timestamp": 1791471741875
+    },
+    {
+      "context": {
+        "route": "/login"
+      },
+      "cycle": 4,
+      "data": {
+        "counts": {
+          "Chart": null,
+          "EventSource": 0,
+          "IntersectionObserver": 0,
+          "MutationObserver": 10,
+          "PerformanceObserver": 0,
+          "ResizeObserver": 3,
+          "WebSocket": 1,
+          "Worker": 0
+        }
+      },
+      "id": "ev_100_ev_memory.client_census_cycle_4_fe7f6f6164040f88",
+      "kind": "census",
+      "phase": "cycle",
+      "probe_id": "memory.client",
+      "timestamp": 1791471741875
+    },
+    {
+      "context": {
+        "route": "/observers"
+      },
+      "cycle": 4,
+      "data": {
+        "canvases": 0,
+        "documents": 1,
+        "gcOk": true,
+        "heapLimit": 4395630592,
+        "heapTotal": 10584405,
+        "heapUsed": 9612621,
+        "listeners": 203,
+        "mutationWindowMs": 874,
+        "mutations": 4,
+        "nodes": 36101,
+        "webglContexts": 0
+      },
+      "id": "ev_101_ev_memory.client_sample_cycle_4_a58aeb1e17977394",
+      "kind": "sample",
+      "phase": "cycle",
+      "probe_id": "memory.client",
+      "timestamp": 1791471744094
+    },
+    {
+      "context": {
+        "route": "/observers"
+      },
+      "cycle": 4,
+      "data": {
+        "counts": {
+          "Chart": null,
+          "EventSource": 0,
+          "IntersectionObserver": 0,
+          "MutationObserver": 10,
+          "PerformanceObserver": 0,
+          "ResizeObserver": 4,
+          "WebSocket": 1,
+          "Worker": 0
+        }
+      },
+      "id": "ev_102_ev_memory.client_census_cycle_4_09ff14d93d8278dc",
+      "kind": "census",
+      "phase": "cycle",
+      "probe_id": "memory.client",
+      "timestamp": 1791471744094
+    },
+    {
+      "context": {
+        "route": "/protected"
+      },
+      "cycle": 4,
+      "data": {
+        "canvases": 0,
+        "documents": 1,
+        "gcOk": true,
+        "heapLimit": 4395630592,
+        "heapTotal": 10584401,
+        "heapUsed": 9604561,
+        "listeners": 203,
+        "mutationWindowMs": 831,
+        "mutations": 4,
+        "nodes": 36101,
+        "webglContexts": 0
+      },
+      "id": "ev_103_ev_memory.client_sample_cycle_4_01129e42d4237944",
+      "kind": "sample",
+      "phase": "cycle",
+      "probe_id": "memory.client",
+      "timestamp": 1791471746281
+    },
+    {
+      "context": {
+        "route": "/protected"
+      },
+      "cycle": 4,
+      "data": {
+        "counts": {
+          "Chart": null,
+          "EventSource": 0,
+          "IntersectionObserver": 0,
+          "MutationObserver": 10,
+          "PerformanceObserver": 0,
+          "ResizeObserver": 4,
+          "WebSocket": 1,
+          "Worker": 0
+        }
+      },
+      "id": "ev_104_ev_memory.client_census_cycle_4_57743d044afeb3c1",
+      "kind": "census",
+      "phase": "cycle",
+      "probe_id": "memory.client",
+      "timestamp": 1791471746281
+    },
+    {
+      "context": {
+        "route": "/render-loop"
+      },
+      "cycle": 4,
+      "data": {
+        "canvases": 0,
+        "documents": 1,
+        "gcOk": true,
+        "heapLimit": 4395630592,
+        "heapTotal": 10584407,
+        "heapUsed": 9730587,
+        "listeners": 203,
+        "mutationWindowMs": 871,
+        "mutations": 5314,
+        "nodes": 36101,
+        "webglContexts": 0
+      },
+      "id": "ev_105_ev_memory.client_sample_cycle_4_74154a3807d51429",
+      "kind": "sample",
+      "phase": "cycle",
+      "probe_id": "memory.client",
+      "timestamp": 1791471748480
+    },
+    {
+      "context": {
+        "route": "/render-loop"
+      },
+      "cycle": 4,
+      "data": {
+        "counts": {
+          "Chart": null,
+          "EventSource": 0,
+          "IntersectionObserver": 0,
+          "MutationObserver": 10,
+          "PerformanceObserver": 0,
+          "ResizeObserver": 4,
+          "WebSocket": 1,
+          "Worker": 0
+        }
+      },
+      "id": "ev_106_ev_memory.client_census_cycle_4_a2952b79d4de4c9d",
+      "kind": "census",
+      "phase": "cycle",
+      "probe_id": "memory.client",
+      "timestamp": 1791471748480
+    },
+    {
+      "context": {},
+      "cycle": 5,
+      "data": {
+        "canvases": 0,
+        "documents": 1,
+        "gcOk": true,
+        "heapLimit": 4395630592,
+        "heapTotal": 10584407,
+        "heapUsed": 9670035,
+        "listeners": 203,
+        "nodes": 36101,
+        "webglContexts": 0
+      },
+      "id": "ev_107_ev_memory.client_sample_cooldown_5_72b592777532547d",
+      "kind": "sample",
+      "phase": "cooldown",
+      "probe_id": "memory.client",
+      "timestamp": 1791471750599
+    },
+    {
+      "context": {},
+      "cycle": 4,
+      "data": {
+        "declared": 13,
+        "discovered": 11,
+        "flow_completed": 0,
+        "flow_failures": 0,
+        "flow_planned": 0,
+        "mode": "auto",
+        "planned": [
+          "/",
+          "/bad-fetch",
+          "/charts",
+          "/clean",
+          "/crash",
+          "/detached",
+          "/grow",
+          "/listeners",
+          "/log-error",
+          "/login",
+          "/observers",
+          "/protected",
+          "/render-loop"
+        ],
+        "unreachable": [
+          {
+            "detail": "landed on /login",
+            "path": "/protected",
+            "reason": "auth_required"
+          }
+        ],
+        "visited": [
+          "/",
+          "/bad-fetch",
+          "/charts",
+          "/clean",
+          "/crash",
+          "/detached",
+          "/grow",
+          "/listeners",
+          "/log-error",
+          "/login",
+          "/observers",
+          "/render-loop"
+        ]
+      },
+      "id": "ev_108_ev_memory.client_coverage_cooldown_4_f034b8398e07e501",
+      "kind": "coverage",
+      "phase": "cooldown",
+      "probe_id": "memory.client",
+      "timestamp": 1791471750599
+    },
+    {
+      "context": {
+        "route": "/bad-fetch",
+        "routes": [
+          "/bad-fetch"
+        ]
+      },
+      "cycle": 4,
+      "data": {
+        "attribution": "request_origin",
+        "count": 4,
+        "frame": null,
+        "message": "net::ERR_CONNECTION_REFUSED — http://127.0.0.1:49999/api/user-settings",
+        "routes": [
+          "/bad-fetch"
+        ],
+        "status": null,
+        "type": "request_failed",
+        "url": "http://127.0.0.1:49999/api/user-settings"
+      },
+      "id": "ev_109_ev_memory.client_runtime_event_cycle_4_069745daa8fdef62",
+      "kind": "runtime_event",
+      "phase": "cycle",
+      "probe_id": "memory.client",
+      "timestamp": 1791471750600
+    },
+    {
+      "context": {
+        "route": "/bad-fetch",
+        "routes": [
+          "/bad-fetch"
+        ]
+      },
+      "cycle": 4,
+      "data": {
+        "attribution": "request_origin",
+        "count": 4,
+        "frame": "http://127.0.0.1:49999/api/user-settings:0:0",
+        "message": "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+        "routes": [
+          "/bad-fetch"
+        ],
+        "status": null,
+        "type": "console_error",
+        "url": null
+      },
+      "id": "ev_110_ev_memory.client_runtime_event_cycle_4_cae1a4ef877b7d0b",
+      "kind": "runtime_event",
+      "phase": "cycle",
+      "probe_id": "memory.client",
+      "timestamp": 1791471750600
+    },
+    {
+      "context": {
+        "route": "/crash",
+        "routes": [
+          "/crash"
+        ]
+      },
+      "cycle": 4,
+      "data": {
+        "attribution": "observed_route",
+        "count": 4,
+        "frame": "at http://localhost:5173/src/pages/Crash.jsx:24:26",
+        "message": "Cannot read properties of undefined (reading 'apiKey')",
+        "routes": [
+          "/crash"
+        ],
+        "status": null,
+        "type": "page_error",
+        "url": null
+      },
+      "id": "ev_111_ev_memory.client_runtime_event_cycle_4_dfd359c604f4a7c2",
+      "kind": "runtime_event",
+      "phase": "cycle",
+      "probe_id": "memory.client",
+      "timestamp": 1791471750600
+    },
+    {
+      "context": {
+        "route": "/log-error",
+        "routes": [
+          "/log-error"
+        ]
+      },
+      "cycle": 4,
+      "data": {
+        "attribution": "observed_route",
+        "count": 4,
+        "frame": "http://localhost:5173/src/pages/LogError.jsx:21:12",
+        "message": "Failed to parse user preferences, falling back to defaults",
+        "routes": [
+          "/log-error"
+        ],
+        "status": null,
+        "type": "console_error",
+        "url": null
+      },
+      "id": "ev_112_ev_memory.client_runtime_event_cycle_4_95a28cc74e6237b6",
+      "kind": "runtime_event",
+      "phase": "cycle",
+      "probe_id": "memory.client",
+      "timestamp": 1791471750600
+    },
+    {
+      "context": {
+        "route": "/observers",
+        "routes": [
+          "/observers"
+        ]
+      },
+      "cycle": 4,
+      "data": {
+        "attribution": "observed_route",
+        "count": 4,
+        "frame": "http://localhost:5173/src/pages/Observers.jsx:27:0",
+        "message": "WebSocket connection to 'ws://127.0.0.1:49999/socket' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED",
+        "routes": [
+          "/observers"
+        ],
+        "status": null,
+        "type": "console_error",
+        "url": null
+      },
+      "id": "ev_113_ev_memory.client_runtime_event_cycle_4_c62c811c62822cc3",
+      "kind": "runtime_event",
+      "phase": "cycle",
+      "probe_id": "memory.client",
+      "timestamp": 1791471750600
+    },
+    {
+      "context": {
+        "route": "/render-loop",
+        "routes": [
+          "/render-loop"
+        ]
+      },
+      "cycle": 4,
+      "data": {
+        "attribution": "observed_route",
+        "count": 423,
+        "frame": "http://localhost:5173/node_modules/.vite/deps/chunk-BVI7NZOO.js?v=52ba3756:520:37",
+        "message": "Warning: Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.%s \n    at RenderLoop (http://localhost:5173/src/pages/RenderLoop.jsx:21:33)\n    at RenderedRoute (http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=52ba3756:4131:5)\n    at Routes (http://localhost:5173/node_modules/.vite/deps/react-router-dom.js?v=52ba3756:4601:5)\n    a",
+        "routes": [
+          "/render-loop"
+        ],
+        "status": null,
+        "type": "console_error",
+        "url": null
+      },
+      "id": "ev_114_ev_memory.client_runtime_event_cycle_4_dd137db42b546517",
+      "kind": "runtime_event",
+      "phase": "cycle",
+      "probe_id": "memory.client",
+      "timestamp": 1791471750600
+    },
+    {
+      "context": {},
+      "cycle": null,
+      "data": {
+        "censusTargets": [
+          "Chart",
+          "MutationObserver",
+          "ResizeObserver",
+          "IntersectionObserver",
+          "PerformanceObserver",
+          "WebSocket",
+          "EventSource",
+          "Worker"
+        ],
+        "coverage": {
+          "declared": 13,
+          "discovered": 11,
+          "flow_completed": 0,
+          "flow_failures": 0,
+          "flow_planned": 0,
+          "mode": "auto",
+          "planned": [
+            "/",
+            "/bad-fetch",
+            "/charts",
+            "/clean",
+            "/crash",
+            "/detached",
+            "/grow",
+            "/listeners",
+            "/log-error",
+            "/login",
+            "/observers",
+            "/protected",
+            "/render-loop"
+          ],
+          "unreachable": [
+            {
+              "detail": "landed on /login",
+              "path": "/protected",
+              "reason": "auth_required"
+            }
+          ],
+          "visited": [
+            "/",
+            "/bad-fetch",
+            "/charts",
+            "/clean",
+            "/crash",
+            "/detached",
+            "/grow",
+            "/listeners",
+            "/log-error",
+            "/login",
+            "/observers",
+            "/render-loop"
+          ]
+        },
+        "cycles": 4,
+        "durationMs": 109233,
+        "flowCompleted": 0,
+        "flowFailures": 0,
+        "gcFailures": 0,
+        "mode": "auto",
+        "navigationFailures": 4,
+        "ok": true,
+        "retentionInvalid": false,
+        "routeCount": 13,
+        "routesLimit": 14,
+        "runtimeObserved": true,
+        "settleMs": 400,
+        "type": "result",
+        "url": "http://localhost:5173"
+      },
+      "id": "ev_memory.client_run_result_58a2493dca84b5af",
+      "kind": "run_result",
+      "phase": null,
+      "probe_id": "memory.client",
+      "timestamp": null
+    }
+  ],
+  "evidence_count": 116,
+  "findings": [
+    {
+      "ai_prompt": "[Vibe Guru finding: uncaught_exception]\nWhere: route /crash\nProblem: An uncaught exception was thrown 4 times while exercising /crash: Cannot read properties of undefined (reading 'apiKey'). Whatever was rendering when it threw did not finish, so the user sees a blank or partial view. Route records where the event was observed; its originating route is unverified and may be an earlier view.\nEvidence: message=Cannot read properties of undefined (reading 'apiKey'), source=at http://localhost:5173/src/pages/Crash.jsx:24:26, routes=/crash, attribution=observed_route, occurrences=4\nFix: Fix the throwing code path and guard the data it assumed. Most mount-time exceptions are an assumption about data that is not true yet: reading a property off a value that is still undefined on first render, or destructuring an API response before it arrives. Guard the access, give the state a sensible initial value, and handle the loading case explicitly. Reported at: at http://localhost:5173/src/pages/Crash.jsx:24:26.\nAction: reproduce this by loading /crash, fix the cause described above, then re-run `vibeguru run` to confirm the finding is gone.",
+      "confidence": "high",
+      "evidence_refs": [
+        "ev_111_ev_memory.client_runtime_event_cycle_4_dfd359c604f4a7c2"
+      ],
+      "fix": {
+        "files_to_check": [
+          "at http://localhost:5173/src/pages/Crash.jsx:24:26"
+        ],
+        "hint": "Most mount-time exceptions are an assumption about data that is not true yet: reading a property off a value that is still undefined on first render, or destructuring an API response before it arrives. Guard the access, give the state a sensible initial value, and handle the loading case explicitly. Reported at: at http://localhost:5173/src/pages/Crash.jsx:24:26.",
+        "summary": "Fix the throwing code path and guard the data it assumed"
+      },
+      "id": "runtime.client.uncaught_exception.crash.213f5a2ae15d",
+      "location": {
+        "route": "/crash"
+      },
+      "metrics": {
+        "attribution": "observed_route",
+        "message": "Cannot read properties of undefined (reading 'apiKey')",
+        "occurrences": 4,
+        "routes": "/crash",
+        "source": "at http://localhost:5173/src/pages/Crash.jsx:24:26"
+      },
+      "severity": "critical",
+      "signature": "uncaught_exception",
+      "summary": "An uncaught exception was thrown 4 times while exercising /crash: Cannot read properties of undefined (reading 'apiKey'). Whatever was rendering when it threw did not finish, so the user sees a blank or partial view. Route records where the event was observed; its originating route is unverified and may be an earlier view.",
+      "title": "Uncaught exception on /crash",
+      "vector": "runtime.client"
+    },
+    {
+      "ai_prompt": "[Vibe Guru finding: render_loop]\nWhere: route /render-loop\nProblem: /render-loop mutates the DOM ~6212 times/second for as long as it is mounted, in 3 of 3 visits. A view that has finished rendering goes quiet; one that keeps mutating is re-rendering in a loop and will pin a CPU core.\nEvidence: mutations_per_second=6212, visits_affected=3/3\nFix: Break the state-update cycle in the component's effect. Look for a useEffect that sets state it also depends on, a missing or incorrect dependency array, or an object/array literal recreated every render and passed as a dependency (use useMemo/useCallback, or move the value outside the component).\nAction: reproduce this by loading /render-loop, fix the cause described above, then re-run `vibeguru run` to confirm the finding is gone.",
+      "confidence": "high",
+      "evidence_refs": [
+        "ev_27_ev_memory.client_sample_cycle_1_677a62e5dde72046",
+        "ev_53_ev_memory.client_sample_cycle_2_ffc9461254effcd0",
+        "ev_79_ev_memory.client_sample_cycle_3_8b67bcd0c155f86b",
+        "ev_105_ev_memory.client_sample_cycle_4_74154a3807d51429"
+      ],
+      "fix": {
+        "files_to_check": [
+          "component rendered at route /render-loop"
+        ],
+        "hint": "Look for a useEffect that sets state it also depends on, a missing or incorrect dependency array, or an object/array literal recreated every render and passed as a dependency (use useMemo/useCallback, or move the value outside the component).",
+        "summary": "Break the state-update cycle in the component's effect"
+      },
+      "id": "runtime.client.render_loop.render_loop.45d367c7339d",
+      "location": {
+        "route": "/render-loop"
+      },
+      "metrics": {
+        "mutations_per_second": 6212,
+        "visits_affected": "3/3"
+      },
+      "severity": "critical",
+      "signature": "render_loop",
+      "summary": "/render-loop mutates the DOM ~6212 times/second for as long as it is mounted, in 3 of 3 visits. A view that has finished rendering goes quiet; one that keeps mutating is re-rendering in a loop and will pin a CPU core.",
+      "title": "Runaway re-render on /render-loop",
+      "vector": "runtime.client"
+    },
+    {
+      "ai_prompt": "[Vibe Guru finding: detached_dom_leak]\nWhere: route /detached\nProblem: Visiting /detached retains ~9000 DOM nodes per visit that survive GC (node recovery 0%). Unbounded — node count climbs every cycle.\nEvidence: node_recovery_ratio=0.0, nodes_per_visit=9000, nodes_total_retained=27000\nFix: Free per-mount allocations and remove references on unmount. Look for nodes/objects created on mount and pushed into a module-global, ref, or closure that outlives the component. Add cleanup in the useEffect return (or componentWillUnmount).\nAction: open the component rendered at /detached, find the cause described above, apply the fix, and ensure the effect cleanup releases everything acquired on mount.",
+      "confidence": "high",
+      "evidence_refs": [
+        "ev_1_ev_memory.client_sample_baseline_0_95732b9940385f1b",
+        "ev_3_ev_memory.client_sample_cycle_1_14e6f0ebb843c209",
+        "ev_5_ev_memory.client_sample_cycle_1_9846a616284fbd40",
+        "ev_7_ev_memory.client_sample_cycle_1_1c829f991a490baf",
+        "ev_9_ev_memory.client_sample_cycle_1_fb9c8c2748b1f3d1",
+        "ev_11_ev_memory.client_sample_cycle_1_7db0f76e97e79541",
+        "ev_13_ev_memory.client_sample_cycle_1_47283fd583b5c040",
+        "ev_15_ev_memory.client_sample_cycle_1_25af60f6ae99f37f",
+        "ev_17_ev_memory.client_sample_cycle_1_1dd64c591d18f973",
+        "ev_19_ev_memory.client_sample_cycle_1_69daece7d72122b9",
+        "ev_21_ev_memory.client_sample_cycle_1_a304faa78406225a",
+        "ev_23_ev_memory.client_sample_cycle_1_46d3d5722ae9234a",
+        "ev_25_ev_memory.client_sample_cycle_1_d4d245004c4623ca",
+        "ev_27_ev_memory.client_sample_cycle_1_677a62e5dde72046",
+        "ev_29_ev_memory.client_sample_cycle_2_5a50d810ac741a11",
+        "ev_31_ev_memory.client_sample_cycle_2_9440a51b8b3cce68",
+        "ev_33_ev_memory.client_sample_cycle_2_eeaa6553bbe8aef9",
+        "ev_35_ev_memory.client_sample_cycle_2_552fb797b8da503f",
+        "ev_37_ev_memory.client_sample_cycle_2_d235ef92e8f988fc",
+        "ev_39_ev_memory.client_sample_cycle_2_44109e74c4731adc",
+        "ev_41_ev_memory.client_sample_cycle_2_4af504dce6b7fe8e",
+        "ev_43_ev_memory.client_sample_cycle_2_7ef49271888a4270",
+        "ev_45_ev_memory.client_sample_cycle_2_5a456d005614ca7b",
+        "ev_47_ev_memory.client_sample_cycle_2_bcf98b490eb95305",
+        "ev_49_ev_memory.client_sample_cycle_2_5c4d48f02d011395",
+        "ev_51_ev_memory.client_sample_cycle_2_aef3ae1cabb4d0f1",
+        "ev_53_ev_memory.client_sample_cycle_2_ffc9461254effcd0",
+        "ev_55_ev_memory.client_sample_cycle_3_76f01a28c8d17cda",
+        "ev_57_ev_memory.client_sample_cycle_3_7f826eef1f6a7e68",
+        "ev_59_ev_memory.client_sample_cycle_3_309a3f5918f8c03c",
+        "ev_61_ev_memory.client_sample_cycle_3_e7a5bc7cbc905151",
+        "ev_63_ev_memory.client_sample_cycle_3_3b057a14b77b4540",
+        "ev_65_ev_memory.client_sample_cycle_3_e40c34c87228bbe0",
+        "ev_67_ev_memory.client_sample_cycle_3_04d5efd487922445",
+        "ev_69_ev_memory.client_sample_cycle_3_0d5683d1186039f9",
+        "ev_71_ev_memory.client_sample_cycle_3_07b25a43b8c07387",
+        "ev_73_ev_memory.client_sample_cycle_3_fd19a94fd6f8ae9a",
+        "ev_75_ev_memory.client_sample_cycle_3_87fc48ee4f8c6de9",
+        "ev_77_ev_memory.client_sample_cycle_3_d1ef377ed7c728f1",
+        "ev_79_ev_memory.client_sample_cycle_3_8b67bcd0c155f86b",
+        "ev_81_ev_memory.client_sample_cycle_4_beab7614f62edc93",
+        "ev_83_ev_memory.client_sample_cycle_4_ae7a1fb7f5078271",
+        "ev_85_ev_memory.client_sample_cycle_4_7f829369241c6eab",
+        "ev_87_ev_memory.client_sample_cycle_4_f18f85057f3ff65f",
+        "ev_89_ev_memory.client_sample_cycle_4_5e9105df02b90b80",
+        "ev_91_ev_memory.client_sample_cycle_4_60288bdfbc38f007",
+        "ev_93_ev_memory.client_sample_cycle_4_6fcade74d91bbaa3",
+        "ev_95_ev_memory.client_sample_cycle_4_7a618f0c35dbc79e",
+        "ev_97_ev_memory.client_sample_cycle_4_917dad07bc265063",
+        "ev_99_ev_memory.client_sample_cycle_4_91dd4ab11cf786ba",
+        "ev_101_ev_memory.client_sample_cycle_4_a58aeb1e17977394",
+        "ev_103_ev_memory.client_sample_cycle_4_01129e42d4237944",
+        "ev_105_ev_memory.client_sample_cycle_4_74154a3807d51429",
+        "ev_107_ev_memory.client_sample_cooldown_5_72b592777532547d"
+      ],
+      "fix": {
+        "files_to_check": [
+          "component rendered at route /detached"
+        ],
+        "hint": "Look for nodes/objects created on mount and pushed into a module-global, ref, or closure that outlives the component. Add cleanup in the useEffect return (or componentWillUnmount).",
+        "summary": "Free per-mount allocations and remove references on unmount"
+      },
+      "id": "memory.client.detached_dom_leak.detached.7ef7990d8300",
+      "location": {
+        "route": "/detached"
+      },
+      "metrics": {
+        "node_recovery_ratio": 0.0,
+        "nodes_per_visit": 9000,
+        "nodes_total_retained": 27000
+      },
+      "severity": "high",
+      "signature": "detached_dom_leak",
+      "summary": "Visiting /detached retains ~9000 DOM nodes per visit that survive GC (node recovery 0%). Unbounded — node count climbs every cycle.",
+      "title": "Detached DOM nodes retained on /detached",
+      "vector": "memory.client"
+    },
+    {
+      "ai_prompt": "[Vibe Guru finding: listener_leak]\nWhere: route /charts\nProblem: Visiting /charts retains ~5 event listener(s) per visit that are never removed. jsEventListeners grows monotonically across cycles.\nEvidence: listener_recovery_ratio=0.0, listeners_per_visit=5, listeners_total_retained=15\nFix: Remove listeners/subscriptions on unmount. Every addEventListener / subscription created on mount must be removed in the useEffect cleanup (return () => removeEventListener(...)). This app uses a chart library — if this view renders a chart, also call chart.destroy() in the cleanup; Chart.js attaches its own window resize listener.\nAction: open the component rendered at /charts, find the cause described above, apply the fix, and ensure the effect cleanup releases everything acquired on mount.",
+      "confidence": "high",
+      "evidence_refs": [
+        "ev_1_ev_memory.client_sample_baseline_0_95732b9940385f1b",
+        "ev_3_ev_memory.client_sample_cycle_1_14e6f0ebb843c209",
+        "ev_5_ev_memory.client_sample_cycle_1_9846a616284fbd40",
+        "ev_7_ev_memory.client_sample_cycle_1_1c829f991a490baf",
+        "ev_9_ev_memory.client_sample_cycle_1_fb9c8c2748b1f3d1",
+        "ev_11_ev_memory.client_sample_cycle_1_7db0f76e97e79541",
+        "ev_13_ev_memory.client_sample_cycle_1_47283fd583b5c040",
+        "ev_15_ev_memory.client_sample_cycle_1_25af60f6ae99f37f",
+        "ev_17_ev_memory.client_sample_cycle_1_1dd64c591d18f973",
+        "ev_19_ev_memory.client_sample_cycle_1_69daece7d72122b9",
+        "ev_21_ev_memory.client_sample_cycle_1_a304faa78406225a",
+        "ev_23_ev_memory.client_sample_cycle_1_46d3d5722ae9234a",
+        "ev_25_ev_memory.client_sample_cycle_1_d4d245004c4623ca",
+        "ev_27_ev_memory.client_sample_cycle_1_677a62e5dde72046",
+        "ev_29_ev_memory.client_sample_cycle_2_5a50d810ac741a11",
+        "ev_31_ev_memory.client_sample_cycle_2_9440a51b8b3cce68",
+        "ev_33_ev_memory.client_sample_cycle_2_eeaa6553bbe8aef9",
+        "ev_35_ev_memory.client_sample_cycle_2_552fb797b8da503f",
+        "ev_37_ev_memory.client_sample_cycle_2_d235ef92e8f988fc",
+        "ev_39_ev_memory.client_sample_cycle_2_44109e74c4731adc",
+        "ev_41_ev_memory.client_sample_cycle_2_4af504dce6b7fe8e",
+        "ev_43_ev_memory.client_sample_cycle_2_7ef49271888a4270",
+        "ev_45_ev_memory.client_sample_cycle_2_5a456d005614ca7b",
+        "ev_47_ev_memory.client_sample_cycle_2_bcf98b490eb95305",
+        "ev_49_ev_memory.client_sample_cycle_2_5c4d48f02d011395",
+        "ev_51_ev_memory.client_sample_cycle_2_aef3ae1cabb4d0f1",
+        "ev_53_ev_memory.client_sample_cycle_2_ffc9461254effcd0",
+        "ev_55_ev_memory.client_sample_cycle_3_76f01a28c8d17cda",
+        "ev_57_ev_memory.client_sample_cycle_3_7f826eef1f6a7e68",
+        "ev_59_ev_memory.client_sample_cycle_3_309a3f5918f8c03c",
+        "ev_61_ev_memory.client_sample_cycle_3_e7a5bc7cbc905151",
+        "ev_63_ev_memory.client_sample_cycle_3_3b057a14b77b4540",
+        "ev_65_ev_memory.client_sample_cycle_3_e40c34c87228bbe0",
+        "ev_67_ev_memory.client_sample_cycle_3_04d5efd487922445",
+        "ev_69_ev_memory.client_sample_cycle_3_0d5683d1186039f9",
+        "ev_71_ev_memory.client_sample_cycle_3_07b25a43b8c07387",
+        "ev_73_ev_memory.client_sample_cycle_3_fd19a94fd6f8ae9a",
+        "ev_75_ev_memory.client_sample_cycle_3_87fc48ee4f8c6de9",
+        "ev_77_ev_memory.client_sample_cycle_3_d1ef377ed7c728f1",
+        "ev_79_ev_memory.client_sample_cycle_3_8b67bcd0c155f86b",
+        "ev_81_ev_memory.client_sample_cycle_4_beab7614f62edc93",
+        "ev_83_ev_memory.client_sample_cycle_4_ae7a1fb7f5078271",
+        "ev_85_ev_memory.client_sample_cycle_4_7f829369241c6eab",
+        "ev_87_ev_memory.client_sample_cycle_4_f18f85057f3ff65f",
+        "ev_89_ev_memory.client_sample_cycle_4_5e9105df02b90b80",
+        "ev_91_ev_memory.client_sample_cycle_4_60288bdfbc38f007",
+        "ev_93_ev_memory.client_sample_cycle_4_6fcade74d91bbaa3",
+        "ev_95_ev_memory.client_sample_cycle_4_7a618f0c35dbc79e",
+        "ev_97_ev_memory.client_sample_cycle_4_917dad07bc265063",
+        "ev_99_ev_memory.client_sample_cycle_4_91dd4ab11cf786ba",
+        "ev_101_ev_memory.client_sample_cycle_4_a58aeb1e17977394",
+        "ev_103_ev_memory.client_sample_cycle_4_01129e42d4237944",
+        "ev_105_ev_memory.client_sample_cycle_4_74154a3807d51429",
+        "ev_107_ev_memory.client_sample_cooldown_5_72b592777532547d"
+      ],
+      "fix": {
+        "files_to_check": [
+          "component rendered at route /charts"
+        ],
+        "hint": "Every addEventListener / subscription created on mount must be removed in the useEffect cleanup (return () => removeEventListener(...)). This app uses a chart library — if this view renders a chart, also call chart.destroy() in the cleanup; Chart.js attaches its own window resize listener.",
+        "summary": "Remove listeners/subscriptions on unmount"
+      },
+      "id": "memory.client.listener_leak.charts.ebca08b52bc3",
+      "location": {
+        "route": "/charts"
+      },
+      "metrics": {
+        "listener_recovery_ratio": 0.0,
+        "listeners_per_visit": 5,
+        "listeners_total_retained": 15
+      },
+      "severity": "high",
+      "signature": "listener_leak",
+      "summary": "Visiting /charts retains ~5 event listener(s) per visit that are never removed. jsEventListeners grows monotonically across cycles.",
+      "title": "Event listeners leak on /charts",
+      "vector": "memory.client"
+    },
+    {
+      "ai_prompt": "[Vibe Guru finding: listener_leak]\nWhere: route /listeners\nProblem: Visiting /listeners retains ~2 event listener(s) per visit that are never removed. jsEventListeners grows monotonically across cycles.\nEvidence: listener_recovery_ratio=0.0, listeners_per_visit=2, listeners_total_retained=6\nFix: Remove listeners/subscriptions on unmount. Every addEventListener / subscription created on mount must be removed in the useEffect cleanup (return () => removeEventListener(...)). This app uses a chart library — if this view renders a chart, also call chart.destroy() in the cleanup; Chart.js attaches its own window resize listener.\nAction: open the component rendered at /listeners, find the cause described above, apply the fix, and ensure the effect cleanup releases everything acquired on mount.",
+      "confidence": "high",
+      "evidence_refs": [
+        "ev_1_ev_memory.client_sample_baseline_0_95732b9940385f1b",
+        "ev_3_ev_memory.client_sample_cycle_1_14e6f0ebb843c209",
+        "ev_5_ev_memory.client_sample_cycle_1_9846a616284fbd40",
+        "ev_7_ev_memory.client_sample_cycle_1_1c829f991a490baf",
+        "ev_9_ev_memory.client_sample_cycle_1_fb9c8c2748b1f3d1",
+        "ev_11_ev_memory.client_sample_cycle_1_7db0f76e97e79541",
+        "ev_13_ev_memory.client_sample_cycle_1_47283fd583b5c040",
+        "ev_15_ev_memory.client_sample_cycle_1_25af60f6ae99f37f",
+        "ev_17_ev_memory.client_sample_cycle_1_1dd64c591d18f973",
+        "ev_19_ev_memory.client_sample_cycle_1_69daece7d72122b9",
+        "ev_21_ev_memory.client_sample_cycle_1_a304faa78406225a",
+        "ev_23_ev_memory.client_sample_cycle_1_46d3d5722ae9234a",
+        "ev_25_ev_memory.client_sample_cycle_1_d4d245004c4623ca",
+        "ev_27_ev_memory.client_sample_cycle_1_677a62e5dde72046",
+        "ev_29_ev_memory.client_sample_cycle_2_5a50d810ac741a11",
+        "ev_31_ev_memory.client_sample_cycle_2_9440a51b8b3cce68",
+        "ev_33_ev_memory.client_sample_cycle_2_eeaa6553bbe8aef9",
+        "ev_35_ev_memory.client_sample_cycle_2_552fb797b8da503f",
+        "ev_37_ev_memory.client_sample_cycle_2_d235ef92e8f988fc",
+        "ev_39_ev_memory.client_sample_cycle_2_44109e74c4731adc",
+        "ev_41_ev_memory.client_sample_cycle_2_4af504dce6b7fe8e",
+        "ev_43_ev_memory.client_sample_cycle_2_7ef49271888a4270",
+        "ev_45_ev_memory.client_sample_cycle_2_5a456d005614ca7b",
+        "ev_47_ev_memory.client_sample_cycle_2_bcf98b490eb95305",
+        "ev_49_ev_memory.client_sample_cycle_2_5c4d48f02d011395",
+        "ev_51_ev_memory.client_sample_cycle_2_aef3ae1cabb4d0f1",
+        "ev_53_ev_memory.client_sample_cycle_2_ffc9461254effcd0",
+        "ev_55_ev_memory.client_sample_cycle_3_76f01a28c8d17cda",
+        "ev_57_ev_memory.client_sample_cycle_3_7f826eef1f6a7e68",
+        "ev_59_ev_memory.client_sample_cycle_3_309a3f5918f8c03c",
+        "ev_61_ev_memory.client_sample_cycle_3_e7a5bc7cbc905151",
+        "ev_63_ev_memory.client_sample_cycle_3_3b057a14b77b4540",
+        "ev_65_ev_memory.client_sample_cycle_3_e40c34c87228bbe0",
+        "ev_67_ev_memory.client_sample_cycle_3_04d5efd487922445",
+        "ev_69_ev_memory.client_sample_cycle_3_0d5683d1186039f9",
+        "ev_71_ev_memory.client_sample_cycle_3_07b25a43b8c07387",
+        "ev_73_ev_memory.client_sample_cycle_3_fd19a94fd6f8ae9a",
+        "ev_75_ev_memory.client_sample_cycle_3_87fc48ee4f8c6de9",
+        "ev_77_ev_memory.client_sample_cycle_3_d1ef377ed7c728f1",
+        "ev_79_ev_memory.client_sample_cycle_3_8b67bcd0c155f86b",
+        "ev_81_ev_memory.client_sample_cycle_4_beab7614f62edc93",
+        "ev_83_ev_memory.client_sample_cycle_4_ae7a1fb7f5078271",
+        "ev_85_ev_memory.client_sample_cycle_4_7f829369241c6eab",
+        "ev_87_ev_memory.client_sample_cycle_4_f18f85057f3ff65f",
+        "ev_89_ev_memory.client_sample_cycle_4_5e9105df02b90b80",
+        "ev_91_ev_memory.client_sample_cycle_4_60288bdfbc38f007",
+        "ev_93_ev_memory.client_sample_cycle_4_6fcade74d91bbaa3",
+        "ev_95_ev_memory.client_sample_cycle_4_7a618f0c35dbc79e",
+        "ev_97_ev_memory.client_sample_cycle_4_917dad07bc265063",
+        "ev_99_ev_memory.client_sample_cycle_4_91dd4ab11cf786ba",
+        "ev_101_ev_memory.client_sample_cycle_4_a58aeb1e17977394",
+        "ev_103_ev_memory.client_sample_cycle_4_01129e42d4237944",
+        "ev_105_ev_memory.client_sample_cycle_4_74154a3807d51429",
+        "ev_107_ev_memory.client_sample_cooldown_5_72b592777532547d"
+      ],
+      "fix": {
+        "files_to_check": [
+          "component rendered at route /listeners"
+        ],
+        "hint": "Every addEventListener / subscription created on mount must be removed in the useEffect cleanup (return () => removeEventListener(...)). This app uses a chart library — if this view renders a chart, also call chart.destroy() in the cleanup; Chart.js attaches its own window resize listener.",
+        "summary": "Remove listeners/subscriptions on unmount"
+      },
+      "id": "memory.client.listener_leak.listeners.84becb7c3d2a",
+      "location": {
+        "route": "/listeners"
+      },
+      "metrics": {
+        "listener_recovery_ratio": 0.0,
+        "listeners_per_visit": 2,
+        "listeners_total_retained": 6
+      },
+      "severity": "high",
+      "signature": "listener_leak",
+      "summary": "Visiting /listeners retains ~2 event listener(s) per visit that are never removed. jsEventListeners grows monotonically across cycles.",
+      "title": "Event listeners leak on /listeners",
+      "vector": "memory.client"
+    },
+    {
+      "ai_prompt": "[Vibe Guru finding: route_heap_growth]\nWhere: route /charts\nProblem: Visiting /charts retains ~165.2KB of JS heap per visit that survives GC (heap recovery 1%). Memory is held after the view unmounts.\nEvidence: heap_bytes_per_visit=165.2KB, heap_bytes_total_retained=495.5KB, heap_recovery_ratio=0.014\nFix: Stop accumulating data in module-globals / stores across mounts. Look for arrays/maps/caches at module scope (or a global store slice) that are appended on mount and never cleared, and for subscriptions/timers that retain large closures.\nAction: open the component rendered at /charts, find the cause described above, apply the fix, and ensure the effect cleanup releases everything acquired on mount.",
+      "confidence": "high",
+      "evidence_refs": [
+        "ev_1_ev_memory.client_sample_baseline_0_95732b9940385f1b",
+        "ev_3_ev_memory.client_sample_cycle_1_14e6f0ebb843c209",
+        "ev_5_ev_memory.client_sample_cycle_1_9846a616284fbd40",
+        "ev_7_ev_memory.client_sample_cycle_1_1c829f991a490baf",
+        "ev_9_ev_memory.client_sample_cycle_1_fb9c8c2748b1f3d1",
+        "ev_11_ev_memory.client_sample_cycle_1_7db0f76e97e79541",
+        "ev_13_ev_memory.client_sample_cycle_1_47283fd583b5c040",
+        "ev_15_ev_memory.client_sample_cycle_1_25af60f6ae99f37f",
+        "ev_17_ev_memory.client_sample_cycle_1_1dd64c591d18f973",
+        "ev_19_ev_memory.client_sample_cycle_1_69daece7d72122b9",
+        "ev_21_ev_memory.client_sample_cycle_1_a304faa78406225a",
+        "ev_23_ev_memory.client_sample_cycle_1_46d3d5722ae9234a",
+        "ev_25_ev_memory.client_sample_cycle_1_d4d245004c4623ca",
+        "ev_27_ev_memory.client_sample_cycle_1_677a62e5dde72046",
+        "ev_29_ev_memory.client_sample_cycle_2_5a50d810ac741a11",
+        "ev_31_ev_memory.client_sample_cycle_2_9440a51b8b3cce68",
+        "ev_33_ev_memory.client_sample_cycle_2_eeaa6553bbe8aef9",
+        "ev_35_ev_memory.client_sample_cycle_2_552fb797b8da503f",
+        "ev_37_ev_memory.client_sample_cycle_2_d235ef92e8f988fc",
+        "ev_39_ev_memory.client_sample_cycle_2_44109e74c4731adc",
+        "ev_41_ev_memory.client_sample_cycle_2_4af504dce6b7fe8e",
+        "ev_43_ev_memory.client_sample_cycle_2_7ef49271888a4270",
+        "ev_45_ev_memory.client_sample_cycle_2_5a456d005614ca7b",
+        "ev_47_ev_memory.client_sample_cycle_2_bcf98b490eb95305",
+        "ev_49_ev_memory.client_sample_cycle_2_5c4d48f02d011395",
+        "ev_51_ev_memory.client_sample_cycle_2_aef3ae1cabb4d0f1",
+        "ev_53_ev_memory.client_sample_cycle_2_ffc9461254effcd0",
+        "ev_55_ev_memory.client_sample_cycle_3_76f01a28c8d17cda",
+        "ev_57_ev_memory.client_sample_cycle_3_7f826eef1f6a7e68",
+        "ev_59_ev_memory.client_sample_cycle_3_309a3f5918f8c03c",
+        "ev_61_ev_memory.client_sample_cycle_3_e7a5bc7cbc905151",
+        "ev_63_ev_memory.client_sample_cycle_3_3b057a14b77b4540",
+        "ev_65_ev_memory.client_sample_cycle_3_e40c34c87228bbe0",
+        "ev_67_ev_memory.client_sample_cycle_3_04d5efd487922445",
+        "ev_69_ev_memory.client_sample_cycle_3_0d5683d1186039f9",
+        "ev_71_ev_memory.client_sample_cycle_3_07b25a43b8c07387",
+        "ev_73_ev_memory.client_sample_cycle_3_fd19a94fd6f8ae9a",
+        "ev_75_ev_memory.client_sample_cycle_3_87fc48ee4f8c6de9",
+        "ev_77_ev_memory.client_sample_cycle_3_d1ef377ed7c728f1",
+        "ev_79_ev_memory.client_sample_cycle_3_8b67bcd0c155f86b",
+        "ev_81_ev_memory.client_sample_cycle_4_beab7614f62edc93",
+        "ev_83_ev_memory.client_sample_cycle_4_ae7a1fb7f5078271",
+        "ev_85_ev_memory.client_sample_cycle_4_7f829369241c6eab",
+        "ev_87_ev_memory.client_sample_cycle_4_f18f85057f3ff65f",
+        "ev_89_ev_memory.client_sample_cycle_4_5e9105df02b90b80",
+        "ev_91_ev_memory.client_sample_cycle_4_60288bdfbc38f007",
+        "ev_93_ev_memory.client_sample_cycle_4_6fcade74d91bbaa3",
+        "ev_95_ev_memory.client_sample_cycle_4_7a618f0c35dbc79e",
+        "ev_97_ev_memory.client_sample_cycle_4_917dad07bc265063",
+        "ev_99_ev_memory.client_sample_cycle_4_91dd4ab11cf786ba",
+        "ev_101_ev_memory.client_sample_cycle_4_a58aeb1e17977394",
+        "ev_103_ev_memory.client_sample_cycle_4_01129e42d4237944",
+        "ev_105_ev_memory.client_sample_cycle_4_74154a3807d51429",
+        "ev_107_ev_memory.client_sample_cooldown_5_72b592777532547d"
+      ],
+      "fix": {
+        "files_to_check": [
+          "component rendered at route /charts"
+        ],
+        "hint": "Look for arrays/maps/caches at module scope (or a global store slice) that are appended on mount and never cleared, and for subscriptions/timers that retain large closures.",
+        "summary": "Stop accumulating data in module-globals / stores across mounts"
+      },
+      "id": "memory.client.route_heap_growth.charts.17f71819dd25",
+      "location": {
+        "route": "/charts"
+      },
+      "metrics": {
+        "heap_bytes_per_visit": 165176,
+        "heap_bytes_total_retained": 495527,
+        "heap_recovery_ratio": 0.014
+      },
+      "severity": "high",
+      "signature": "route_heap_growth",
+      "summary": "Visiting /charts retains ~165.2KB of JS heap per visit that survives GC (heap recovery 1%). Memory is held after the view unmounts.",
+      "title": "JS heap retained on /charts",
+      "vector": "memory.client"
+    },
+    {
+      "ai_prompt": "[Vibe Guru finding: route_heap_growth]\nWhere: route /grow\nProblem: Visiting /grow retains ~202.5KB of JS heap per visit that survives GC (heap recovery 1%). Memory is held after the view unmounts.\nEvidence: heap_bytes_per_visit=202.5KB, heap_bytes_total_retained=607.6KB, heap_recovery_ratio=0.014\nFix: Stop accumulating data in module-globals / stores across mounts. Look for arrays/maps/caches at module scope (or a global store slice) that are appended on mount and never cleared, and for subscriptions/timers that retain large closures.\nAction: open the component rendered at /grow, find the cause described above, apply the fix, and ensure the effect cleanup releases everything acquired on mount.",
+      "confidence": "high",
+      "evidence_refs": [
+        "ev_1_ev_memory.client_sample_baseline_0_95732b9940385f1b",
+        "ev_3_ev_memory.client_sample_cycle_1_14e6f0ebb843c209",
+        "ev_5_ev_memory.client_sample_cycle_1_9846a616284fbd40",
+        "ev_7_ev_memory.client_sample_cycle_1_1c829f991a490baf",
+        "ev_9_ev_memory.client_sample_cycle_1_fb9c8c2748b1f3d1",
+        "ev_11_ev_memory.client_sample_cycle_1_7db0f76e97e79541",
+        "ev_13_ev_memory.client_sample_cycle_1_47283fd583b5c040",
+        "ev_15_ev_memory.client_sample_cycle_1_25af60f6ae99f37f",
+        "ev_17_ev_memory.client_sample_cycle_1_1dd64c591d18f973",
+        "ev_19_ev_memory.client_sample_cycle_1_69daece7d72122b9",
+        "ev_21_ev_memory.client_sample_cycle_1_a304faa78406225a",
+        "ev_23_ev_memory.client_sample_cycle_1_46d3d5722ae9234a",
+        "ev_25_ev_memory.client_sample_cycle_1_d4d245004c4623ca",
+        "ev_27_ev_memory.client_sample_cycle_1_677a62e5dde72046",
+        "ev_29_ev_memory.client_sample_cycle_2_5a50d810ac741a11",
+        "ev_31_ev_memory.client_sample_cycle_2_9440a51b8b3cce68",
+        "ev_33_ev_memory.client_sample_cycle_2_eeaa6553bbe8aef9",
+        "ev_35_ev_memory.client_sample_cycle_2_552fb797b8da503f",
+        "ev_37_ev_memory.client_sample_cycle_2_d235ef92e8f988fc",
+        "ev_39_ev_memory.client_sample_cycle_2_44109e74c4731adc",
+        "ev_41_ev_memory.client_sample_cycle_2_4af504dce6b7fe8e",
+        "ev_43_ev_memory.client_sample_cycle_2_7ef49271888a4270",
+        "ev_45_ev_memory.client_sample_cycle_2_5a456d005614ca7b",
+        "ev_47_ev_memory.client_sample_cycle_2_bcf98b490eb95305",
+        "ev_49_ev_memory.client_sample_cycle_2_5c4d48f02d011395",
+        "ev_51_ev_memory.client_sample_cycle_2_aef3ae1cabb4d0f1",
+        "ev_53_ev_memory.client_sample_cycle_2_ffc9461254effcd0",
+        "ev_55_ev_memory.client_sample_cycle_3_76f01a28c8d17cda",
+        "ev_57_ev_memory.client_sample_cycle_3_7f826eef1f6a7e68",
+        "ev_59_ev_memory.client_sample_cycle_3_309a3f5918f8c03c",
+        "ev_61_ev_memory.client_sample_cycle_3_e7a5bc7cbc905151",
+        "ev_63_ev_memory.client_sample_cycle_3_3b057a14b77b4540",
+        "ev_65_ev_memory.client_sample_cycle_3_e40c34c87228bbe0",
+        "ev_67_ev_memory.client_sample_cycle_3_04d5efd487922445",
+        "ev_69_ev_memory.client_sample_cycle_3_0d5683d1186039f9",
+        "ev_71_ev_memory.client_sample_cycle_3_07b25a43b8c07387",
+        "ev_73_ev_memory.client_sample_cycle_3_fd19a94fd6f8ae9a",
+        "ev_75_ev_memory.client_sample_cycle_3_87fc48ee4f8c6de9",
+        "ev_77_ev_memory.client_sample_cycle_3_d1ef377ed7c728f1",
+        "ev_79_ev_memory.client_sample_cycle_3_8b67bcd0c155f86b",
+        "ev_81_ev_memory.client_sample_cycle_4_beab7614f62edc93",
+        "ev_83_ev_memory.client_sample_cycle_4_ae7a1fb7f5078271",
+        "ev_85_ev_memory.client_sample_cycle_4_7f829369241c6eab",
+        "ev_87_ev_memory.client_sample_cycle_4_f18f85057f3ff65f",
+        "ev_89_ev_memory.client_sample_cycle_4_5e9105df02b90b80",
+        "ev_91_ev_memory.client_sample_cycle_4_60288bdfbc38f007",
+        "ev_93_ev_memory.client_sample_cycle_4_6fcade74d91bbaa3",
+        "ev_95_ev_memory.client_sample_cycle_4_7a618f0c35dbc79e",
+        "ev_97_ev_memory.client_sample_cycle_4_917dad07bc265063",
+        "ev_99_ev_memory.client_sample_cycle_4_91dd4ab11cf786ba",
+        "ev_101_ev_memory.client_sample_cycle_4_a58aeb1e17977394",
+        "ev_103_ev_memory.client_sample_cycle_4_01129e42d4237944",
+        "ev_105_ev_memory.client_sample_cycle_4_74154a3807d51429",
+        "ev_107_ev_memory.client_sample_cooldown_5_72b592777532547d"
+      ],
+      "fix": {
+        "files_to_check": [
+          "component rendered at route /grow"
+        ],
+        "hint": "Look for arrays/maps/caches at module scope (or a global store slice) that are appended on mount and never cleared, and for subscriptions/timers that retain large closures.",
+        "summary": "Stop accumulating data in module-globals / stores across mounts"
+      },
+      "id": "memory.client.route_heap_growth.grow.c0d379be2a11",
+      "location": {
+        "route": "/grow"
+      },
+      "metrics": {
+        "heap_bytes_per_visit": 202544,
+        "heap_bytes_total_retained": 607632,
+        "heap_recovery_ratio": 0.014
+      },
+      "severity": "high",
+      "signature": "route_heap_growth",
+      "summary": "Visiting /grow retains ~202.5KB of JS heap per visit that survives GC (heap recovery 1%). Memory is held after the view unmounts.",
+      "title": "JS heap retained on /grow",
+      "vector": "memory.client"
+    },
+    {
+      "ai_prompt": "[Vibe Guru finding: failed_request]\nWhere: route /bad-fetch\nProblem: A network request failed 4 times on /bad-fetch: net::ERR_CONNECTION_REFUSED — http://127.0.0.1:49999/api/user-settings. Any view depending on that response renders empty, stale, or stuck in a loading state.\nEvidence: message=net::ERR_CONNECTION_REFUSED — http://127.0.0.1:49999/api/user-settings, source=http://127.0.0.1:49999/api/user-settings, routes=/bad-fetch, attribution=request_origin, occurrences=4\nFix: Make the request succeed, and handle the failure case in the UI. Check the URL, method and payload against the actual endpoint — a wrong path or a missing base URL is the usual cause. Then make sure the calling component renders an error state instead of hanging, so a future failure is visible rather than silent.\nAction: reproduce this by loading /bad-fetch, fix the cause described above, then re-run `vibeguru run` to confirm the finding is gone.",
+      "confidence": "high",
+      "evidence_refs": [
+        "ev_109_ev_memory.client_runtime_event_cycle_4_069745daa8fdef62"
+      ],
+      "fix": {
+        "files_to_check": [
+          "http://127.0.0.1:49999/api/user-settings"
+        ],
+        "hint": "Check the URL, method and payload against the actual endpoint — a wrong path or a missing base URL is the usual cause. Then make sure the calling component renders an error state instead of hanging, so a future failure is visible rather than silent.",
+        "summary": "Make the request succeed, and handle the failure case in the UI"
+      },
+      "id": "runtime.client.failed_request.bad_fetch.7caef02fc6ea",
+      "location": {
+        "route": "/bad-fetch"
+      },
+      "metrics": {
+        "attribution": "request_origin",
+        "message": "net::ERR_CONNECTION_REFUSED — http://127.0.0.1:49999/api/user-settings",
+        "occurrences": 4,
+        "routes": "/bad-fetch",
+        "source": "http://127.0.0.1:49999/api/user-settings"
+      },
+      "severity": "high",
+      "signature": "failed_request",
+      "summary": "A network request failed 4 times on /bad-fetch: net::ERR_CONNECTION_REFUSED — http://127.0.0.1:49999/api/user-settings. Any view depending on that response renders empty, stale, or stuck in a loading state.",
+      "title": "Request fails on /bad-fetch",
+      "vector": "runtime.client"
+    },
+    {
+      "ai_prompt": "[Vibe Guru finding: console_error]\nWhere: route /log-error\nProblem: The app logged an error 4 times on /log-error: Failed to parse user preferences, falling back to defaults. The page kept running, so this is a defect the app knows about and swallowed rather than a hard crash. Route records where the event was observed; its originating route is unverified and may be an earlier view.\nEvidence: message=Failed to parse user preferences, falling back to defaults, source=http://localhost:5173/src/pages/LogError.jsx:21:12, routes=/log-error, attribution=observed_route, occurrences=4\nFix: Resolve the logged error rather than silencing it. Read the message and fix the underlying cause. If it comes from a framework (a React key warning, an invalid prop type, a hydration mismatch), it is pointing at a real correctness bug even when the page still renders. Reported at: http://localhost:5173/src/pages/LogError.jsx:21:12.\nAction: reproduce this by loading /log-error, fix the cause described above, then re-run `vibeguru run` to confirm the finding is gone.",
+      "confidence": "high",
+      "evidence_refs": [
+        "ev_112_ev_memory.client_runtime_event_cycle_4_95a28cc74e6237b6"
+      ],
+      "fix": {
+        "files_to_check": [
+          "http://localhost:5173/src/pages/LogError.jsx:21:12"
+        ],
+        "hint": "Read the message and fix the underlying cause. If it comes from a framework (a React key warning, an invalid prop type, a hydration mismatch), it is pointing at a real correctness bug even when the page still renders. Reported at: http://localhost:5173/src/pages/LogError.jsx:21:12.",
+        "summary": "Resolve the logged error rather than silencing it"
+      },
+      "id": "runtime.client.console_error.log_error.4e91d2079bd0",
+      "location": {
+        "route": "/log-error"
+      },
+      "metrics": {
+        "attribution": "observed_route",
+        "message": "Failed to parse user preferences, falling back to defaults",
+        "occurrences": 4,
+        "routes": "/log-error",
+        "source": "http://localhost:5173/src/pages/LogError.jsx:21:12"
+      },
+      "severity": "high",
+      "signature": "console_error",
+      "summary": "The app logged an error 4 times on /log-error: Failed to parse user preferences, falling back to defaults. The page kept running, so this is a defect the app knows about and swallowed rather than a hard crash. Route records where the event was observed; its originating route is unverified and may be an earlier view.",
+      "title": "Console error on /log-error",
+      "vector": "runtime.client"
+    },
+    {
+      "ai_prompt": "[Vibe Guru finding: console_error]\nWhere: route /observers\nProblem: The app logged an error 4 times on /observers: WebSocket connection to 'ws://127.0.0.1:49999/socket' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED. The page kept running, so this is a defect the app knows about and swallowed rather than a hard crash. Route records where the event was observed; its originating route is unverified and may be an earlier view.\nEvidence: message=WebSocket connection to 'ws://127.0.0.1:49999/socket' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED, source=http://localhost:5173/src/pages/Observers.jsx:27:0, routes=/observers, attribution=observed_route, occurrences=4\nFix: Resolve the logged error rather than silencing it. Read the message and fix the underlying cause. If it comes from a framework (a React key warning, an invalid prop type, a hydration mismatch), it is pointing at a real correctness bug even when the page still renders. Reported at: http://localhost:5173/src/pages/Observers.jsx:27:0.\nAction: reproduce this by loading /observers, fix the cause described above, then re-run `vibeguru run` to confirm the finding is gone.",
+      "confidence": "high",
+      "evidence_refs": [
+        "ev_113_ev_memory.client_runtime_event_cycle_4_c62c811c62822cc3"
+      ],
+      "fix": {
+        "files_to_check": [
+          "http://localhost:5173/src/pages/Observers.jsx:27:0"
+        ],
+        "hint": "Read the message and fix the underlying cause. If it comes from a framework (a React key warning, an invalid prop type, a hydration mismatch), it is pointing at a real correctness bug even when the page still renders. Reported at: http://localhost:5173/src/pages/Observers.jsx:27:0.",
+        "summary": "Resolve the logged error rather than silencing it"
+      },
+      "id": "runtime.client.console_error.observers.48b26a1faa9d",
+      "location": {
+        "route": "/observers"
+      },
+      "metrics": {
+        "attribution": "observed_route",
+        "message": "WebSocket connection to 'ws://127.0.0.1:49999/socket' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED",
+        "occurrences": 4,
+        "routes": "/observers",
+        "source": "http://localhost:5173/src/pages/Observers.jsx:27:0"
+      },
+      "severity": "high",
+      "signature": "console_error",
+      "summary": "The app logged an error 4 times on /observers: WebSocket connection to 'ws://127.0.0.1:49999/socket' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED. The page kept running, so this is a defect the app knows about and swallowed rather than a hard crash. Route records where the event was observed; its originating route is unverified and may be an earlier view.",
+      "title": "Console error on /observers",
+      "vector": "runtime.client"
+    },
+    {
+      "ai_prompt": "[Vibe Guru finding: retained_instances]\nWhere: route /observers\nProblem: every visit to /observers leaves ~1 live ResizeObserver instance(s) alive after garbage collection (3 across 3 visits). Each observer keeps firing and retains everything its callback closes over.\nEvidence: class=ResizeObserver, instances_per_visit=1, instances_total=3\nFix: call observer.disconnect() in the effect cleanup, and make sure nothing outside the component still holds the reference.\nAction: open the component rendered at /observers, release the ResizeObserver in its unmount/cleanup path, then re-run to confirm the count stops growing.",
+      "confidence": "high",
+      "evidence_refs": [
+        "ev_2_ev_memory.client_census_baseline_0_5869687cb26d31bb",
+        "ev_4_ev_memory.client_census_cycle_1_5869687cb26d31bb",
+        "ev_6_ev_memory.client_census_cycle_1_97fcac7953af9aed",
+        "ev_8_ev_memory.client_census_cycle_1_f2e7373e2e1404ed",
+        "ev_10_ev_memory.client_census_cycle_1_4e137a1d3fd704b9",
+        "ev_12_ev_memory.client_census_cycle_1_233fac467d9b53cb",
+        "ev_14_ev_memory.client_census_cycle_1_9ca9c9d5090a3fd6",
+        "ev_16_ev_memory.client_census_cycle_1_c0d472562f465012",
+        "ev_18_ev_memory.client_census_cycle_1_a876966498ba7396",
+        "ev_20_ev_memory.client_census_cycle_1_d1a5456dabc0f717",
+        "ev_22_ev_memory.client_census_cycle_1_f4cf1ddf16723467",
+        "ev_24_ev_memory.client_census_cycle_1_26196dc88f02152c",
+        "ev_26_ev_memory.client_census_cycle_1_dbe67245855f4ad7",
+        "ev_28_ev_memory.client_census_cycle_1_81220dbd8e4a4cd1",
+        "ev_30_ev_memory.client_census_cycle_2_2f7eab9b2d7f0974",
+        "ev_32_ev_memory.client_census_cycle_2_c4673d399bb65d4a",
+        "ev_34_ev_memory.client_census_cycle_2_d1d891bc2c1c814c",
+        "ev_36_ev_memory.client_census_cycle_2_019d41017ad329b5",
+        "ev_38_ev_memory.client_census_cycle_2_8c53e78f85dff5c0",
+        "ev_40_ev_memory.client_census_cycle_2_6bd5f110ef808855",
+        "ev_42_ev_memory.client_census_cycle_2_2c288e728c0353cf",
+        "ev_44_ev_memory.client_census_cycle_2_0abea9dd19166cfd",
+        "ev_46_ev_memory.client_census_cycle_2_4d2236ab20119847",
+        "ev_48_ev_memory.client_census_cycle_2_3c5561233337d635",
+        "ev_50_ev_memory.client_census_cycle_2_10a9a3ffed63d21b",
+        "ev_52_ev_memory.client_census_cycle_2_adcbd646f4685859",
+        "ev_54_ev_memory.client_census_cycle_2_c253ba80b2445289",
+        "ev_56_ev_memory.client_census_cycle_3_18482f3bf8c492a7",
+        "ev_58_ev_memory.client_census_cycle_3_7f803d035d343d50",
+        "ev_60_ev_memory.client_census_cycle_3_eedb83997ddc5de7",
+        "ev_62_ev_memory.client_census_cycle_3_444bed0d385cc371",
+        "ev_64_ev_memory.client_census_cycle_3_3a356f4b14df8a3a",
+        "ev_66_ev_memory.client_census_cycle_3_c2d1f541c698fdae",
+        "ev_68_ev_memory.client_census_cycle_3_5c4bf9c6287ffae2",
+        "ev_70_ev_memory.client_census_cycle_3_3fee2b03034c879e",
+        "ev_72_ev_memory.client_census_cycle_3_d3665927c5a60db2",
+        "ev_74_ev_memory.client_census_cycle_3_52e4238bed371dd8",
+        "ev_76_ev_memory.client_census_cycle_3_4a472f599590c5ca",
+        "ev_78_ev_memory.client_census_cycle_3_bef766bee4ab7729",
+        "ev_80_ev_memory.client_census_cycle_3_edb4f5ba1f56fefe",
+        "ev_82_ev_memory.client_census_cycle_4_08d850d5ff1bd084",
+        "ev_84_ev_memory.client_census_cycle_4_acf420a4b424bfe0",
+        "ev_86_ev_memory.client_census_cycle_4_9d27d6fe6ae887eb",
+        "ev_88_ev_memory.client_census_cycle_4_caf206241a4deaad",
+        "ev_90_ev_memory.client_census_cycle_4_57aa30d348b80dee",
+        "ev_92_ev_memory.client_census_cycle_4_be345790c46a9eeb",
+        "ev_94_ev_memory.client_census_cycle_4_7a021fd18632e7cb",
+        "ev_96_ev_memory.client_census_cycle_4_9040f53eba9aa646",
+        "ev_98_ev_memory.client_census_cycle_4_73576fb41d3cb1a9",
+        "ev_100_ev_memory.client_census_cycle_4_fe7f6f6164040f88",
+        "ev_102_ev_memory.client_census_cycle_4_09ff14d93d8278dc",
+        "ev_104_ev_memory.client_census_cycle_4_57743d044afeb3c1",
+        "ev_106_ev_memory.client_census_cycle_4_a2952b79d4de4c9d"
+      ],
+      "fix": {
+        "files_to_check": [
+          "component rendered at route /observers"
+        ],
+        "hint": "call observer.disconnect() in the effect cleanup. The count rising on every visit means the reference outlives the component — check for one held in a ref, a module-level variable, or a closure passed to something longer-lived.",
+        "summary": "Release the ResizeObserver when the view unmounts"
+      },
+      "id": "census.instances.ResizeObserver.observers.061e466df977",
+      "location": {
+        "route": "/observers"
+      },
+      "metrics": {
+        "class": "ResizeObserver",
+        "instances_per_visit": 1,
+        "instances_total": 3,
+        "visits_measured": 3
+      },
+      "severity": "high",
+      "signature": "retained_instances",
+      "summary": "Visiting /observers leaves ~1 live ResizeObserver instance(s) behind every time (3 total across 3 visits). They survive garbage collection, so nothing will reclaim them — each observer keeps firing and retains everything its callback closes over.",
+      "title": "ResizeObserver instances retained on /observers",
+      "vector": "census.client"
+    },
+    {
+      "ai_prompt": "[Vibe Guru finding: retained_instances]\nWhere: route /charts\nProblem: every visit to /charts leaves ~2 live MutationObserver instance(s) alive after garbage collection (6 across 3 visits). Each observer keeps firing and retains everything its callback closes over.\nEvidence: class=MutationObserver, instances_per_visit=2, instances_total=6\nFix: call observer.disconnect() in the effect cleanup, and make sure nothing outside the component still holds the reference.\nAction: open the component rendered at /charts, release the MutationObserver in its unmount/cleanup path, then re-run to confirm the count stops growing.",
+      "confidence": "high",
+      "evidence_refs": [
+        "ev_2_ev_memory.client_census_baseline_0_5869687cb26d31bb",
+        "ev_4_ev_memory.client_census_cycle_1_5869687cb26d31bb",
+        "ev_6_ev_memory.client_census_cycle_1_97fcac7953af9aed",
+        "ev_8_ev_memory.client_census_cycle_1_f2e7373e2e1404ed",
+        "ev_10_ev_memory.client_census_cycle_1_4e137a1d3fd704b9",
+        "ev_12_ev_memory.client_census_cycle_1_233fac467d9b53cb",
+        "ev_14_ev_memory.client_census_cycle_1_9ca9c9d5090a3fd6",
+        "ev_16_ev_memory.client_census_cycle_1_c0d472562f465012",
+        "ev_18_ev_memory.client_census_cycle_1_a876966498ba7396",
+        "ev_20_ev_memory.client_census_cycle_1_d1a5456dabc0f717",
+        "ev_22_ev_memory.client_census_cycle_1_f4cf1ddf16723467",
+        "ev_24_ev_memory.client_census_cycle_1_26196dc88f02152c",
+        "ev_26_ev_memory.client_census_cycle_1_dbe67245855f4ad7",
+        "ev_28_ev_memory.client_census_cycle_1_81220dbd8e4a4cd1",
+        "ev_30_ev_memory.client_census_cycle_2_2f7eab9b2d7f0974",
+        "ev_32_ev_memory.client_census_cycle_2_c4673d399bb65d4a",
+        "ev_34_ev_memory.client_census_cycle_2_d1d891bc2c1c814c",
+        "ev_36_ev_memory.client_census_cycle_2_019d41017ad329b5",
+        "ev_38_ev_memory.client_census_cycle_2_8c53e78f85dff5c0",
+        "ev_40_ev_memory.client_census_cycle_2_6bd5f110ef808855",
+        "ev_42_ev_memory.client_census_cycle_2_2c288e728c0353cf",
+        "ev_44_ev_memory.client_census_cycle_2_0abea9dd19166cfd",
+        "ev_46_ev_memory.client_census_cycle_2_4d2236ab20119847",
+        "ev_48_ev_memory.client_census_cycle_2_3c5561233337d635",
+        "ev_50_ev_memory.client_census_cycle_2_10a9a3ffed63d21b",
+        "ev_52_ev_memory.client_census_cycle_2_adcbd646f4685859",
+        "ev_54_ev_memory.client_census_cycle_2_c253ba80b2445289",
+        "ev_56_ev_memory.client_census_cycle_3_18482f3bf8c492a7",
+        "ev_58_ev_memory.client_census_cycle_3_7f803d035d343d50",
+        "ev_60_ev_memory.client_census_cycle_3_eedb83997ddc5de7",
+        "ev_62_ev_memory.client_census_cycle_3_444bed0d385cc371",
+        "ev_64_ev_memory.client_census_cycle_3_3a356f4b14df8a3a",
+        "ev_66_ev_memory.client_census_cycle_3_c2d1f541c698fdae",
+        "ev_68_ev_memory.client_census_cycle_3_5c4bf9c6287ffae2",
+        "ev_70_ev_memory.client_census_cycle_3_3fee2b03034c879e",
+        "ev_72_ev_memory.client_census_cycle_3_d3665927c5a60db2",
+        "ev_74_ev_memory.client_census_cycle_3_52e4238bed371dd8",
+        "ev_76_ev_memory.client_census_cycle_3_4a472f599590c5ca",
+        "ev_78_ev_memory.client_census_cycle_3_bef766bee4ab7729",
+        "ev_80_ev_memory.client_census_cycle_3_edb4f5ba1f56fefe",
+        "ev_82_ev_memory.client_census_cycle_4_08d850d5ff1bd084",
+        "ev_84_ev_memory.client_census_cycle_4_acf420a4b424bfe0",
+        "ev_86_ev_memory.client_census_cycle_4_9d27d6fe6ae887eb",
+        "ev_88_ev_memory.client_census_cycle_4_caf206241a4deaad",
+        "ev_90_ev_memory.client_census_cycle_4_57aa30d348b80dee",
+        "ev_92_ev_memory.client_census_cycle_4_be345790c46a9eeb",
+        "ev_94_ev_memory.client_census_cycle_4_7a021fd18632e7cb",
+        "ev_96_ev_memory.client_census_cycle_4_9040f53eba9aa646",
+        "ev_98_ev_memory.client_census_cycle_4_73576fb41d3cb1a9",
+        "ev_100_ev_memory.client_census_cycle_4_fe7f6f6164040f88",
+        "ev_102_ev_memory.client_census_cycle_4_09ff14d93d8278dc",
+        "ev_104_ev_memory.client_census_cycle_4_57743d044afeb3c1",
+        "ev_106_ev_memory.client_census_cycle_4_a2952b79d4de4c9d"
+      ],
+      "fix": {
+        "files_to_check": [
+          "component rendered at route /charts"
+        ],
+        "hint": "call observer.disconnect() in the effect cleanup. The count rising on every visit means the reference outlives the component — check for one held in a ref, a module-level variable, or a closure passed to something longer-lived.",
+        "summary": "Release the MutationObserver when the view unmounts"
+      },
+      "id": "census.instances.MutationObserver.charts.6c9b2d624880",
+      "location": {
+        "route": "/charts"
+      },
+      "metrics": {
+        "class": "MutationObserver",
+        "instances_per_visit": 2,
+        "instances_total": 6,
+        "visits_measured": 3
+      },
+      "severity": "high",
+      "signature": "retained_instances",
+      "summary": "Visiting /charts leaves ~2 live MutationObserver instance(s) behind every time (6 total across 3 visits). They survive garbage collection, so nothing will reclaim them — each observer keeps firing and retains everything its callback closes over.",
+      "title": "MutationObserver instances retained on /charts",
+      "vector": "census.client"
+    }
+  ],
+  "generated_at": "2026-10-08T15:02:30.922000Z",
+  "measurement_validity": {
+    "census.client": {
+      "reasons": [
+        "unreachable_routes",
+        "failed_navigation",
+        "unavailable_census_targets"
+      ],
+      "status": "partial",
+      "unavailable_targets": [
+        "Chart"
+      ]
+    },
+    "memory.client": {
+      "reasons": [
+        "unreachable_routes",
+        "failed_navigation"
+      ],
+      "status": "partial"
+    },
+    "runtime.client": {
+      "reasons": [
+        "unreachable_routes",
+        "failed_navigation"
+      ],
+      "status": "partial"
+    },
+    "scope": {
+      "reasons": [
+        "unreachable_routes",
+        "failed_navigation"
+      ],
+      "status": "partial"
+    }
+  },
+  "profile": {
+    "bundler": "vite",
+    "chart_libs": [
+      "chartjs"
+    ],
+    "declared_routes": [
+      {
+        "dynamic": false,
+        "path": "/",
+        "source": "source"
+      },
+      {
+        "dynamic": false,
+        "path": "/bad-fetch",
+        "source": "source"
+      },
+      {
+        "dynamic": false,
+        "path": "/charts",
+        "source": "source"
+      },
+      {
+        "dynamic": false,
+        "path": "/clean",
+        "source": "source"
+      },
+      {
+        "dynamic": false,
+        "path": "/crash",
+        "source": "source"
+      },
+      {
+        "dynamic": false,
+        "path": "/detached",
+        "source": "source"
+      },
+      {
+        "dynamic": false,
+        "path": "/grow",
+        "source": "source"
+      },
+      {
+        "dynamic": false,
+        "path": "/listeners",
+        "source": "source"
+      },
+      {
+        "dynamic": false,
+        "path": "/log-error",
+        "source": "source"
+      },
+      {
+        "dynamic": false,
+        "path": "/login",
+        "source": "source"
+      },
+      {
+        "dynamic": false,
+        "path": "/observers",
+        "source": "source"
+      },
+      {
+        "dynamic": false,
+        "path": "/protected",
+        "source": "source"
+      },
+      {
+        "dynamic": false,
+        "path": "/render-loop",
+        "source": "source"
+      }
+    ],
+    "meta": {
+      "dep_count": 6
+    },
+    "root": "test-app",
+    "router": "react_router",
+    "source_maps": "present",
+    "stack": "react",
+    "surface": "frontend",
+    "url": "http://localhost:5173"
+  },
+  "run": {
+    "censusTargets": [
+      "Chart",
+      "MutationObserver",
+      "ResizeObserver",
+      "IntersectionObserver",
+      "PerformanceObserver",
+      "WebSocket",
+      "EventSource",
+      "Worker"
+    ],
+    "cycles": 4,
+    "durationMs": 109233,
+    "flowCompleted": 0,
+    "flowFailures": 0,
+    "gcFailures": 0,
+    "mode": "auto",
+    "navigationFailures": 4,
+    "ok": true,
+    "retentionInvalid": false,
+    "routeCount": 13,
+    "routesLimit": 14,
+    "runtimeObserved": true,
+    "settleMs": 400,
+    "url": "http://localhost:5173"
+  },
+  "schema_version": 2,
+  "summary": {
+    "by_severity": {
+      "critical": 2,
+      "high": 10
+    },
+    "total": 12
+  },
+  "tool": "vibeguru",
+  "validity_reasons": [
+    "unreachable_routes",
+    "failed_navigation",
+    "unavailable_census_targets"
+  ],
+  "vector": "memory.client",
+  "verdict": "FAIL"
+}

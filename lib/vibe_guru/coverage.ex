@@ -26,7 +26,16 @@ defmodule VibeGuru.Coverage do
           ratio: float()
         }
 
-  defstruct declared: 0, discovered: 0, visited: [], unreachable: [], known: 0, ratio: 1.0
+  defstruct declared: 0,
+            discovered: 0,
+            visited: [],
+            unreachable: [],
+            known: 0,
+            ratio: 1.0,
+            mode: "auto",
+            flow_completed: 0,
+            flow_planned: 0,
+            flow_failures: 0
 
   # Below this, a clean result says more about the analysis than about the app.
   @low_coverage 0.7
@@ -52,7 +61,11 @@ defmodule VibeGuru.Coverage do
       visited: visited,
       unreachable: unreachable,
       known: known,
-      ratio: if(known == 0, do: 1.0, else: length(visited) / known)
+      ratio: if(known == 0, do: 1.0, else: length(visited) / known),
+      mode: data["mode"] || "auto",
+      flow_completed: data["flow_completed"] || 0,
+      flow_planned: data["flow_planned"] || 0,
+      flow_failures: data["flow_failures"] || 0
     }
   end
 
@@ -67,12 +80,20 @@ defmodule VibeGuru.Coverage do
   @doc "True when a clean result should not be presented as an all-clear."
   @spec low?(t() | nil) :: boolean()
   def low?(nil), do: false
+
+  def low?(%__MODULE__{mode: "flow"} = c),
+    do: c.flow_planned == 0 or c.flow_completed != c.flow_planned or c.flow_failures > 0
+
   def low?(%__MODULE__{known: 0}), do: true
   def low?(%__MODULE__{ratio: ratio}), do: ratio < @low_coverage
 
   @doc "One-line summary, e.g. `Exercised 3 of 19 routes (16%)`."
   @spec summary(t() | nil) :: String.t() | nil
   def summary(nil), do: nil
+
+  def summary(%__MODULE__{mode: "flow"} = c),
+    do:
+      "Completed #{c.flow_completed} of #{c.flow_planned} recorded flow cycles (#{c.flow_failures} failed). Only explicitly supplied journey outcomes are asserted."
 
   def summary(%__MODULE__{known: 0}),
     do:
@@ -145,7 +166,11 @@ defmodule VibeGuru.Coverage do
       unreachable: c.unreachable,
       routes_known: c.known,
       ratio: Float.round(c.ratio, 3),
-      low: low?(c)
+      low: low?(c),
+      mode: c.mode,
+      flow_completed: c.flow_completed,
+      flow_planned: c.flow_planned,
+      flow_failures: c.flow_failures
     }
   end
 end

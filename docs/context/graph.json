@@ -1,0 +1,6452 @@
+{
+  "schema_version": 1,
+  "generated_at_utc": "2026-10-11T14:37:48.645093+00:00",
+  "source_commit": "2f6429988a98b7ddc2833f9d312880b6fdd59353",
+  "source_branch": "feat/census-probe",
+  "source_state": "working-tree",
+  "contains_uncommitted_changes": true,
+  "scope": "Tracked and non-ignored repository source files; excludes vendor trees, local generated reports/binaries, and auth/session data. Public sample reports are explicitly included.",
+  "limitations": [
+    "Static import/module references can occur in documentation, types or tests; edges do not prove runtime invocation.",
+    "No dynamic imports, resolved Elixir short aliases/call graph, or dependency internals are exhaustively analyzed.",
+    "The standard Pipeline does not invoke Investigation; no edge asserts that it does.",
+    "The generated graph and index exclude themselves to avoid recursive hashes."
+  ],
+  "nodes": [
+    {
+      "id": "browser-driver",
+      "type": "subsystem"
+    },
+    {
+      "id": "ci-release",
+      "type": "subsystem"
+    },
+    {
+      "id": "documentation",
+      "type": "subsystem"
+    },
+    {
+      "id": "elixir-engine",
+      "type": "subsystem"
+    },
+    {
+      "id": "evaluation",
+      "type": "subsystem"
+    },
+    {
+      "id": "example-reports",
+      "type": "subsystem"
+    },
+    {
+      "id": "fixture-app",
+      "type": "subsystem"
+    },
+    {
+      "id": "investigation",
+      "type": "subsystem"
+    },
+    {
+      "id": "local-dashboard",
+      "type": "subsystem"
+    },
+    {
+      "id": "mcp",
+      "type": "subsystem"
+    },
+    {
+      "id": "public-site",
+      "type": "subsystem"
+    },
+    {
+      "id": "root-config",
+      "type": "subsystem"
+    },
+    {
+      "id": "tests",
+      "type": "subsystem"
+    },
+    {
+      "id": "tooling-distribution",
+      "type": "subsystem"
+    },
+    {
+      "id": ".formatter.exs",
+      "type": "file",
+      "area": "root-config",
+      "bytes": 97,
+      "lines": 4,
+      "sha256": "a46ecd2cb12fd54c0cf0928c72fb10bef329b3f72b49df9bef621c3370734bc5",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": ".github/workflows/ci.yml",
+      "type": "file",
+      "area": "ci-release",
+      "bytes": 7198,
+      "lines": 198,
+      "sha256": "860428079b5ec305d53b182a87d218b4bdc186a88f768e86f23a01c367551869",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": ".github/workflows/release.yml",
+      "type": "file",
+      "area": "ci-release",
+      "bytes": 13310,
+      "lines": 282,
+      "sha256": "493324d18c9a3731612b4fb7aec55cff11d076443e9b2711ea90f1e33fb374d1",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": ".gitignore",
+      "type": "file",
+      "area": "root-config",
+      "bytes": 1763,
+      "lines": 65,
+      "sha256": "ede8cf79084ae2a2b4c149683c148e7f45b7cedc675e789c89acbd6ee4b69e2c",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "AGENTS.md",
+      "type": "file",
+      "area": "documentation",
+      "bytes": 1546,
+      "lines": 21,
+      "sha256": "1877ffa2763fca2f76e888d2a06da4f11c7885b1f1ada36016f89e399785d94f",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "Jenkinsfile",
+      "type": "file",
+      "area": "ci-release",
+      "bytes": 8012,
+      "lines": 216,
+      "sha256": "6ed75b0f9a5040607a68d88be468acde1e4a594d1d9384eb394541b39815f403",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "LICENSE",
+      "type": "file",
+      "area": "root-config",
+      "bytes": 1071,
+      "lines": 21,
+      "sha256": "d9048f7273f457ec8998e549f61be15f7b98939e3a06a048c8ac23973bd83d0e",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "PROJECT_CONTEXT.md",
+      "type": "file",
+      "area": "documentation",
+      "bytes": 9081,
+      "lines": 110,
+      "sha256": "7bf1f7fe94d068381f0663fa17f1fe7fe8667e6d0cd9eccd0c83007f7cd78c7b",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "README.md",
+      "type": "file",
+      "area": "documentation",
+      "bytes": 12893,
+      "lines": 195,
+      "sha256": "e43dafeffa4cc2acabddbd62a4414a9ad24678af2c4bc4b815c5aea63aa100ea",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "benchmarks/README.md",
+      "type": "file",
+      "area": "evaluation",
+      "bytes": 13145,
+      "lines": 230,
+      "sha256": "1454e34e9a671f691cf1c230735c2b19f64029ca2bc7e4eda5f0008b5d7452af",
+      "modules": [],
+      "exports": [
+        "setup"
+      ],
+      "test_declarations": 0
+    },
+    {
+      "id": "benchmarks/assessment.mjs",
+      "type": "file",
+      "area": "evaluation",
+      "bytes": 5575,
+      "lines": 89,
+      "sha256": "398706904ff155338cf6899d92c38b4c9f79053f1021c2fbae0e4688275a98ad",
+      "modules": [],
+      "exports": [
+        "assessExpectation",
+        "compareObserved",
+        "fingerprint",
+        "scoreCase"
+      ],
+      "test_declarations": 0
+    },
+    {
+      "id": "benchmarks/desktop/common.mjs",
+      "type": "file",
+      "area": "evaluation",
+      "bytes": 2210,
+      "lines": 46,
+      "sha256": "a12c4de333aad120794ac0d102532ee17d84661b1f4df52c72e669678a90be11",
+      "modules": [],
+      "exports": [
+        "exerciseFault",
+        "isolate",
+        "requiredVisible"
+      ],
+      "test_declarations": 0
+    },
+    {
+      "id": "benchmarks/desktop/gateway-create.mjs",
+      "type": "file",
+      "area": "evaluation",
+      "bytes": 1698,
+      "lines": 29,
+      "sha256": "37c6962b999c255b8f86d702fd25f279db8f0583d75c5c73d132b9e2a14609f3",
+      "modules": [],
+      "exports": [
+        "setup"
+      ],
+      "test_declarations": 0
+    },
+    {
+      "id": "benchmarks/desktop/gateway-race.mjs",
+      "type": "file",
+      "area": "evaluation",
+      "bytes": 5644,
+      "lines": 95,
+      "sha256": "3b657a7cdfb2db56ad01c590d17bf55f97140497af95ba5307eb4a57ad2c335b",
+      "modules": [],
+      "exports": [
+        "setup"
+      ],
+      "test_declarations": 0
+    },
+    {
+      "id": "benchmarks/desktop/gateway.mjs",
+      "type": "file",
+      "area": "evaluation",
+      "bytes": 1842,
+      "lines": 32,
+      "sha256": "3b2672443ba75e795ce208efbd27352635dd2a047256e27b3dd9d9b57a6737a6",
+      "modules": [],
+      "exports": [
+        "setup"
+      ],
+      "test_declarations": 0
+    },
+    {
+      "id": "benchmarks/desktop/multiplayer-reconnect.mjs",
+      "type": "file",
+      "area": "evaluation",
+      "bytes": 14794,
+      "lines": 254,
+      "sha256": "f5d7a55b26a2f08d950919f1c71ce14caaed8e56f534b265295f7f66679d08ae",
+      "modules": [],
+      "exports": [
+        "boundedObservation",
+        "cleanup",
+        "restoreNegativeControl",
+        "roster",
+        "rostersAgree",
+        "routeTransport",
+        "setup"
+      ],
+      "test_declarations": 0
+    },
+    {
+      "id": "benchmarks/desktop/multiplayer.mjs",
+      "type": "file",
+      "area": "evaluation",
+      "bytes": 1922,
+      "lines": 32,
+      "sha256": "a160aa94e017b8da52e6e2c7d85d1599e8f0bafd8231f1aaabd37442b92d33e1",
+      "modules": [],
+      "exports": [
+        "setup"
+      ],
+      "test_declarations": 0
+    },
+    {
+      "id": "benchmarks/desktop/swap-station.mjs",
+      "type": "file",
+      "area": "evaluation",
+      "bytes": 1453,
+      "lines": 28,
+      "sha256": "1b7d776c5bdfd03173804c67679883e92ac8264ee503263f7f863b42ee4b8f0c",
+      "modules": [],
+      "exports": [
+        "setup"
+      ],
+      "test_declarations": 0
+    },
+    {
+      "id": "benchmarks/lab/conflicting-writes.mjs",
+      "type": "file",
+      "area": "evaluation",
+      "bytes": 25146,
+      "lines": 321,
+      "sha256": "9060c1ac5fd2bfdbd7a14a5271c694f15d6028841c68429a23f749e29602fb79",
+      "modules": [],
+      "exports": [
+        "consistentHistory",
+        "restoreConflictState",
+        "setup",
+        "validateConflictState"
+      ],
+      "test_declarations": 0
+    },
+    {
+      "id": "benchmarks/lab/http-recovery.mjs",
+      "type": "file",
+      "area": "evaluation",
+      "bytes": 2737,
+      "lines": 31,
+      "sha256": "24fa590f0a60227d41240d289808c78fde90ef71fffacdee4aec418ca9f7a8d9",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "benchmarks/lab/pending-navigation.mjs",
+      "type": "file",
+      "area": "evaluation",
+      "bytes": 3209,
+      "lines": 47,
+      "sha256": "2439e75d7ba1e18bf1ae2c0b75d9e06cd67c124c88b7d276bf3fa44a0ececf74",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "benchmarks/lab/storage-resilience.mjs",
+      "type": "file",
+      "area": "evaluation",
+      "bytes": 9683,
+      "lines": 137,
+      "sha256": "2604e83c353276c5ab3469ae93ffaeb4748dce91a8423b5ba00de7f8524f9c64",
+      "modules": [],
+      "exports": [
+        "restoreStorageState",
+        "setup"
+      ],
+      "test_declarations": 0
+    },
+    {
+      "id": "benchmarks/lab/workbench.mjs",
+      "type": "file",
+      "area": "evaluation",
+      "bytes": 1314,
+      "lines": 27,
+      "sha256": "12b08ac13dc60503ed767a639846b3186bca08cad256113ce567aebd58c20c75",
+      "modules": [],
+      "exports": [
+        "control",
+        "paint",
+        "requireState",
+        "setupWorkbench",
+        "until"
+      ],
+      "test_declarations": 0
+    },
+    {
+      "id": "benchmarks/lab/write-integrity.mjs",
+      "type": "file",
+      "area": "evaluation",
+      "bytes": 14418,
+      "lines": 229,
+      "sha256": "9a1479c5a4a33281453ce1b9b78d5c75e9e7ff1fd14bbf91a6088de62cc765b1",
+      "modules": [],
+      "exports": [
+        "cleanup",
+        "ordersMatchIntent",
+        "restoreWriteState",
+        "setup",
+        "validateWriteState"
+      ],
+      "test_declarations": 0
+    },
+    {
+      "id": "benchmarks/reconnect-calibrate.mjs",
+      "type": "file",
+      "area": "evaluation",
+      "bytes": 2852,
+      "lines": 58,
+      "sha256": "5bf15a10e4f9936183907d16ead0e9d2eeae30a629740f05057fd2bf68acc4f5",
+      "modules": [],
+      "exports": [
+        "calibrateReconnect"
+      ],
+      "test_declarations": 0
+    },
+    {
+      "id": "benchmarks/report-corruption.mjs",
+      "type": "file",
+      "area": "evaluation",
+      "bytes": 3813,
+      "lines": 56,
+      "sha256": "25362441397495f6128b7da0fb473281620157ce89cc702d1091f1f5c6d35573",
+      "modules": [],
+      "exports": [
+        "corruptionCorpus"
+      ],
+      "test_declarations": 0
+    },
+    {
+      "id": "benchmarks/response-order.mjs",
+      "type": "file",
+      "area": "evaluation",
+      "bytes": 2703,
+      "lines": 60,
+      "sha256": "6bed2a1df92872b49c504897e04cc9f2d6dfc9b23f3acea983b1f86df23d51e4",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "bin/vibeguru.js",
+      "type": "file",
+      "area": "tooling-distribution",
+      "bytes": 4146,
+      "lines": 112,
+      "sha256": "61e8f692e9c2af5a3555e1ceca188ce6f2274b19e1a530188d770ef128a0294d",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "dashboard/activity.json",
+      "type": "file",
+      "area": "local-dashboard",
+      "bytes": 17138,
+      "lines": 383,
+      "sha256": "dc1dce9b8c60304b7c89f6a9b7e9cd6634e742c65afe39ced44d4916ac3f5927",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "dashboard/app.js",
+      "type": "file",
+      "area": "local-dashboard",
+      "bytes": 48229,
+      "lines": 433,
+      "sha256": "528d727e5c6b0915fb98a305271442767fc55d554cf3fca4833f6301a7a50c63",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "dashboard/index.html",
+      "type": "file",
+      "area": "local-dashboard",
+      "bytes": 10228,
+      "lines": 58,
+      "sha256": "3dc5983e0b6b08fe3d04e2d886c959a3b04e1611ac804712a0f5daa5b6f24d90",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "dashboard/styles.css",
+      "type": "file",
+      "area": "local-dashboard",
+      "bytes": 37168,
+      "lines": 10,
+      "sha256": "428f0550d76a81790c0dc28300b34ba859988b95f676675e2650dce6d8f91af9",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "dashboard/vectors.json",
+      "type": "file",
+      "area": "local-dashboard",
+      "bytes": 5321,
+      "lines": 17,
+      "sha256": "961cad587fbd7c587a61ac857a91a19718e929dfe5ae03c755d62123dfc9a584",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "docs/ARCHITECTURE-investigation.md",
+      "type": "file",
+      "area": "documentation",
+      "bytes": 10080,
+      "lines": 272,
+      "sha256": "df1cb9f46ffb1985515a069c58cc8831c664f09022f6c9f362dfbe728b66b8f5",
+      "modules": [
+        "VibeGuru.Investigation.State"
+      ],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "docs/ARCHITECTURE-memory-client.md",
+      "type": "file",
+      "area": "documentation",
+      "bytes": 14164,
+      "lines": 278,
+      "sha256": "7ae0b8b282df89ff1f960640ac1ce894e360983cf98d56917b2cf9e342c0e1a5",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "docs/GETTING_STARTED.md",
+      "type": "file",
+      "area": "documentation",
+      "bytes": 6110,
+      "lines": 150,
+      "sha256": "9ae83629dcd802c02c71792590067972f1a1289c28df4be9c82660138ccce750",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "docs/RELEASING.md",
+      "type": "file",
+      "area": "documentation",
+      "bytes": 3056,
+      "lines": 39,
+      "sha256": "2cff76b1113af1c5076f8747059b000c7c265619fea4c11aa4313b2a0f763e8c",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "docs/TELEMETRY.md",
+      "type": "file",
+      "area": "documentation",
+      "bytes": 8333,
+      "lines": 154,
+      "sha256": "aa877c8f5bce4284908032160345ca7fdbf0fe448e8dbbfd0411bd96136748e5",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "docs/commercial/DELIVERY_TEMPLATE.md",
+      "type": "file",
+      "area": "documentation",
+      "bytes": 3399,
+      "lines": 66,
+      "sha256": "65b036de1f406f7d9848d9062bb84b80c408082ee80ccb24b34c6d519d5b66d6",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "docs/commercial/DISCOVERY.md",
+      "type": "file",
+      "area": "documentation",
+      "bytes": 3284,
+      "lines": 36,
+      "sha256": "316cfc9b484069f2963441d50abcc73a092f16db7277ab648ea60c956d79d7b2",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "docs/commercial/OUTREACH_DRAFTS.md",
+      "type": "file",
+      "area": "documentation",
+      "bytes": 3312,
+      "lines": 54,
+      "sha256": "cb3786ec897db1e8a56ccb1ea1d4395db4719d7e129d488316e248ee7220533b",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "docs/commercial/PILOT_INTAKE.md",
+      "type": "file",
+      "area": "documentation",
+      "bytes": 3951,
+      "lines": 69,
+      "sha256": "391f4e0ae00d968c48e32f88b509e82099f93ddfa7ba5213834d0056c7cd0bd6",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "docs/commercial/PROSPECTS.json",
+      "type": "file",
+      "area": "documentation",
+      "bytes": 17154,
+      "lines": 391,
+      "sha256": "3281b332ea1306c158c056bc5ca6b26594e77137823351f72eb66c24ad99670c",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "docs/commercial/PROSPECTS.md",
+      "type": "file",
+      "area": "documentation",
+      "bytes": 14046,
+      "lines": 63,
+      "sha256": "d40a57d2155482a4b0310a3cbc16f1d80a8c688f721ae42a1a74b43466f5016e",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "docs/context/ADVERSARIAL_EVALUATION.md",
+      "type": "file",
+      "area": "documentation",
+      "bytes": 11903,
+      "lines": 186,
+      "sha256": "9c3864d8e70a7ca0c5017d24da29c1d330a5d621ffb4b35ef9ae16478fb43cf2",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "docs/context/AUDIT.md",
+      "type": "file",
+      "area": "documentation",
+      "bytes": 19323,
+      "lines": 162,
+      "sha256": "681d5a2962e97b51c99d8e929c9eca01ac040d62d4c5a0ca0c87d746a5cbcf88",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "docs/context/DASHBOARD.md",
+      "type": "file",
+      "area": "documentation",
+      "bytes": 12322,
+      "lines": 200,
+      "sha256": "1dcae9b3bfcb5bb6c798edf6bb27af202843738c99dac074f932d724f2232c05",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "docs/context/DESKTOP_EVALUATION.md",
+      "type": "file",
+      "area": "documentation",
+      "bytes": 13944,
+      "lines": 196,
+      "sha256": "1099a0fcfadf572779a015e4c1a78250858497a1cd8a2e3ad8c4714d8729300f",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "docs/context/GIT_SYNC.md",
+      "type": "file",
+      "area": "documentation",
+      "bytes": 4362,
+      "lines": 79,
+      "sha256": "f7d21798c1467112a3086808fc919ad14973fb088b524746e5b6e37046ceb057",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "docs/context/IMPLEMENTATION.md",
+      "type": "file",
+      "area": "documentation",
+      "bytes": 10878,
+      "lines": 90,
+      "sha256": "d072dc8334d40677278e21af36135911434a3978a6b63837864f27c3363e0fe8",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "docs/context/LAUNCH_PREPARATION.md",
+      "type": "file",
+      "area": "documentation",
+      "bytes": 7303,
+      "lines": 120,
+      "sha256": "118a705480d80e87f0269deab7b81f9d5d6d4c4bed813895f8ea52917c2e5c62",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "docs/context/NETWORK_EVALUATION.md",
+      "type": "file",
+      "area": "documentation",
+      "bytes": 12339,
+      "lines": 208,
+      "sha256": "9be82e7c634f400ad176ceef1af1af740a0e0114e68478a2402b42e928b5f6d4",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "docs/context/NEXT_DECISIONS.md",
+      "type": "file",
+      "area": "documentation",
+      "bytes": 17038,
+      "lines": 126,
+      "sha256": "595c5cca0926b3e13dc93f0aaec96e7953523ddc5cb6add4bf0ecc78f852660d",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "docs/context/NORTH_STAR.md",
+      "type": "file",
+      "area": "documentation",
+      "bytes": 17148,
+      "lines": 168,
+      "sha256": "6edccade44ba1266ae1ea6283351e9d1c7b5939824ef0eeff3005fd52fb928e0",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "docs/context/PRODUCT_STRATEGY.md",
+      "type": "file",
+      "area": "documentation",
+      "bytes": 14492,
+      "lines": 98,
+      "sha256": "f3a7001878d0ed15a944e4c3d728f56a59538ebb682a82674f754f3a42cae8d7",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "docs/context/PRODUCT_THESIS.md",
+      "type": "file",
+      "area": "documentation",
+      "bytes": 11825,
+      "lines": 88,
+      "sha256": "8975f59182af60e89d705a6ae6c6f17176f4f2425f860305d9b39e70cccfd2d7",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "docs/context/RATE_LIMIT_INVENTORY.md",
+      "type": "file",
+      "area": "documentation",
+      "bytes": 16136,
+      "lines": 219,
+      "sha256": "7550449df92721fd729859f1fd54646914fb5129ebc3db2b794eb40ab456ff73",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "docs/context/REAL_APP_EVALUATION.md",
+      "type": "file",
+      "area": "documentation",
+      "bytes": 11745,
+      "lines": 189,
+      "sha256": "0b4ade9844b6fb93529f934c04a82fb633cbcec26a1c35b7a6906a57b6c148a8",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "docs/context/ROBOT_MAIN_EVALUATION.md",
+      "type": "file",
+      "area": "documentation",
+      "bytes": 7991,
+      "lines": 104,
+      "sha256": "c4d38f897563424f22ff472dd2906dc2a2eb6e42a1ff5382da296f1cdea034b1",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "docs/context/STATE_RESILIENCE.md",
+      "type": "file",
+      "area": "documentation",
+      "bytes": 11868,
+      "lines": 207,
+      "sha256": "9ec2559293f4b8cfa8ea2aa4f959c230cc1327ad5235662ef4573be067ef8f8f",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "docs/context/TEST_TIMING.md",
+      "type": "file",
+      "area": "documentation",
+      "bytes": 3817,
+      "lines": 73,
+      "sha256": "9ad8b60ba9f32ad626c0b2b3a74153cf5a733173a41e13a8fd766162d11e88a8",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "docs/context/UNDERSTANDING.md",
+      "type": "file",
+      "area": "documentation",
+      "bytes": 31025,
+      "lines": 372,
+      "sha256": "840a70a51ffa80433a23f0fd0d101ebe2cdc691184782fb474bf45ed4b66f6e5",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "docs/context/adversarial-evaluation-results.json",
+      "type": "file",
+      "area": "documentation",
+      "bytes": 14860,
+      "lines": 519,
+      "sha256": "fff12cf48372ecf7848dd5262ddbf1f9de700ee6316ba3e34bbb2595d6d01ded",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "docs/context/desktop-evaluation-results.json",
+      "type": "file",
+      "area": "documentation",
+      "bytes": 24827,
+      "lines": 835,
+      "sha256": "44c0e45f95817e129b4ae43bc7eb3730e48b89792ff2a7cf07feb50856ee0658",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "docs/context/launch-preparation-verification.json",
+      "type": "file",
+      "area": "documentation",
+      "bytes": 55825,
+      "lines": 1868,
+      "sha256": "02ae370dfd44d5aa2e1608f961cc64c0f40ae93995707590a6d06beab84944bf",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "docs/context/network-evaluation-results.json",
+      "type": "file",
+      "area": "documentation",
+      "bytes": 11278,
+      "lines": 308,
+      "sha256": "7c1679b302b45ab3ac8b3a3e6df0ab46e9636b411fa4df3afd3d5cf4d501c0da",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "docs/context/real-app-evaluation-results.json",
+      "type": "file",
+      "area": "documentation",
+      "bytes": 11643,
+      "lines": 315,
+      "sha256": "c5997ab6714bcfd1123733f35ef3b13627aa3b51c08b3cb9c5567978bed9d370",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "docs/context/robot-main-evaluation-results.json",
+      "type": "file",
+      "area": "documentation",
+      "bytes": 37261,
+      "lines": 1263,
+      "sha256": "1add3a87332f20fc8c83677ce9e92602a45c37d6f2da62c5f85cd2e06f9f277e",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "docs/context/robot-public-evaluation-results.json",
+      "type": "file",
+      "area": "documentation",
+      "bytes": 1325,
+      "lines": 29,
+      "sha256": "4c5e93e8207b75122e246c123202c2201b2fa8980117ea17b4de3909f038ba3f",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "docs/context/state-resilience-results.json",
+      "type": "file",
+      "area": "documentation",
+      "bytes": 20035,
+      "lines": 581,
+      "sha256": "2437d11d48a85460ce5ac5a6478e7387a3f82564d1a18e45f4e2cdf288a4632d",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "driver-node/index.js",
+      "type": "file",
+      "area": "browser-driver",
+      "bytes": 4708,
+      "lines": 118,
+      "sha256": "7fa3383775eb180b0aa709afa8994e7affeae1db273f56f0cb07bca19644b5c8",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "driver-node/lib/auth.js",
+      "type": "file",
+      "area": "browser-driver",
+      "bytes": 3413,
+      "lines": 102,
+      "sha256": "47485894c15e6dc7f5c4877a3734fac9cfed7923dcca679e0d0f23e125ddba36",
+      "modules": [],
+      "exports": [
+        "authenticate"
+      ],
+      "test_declarations": 0
+    },
+    {
+      "id": "driver-node/lib/census.js",
+      "type": "file",
+      "area": "browser-driver",
+      "bytes": 4158,
+      "lines": 102,
+      "sha256": "4b970b1a70ed9d29deb8de4e60810c5085debf4354030e9e69f47bdc847d60b7",
+      "modules": [],
+      "exports": [
+        "census"
+      ],
+      "test_declarations": 0
+    },
+    {
+      "id": "driver-node/lib/crawl.js",
+      "type": "file",
+      "area": "browser-driver",
+      "bytes": 9880,
+      "lines": 256,
+      "sha256": "f3dc8bc4cc57c1a560ddf8aea48c4e914405c8ce9d06fed64884cf16c9880764",
+      "modules": [],
+      "exports": [
+        "discover",
+        "documentToken",
+        "plan",
+        "visitRoute"
+      ],
+      "test_declarations": 0
+    },
+    {
+      "id": "driver-node/lib/flow.js",
+      "type": "file",
+      "area": "browser-driver",
+      "bytes": 4835,
+      "lines": 95,
+      "sha256": "b99c3c6327480ef2c427e330cd51e4e24867af7fd8d1af13920ee4a196f4555a",
+      "modules": [],
+      "exports": [
+        "journeyCheck",
+        "journeyObservation",
+        "loadFlow",
+        "loadFlowModule"
+      ],
+      "test_declarations": 0
+    },
+    {
+      "id": "driver-node/lib/observer.js",
+      "type": "file",
+      "area": "browser-driver",
+      "bytes": 7848,
+      "lines": 201,
+      "sha256": "f9e365c33158182bf1724af63c91ed467f5573831332c6b8323f0b7296ce5c74",
+      "modules": [],
+      "exports": [
+        "observe"
+      ],
+      "test_declarations": 0
+    },
+    {
+      "id": "driver-node/lib/run.js",
+      "type": "file",
+      "area": "browser-driver",
+      "bytes": 14531,
+      "lines": 341,
+      "sha256": "ad5d17eca18f47706de43844915e5a9b98863ca251c6c00fb8beb884adcc2f8a",
+      "modules": [],
+      "exports": [
+        "run"
+      ],
+      "test_declarations": 0
+    },
+    {
+      "id": "driver-node/lib/sampler.js",
+      "type": "file",
+      "area": "browser-driver",
+      "bytes": 3476,
+      "lines": 96,
+      "sha256": "b2f2e79af39c7603b0388ccbc0c5babbe4b0a1d4335fbf8fedc4ea5e8156758a",
+      "modules": [],
+      "exports": [
+        "collectGarbage",
+        "sample"
+      ],
+      "test_declarations": 0
+    },
+    {
+      "id": "driver-node/lib/snapshot-run.js",
+      "type": "file",
+      "area": "browser-driver",
+      "bytes": 6047,
+      "lines": 133,
+      "sha256": "6d587079a5ac2ca701fa48e2a1249139b20eb763151a52ac968890a918f05198",
+      "modules": [],
+      "exports": [
+        "runSnapshot"
+      ],
+      "test_declarations": 0
+    },
+    {
+      "id": "driver-node/lib/snapshot.js",
+      "type": "file",
+      "area": "browser-driver",
+      "bytes": 6069,
+      "lines": 168,
+      "sha256": "017807f8c7a5d36d244c253fc6539374476c03540e9d5ff73e9c770573e9375b",
+      "modules": [],
+      "exports": [
+        "capture",
+        "growth",
+        "summarize"
+      ],
+      "test_declarations": 0
+    },
+    {
+      "id": "driver-node/package-lock.json",
+      "type": "file",
+      "area": "browser-driver",
+      "bytes": 1294,
+      "lines": 46,
+      "sha256": "26e98614aae73a7d214f57554aec4e03f5b4b1294ed9a9724d453bd94b6467f5",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "driver-node/package.json",
+      "type": "file",
+      "area": "browser-driver",
+      "bytes": 470,
+      "lines": 18,
+      "sha256": "afbde54e30f55b4d7b45774492aa4c2f05f4459aceb3f43ba702d8bd168b3282",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "examples/sample-report.html",
+      "type": "file",
+      "area": "example-reports",
+      "bytes": 275926,
+      "lines": 2966,
+      "sha256": "4456d06e23f2dfdc63bef28fb19009c631805031572bf547d67614e9ab6bcd96",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "examples/sample-report.json",
+      "type": "file",
+      "area": "example-reports",
+      "bytes": 125102,
+      "lines": 3745,
+      "sha256": "04a92fe475ceb616a3139e9e9bf53bccf53e3442cf59e684e808b738233880fb",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "lib/vibe_guru.ex",
+      "type": "file",
+      "area": "elixir-engine",
+      "bytes": 204,
+      "lines": 18,
+      "sha256": "8d1c09df57cac4e3903d29a508815eec7eb4663069b7e92e233d9309df241f06",
+      "modules": [
+        "VibeGuru"
+      ],
+      "exports": [
+        "hello"
+      ],
+      "test_declarations": 0
+    },
+    {
+      "id": "lib/vibe_guru/analyzer.ex",
+      "type": "file",
+      "area": "elixir-engine",
+      "bytes": 1012,
+      "lines": 23,
+      "sha256": "90d114b80a8b9571ba954aa15912c788c24f08fafa85082cbeb04afccf0d47f5",
+      "modules": [
+        "VibeGuru.Analyzer"
+      ],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "lib/vibe_guru/analyzers/census.ex",
+      "type": "file",
+      "area": "elixir-engine",
+      "bytes": 10432,
+      "lines": 262,
+      "sha256": "5403fd3de97bde7b38fb81ad80675b5801f647cfb74db32df550b907172c18b0",
+      "modules": [
+        "VibeGuru.Analyzers.Census"
+      ],
+      "exports": [
+        "analyze",
+        "id"
+      ],
+      "test_declarations": 0
+    },
+    {
+      "id": "lib/vibe_guru/analyzers/journey.ex",
+      "type": "file",
+      "area": "elixir-engine",
+      "bytes": 2273,
+      "lines": 57,
+      "sha256": "3887a3c5f4f624086a05eca80068d8c04bb4f1808f9507e02b35bed65ee54d24",
+      "modules": [
+        "VibeGuru.Analyzers.Journey"
+      ],
+      "exports": [
+        "analyze",
+        "id"
+      ],
+      "test_declarations": 0
+    },
+    {
+      "id": "lib/vibe_guru/analyzers/memory.ex",
+      "type": "file",
+      "area": "elixir-engine",
+      "bytes": 14664,
+      "lines": 404,
+      "sha256": "6fbad058c3809d33cbfec56da679ae5a7ecba4027809e1e3d0244a11b858aab4",
+      "modules": [
+        "VibeGuru.Analyzers.Memory"
+      ],
+      "exports": [
+        "analyze",
+        "id"
+      ],
+      "test_declarations": 0
+    },
+    {
+      "id": "lib/vibe_guru/analyzers/runtime.ex",
+      "type": "file",
+      "area": "elixir-engine",
+      "bytes": 13352,
+      "lines": 342,
+      "sha256": "655cc67a7ea64d1603ff5b3f3b7ebe8afd28fe692765c0443b2763f1d8c96918",
+      "modules": [
+        "VibeGuru.Analyzers.Runtime"
+      ],
+      "exports": [
+        "analyze",
+        "id"
+      ],
+      "test_declarations": 0
+    },
+    {
+      "id": "lib/vibe_guru/application.ex",
+      "type": "file",
+      "area": "elixir-engine",
+      "bytes": 825,
+      "lines": 27,
+      "sha256": "970b66f804b2be0f9f9ae1d2835a987076e64337d8fe9381fceb33c779d8f93e",
+      "modules": [
+        "VibeGuru.Application"
+      ],
+      "exports": [
+        "start"
+      ],
+      "test_declarations": 0
+    },
+    {
+      "id": "lib/vibe_guru/auth.ex",
+      "type": "file",
+      "area": "elixir-engine",
+      "bytes": 5310,
+      "lines": 157,
+      "sha256": "e0038d9ec87dd607f00b3b36f280aff073fe2df42650adfd05509544489f54b6",
+      "modules": [
+        "VibeGuru.Auth"
+      ],
+      "exports": [
+        "capture",
+        "exists?",
+        "path",
+        "save",
+        "session"
+      ],
+      "test_declarations": 0
+    },
+    {
+      "id": "lib/vibe_guru/census_targets.ex",
+      "type": "file",
+      "area": "elixir-engine",
+      "bytes": 2907,
+      "lines": 80,
+      "sha256": "c2a3f3c5528fadeba8661a6d0b88b3bfda23c0c9e8a5b328d2c556153b1ea941",
+      "modules": [
+        "VibeGuru.CensusTargets"
+      ],
+      "exports": [
+        "for_profile",
+        "known"
+      ],
+      "test_declarations": 0
+    },
+    {
+      "id": "lib/vibe_guru/cli.ex",
+      "type": "file",
+      "area": "elixir-engine",
+      "bytes": 1886,
+      "lines": 40,
+      "sha256": "ac6218c1c5f614a0697383e402450ab6353b5fac3096bee4260b3b28981b33a9",
+      "modules": [
+        "VibeGuru.CLI"
+      ],
+      "exports": [
+        "boot",
+        "main"
+      ],
+      "test_declarations": 0
+    },
+    {
+      "id": "lib/vibe_guru/cli/auth.ex",
+      "type": "file",
+      "area": "elixir-engine",
+      "bytes": 2915,
+      "lines": 87,
+      "sha256": "5dc6f23a9a8bab9f68bf1ade24548208fc0a68596aa7b16a3280bc282eb86e94",
+      "modules": [
+        "VibeGuru.CLI.Auth"
+      ],
+      "exports": [
+        "run"
+      ],
+      "test_declarations": 0
+    },
+    {
+      "id": "lib/vibe_guru/cli/init.ex",
+      "type": "file",
+      "area": "elixir-engine",
+      "bytes": 1311,
+      "lines": 43,
+      "sha256": "dda3d95b4d767035c9aacdcd26f60a518b56bbe6dd3a84d059a91041221ecfc7",
+      "modules": [
+        "VibeGuru.CLI.Init"
+      ],
+      "exports": [
+        "run"
+      ],
+      "test_declarations": 0
+    },
+    {
+      "id": "lib/vibe_guru/cli/presenter.ex",
+      "type": "file",
+      "area": "elixir-engine",
+      "bytes": 7744,
+      "lines": 209,
+      "sha256": "113a4dd8da261b29990600a4afaa9c3a58ec9a760e47fc14dda085d4c0b80c05",
+      "modules": [
+        "VibeGuru.CLI.Presenter"
+      ],
+      "exports": [
+        "auth_banner",
+        "auth_saved",
+        "banner",
+        "error",
+        "info",
+        "init_done",
+        "log_fn",
+        "no_config",
+        "summary",
+        "usage"
+      ],
+      "test_declarations": 0
+    },
+    {
+      "id": "lib/vibe_guru/cli/run.ex",
+      "type": "file",
+      "area": "elixir-engine",
+      "bytes": 4711,
+      "lines": 152,
+      "sha256": "da4ba0afc12504ce7466d6cc747f48a21827036aa7624468b14ff97f0319093d",
+      "modules": [
+        "VibeGuru.CLI.Run"
+      ],
+      "exports": [
+        "direct",
+        "run"
+      ],
+      "test_declarations": 0
+    },
+    {
+      "id": "lib/vibe_guru/config.ex",
+      "type": "file",
+      "area": "elixir-engine",
+      "bytes": 4808,
+      "lines": 145,
+      "sha256": "7dd7f5be32124291ca0b8e4686f1eaeff605ffdb9b3895beff59ae37237e3250",
+      "modules": [
+        "VibeGuru.Config"
+      ],
+      "exports": [
+        "load",
+        "path",
+        "save",
+        "to_run_opts"
+      ],
+      "test_declarations": 0
+    },
+    {
+      "id": "lib/vibe_guru/coverage.ex",
+      "type": "file",
+      "area": "elixir-engine",
+      "bytes": 6258,
+      "lines": 176,
+      "sha256": "f20da91b9d02742304d51a62642ec95c70a96e2c44607ade0d87845abdcd91d1",
+      "modules": [
+        "VibeGuru.Coverage"
+      ],
+      "exports": [
+        "from_evidence",
+        "gaps",
+        "low?",
+        "summary",
+        "to_map"
+      ],
+      "test_declarations": 0
+    },
+    {
+      "id": "lib/vibe_guru/detector.ex",
+      "type": "file",
+      "area": "elixir-engine",
+      "bytes": 1886,
+      "lines": 53,
+      "sha256": "4f41b5342475d9ad34158f1e0079b2921a1da7212b6f6bf9855b63d5f98a262e",
+      "modules": [
+        "VibeGuru.Detector"
+      ],
+      "exports": [
+        "detect"
+      ],
+      "test_declarations": 0
+    },
+    {
+      "id": "lib/vibe_guru/detector/frontend.ex",
+      "type": "file",
+      "area": "elixir-engine",
+      "bytes": 1872,
+      "lines": 59,
+      "sha256": "085b819c77fcdd35c414cd001615bd73b5887791acdace759b934bace44e62bf",
+      "modules": [
+        "VibeGuru.Detector.Frontend"
+      ],
+      "exports": [
+        "detect"
+      ],
+      "test_declarations": 0
+    },
+    {
+      "id": "lib/vibe_guru/detector/routes.ex",
+      "type": "file",
+      "area": "elixir-engine",
+      "bytes": 8748,
+      "lines": 268,
+      "sha256": "cd11fbaca6063331e61e1f107a9385861147244f129f8cc370c36f7c77c353a5",
+      "modules": [
+        "VibeGuru.Detector.Routes"
+      ],
+      "exports": [
+        "detect"
+      ],
+      "test_declarations": 0
+    },
+    {
+      "id": "lib/vibe_guru/detector/stack.ex",
+      "type": "file",
+      "area": "elixir-engine",
+      "bytes": 1694,
+      "lines": 66,
+      "sha256": "21805e3c9bd519d6b1dd1b8d546ee1e630148cde81442140fea2c133f012a6b3",
+      "modules": [
+        "VibeGuru.Detector.Stack"
+      ],
+      "exports": [
+        "detect"
+      ],
+      "test_declarations": 0
+    },
+    {
+      "id": "lib/vibe_guru/dev_server.ex",
+      "type": "file",
+      "area": "elixir-engine",
+      "bytes": 6440,
+      "lines": 216,
+      "sha256": "f2d1c3963298a1164e8daca55fd90c84cf700e4e84ce43450f24d0bae5a770d2",
+      "modules": [
+        "VibeGuru.DevServer"
+      ],
+      "exports": [
+        "reachable?",
+        "start",
+        "stop"
+      ],
+      "test_declarations": 0
+    },
+    {
+      "id": "lib/vibe_guru/driver.ex",
+      "type": "file",
+      "area": "elixir-engine",
+      "bytes": 6407,
+      "lines": 208,
+      "sha256": "5747a6d65f50c00ce4658edb9b8b17bc328224d131792d54398df3970ca015ef",
+      "modules": [
+        "VibeGuru.Driver"
+      ],
+      "exports": [
+        "run"
+      ],
+      "test_declarations": 0
+    },
+    {
+      "id": "lib/vibe_guru/evidence.ex",
+      "type": "file",
+      "area": "elixir-engine",
+      "bytes": 3593,
+      "lines": 117,
+      "sha256": "cfb2b7aba7244da877f3d3c93085cbf6f58d6e3ce3dbcf26682b6e49cbf9679d",
+      "modules": [
+        "VibeGuru.Evidence"
+      ],
+      "exports": [
+        "new",
+        "to_map"
+      ],
+      "test_declarations": 0
+    },
+    {
+      "id": "lib/vibe_guru/finding.ex",
+      "type": "file",
+      "area": "elixir-engine",
+      "bytes": 2425,
+      "lines": 74,
+      "sha256": "f7b3f69d8357ca454ea0217ca45b69814d34529db41c41da45064b74a9a8a5cc",
+      "modules": [
+        "VibeGuru.Finding"
+      ],
+      "exports": [
+        "sort",
+        "to_map"
+      ],
+      "test_declarations": 0
+    },
+    {
+      "id": "lib/vibe_guru/investigation.ex",
+      "type": "file",
+      "area": "investigation",
+      "bytes": 10720,
+      "lines": 335,
+      "sha256": "ed3ca1575281224c3d857ce4f27cb51475aed54c3d2fa0b9d4cc05d1bbd9538b",
+      "modules": [
+        "VibeGuru.Investigation"
+      ],
+      "exports": [
+        "run",
+        "seed"
+      ],
+      "test_declarations": 0
+    },
+    {
+      "id": "lib/vibe_guru/investigation/policy.ex",
+      "type": "file",
+      "area": "investigation",
+      "bytes": 2479,
+      "lines": 61,
+      "sha256": "2ea1cd68c53b8cf422155b161ab733c4a9977a3f1e39febf99e89136925285eb",
+      "modules": [
+        "VibeGuru.Investigation.Policy"
+      ],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "lib/vibe_guru/investigation/policy/rules.ex",
+      "type": "file",
+      "area": "investigation",
+      "bytes": 6733,
+      "lines": 191,
+      "sha256": "6f35ea15ea1d2eb2c05e765f20a81d50b89c7045f414b7dbb8839ee5001f8097",
+      "modules": [
+        "VibeGuru.Investigation.Policy.Rules"
+      ],
+      "exports": [
+        "id",
+        "next_step"
+      ],
+      "test_declarations": 0
+    },
+    {
+      "id": "lib/vibe_guru/investigation/probes.ex",
+      "type": "file",
+      "area": "investigation",
+      "bytes": 3282,
+      "lines": 86,
+      "sha256": "759b78ca0dd035ba7f4a1f3a49942e092d355474dd2fe438abe5416c8a486583",
+      "modules": [
+        "VibeGuru.Investigation.Probes"
+      ],
+      "exports": [
+        "available",
+        "catalog",
+        "runner"
+      ],
+      "test_declarations": 0
+    },
+    {
+      "id": "lib/vibe_guru/investigation/state.ex",
+      "type": "file",
+      "area": "investigation",
+      "bytes": 6001,
+      "lines": 174,
+      "sha256": "bb61cc337f82357e9427df8c9b09f1716673eeb4a0560f9b4e3532f58ffbea6d",
+      "modules": [
+        "VibeGuru.Investigation.State"
+      ],
+      "exports": [
+        "attempted",
+        "live",
+        "new",
+        "record",
+        "supported",
+        "to_map"
+      ],
+      "test_declarations": 0
+    },
+    {
+      "id": "lib/vibe_guru/pipeline.ex",
+      "type": "file",
+      "area": "elixir-engine",
+      "bytes": 8419,
+      "lines": 221,
+      "sha256": "db3e3798ca325aca7bd15fb0fdf7bddf939836c88beb0a6aade40a139ae9eb8b",
+      "modules": [
+        "VibeGuru.Pipeline"
+      ],
+      "exports": [
+        "memory_client"
+      ],
+      "test_declarations": 0
+    },
+    {
+      "id": "lib/vibe_guru/probe.ex",
+      "type": "file",
+      "area": "elixir-engine",
+      "bytes": 1685,
+      "lines": 41,
+      "sha256": "49aecfa0cf5161b3b969516020028177db1c8289d055f36b7e1c0d0168976965",
+      "modules": [
+        "VibeGuru.Probe"
+      ],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "lib/vibe_guru/probes/heap/snapshot.ex",
+      "type": "file",
+      "area": "elixir-engine",
+      "bytes": 6529,
+      "lines": 179,
+      "sha256": "9c7189ef649917a15f8b5a5bc060d3703aff3ee6df6885d3702bc6f411cabbd5",
+      "modules": [
+        "VibeGuru.Probes.Heap.Snapshot"
+      ],
+      "exports": [
+        "interpret",
+        "investigate"
+      ],
+      "test_declarations": 0
+    },
+    {
+      "id": "lib/vibe_guru/probes/memory/client.ex",
+      "type": "file",
+      "area": "elixir-engine",
+      "bytes": 4079,
+      "lines": 110,
+      "sha256": "2d00703188518841856f1c22e6a6d202143c489c4322867a6d9fdcda0a239e64",
+      "modules": [
+        "VibeGuru.Probes.Memory.Client"
+      ],
+      "exports": [
+        "applies_to?",
+        "cost",
+        "id",
+        "run"
+      ],
+      "test_declarations": 0
+    },
+    {
+      "id": "lib/vibe_guru/project.ex",
+      "type": "file",
+      "area": "elixir-engine",
+      "bytes": 2182,
+      "lines": 69,
+      "sha256": "a070cc797f307db44d4cabc08f126fe177155e906a5b61d66d03dd351777f5e6",
+      "modules": [
+        "VibeGuru.Project"
+      ],
+      "exports": [
+        "detect"
+      ],
+      "test_declarations": 0
+    },
+    {
+      "id": "lib/vibe_guru/reporter.ex",
+      "type": "file",
+      "area": "elixir-engine",
+      "bytes": 964,
+      "lines": 24,
+      "sha256": "0ec73c990aa7ad802a2f3dfba5964e19f031b21c5717c14fa9f60ee1013423fb",
+      "modules": [
+        "VibeGuru.Reporter"
+      ],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "lib/vibe_guru/reporters/html.ex",
+      "type": "file",
+      "area": "elixir-engine",
+      "bytes": 13660,
+      "lines": 172,
+      "sha256": "7e4de71266764c76c286b92c497258d931a1c9344250f10f750976b6ff408403",
+      "modules": [
+        "VibeGuru.Reporter.Html"
+      ],
+      "exports": [
+        "document",
+        "id",
+        "render"
+      ],
+      "test_declarations": 0
+    },
+    {
+      "id": "lib/vibe_guru/reporters/json.ex",
+      "type": "file",
+      "area": "elixir-engine",
+      "bytes": 1777,
+      "lines": 63,
+      "sha256": "c37b6581a62fa6169aefcd4b3ec7bfc71f515c6fdf48d596e9275d8b64b595c3",
+      "modules": [
+        "VibeGuru.Reporter.Json"
+      ],
+      "exports": [
+        "id",
+        "payload",
+        "render"
+      ],
+      "test_declarations": 0
+    },
+    {
+      "id": "lib/vibe_guru/reporters/markdown.ex",
+      "type": "file",
+      "area": "elixir-engine",
+      "bytes": 6264,
+      "lines": 194,
+      "sha256": "90a5dfe4353bdc365097fc9322c6603153bcb388edeb0fe49b6f51dde828afee",
+      "modules": [
+        "VibeGuru.Reporter.Markdown"
+      ],
+      "exports": [
+        "id",
+        "render"
+      ],
+      "test_declarations": 0
+    },
+    {
+      "id": "lib/vibe_guru/result.ex",
+      "type": "file",
+      "area": "elixir-engine",
+      "bytes": 13346,
+      "lines": 335,
+      "sha256": "fd7e7f3fd07deee9e7b49612d4dffbdc7523e0ff351e23f269ada19cf9241292",
+      "modules": [
+        "VibeGuru.Result"
+      ],
+      "exports": [
+        "assess",
+        "attach_evidence",
+        "evidence_maps",
+        "exit_code",
+        "message",
+        "retention_valid?",
+        "schema_version"
+      ],
+      "test_declarations": 0
+    },
+    {
+      "id": "lib/vibe_guru/stack_profile.ex",
+      "type": "file",
+      "area": "elixir-engine",
+      "bytes": 1697,
+      "lines": 56,
+      "sha256": "cb1421cf801910f4764f731d6c4918e0952846906fa5e4e1d6be8df2922869ae",
+      "modules": [
+        "VibeGuru.StackProfile"
+      ],
+      "exports": [
+        "to_map"
+      ],
+      "test_declarations": 0
+    },
+    {
+      "id": "mcp/engine.js",
+      "type": "file",
+      "area": "mcp",
+      "bytes": 7572,
+      "lines": 197,
+      "sha256": "ca413c3015adca2aa021fa81c18782bde4c428978faaa2fb5e444f524367d2d2",
+      "modules": [],
+      "exports": [
+        " analyze, readFindings, FINDINGS_FILE "
+      ],
+      "test_declarations": 0
+    },
+    {
+      "id": "mcp/render.js",
+      "type": "file",
+      "area": "mcp",
+      "bytes": 7702,
+      "lines": 191,
+      "sha256": "d3e9159752f8141dd7311eb03636ec92e61e6e37980009dcb9eb9ed79707c432",
+      "modules": [],
+      "exports": [
+        " renderReport, renderFinding, filterFindings, SEVERITY_ORDER "
+      ],
+      "test_declarations": 0
+    },
+    {
+      "id": "mcp/report.js",
+      "type": "file",
+      "area": "mcp",
+      "bytes": 17053,
+      "lines": 284,
+      "sha256": "4ca05a4432169269b4009887882795609fd415dc7c2b0df24f87a72e761f65fd",
+      "modules": [],
+      "exports": [
+        " assessReport "
+      ],
+      "test_declarations": 0
+    },
+    {
+      "id": "mcp/server.js",
+      "type": "file",
+      "area": "mcp",
+      "bytes": 9183,
+      "lines": 218,
+      "sha256": "40215af39aa9cf5a0f5dca967027189d42bc17067d6ee6c0e69c76172359f213",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "mix.exs",
+      "type": "file",
+      "area": "root-config",
+      "bytes": 1608,
+      "lines": 59,
+      "sha256": "d3c21e1e52e87de556afc90d10b8eecf95706e060ba22842aa3fabe42c832f3b",
+      "modules": [
+        "VibeGuru.MixProject"
+      ],
+      "exports": [
+        "application",
+        "project"
+      ],
+      "test_declarations": 0
+    },
+    {
+      "id": "mix.lock",
+      "type": "file",
+      "area": "root-config",
+      "bytes": 3559,
+      "lines": 13,
+      "sha256": "24d5edcd125f4b9abf78c7353bb4cc56e48cdeafebb8c47ce07760fbaf9349c3",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "package-lock.json",
+      "type": "file",
+      "area": "root-config",
+      "bytes": 44673,
+      "lines": 1239,
+      "sha256": "a4ef7d78e83196603c0e334f12d151cf674e0bde3b56e91b6bdd944bb55ebb81",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "package.json",
+      "type": "file",
+      "area": "root-config",
+      "bytes": 1894,
+      "lines": 69,
+      "sha256": "c31804d1145921722bfa07ae858921889a52532dfb561544709f86e2c9aa41cb",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "scripts/adversarial-lab.mjs",
+      "type": "file",
+      "area": "tooling-distribution",
+      "bytes": 7671,
+      "lines": 86,
+      "sha256": "19e1fbc3fb8678a0cff46373ab816bb16a813c878e6ea5f9e6f82792291189b7",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "scripts/adversarial-reports.mjs",
+      "type": "file",
+      "area": "tooling-distribution",
+      "bytes": 2438,
+      "lines": 28,
+      "sha256": "e2e863d9190ad41d13179b512a8839e6881a7a84d40ca141b7d193517a992628",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "scripts/checks.mjs",
+      "type": "file",
+      "area": "tooling-distribution",
+      "bytes": 3023,
+      "lines": 48,
+      "sha256": "4edf27d28da0e35428cc7398b0e67159a395d2e5fb148ffa15ddcc82f11fbabf",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "scripts/context-map.py",
+      "type": "file",
+      "area": "tooling-distribution",
+      "bytes": 8697,
+      "lines": 152,
+      "sha256": "0bb386d573d4d8557dea6a6ac2daa53f5ccd7b2f5bf0c69bc25b33e521e26b62",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "scripts/dashboard.mjs",
+      "type": "file",
+      "area": "tooling-distribution",
+      "bytes": 5593,
+      "lines": 86,
+      "sha256": "2d30a6887003f40141ad8b7cc4607b729a5e095d227b6c123f0e4daf0b9ecc8c",
+      "modules": [],
+      "exports": [
+        "createDashboardServer"
+      ],
+      "test_declarations": 0
+    },
+    {
+      "id": "scripts/desktop-prepare.py",
+      "type": "file",
+      "area": "tooling-distribution",
+      "bytes": 2651,
+      "lines": 66,
+      "sha256": "825ad2ec32ae1e29c9e262249185683a25ea3f71c7d6d436eb3d2a5b1827df75",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "scripts/lab.mjs",
+      "type": "file",
+      "area": "tooling-distribution",
+      "bytes": 16181,
+      "lines": 238,
+      "sha256": "6208331da8466b3415450cb47a8987b28ce17cd94fdc8483eb0648b9f6c63f52",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "scripts/lib/dashboard-data.mjs",
+      "type": "file",
+      "area": "tooling-distribution",
+      "bytes": 20943,
+      "lines": 269,
+      "sha256": "8f9bbacffad4808060b0498479c9c25ebe0b39a5249aac270b8c5fa209ff6220",
+      "modules": [],
+      "exports": [
+        "area",
+        "artifactPath",
+        "assertionCoverage",
+        "createCollector",
+        "sourceState",
+        "vectorIds"
+      ],
+      "test_declarations": 0
+    },
+    {
+      "id": "scripts/lib/doctor.js",
+      "type": "file",
+      "area": "tooling-distribution",
+      "bytes": 4352,
+      "lines": 61,
+      "sha256": "c8b5b8687309961501599fd4d00fbc2c194eb0efd665438360a5b8316fc38f7e",
+      "modules": [],
+      "exports": [
+        " assessInstallation, engineKind, inspectInstallation, runDoctor "
+      ],
+      "test_declarations": 0
+    },
+    {
+      "id": "scripts/lib/download.js",
+      "type": "file",
+      "area": "tooling-distribution",
+      "bytes": 4478,
+      "lines": 94,
+      "sha256": "b9b3894297911a260e3a0bf3975efa42322efb08bdb53a6a132f48a881a360eb",
+      "modules": [],
+      "exports": [
+        " download "
+      ],
+      "test_declarations": 0
+    },
+    {
+      "id": "scripts/lib/lab-ports.mjs",
+      "type": "file",
+      "area": "tooling-distribution",
+      "bytes": 1223,
+      "lines": 30,
+      "sha256": "cc983b2f69799fb4f43b2726c80303acf9adb1e7df31a7052b9b9cff4904b7fe",
+      "modules": [],
+      "exports": [
+        "assertPortAvailable",
+        "fixtureReadiness"
+      ],
+      "test_declarations": 0
+    },
+    {
+      "id": "scripts/lib/launch.js",
+      "type": "file",
+      "area": "tooling-distribution",
+      "bytes": 906,
+      "lines": 22,
+      "sha256": "8c20a12fac969c18abfa5ecb407144f9e9c9adc1c6dfde55bbc37fd880ae072a",
+      "modules": [],
+      "exports": [
+        " launchSpec, binaryOverride "
+      ],
+      "test_declarations": 0
+    },
+    {
+      "id": "scripts/lib/platform.js",
+      "type": "file",
+      "area": "tooling-distribution",
+      "bytes": 1810,
+      "lines": 57,
+      "sha256": "2629cb51a06071385c549bd6dce87a553f3a380e61ee9d31df148e2f5a6eeef9",
+      "modules": [],
+      "exports": [
+        " REPO, ASSETS, packageRoot, platformKey, assetName, binaryPath, driverPath, downloadUrl "
+      ],
+      "test_declarations": 0
+    },
+    {
+      "id": "scripts/lib/setup.js",
+      "type": "file",
+      "area": "tooling-distribution",
+      "bytes": 3436,
+      "lines": 74,
+      "sha256": "f3f5e9fa34ae9e0cc05a53fdb85a1d92424bd501d273492ab6414937ef07599c",
+      "modules": [],
+      "exports": [
+        " ensureBinary, ensureChromium, isChromiumInstalled, checksumFor, RELEASE_HOSTS "
+      ],
+      "test_declarations": 0
+    },
+    {
+      "id": "scripts/lib/telemetry-cli.js",
+      "type": "file",
+      "area": "tooling-distribution",
+      "bytes": 5159,
+      "lines": 88,
+      "sha256": "3bfb75d9f36aa7ed610b841dbf2f2f4a3c8e3d18f8033e50aa37d6beb30e1580",
+      "modules": [],
+      "exports": [
+        " telemetryCommand, startCliRun, reportFile "
+      ],
+      "test_declarations": 0
+    },
+    {
+      "id": "scripts/lib/telemetry.js",
+      "type": "file",
+      "area": "tooling-distribution",
+      "bytes": 11680,
+      "lines": 230,
+      "sha256": "4e773750a4dbe508f9f152f7544d11a6d81b05e8f36f5537da4b70e40178e2bb",
+      "modules": [],
+      "exports": [
+        " createTelemetry, summarizeReport, sanitize, configPath, enable, disable, status, validHost, validKey, validUuid, UUID "
+      ],
+      "test_declarations": 0
+    },
+    {
+      "id": "scripts/lib/test-history.mjs",
+      "type": "file",
+      "area": "tooling-distribution",
+      "bytes": 3257,
+      "lines": 65,
+      "sha256": "63f5a8c0d77862542e9f82d54d25ef3b723e0c2920bb643c03d881aa2c139d76",
+      "modules": [],
+      "exports": [
+        "beginSuite",
+        "finishSuite",
+        "parseTap",
+        "saveSuite",
+        "sourceRevision"
+      ],
+      "test_declarations": 0
+    },
+    {
+      "id": "scripts/lib/timing.mjs",
+      "type": "file",
+      "area": "tooling-distribution",
+      "bytes": 4079,
+      "lines": 46,
+      "sha256": "489f6a5b10bdae743930120b50688320a2074c28310dff3d8d50f024cf92af69",
+      "modules": [],
+      "exports": [
+        "distribution",
+        "timingAnalytics"
+      ],
+      "test_declarations": 0
+    },
+    {
+      "id": "scripts/package-smoke.mjs",
+      "type": "file",
+      "area": "tooling-distribution",
+      "bytes": 11331,
+      "lines": 134,
+      "sha256": "6c9744adb70e1df813aed670826c28c8e6ba759bbc879131f791ee1eb9525626",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "scripts/postinstall.js",
+      "type": "file",
+      "area": "tooling-distribution",
+      "bytes": 818,
+      "lines": 28,
+      "sha256": "045c7b5167f15f591b8bf9b8f963e809d384045a8324e9b4941f25301ece9b56",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "scripts/release-check.mjs",
+      "type": "file",
+      "area": "tooling-distribution",
+      "bytes": 3123,
+      "lines": 37,
+      "sha256": "cc4bb4259b8c1bbab810dffac0e4573d2f6c2687105d41b3140f67431a9b3c70",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "scripts/sample-report.exs",
+      "type": "file",
+      "area": "tooling-distribution",
+      "bytes": 2274,
+      "lines": 33,
+      "sha256": "13cda59e9681123e9da45aefeac27d417e043e22ea95299356de16875d825619",
+      "modules": [
+        "SampleReport"
+      ],
+      "exports": [
+        "fields",
+        "html",
+        "sanitize"
+      ],
+      "test_declarations": 0
+    },
+    {
+      "id": "scripts/test-node.mjs",
+      "type": "file",
+      "area": "tooling-distribution",
+      "bytes": 2917,
+      "lines": 58,
+      "sha256": "4a6a6b795f08c7bb2630589edacf4c42f0c4d93d0e5c450f55911fc09e5f7f6c",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "scripts/verify-fixtures.mjs",
+      "type": "file",
+      "area": "tooling-distribution",
+      "bytes": 4955,
+      "lines": 115,
+      "sha256": "5f66972e584c66c0f7ec1410fce43ae77e51e81fdcc271f5e243eff4b3ec2bd1",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "site/README.md",
+      "type": "file",
+      "area": "public-site",
+      "bytes": 1224,
+      "lines": 11,
+      "sha256": "1fc75de991450b3beae708f1a6c44687e5632638407ad6c65e113f1338c5fecb",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "site/app.js",
+      "type": "file",
+      "area": "public-site",
+      "bytes": 2935,
+      "lines": 70,
+      "sha256": "5419e6fcc2f504bed23aae8698b420506bbb258f8be24d2fdf5c82175863ddaf",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "site/enquiry-template.txt",
+      "type": "file",
+      "area": "public-site",
+      "bytes": 1118,
+      "lines": 30,
+      "sha256": "f739c6dcf39125a0082e746de8eaf6e4533da5dcedf1730323807af8edfdea4c",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "site/index.html",
+      "type": "file",
+      "area": "public-site",
+      "bytes": 11575,
+      "lines": 77,
+      "sha256": "ab261b19323efb2d282fb307dcff105df387a241f348aa907e3fd603898c33ed",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "site/styles.css",
+      "type": "file",
+      "area": "public-site",
+      "bytes": 16670,
+      "lines": 1126,
+      "sha256": "629ac530e4f7f6b687d6eb42199ccc1a68bf344e1945f9887c52e13aa0ea9fa8",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "test-app/async-workbench/app.js",
+      "type": "file",
+      "area": "fixture-app",
+      "bytes": 1397,
+      "lines": 28,
+      "sha256": "45579ad3d10a4fabb185b81f713ccedab7c5b100a3920f5feecbc94ee925a7fa",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "test-app/async-workbench/index.html",
+      "type": "file",
+      "area": "fixture-app",
+      "bytes": 440,
+      "lines": 6,
+      "sha256": "5ed8b8df5d5739430583e0f6f1da02b77f889b6bc0969c0f16adaae482119118",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "test-app/async-workbench/package.json",
+      "type": "file",
+      "area": "fixture-app",
+      "bytes": 170,
+      "lines": 1,
+      "sha256": "7e1b967aa69264f61013820b73896ee7971868654dc22abee1ac6daef077e521",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "test-app/async-workbench/server.mjs",
+      "type": "file",
+      "area": "fixture-app",
+      "bytes": 4461,
+      "lines": 73,
+      "sha256": "75a8bfbe42b805db0ba79fbaf4bd8ff2b6f66f316abc686e91b1f3028c98f696",
+      "modules": [],
+      "exports": [
+        "createWorkbench"
+      ],
+      "test_declarations": 0
+    },
+    {
+      "id": "test-app/async-workbench/vibeguru.json",
+      "type": "file",
+      "area": "fixture-app",
+      "bytes": 50,
+      "lines": 1,
+      "sha256": "d9c7fce8bc929d300336bce3bddd3a921e0997b422d79eba803562da2b8b1435",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "test-app/clean/index.html",
+      "type": "file",
+      "area": "fixture-app",
+      "bytes": 263,
+      "lines": 1,
+      "sha256": "6304d3c32982b5c5b6285e694a811b1a9c4c116cae3ad437a0629100d2429454",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "test-app/clean/package.json",
+      "type": "file",
+      "area": "fixture-app",
+      "bytes": 211,
+      "lines": 11,
+      "sha256": "4623bda8c52e906f3a1be4900a4f3ae631e91fefd629512b277479c5f6dd6d28",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "test-app/clean/src/App.jsx",
+      "type": "file",
+      "area": "fixture-app",
+      "bytes": 829,
+      "lines": 20,
+      "sha256": "bc85197c3f580884b33b1f3d4b776d62559410997524fc6c0ed3015b0bcc902d",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "test-app/conflict-workbench/README.md",
+      "type": "file",
+      "area": "fixture-app",
+      "bytes": 2760,
+      "lines": 40,
+      "sha256": "b3ac351c322cef17fc35fb930fe70fb255b7a709ab8c2380fda0cca9ee40296c",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "test-app/conflict-workbench/app.js",
+      "type": "file",
+      "area": "fixture-app",
+      "bytes": 5999,
+      "lines": 101,
+      "sha256": "6ca69d27172eebe53719c33c5bfe3eb77dcef7ea5621db87094b09f8599d4a38",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "test-app/conflict-workbench/index.html",
+      "type": "file",
+      "area": "fixture-app",
+      "bytes": 1819,
+      "lines": 20,
+      "sha256": "9ae05e1c46aca7a4cebf513f23ac2c1998eada16809c1f6c18b8f99a88a20bc6",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "test-app/conflict-workbench/model.mjs",
+      "type": "file",
+      "area": "fixture-app",
+      "bytes": 1393,
+      "lines": 30,
+      "sha256": "238b8c899b8aa2b5582d70dc859002cba9f571165767f73bc51f2ac218ae65ba",
+      "modules": [],
+      "exports": [
+        "changedFields",
+        "mergeChangedFields",
+        "validateChangedFields",
+        "validateDocument"
+      ],
+      "test_declarations": 0
+    },
+    {
+      "id": "test-app/conflict-workbench/package.json",
+      "type": "file",
+      "area": "fixture-app",
+      "bytes": 126,
+      "lines": 1,
+      "sha256": "2b54c61187c15f25f69465b2a1203b971312f4784519de3b4a2ef95abfb7d201",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "test-app/conflict-workbench/server.mjs",
+      "type": "file",
+      "area": "fixture-app",
+      "bytes": 8716,
+      "lines": 137,
+      "sha256": "41a69391f3a01cd19bf764cd4c13b34ff38c9c49cf9be32309cf2c23e32c8f1c",
+      "modules": [],
+      "exports": [
+        "createConflictWorkbenchServer"
+      ],
+      "test_declarations": 0
+    },
+    {
+      "id": "test-app/conflict-workbench/styles.css",
+      "type": "file",
+      "area": "fixture-app",
+      "bytes": 1284,
+      "lines": 1,
+      "sha256": "6bcf5ffb9084bcaf548039f9483812d805f27ba24a68ee8fdfcc2a255cb24e5e",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "test-app/flows/charts.flow.js",
+      "type": "file",
+      "area": "fixture-app",
+      "bytes": 513,
+      "lines": 11,
+      "sha256": "1ff88c4282156c9f4bcd685b254e6e80d55ad314f19398cce1b900acc9a48271",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "test-app/flows/clean.flow.js",
+      "type": "file",
+      "area": "fixture-app",
+      "bytes": 391,
+      "lines": 9,
+      "sha256": "96e7b675ce9cdf6432273ce22e920cf5331c0b4c4ff8e76498971ae5451f3739",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "test-app/index.html",
+      "type": "file",
+      "area": "fixture-app",
+      "bytes": 305,
+      "lines": 12,
+      "sha256": "3448198e471dbd439c737ab607fc9f786648e64d0b71135b52f2109d15899ab4",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "test-app/package-lock.json",
+      "type": "file",
+      "area": "fixture-app",
+      "bytes": 58266,
+      "lines": 1741,
+      "sha256": "8f251cff6a8b21c4f0ea4cebcc76a647f1202d298858c943de95ffe729d5003a",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "test-app/package.json",
+      "type": "file",
+      "area": "fixture-app",
+      "bytes": 626,
+      "lines": 22,
+      "sha256": "60c41017c3510a9488188cccbb9b30f0b91be7c91a1aa06bb6cb2855ef2f5fdd",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "test-app/src/App.jsx",
+      "type": "file",
+      "area": "fixture-app",
+      "bytes": 2853,
+      "lines": 62,
+      "sha256": "5394b75c0a63c7156a7d14486290eb0f12454f1592b363bf9f02d0ef65fdede7",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "test-app/src/main.jsx",
+      "type": "file",
+      "area": "fixture-app",
+      "bytes": 472,
+      "lines": 12,
+      "sha256": "9bad83397c7d17b6342b160e46bc58ae00524cfc746765729be81f7d0f7bbea7",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "test-app/src/pages/BadFetch.jsx",
+      "type": "file",
+      "area": "fixture-app",
+      "bytes": 1820,
+      "lines": 47,
+      "sha256": "05eeaf4e29c6794f0684335a0a8461ad645afe4d7557fd4839eff642cf7c9580",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "test-app/src/pages/Charts.jsx",
+      "type": "file",
+      "area": "fixture-app",
+      "bytes": 1279,
+      "lines": 41,
+      "sha256": "1d904e6a27ee95f716cb3fca56b7e41ba46cff07c4c3abf98ef134e8d10c4698",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "test-app/src/pages/Clean.jsx",
+      "type": "file",
+      "area": "fixture-app",
+      "bytes": 765,
+      "lines": 25,
+      "sha256": "ecdbf77d34bfca45617e227550e4ce395aa2e34a423af5f20a745f89e445d8fb",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "test-app/src/pages/Crash.jsx",
+      "type": "file",
+      "area": "fixture-app",
+      "bytes": 972,
+      "lines": 27,
+      "sha256": "24c068080bd2ad5b5cf4f617103cd0fe6dc6f292029ea73c74564500183b85f2",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "test-app/src/pages/Detached.jsx",
+      "type": "file",
+      "area": "fixture-app",
+      "bytes": 954,
+      "lines": 29,
+      "sha256": "c7e79a6d7ab7d26e8bd78b8e22109ed1b543235e234c3ab448b8eaac27d64fd3",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "test-app/src/pages/Grow.jsx",
+      "type": "file",
+      "area": "fixture-app",
+      "bytes": 616,
+      "lines": 21,
+      "sha256": "3d7beed3c9f1677ce5a07368d65f96dc7a076ff05fcad75f06e0906cad818acc",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "test-app/src/pages/Home.jsx",
+      "type": "file",
+      "area": "fixture-app",
+      "bytes": 326,
+      "lines": 12,
+      "sha256": "d1e26560f280846d4b05d2e0a5764d1c30456760854a207be49838e26eba5b14",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "test-app/src/pages/Listeners.jsx",
+      "type": "file",
+      "area": "fixture-app",
+      "bytes": 859,
+      "lines": 23,
+      "sha256": "61675e1973b04f5a9c5a9784c3afd09a0a135d36286a736d0600e0441418bc50",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "test-app/src/pages/LogError.jsx",
+      "type": "file",
+      "area": "fixture-app",
+      "bytes": 627,
+      "lines": 19,
+      "sha256": "25b370e608b259b4392f316864ac09a5525c9b7a7dea097b9a49dda8d9ff1d15",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "test-app/src/pages/Login.jsx",
+      "type": "file",
+      "area": "fixture-app",
+      "bytes": 713,
+      "lines": 23,
+      "sha256": "42bb52204461df375420a913f5bf4caf4a57ba1b815d7b8ae220e71913b805de",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "test-app/src/pages/Observers.jsx",
+      "type": "file",
+      "area": "fixture-app",
+      "bytes": 1452,
+      "lines": 36,
+      "sha256": "df5acffd10d4f257314aa3d8004e62fb63a5da68c93a7254910a881e1978c256",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "test-app/src/pages/Protected.jsx",
+      "type": "file",
+      "area": "fixture-app",
+      "bytes": 1405,
+      "lines": 38,
+      "sha256": "a02100dbcc8be69aa097bca1427104d4262fec3e019b5dd269b4c6ee5ae6fce1",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "test-app/src/pages/RenderLoop.jsx",
+      "type": "file",
+      "area": "fixture-app",
+      "bytes": 1066,
+      "lines": 27,
+      "sha256": "e4f7cc493939fa088a04a4aaa13ea79435b40ebba1f5fcfcffc7e21a6715e391",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "test-app/storage-workbench/README.md",
+      "type": "file",
+      "area": "fixture-app",
+      "bytes": 937,
+      "lines": 16,
+      "sha256": "296b9e88b76a6a61a6560b06de2652a0e1d14c6fa039d15394d9716997a78b26",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "test-app/storage-workbench/app.js",
+      "type": "file",
+      "area": "fixture-app",
+      "bytes": 3048,
+      "lines": 51,
+      "sha256": "2e04b26a5c01c92b4249fe072fc0ea92c5d1a9c4a722329ca63492b6e4f10ac0",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "test-app/storage-workbench/editor.html",
+      "type": "file",
+      "area": "fixture-app",
+      "bytes": 380,
+      "lines": 4,
+      "sha256": "d68852a78487cfad43b38c331be0c76bd3f514cae0f7052c6f9feb9d8dcbf4a8",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "test-app/storage-workbench/index.html",
+      "type": "file",
+      "area": "fixture-app",
+      "bytes": 445,
+      "lines": 4,
+      "sha256": "77f0a70f9084ea22a2b0162e996969b02a907e3b51b799d12b00a14fb3fa2a5f",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "test-app/storage-workbench/package.json",
+      "type": "file",
+      "area": "fixture-app",
+      "bytes": 107,
+      "lines": 1,
+      "sha256": "84f6627e24bbcc741e9698a2a71fda9614aad71c003530090b4f94ae6c510ef7",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "test-app/storage-workbench/server.mjs",
+      "type": "file",
+      "area": "fixture-app",
+      "bytes": 1719,
+      "lines": 28,
+      "sha256": "82244685eadda813b5e2ac28c6531209c502ed8623e2bdc9c451603987de9a63",
+      "modules": [],
+      "exports": [
+        "createStorageWorkbenchServer"
+      ],
+      "test_declarations": 0
+    },
+    {
+      "id": "test-app/vibeguru.json",
+      "type": "file",
+      "area": "fixture-app",
+      "bytes": 158,
+      "lines": 9,
+      "sha256": "9cb50afa95e735e133ef4379717a91afb2258c5b83219b33ae434a1a84697930",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "test-app/vite.config.js",
+      "type": "file",
+      "area": "fixture-app",
+      "bytes": 367,
+      "lines": 10,
+      "sha256": "4ac608a78e6a8559d0a6d883d809310e44cca8a5f45ee88f7b9825a2ce42f4a3",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "test-app/write-integrity/README.md",
+      "type": "file",
+      "area": "fixture-app",
+      "bytes": 2383,
+      "lines": 37,
+      "sha256": "2910c3381641cb89c8a3357a365b2938a208ea28f498658013e46438a890e8b2",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "test-app/write-integrity/app.js",
+      "type": "file",
+      "area": "fixture-app",
+      "bytes": 3869,
+      "lines": 93,
+      "sha256": "6d73a1dd51e021c5493bb8cdfae43e2786e2ae9ac838ecd7daff0c5c9e0a1ae3",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "test-app/write-integrity/index.html",
+      "type": "file",
+      "area": "fixture-app",
+      "bytes": 1781,
+      "lines": 5,
+      "sha256": "6e96fee068ad670b2a89e93e524bf4d46943c0f5c2626fb6a03fe3669f2e0593",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "test-app/write-integrity/package.json",
+      "type": "file",
+      "area": "fixture-app",
+      "bytes": 155,
+      "lines": 7,
+      "sha256": "60cbf9019d0d3151e8060306af06fecdda42cf29d48d6dc3f0cfca94ed2d69c9",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "test-app/write-integrity/server.mjs",
+      "type": "file",
+      "area": "fixture-app",
+      "bytes": 8224,
+      "lines": 155,
+      "sha256": "cc592f2fb8b2a0f0234b2f14bfb8a5c99b234f0c4562e37ab5f459b8d05c5e1d",
+      "modules": [],
+      "exports": [
+        "createWriteIntegrityServer"
+      ],
+      "test_declarations": 0
+    },
+    {
+      "id": "test-app/write-integrity/styles.css",
+      "type": "file",
+      "area": "fixture-app",
+      "bytes": 2089,
+      "lines": 1,
+      "sha256": "32df80d1dcb860721d501ac5e899ad719f7a69f3414ebfd68d76d53aa93ac798",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "test-node/adversarial.test.js",
+      "type": "file",
+      "area": "tests",
+      "bytes": 6681,
+      "lines": 115,
+      "sha256": "61a3c808fbec26a4b3c05c2902ac0a18eb674d3fe38433aa30d54c77e28273c6",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 7
+    },
+    {
+      "id": "test-node/campaign.test.js",
+      "type": "file",
+      "area": "tests",
+      "bytes": 12689,
+      "lines": 206,
+      "sha256": "9a67a6dfd24302f00a85624902e791a0ac94f70b4bbb380a04db87375cda9fa8",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 12
+    },
+    {
+      "id": "test-node/conflicting-writes.test.js",
+      "type": "file",
+      "area": "tests",
+      "bytes": 13847,
+      "lines": 192,
+      "sha256": "5fe3eb01c48cfec4d25398add39648db8b9f96bcebe08c9bc73ca216b761278b",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 11
+    },
+    {
+      "id": "test-node/crawl.test.js",
+      "type": "file",
+      "area": "tests",
+      "bytes": 10564,
+      "lines": 281,
+      "sha256": "2607ba9b8f9fa95347e3190495203b0311f558010cdca1c2999045f1ec7c1beb",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 20
+    },
+    {
+      "id": "test-node/dashboard.test.js",
+      "type": "file",
+      "area": "tests",
+      "bytes": 12398,
+      "lines": 190,
+      "sha256": "043ab5521369fa5c17a75d8f7f178d8023caad5c8b13af9aa45629719343b206",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 9
+    },
+    {
+      "id": "test-node/doctor.test.js",
+      "type": "file",
+      "area": "tests",
+      "bytes": 2334,
+      "lines": 40,
+      "sha256": "494ecefec03ffd6378b2c22de336475e0fd1005ec31de97233ead61b3fc5364a",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 3
+    },
+    {
+      "id": "test-node/engine-security.test.js",
+      "type": "file",
+      "area": "tests",
+      "bytes": 1037,
+      "lines": 20,
+      "sha256": "4e065dda0772a22589307cf31ac8e56fdbefa67a1844fbb3b6ead81ef93800fd",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 1
+    },
+    {
+      "id": "test-node/fixtures/findings.json",
+      "type": "file",
+      "area": "tests",
+      "bytes": 3463,
+      "lines": 77,
+      "sha256": "aaf7b26c346775f83103c494fcc52fa70124cc5e8abca95411dc1d8e17e72495",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "test-node/flow.test.js",
+      "type": "file",
+      "area": "tests",
+      "bytes": 3374,
+      "lines": 63,
+      "sha256": "abd677bee7ad3a4efdb554a1d71fc26443542ab01a70dfef3cd29fa1b4f66510",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 3
+    },
+    {
+      "id": "test-node/helpers/fake-page.js",
+      "type": "file",
+      "area": "tests",
+      "bytes": 3758,
+      "lines": 120,
+      "sha256": "eb1b6b496b89abbb98c53aafc8fb36d7d7254315e557b462d11259dce9cca40c",
+      "modules": [],
+      "exports": [
+        " fakePage, fakeClient, ORIGIN "
+      ],
+      "test_declarations": 0
+    },
+    {
+      "id": "test-node/helpers/valid-report.js",
+      "type": "file",
+      "area": "tests",
+      "bytes": 4334,
+      "lines": 69,
+      "sha256": "7f8ac8b92f07dab44347ce9bd4d76730749d7fbe776a966806c96b887fa13f1a",
+      "modules": [],
+      "exports": [
+        " validReport "
+      ],
+      "test_declarations": 0
+    },
+    {
+      "id": "test-node/installation.test.js",
+      "type": "file",
+      "area": "tests",
+      "bytes": 8285,
+      "lines": 161,
+      "sha256": "095059a9f36c9a8f0f0d7978ed2e5a4e7f014d16cfa1e60724d99b7bf10475ce",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 9
+    },
+    {
+      "id": "test-node/lab-ports.test.js",
+      "type": "file",
+      "area": "tests",
+      "bytes": 3305,
+      "lines": 53,
+      "sha256": "1bdb5e5366933b7358bac261d0c1efa9dbc5edc46aa3aaa68728ce7ba5788c20",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 3
+    },
+    {
+      "id": "test-node/reconnect.test.js",
+      "type": "file",
+      "area": "tests",
+      "bytes": 10995,
+      "lines": 180,
+      "sha256": "5539dee92a72f6f14b896422b1df071fa3622b5b14bcdf0cd0083f2267ce1f04",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 7
+    },
+    {
+      "id": "test-node/render.test.js",
+      "type": "file",
+      "area": "tests",
+      "bytes": 7131,
+      "lines": 175,
+      "sha256": "f59fd20ebbaa67808cc4e596cdda56f76c2a22a36bd956386dbb3e6d227c585e",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 19
+    },
+    {
+      "id": "test-node/response-order.test.js",
+      "type": "file",
+      "area": "tests",
+      "bytes": 1956,
+      "lines": 40,
+      "sha256": "ba6cf0f62dbcce31a1ee1559d2c7b6e7025f46b50dbfe3817247d8d78f85fc44",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 2
+    },
+    {
+      "id": "test-node/sampler.test.js",
+      "type": "file",
+      "area": "tests",
+      "bytes": 4978,
+      "lines": 128,
+      "sha256": "028a4fb1a2f0ea04eaeb55c818c927496ffbbe9e6e3c255e2c42f103e473375e",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 9
+    },
+    {
+      "id": "test-node/server.test.js",
+      "type": "file",
+      "area": "tests",
+      "bytes": 5205,
+      "lines": 148,
+      "sha256": "78a34672c8932e55e3614596869b0a3ab71648dbcc3d8a6f5fddc189cae87af2",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 8
+    },
+    {
+      "id": "test-node/snapshot-run.test.js",
+      "type": "file",
+      "area": "tests",
+      "bytes": 5688,
+      "lines": 115,
+      "sha256": "9f0941290c164724f0a8d79427818b84fe583e6632d5e1304f8629e6e0886aa7",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 6
+    },
+    {
+      "id": "test-node/snapshot.test.js",
+      "type": "file",
+      "area": "tests",
+      "bytes": 7113,
+      "lines": 218,
+      "sha256": "89ea0ec91d7dcbf2a7dcf204ac28252de688bcb688c82fc36cbbcc3614025a54",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 11
+    },
+    {
+      "id": "test-node/storage-resilience.test.js",
+      "type": "file",
+      "area": "tests",
+      "bytes": 10435,
+      "lines": 169,
+      "sha256": "1518c21dd7f38ae787362eb99f8e0f5fedb8219dca072b244b4ce30209fe2426",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 6
+    },
+    {
+      "id": "test-node/telemetry.test.js",
+      "type": "file",
+      "area": "tests",
+      "bytes": 13707,
+      "lines": 252,
+      "sha256": "0e92c4c54a9f1317b979781fc793cbfe7ae992cf6232b102fe52cb6f8152bd35",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 14
+    },
+    {
+      "id": "test-node/timing.test.js",
+      "type": "file",
+      "area": "tests",
+      "bytes": 3192,
+      "lines": 46,
+      "sha256": "130cc79748c4780fc9845bf0172a1ee36fde0d9757f4e73c6e09b586126e1d19",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 3
+    },
+    {
+      "id": "test-node/validity.test.js",
+      "type": "file",
+      "area": "tests",
+      "bytes": 11168,
+      "lines": 202,
+      "sha256": "b564a45105c12933b714d9f5d8314c3cea527892877abb59aecbf8b4bd9fea06",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 15
+    },
+    {
+      "id": "test-node/write-integrity.test.js",
+      "type": "file",
+      "area": "tests",
+      "bytes": 10621,
+      "lines": 176,
+      "sha256": "2bf91dd72d4e9959db6ef53c58e05c10276b5b4c0ed604972085a8ce65700f9a",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 10
+    },
+    {
+      "id": "test/fixtures/security-driver.cjs",
+      "type": "file",
+      "area": "tests",
+      "bytes": 409,
+      "lines": 9,
+      "sha256": "40a823c29be018aabf7b98c3f7cda18ccfedeedfc0c5c3a73afaf95ffa31cd9a",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "test/fixtures/valid-driver.cjs",
+      "type": "file",
+      "area": "tests",
+      "bytes": 2753,
+      "lines": 23,
+      "sha256": "1bcb93a75dfba4c16108299f44e34230e82d00789221ebe5bb6f0a3888a47ec9",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "test/support/dashboard_formatter.ex",
+      "type": "file",
+      "area": "tests",
+      "bytes": 3755,
+      "lines": 129,
+      "sha256": "2d07853096855a605ef5bff089c8860bdeb00bcdc72a2e07cb3be5cf9cf8b37d",
+      "modules": [
+        "VibeGuru.DashboardFormatter"
+      ],
+      "exports": [
+        "handle_cast",
+        "init"
+      ],
+      "test_declarations": 0
+    },
+    {
+      "id": "test/test_helper.exs",
+      "type": "file",
+      "area": "tests",
+      "bytes": 138,
+      "lines": 2,
+      "sha256": "04eef35490ebff4da3f1340004c0650330f2959b645e65c00638f8b3f2521366",
+      "modules": [],
+      "exports": [],
+      "test_declarations": 0
+    },
+    {
+      "id": "test/vibe_guru/analyzers/census_test.exs",
+      "type": "file",
+      "area": "tests",
+      "bytes": 7437,
+      "lines": 202,
+      "sha256": "e4ff5d6c3c743d47e6379db88111aa3a3f63f957e538fb90018fe6e94aa70341",
+      "modules": [
+        "VibeGuru.Analyzers.CensusTest"
+      ],
+      "exports": [],
+      "test_declarations": 14
+    },
+    {
+      "id": "test/vibe_guru/analyzers/journey_test.exs",
+      "type": "file",
+      "area": "tests",
+      "bytes": 2250,
+      "lines": 65,
+      "sha256": "780fe136c8e433267bd28fa9e21c0a348b1f97ccdf0d9e4976d55df206bdef9d",
+      "modules": [
+        "VibeGuru.Analyzers.JourneyTest"
+      ],
+      "exports": [],
+      "test_declarations": 3
+    },
+    {
+      "id": "test/vibe_guru/analyzers/memory_test.exs",
+      "type": "file",
+      "area": "tests",
+      "bytes": 11973,
+      "lines": 335,
+      "sha256": "0202c52881215fd060d4cd5ab176245140e413870afeb2dd1b7a2f6449c17ccf",
+      "modules": [
+        "VibeGuru.Analyzers.MemoryTest"
+      ],
+      "exports": [],
+      "test_declarations": 20
+    },
+    {
+      "id": "test/vibe_guru/analyzers/runtime_test.exs",
+      "type": "file",
+      "area": "tests",
+      "bytes": 11236,
+      "lines": 330,
+      "sha256": "356636e4f74d0fb7c00d549b903bca22b7b252a9542dc6d1f613badd6db1840a",
+      "modules": [
+        "VibeGuru.Analyzers.RuntimeTest"
+      ],
+      "exports": [],
+      "test_declarations": 28
+    },
+    {
+      "id": "test/vibe_guru/auth_test.exs",
+      "type": "file",
+      "area": "tests",
+      "bytes": 4082,
+      "lines": 116,
+      "sha256": "75c5b03a4382c40037649d7fd1a065f019fe2d8cbd742dc30c398e2e246a5760",
+      "modules": [
+        "VibeGuru.AuthTest"
+      ],
+      "exports": [],
+      "test_declarations": 11
+    },
+    {
+      "id": "test/vibe_guru/census_targets_test.exs",
+      "type": "file",
+      "area": "tests",
+      "bytes": 3456,
+      "lines": 104,
+      "sha256": "c5b7c75b2decfecd5835a4d57ce3092b18e38ada84a703d3b2b45462d39b3e9a",
+      "modules": [
+        "VibeGuru.CensusTargetsTest"
+      ],
+      "exports": [],
+      "test_declarations": 12
+    },
+    {
+      "id": "test/vibe_guru/coverage_test.exs",
+      "type": "file",
+      "area": "tests",
+      "bytes": 5387,
+      "lines": 196,
+      "sha256": "9772d2b68d705b1c4e69a5b922e7b415bf5dbab4e831a1c87e0f50b7b2125889",
+      "modules": [
+        "VibeGuru.CoverageTest"
+      ],
+      "exports": [],
+      "test_declarations": 17
+    },
+    {
+      "id": "test/vibe_guru/dashboard_formatter_test.exs",
+      "type": "file",
+      "area": "tests",
+      "bytes": 2905,
+      "lines": 88,
+      "sha256": "0b3724e874f6e04fb9395079a3f174a544089b8b24e4ad8408b64ffd5e8cd9e0",
+      "modules": [
+        "VibeGuru.DashboardFormatterTest"
+      ],
+      "exports": [],
+      "test_declarations": 3
+    },
+    {
+      "id": "test/vibe_guru/detector/routes_test.exs",
+      "type": "file",
+      "area": "tests",
+      "bytes": 7887,
+      "lines": 233,
+      "sha256": "90467c45c52077b88c3cea88abdd06e15eb82b62422ff5543001aea7494d74e1",
+      "modules": [
+        "VibeGuru.Detector.RoutesTest"
+      ],
+      "exports": [],
+      "test_declarations": 18
+    },
+    {
+      "id": "test/vibe_guru/driver_security_test.exs",
+      "type": "file",
+      "area": "tests",
+      "bytes": 1101,
+      "lines": 27,
+      "sha256": "67fa6d3c6b17369e8a2ec3b6a790ee20d33b083e53c16ff1bb3a75f28dde54b6",
+      "modules": [
+        "VibeGuru.DriverSecurityTest"
+      ],
+      "exports": [],
+      "test_declarations": 2
+    },
+    {
+      "id": "test/vibe_guru/finding_test.exs",
+      "type": "file",
+      "area": "tests",
+      "bytes": 2124,
+      "lines": 65,
+      "sha256": "f0129a2ab2c2a479614cd876871b85a49031015cf576f7d54df98c82e431e479",
+      "modules": [
+        "VibeGuru.FindingTest"
+      ],
+      "exports": [],
+      "test_declarations": 5
+    },
+    {
+      "id": "test/vibe_guru/investigation/investigation_test.exs",
+      "type": "file",
+      "area": "tests",
+      "bytes": 15731,
+      "lines": 493,
+      "sha256": "f3627833e376beb3ffe27922d3992d0b245797c5e871026eec3f6c8a20d66cc7",
+      "modules": [
+        "VibeGuru.InvestigationTest"
+      ],
+      "exports": [],
+      "test_declarations": 17
+    },
+    {
+      "id": "test/vibe_guru/investigation/rules_test.exs",
+      "type": "file",
+      "area": "tests",
+      "bytes": 12698,
+      "lines": 331,
+      "sha256": "4ac16d3492384e30b4e5b4d82832e4011200d005f3a4dbb14b270587e4140788",
+      "modules": [
+        "VibeGuru.Investigation.Policy.RulesTest"
+      ],
+      "exports": [],
+      "test_declarations": 20
+    },
+    {
+      "id": "test/vibe_guru/pipeline_test.exs",
+      "type": "file",
+      "area": "tests",
+      "bytes": 11300,
+      "lines": 304,
+      "sha256": "193cabc34fe6214e76279e3d1cae66e804ccef8c733e33b55108fea44959bfad",
+      "modules": [
+        "VibeGuru.PipelineTest"
+      ],
+      "exports": [
+        "id",
+        "render"
+      ],
+      "test_declarations": 16
+    },
+    {
+      "id": "test/vibe_guru/probes/heap_snapshot_test.exs",
+      "type": "file",
+      "area": "tests",
+      "bytes": 7963,
+      "lines": 221,
+      "sha256": "ed648d387affba397fb549d3a90b01e4e66a64c7c10ebf60b740ed6bd24255d1",
+      "modules": [
+        "VibeGuru.Probes.Heap.SnapshotTest"
+      ],
+      "exports": [],
+      "test_declarations": 16
+    },
+    {
+      "id": "test/vibe_guru_test.exs",
+      "type": "file",
+      "area": "tests",
+      "bytes": 141,
+      "lines": 8,
+      "sha256": "678e7075d1fa1c2ffffa7c15f1ff74ae737c34b31612e7fc717a105a4223ac73",
+      "modules": [
+        "VibeGuruTest"
+      ],
+      "exports": [],
+      "test_declarations": 1
+    }
+  ],
+  "edges": [
+    {
+      "source": "benchmarks/desktop/gateway-create.mjs",
+      "target": "benchmarks/desktop/gateway.mjs",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "benchmarks/desktop/gateway-race.mjs",
+      "target": "benchmarks/desktop/common.mjs",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "benchmarks/desktop/gateway-race.mjs",
+      "target": "benchmarks/response-order.mjs",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "benchmarks/desktop/gateway.mjs",
+      "target": "benchmarks/desktop/common.mjs",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "benchmarks/desktop/multiplayer-reconnect.mjs",
+      "target": "benchmarks/desktop/common.mjs",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "benchmarks/desktop/multiplayer.mjs",
+      "target": "benchmarks/desktop/common.mjs",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "benchmarks/desktop/swap-station.mjs",
+      "target": "benchmarks/desktop/common.mjs",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "benchmarks/lab/http-recovery.mjs",
+      "target": "benchmarks/lab/workbench.mjs",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "benchmarks/lab/pending-navigation.mjs",
+      "target": "benchmarks/lab/workbench.mjs",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "benchmarks/lab/storage-resilience.mjs",
+      "target": "benchmarks/desktop/common.mjs",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "benchmarks/lab/storage-resilience.mjs",
+      "target": "benchmarks/lab/workbench.mjs",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "benchmarks/lab/workbench.mjs",
+      "target": "benchmarks/desktop/common.mjs",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "benchmarks/reconnect-calibrate.mjs",
+      "target": "benchmarks/desktop/multiplayer-reconnect.mjs",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "benchmarks/reconnect-calibrate.mjs",
+      "target": "driver-node/lib/flow.js",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "bin/vibeguru.js",
+      "target": "mcp/server.js",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "bin/vibeguru.js",
+      "target": "scripts/lib/doctor.js",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "bin/vibeguru.js",
+      "target": "scripts/lib/launch.js",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "bin/vibeguru.js",
+      "target": "scripts/lib/platform.js",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "bin/vibeguru.js",
+      "target": "scripts/lib/setup.js",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "bin/vibeguru.js",
+      "target": "scripts/lib/telemetry-cli.js",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "browser-driver",
+      "target": "driver-node/index.js",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "browser-driver",
+      "target": "driver-node/lib/auth.js",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "browser-driver",
+      "target": "driver-node/lib/census.js",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "browser-driver",
+      "target": "driver-node/lib/crawl.js",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "browser-driver",
+      "target": "driver-node/lib/flow.js",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "browser-driver",
+      "target": "driver-node/lib/observer.js",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "browser-driver",
+      "target": "driver-node/lib/run.js",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "browser-driver",
+      "target": "driver-node/lib/sampler.js",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "browser-driver",
+      "target": "driver-node/lib/snapshot-run.js",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "browser-driver",
+      "target": "driver-node/lib/snapshot.js",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "browser-driver",
+      "target": "driver-node/package-lock.json",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "browser-driver",
+      "target": "driver-node/package.json",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "browser-driver",
+      "target": "fixture-app",
+      "relation": "exercises via Playwright Chromium/CDP",
+      "basis": "manually verified architecture"
+    },
+    {
+      "source": "ci-release",
+      "target": ".github/workflows/ci.yml",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "ci-release",
+      "target": ".github/workflows/release.yml",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "ci-release",
+      "target": "Jenkinsfile",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "ci-release",
+      "target": "fixture-app",
+      "relation": "runs browser fixtures",
+      "basis": "manually verified architecture"
+    },
+    {
+      "source": "ci-release",
+      "target": "tests",
+      "relation": "runs suites",
+      "basis": "manually verified architecture"
+    },
+    {
+      "source": "documentation",
+      "target": "AGENTS.md",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "documentation",
+      "target": "PROJECT_CONTEXT.md",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "documentation",
+      "target": "README.md",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "documentation",
+      "target": "docs/ARCHITECTURE-investigation.md",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "documentation",
+      "target": "docs/ARCHITECTURE-memory-client.md",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "documentation",
+      "target": "docs/GETTING_STARTED.md",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "documentation",
+      "target": "docs/RELEASING.md",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "documentation",
+      "target": "docs/TELEMETRY.md",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "documentation",
+      "target": "docs/commercial/DELIVERY_TEMPLATE.md",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "documentation",
+      "target": "docs/commercial/DISCOVERY.md",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "documentation",
+      "target": "docs/commercial/OUTREACH_DRAFTS.md",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "documentation",
+      "target": "docs/commercial/PILOT_INTAKE.md",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "documentation",
+      "target": "docs/commercial/PROSPECTS.json",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "documentation",
+      "target": "docs/commercial/PROSPECTS.md",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "documentation",
+      "target": "docs/context/ADVERSARIAL_EVALUATION.md",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "documentation",
+      "target": "docs/context/AUDIT.md",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "documentation",
+      "target": "docs/context/DASHBOARD.md",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "documentation",
+      "target": "docs/context/DESKTOP_EVALUATION.md",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "documentation",
+      "target": "docs/context/GIT_SYNC.md",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "documentation",
+      "target": "docs/context/IMPLEMENTATION.md",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "documentation",
+      "target": "docs/context/LAUNCH_PREPARATION.md",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "documentation",
+      "target": "docs/context/NETWORK_EVALUATION.md",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "documentation",
+      "target": "docs/context/NEXT_DECISIONS.md",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "documentation",
+      "target": "docs/context/NORTH_STAR.md",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "documentation",
+      "target": "docs/context/PRODUCT_STRATEGY.md",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "documentation",
+      "target": "docs/context/PRODUCT_THESIS.md",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "documentation",
+      "target": "docs/context/RATE_LIMIT_INVENTORY.md",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "documentation",
+      "target": "docs/context/REAL_APP_EVALUATION.md",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "documentation",
+      "target": "docs/context/ROBOT_MAIN_EVALUATION.md",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "documentation",
+      "target": "docs/context/STATE_RESILIENCE.md",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "documentation",
+      "target": "docs/context/TEST_TIMING.md",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "documentation",
+      "target": "docs/context/UNDERSTANDING.md",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "documentation",
+      "target": "docs/context/adversarial-evaluation-results.json",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "documentation",
+      "target": "docs/context/desktop-evaluation-results.json",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "documentation",
+      "target": "docs/context/launch-preparation-verification.json",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "documentation",
+      "target": "docs/context/network-evaluation-results.json",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "documentation",
+      "target": "docs/context/real-app-evaluation-results.json",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "documentation",
+      "target": "docs/context/robot-main-evaluation-results.json",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "documentation",
+      "target": "docs/context/robot-public-evaluation-results.json",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "documentation",
+      "target": "docs/context/state-resilience-results.json",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "driver-node/index.js",
+      "target": "driver-node/lib/auth.js",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "driver-node/index.js",
+      "target": "driver-node/lib/run.js",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "driver-node/index.js",
+      "target": "driver-node/lib/snapshot-run.js",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "driver-node/lib/run.js",
+      "target": "driver-node/lib/census.js",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "driver-node/lib/run.js",
+      "target": "driver-node/lib/crawl.js",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "driver-node/lib/run.js",
+      "target": "driver-node/lib/flow.js",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "driver-node/lib/run.js",
+      "target": "driver-node/lib/observer.js",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "driver-node/lib/run.js",
+      "target": "driver-node/lib/sampler.js",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "driver-node/lib/snapshot-run.js",
+      "target": "driver-node/lib/crawl.js",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "driver-node/lib/snapshot-run.js",
+      "target": "driver-node/lib/sampler.js",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "driver-node/lib/snapshot-run.js",
+      "target": "driver-node/lib/snapshot.js",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "elixir-engine",
+      "target": "browser-driver",
+      "relation": "temp config + Node Port + NDJSON",
+      "basis": "manually verified architecture"
+    },
+    {
+      "source": "elixir-engine",
+      "target": "example-reports",
+      "relation": "renders standalone HTML with evidence and local comparison",
+      "basis": "manually verified architecture"
+    },
+    {
+      "source": "elixir-engine",
+      "target": "lib/vibe_guru.ex",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "elixir-engine",
+      "target": "lib/vibe_guru/analyzer.ex",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "elixir-engine",
+      "target": "lib/vibe_guru/analyzers/census.ex",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "elixir-engine",
+      "target": "lib/vibe_guru/analyzers/journey.ex",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "elixir-engine",
+      "target": "lib/vibe_guru/analyzers/memory.ex",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "elixir-engine",
+      "target": "lib/vibe_guru/analyzers/runtime.ex",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "elixir-engine",
+      "target": "lib/vibe_guru/application.ex",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "elixir-engine",
+      "target": "lib/vibe_guru/auth.ex",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "elixir-engine",
+      "target": "lib/vibe_guru/census_targets.ex",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "elixir-engine",
+      "target": "lib/vibe_guru/cli.ex",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "elixir-engine",
+      "target": "lib/vibe_guru/cli/auth.ex",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "elixir-engine",
+      "target": "lib/vibe_guru/cli/init.ex",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "elixir-engine",
+      "target": "lib/vibe_guru/cli/presenter.ex",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "elixir-engine",
+      "target": "lib/vibe_guru/cli/run.ex",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "elixir-engine",
+      "target": "lib/vibe_guru/config.ex",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "elixir-engine",
+      "target": "lib/vibe_guru/coverage.ex",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "elixir-engine",
+      "target": "lib/vibe_guru/detector.ex",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "elixir-engine",
+      "target": "lib/vibe_guru/detector/frontend.ex",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "elixir-engine",
+      "target": "lib/vibe_guru/detector/routes.ex",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "elixir-engine",
+      "target": "lib/vibe_guru/detector/stack.ex",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "elixir-engine",
+      "target": "lib/vibe_guru/dev_server.ex",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "elixir-engine",
+      "target": "lib/vibe_guru/driver.ex",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "elixir-engine",
+      "target": "lib/vibe_guru/evidence.ex",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "elixir-engine",
+      "target": "lib/vibe_guru/finding.ex",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "elixir-engine",
+      "target": "lib/vibe_guru/pipeline.ex",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "elixir-engine",
+      "target": "lib/vibe_guru/probe.ex",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "elixir-engine",
+      "target": "lib/vibe_guru/probes/heap/snapshot.ex",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "elixir-engine",
+      "target": "lib/vibe_guru/probes/memory/client.ex",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "elixir-engine",
+      "target": "lib/vibe_guru/project.ex",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "elixir-engine",
+      "target": "lib/vibe_guru/reporter.ex",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "elixir-engine",
+      "target": "lib/vibe_guru/reporters/html.ex",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "elixir-engine",
+      "target": "lib/vibe_guru/reporters/json.ex",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "elixir-engine",
+      "target": "lib/vibe_guru/reporters/markdown.ex",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "elixir-engine",
+      "target": "lib/vibe_guru/result.ex",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "elixir-engine",
+      "target": "lib/vibe_guru/stack_profile.ex",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "evaluation",
+      "target": "benchmarks/README.md",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "evaluation",
+      "target": "benchmarks/assessment.mjs",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "evaluation",
+      "target": "benchmarks/desktop/common.mjs",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "evaluation",
+      "target": "benchmarks/desktop/gateway-create.mjs",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "evaluation",
+      "target": "benchmarks/desktop/gateway-race.mjs",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "evaluation",
+      "target": "benchmarks/desktop/gateway.mjs",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "evaluation",
+      "target": "benchmarks/desktop/multiplayer-reconnect.mjs",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "evaluation",
+      "target": "benchmarks/desktop/multiplayer.mjs",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "evaluation",
+      "target": "benchmarks/desktop/swap-station.mjs",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "evaluation",
+      "target": "benchmarks/lab/conflicting-writes.mjs",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "evaluation",
+      "target": "benchmarks/lab/http-recovery.mjs",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "evaluation",
+      "target": "benchmarks/lab/pending-navigation.mjs",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "evaluation",
+      "target": "benchmarks/lab/storage-resilience.mjs",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "evaluation",
+      "target": "benchmarks/lab/workbench.mjs",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "evaluation",
+      "target": "benchmarks/lab/write-integrity.mjs",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "evaluation",
+      "target": "benchmarks/reconnect-calibrate.mjs",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "evaluation",
+      "target": "benchmarks/report-corruption.mjs",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "evaluation",
+      "target": "benchmarks/response-order.mjs",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "example-reports",
+      "target": "examples/sample-report.html",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "example-reports",
+      "target": "examples/sample-report.json",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "fixture-app",
+      "target": "test-app/async-workbench/app.js",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "fixture-app",
+      "target": "test-app/async-workbench/index.html",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "fixture-app",
+      "target": "test-app/async-workbench/package.json",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "fixture-app",
+      "target": "test-app/async-workbench/server.mjs",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "fixture-app",
+      "target": "test-app/async-workbench/vibeguru.json",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "fixture-app",
+      "target": "test-app/clean/index.html",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "fixture-app",
+      "target": "test-app/clean/package.json",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "fixture-app",
+      "target": "test-app/clean/src/App.jsx",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "fixture-app",
+      "target": "test-app/conflict-workbench/README.md",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "fixture-app",
+      "target": "test-app/conflict-workbench/app.js",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "fixture-app",
+      "target": "test-app/conflict-workbench/index.html",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "fixture-app",
+      "target": "test-app/conflict-workbench/model.mjs",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "fixture-app",
+      "target": "test-app/conflict-workbench/package.json",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "fixture-app",
+      "target": "test-app/conflict-workbench/server.mjs",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "fixture-app",
+      "target": "test-app/conflict-workbench/styles.css",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "fixture-app",
+      "target": "test-app/flows/charts.flow.js",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "fixture-app",
+      "target": "test-app/flows/clean.flow.js",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "fixture-app",
+      "target": "test-app/index.html",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "fixture-app",
+      "target": "test-app/package-lock.json",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "fixture-app",
+      "target": "test-app/package.json",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "fixture-app",
+      "target": "test-app/src/App.jsx",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "fixture-app",
+      "target": "test-app/src/main.jsx",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "fixture-app",
+      "target": "test-app/src/pages/BadFetch.jsx",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "fixture-app",
+      "target": "test-app/src/pages/Charts.jsx",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "fixture-app",
+      "target": "test-app/src/pages/Clean.jsx",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "fixture-app",
+      "target": "test-app/src/pages/Crash.jsx",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "fixture-app",
+      "target": "test-app/src/pages/Detached.jsx",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "fixture-app",
+      "target": "test-app/src/pages/Grow.jsx",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "fixture-app",
+      "target": "test-app/src/pages/Home.jsx",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "fixture-app",
+      "target": "test-app/src/pages/Listeners.jsx",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "fixture-app",
+      "target": "test-app/src/pages/LogError.jsx",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "fixture-app",
+      "target": "test-app/src/pages/Login.jsx",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "fixture-app",
+      "target": "test-app/src/pages/Observers.jsx",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "fixture-app",
+      "target": "test-app/src/pages/Protected.jsx",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "fixture-app",
+      "target": "test-app/src/pages/RenderLoop.jsx",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "fixture-app",
+      "target": "test-app/storage-workbench/README.md",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "fixture-app",
+      "target": "test-app/storage-workbench/app.js",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "fixture-app",
+      "target": "test-app/storage-workbench/editor.html",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "fixture-app",
+      "target": "test-app/storage-workbench/index.html",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "fixture-app",
+      "target": "test-app/storage-workbench/package.json",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "fixture-app",
+      "target": "test-app/storage-workbench/server.mjs",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "fixture-app",
+      "target": "test-app/vibeguru.json",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "fixture-app",
+      "target": "test-app/vite.config.js",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "fixture-app",
+      "target": "test-app/write-integrity/README.md",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "fixture-app",
+      "target": "test-app/write-integrity/app.js",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "fixture-app",
+      "target": "test-app/write-integrity/index.html",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "fixture-app",
+      "target": "test-app/write-integrity/package.json",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "fixture-app",
+      "target": "test-app/write-integrity/server.mjs",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "fixture-app",
+      "target": "test-app/write-integrity/styles.css",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "investigation",
+      "target": "browser-driver",
+      "relation": "focused snapshot via Driver; explicit invocation",
+      "basis": "manually verified architecture"
+    },
+    {
+      "source": "investigation",
+      "target": "lib/vibe_guru/investigation.ex",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "investigation",
+      "target": "lib/vibe_guru/investigation/policy.ex",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "investigation",
+      "target": "lib/vibe_guru/investigation/policy/rules.ex",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "investigation",
+      "target": "lib/vibe_guru/investigation/probes.ex",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "investigation",
+      "target": "lib/vibe_guru/investigation/state.ex",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "lib/vibe_guru/analyzer.ex",
+      "target": "lib/vibe_guru/evidence.ex",
+      "relation": "references_module",
+      "basis": "static module/alias reference; may occur in docs/types"
+    },
+    {
+      "source": "lib/vibe_guru/analyzer.ex",
+      "target": "lib/vibe_guru/finding.ex",
+      "relation": "references_module",
+      "basis": "static module/alias reference; may occur in docs/types"
+    },
+    {
+      "source": "lib/vibe_guru/analyzers/census.ex",
+      "target": "lib/vibe_guru/analyzer.ex",
+      "relation": "references_module",
+      "basis": "static module/alias reference; may occur in docs/types"
+    },
+    {
+      "source": "lib/vibe_guru/analyzers/census.ex",
+      "target": "lib/vibe_guru/finding.ex",
+      "relation": "references_module",
+      "basis": "static module/alias reference; may occur in docs/types"
+    },
+    {
+      "source": "lib/vibe_guru/analyzers/journey.ex",
+      "target": "lib/vibe_guru/analyzer.ex",
+      "relation": "references_module",
+      "basis": "static module/alias reference; may occur in docs/types"
+    },
+    {
+      "source": "lib/vibe_guru/analyzers/journey.ex",
+      "target": "lib/vibe_guru/finding.ex",
+      "relation": "references_module",
+      "basis": "static module/alias reference; may occur in docs/types"
+    },
+    {
+      "source": "lib/vibe_guru/analyzers/memory.ex",
+      "target": "lib/vibe_guru/analyzer.ex",
+      "relation": "references_module",
+      "basis": "static module/alias reference; may occur in docs/types"
+    },
+    {
+      "source": "lib/vibe_guru/analyzers/memory.ex",
+      "target": "lib/vibe_guru/finding.ex",
+      "relation": "references_module",
+      "basis": "static module/alias reference; may occur in docs/types"
+    },
+    {
+      "source": "lib/vibe_guru/analyzers/runtime.ex",
+      "target": "lib/vibe_guru/analyzer.ex",
+      "relation": "references_module",
+      "basis": "static module/alias reference; may occur in docs/types"
+    },
+    {
+      "source": "lib/vibe_guru/analyzers/runtime.ex",
+      "target": "lib/vibe_guru/finding.ex",
+      "relation": "references_module",
+      "basis": "static module/alias reference; may occur in docs/types"
+    },
+    {
+      "source": "lib/vibe_guru/application.ex",
+      "target": "lib/vibe_guru/cli.ex",
+      "relation": "references_module",
+      "basis": "static module/alias reference; may occur in docs/types"
+    },
+    {
+      "source": "lib/vibe_guru/auth.ex",
+      "target": "lib/vibe_guru/driver.ex",
+      "relation": "references_module",
+      "basis": "static module/alias reference; may occur in docs/types"
+    },
+    {
+      "source": "lib/vibe_guru/census_targets.ex",
+      "target": "lib/vibe_guru/stack_profile.ex",
+      "relation": "references_module",
+      "basis": "static module/alias reference; may occur in docs/types"
+    },
+    {
+      "source": "lib/vibe_guru/cli.ex",
+      "target": "lib/vibe_guru/application.ex",
+      "relation": "references_module",
+      "basis": "static module/alias reference; may occur in docs/types"
+    },
+    {
+      "source": "lib/vibe_guru/cli.ex",
+      "target": "lib/vibe_guru/cli/auth.ex",
+      "relation": "references_module",
+      "basis": "static module/alias reference; may occur in docs/types"
+    },
+    {
+      "source": "lib/vibe_guru/cli.ex",
+      "target": "lib/vibe_guru/cli/init.ex",
+      "relation": "references_module",
+      "basis": "static module/alias reference; may occur in docs/types"
+    },
+    {
+      "source": "lib/vibe_guru/cli.ex",
+      "target": "lib/vibe_guru/cli/presenter.ex",
+      "relation": "references_module",
+      "basis": "static module/alias reference; may occur in docs/types"
+    },
+    {
+      "source": "lib/vibe_guru/cli.ex",
+      "target": "lib/vibe_guru/cli/run.ex",
+      "relation": "references_module",
+      "basis": "static module/alias reference; may occur in docs/types"
+    },
+    {
+      "source": "lib/vibe_guru/cli/auth.ex",
+      "target": "lib/vibe_guru/auth.ex",
+      "relation": "references_module",
+      "basis": "static module/alias reference; may occur in docs/types"
+    },
+    {
+      "source": "lib/vibe_guru/cli/auth.ex",
+      "target": "lib/vibe_guru/cli/presenter.ex",
+      "relation": "references_module",
+      "basis": "static module/alias reference; may occur in docs/types"
+    },
+    {
+      "source": "lib/vibe_guru/cli/auth.ex",
+      "target": "lib/vibe_guru/config.ex",
+      "relation": "references_module",
+      "basis": "static module/alias reference; may occur in docs/types"
+    },
+    {
+      "source": "lib/vibe_guru/cli/auth.ex",
+      "target": "lib/vibe_guru/dev_server.ex",
+      "relation": "references_module",
+      "basis": "static module/alias reference; may occur in docs/types"
+    },
+    {
+      "source": "lib/vibe_guru/cli/init.ex",
+      "target": "lib/vibe_guru/cli/presenter.ex",
+      "relation": "references_module",
+      "basis": "static module/alias reference; may occur in docs/types"
+    },
+    {
+      "source": "lib/vibe_guru/cli/init.ex",
+      "target": "lib/vibe_guru/config.ex",
+      "relation": "references_module",
+      "basis": "static module/alias reference; may occur in docs/types"
+    },
+    {
+      "source": "lib/vibe_guru/cli/init.ex",
+      "target": "lib/vibe_guru/project.ex",
+      "relation": "references_module",
+      "basis": "static module/alias reference; may occur in docs/types"
+    },
+    {
+      "source": "lib/vibe_guru/cli/presenter.ex",
+      "target": "lib/vibe_guru/config.ex",
+      "relation": "references_module",
+      "basis": "static module/alias reference; may occur in docs/types"
+    },
+    {
+      "source": "lib/vibe_guru/cli/presenter.ex",
+      "target": "lib/vibe_guru/coverage.ex",
+      "relation": "references_module",
+      "basis": "static module/alias reference; may occur in docs/types"
+    },
+    {
+      "source": "lib/vibe_guru/cli/presenter.ex",
+      "target": "lib/vibe_guru/finding.ex",
+      "relation": "references_module",
+      "basis": "static module/alias reference; may occur in docs/types"
+    },
+    {
+      "source": "lib/vibe_guru/cli/presenter.ex",
+      "target": "lib/vibe_guru/project.ex",
+      "relation": "references_module",
+      "basis": "static module/alias reference; may occur in docs/types"
+    },
+    {
+      "source": "lib/vibe_guru/cli/presenter.ex",
+      "target": "lib/vibe_guru/result.ex",
+      "relation": "references_module",
+      "basis": "static module/alias reference; may occur in docs/types"
+    },
+    {
+      "source": "lib/vibe_guru/cli/run.ex",
+      "target": "lib/vibe_guru/auth.ex",
+      "relation": "references_module",
+      "basis": "static module/alias reference; may occur in docs/types"
+    },
+    {
+      "source": "lib/vibe_guru/cli/run.ex",
+      "target": "lib/vibe_guru/cli/presenter.ex",
+      "relation": "references_module",
+      "basis": "static module/alias reference; may occur in docs/types"
+    },
+    {
+      "source": "lib/vibe_guru/cli/run.ex",
+      "target": "lib/vibe_guru/config.ex",
+      "relation": "references_module",
+      "basis": "static module/alias reference; may occur in docs/types"
+    },
+    {
+      "source": "lib/vibe_guru/cli/run.ex",
+      "target": "lib/vibe_guru/dev_server.ex",
+      "relation": "references_module",
+      "basis": "static module/alias reference; may occur in docs/types"
+    },
+    {
+      "source": "lib/vibe_guru/cli/run.ex",
+      "target": "lib/vibe_guru/pipeline.ex",
+      "relation": "references_module",
+      "basis": "static module/alias reference; may occur in docs/types"
+    },
+    {
+      "source": "lib/vibe_guru/cli/run.ex",
+      "target": "lib/vibe_guru/result.ex",
+      "relation": "references_module",
+      "basis": "static module/alias reference; may occur in docs/types"
+    },
+    {
+      "source": "lib/vibe_guru/config.ex",
+      "target": "lib/vibe_guru/pipeline.ex",
+      "relation": "references_module",
+      "basis": "static module/alias reference; may occur in docs/types"
+    },
+    {
+      "source": "lib/vibe_guru/coverage.ex",
+      "target": "lib/vibe_guru/evidence.ex",
+      "relation": "references_module",
+      "basis": "static module/alias reference; may occur in docs/types"
+    },
+    {
+      "source": "lib/vibe_guru/detector.ex",
+      "target": "lib/vibe_guru/stack_profile.ex",
+      "relation": "references_module",
+      "basis": "static module/alias reference; may occur in docs/types"
+    },
+    {
+      "source": "lib/vibe_guru/detector/frontend.ex",
+      "target": "lib/vibe_guru/detector/stack.ex",
+      "relation": "references_module",
+      "basis": "static module/alias reference; may occur in docs/types"
+    },
+    {
+      "source": "lib/vibe_guru/detector/routes.ex",
+      "target": "lib/vibe_guru/detector.ex",
+      "relation": "references_module",
+      "basis": "static module/alias reference; may occur in docs/types"
+    },
+    {
+      "source": "lib/vibe_guru/investigation.ex",
+      "target": "lib/vibe_guru/evidence.ex",
+      "relation": "references_module",
+      "basis": "static module/alias reference; may occur in docs/types"
+    },
+    {
+      "source": "lib/vibe_guru/investigation.ex",
+      "target": "lib/vibe_guru/finding.ex",
+      "relation": "references_module",
+      "basis": "static module/alias reference; may occur in docs/types"
+    },
+    {
+      "source": "lib/vibe_guru/investigation.ex",
+      "target": "lib/vibe_guru/investigation/policy/rules.ex",
+      "relation": "references_module",
+      "basis": "static module/alias reference; may occur in docs/types"
+    },
+    {
+      "source": "lib/vibe_guru/investigation.ex",
+      "target": "lib/vibe_guru/investigation/state.ex",
+      "relation": "references_module",
+      "basis": "static module/alias reference; may occur in docs/types"
+    },
+    {
+      "source": "lib/vibe_guru/investigation/policy.ex",
+      "target": "lib/vibe_guru/investigation/state.ex",
+      "relation": "references_module",
+      "basis": "static module/alias reference; may occur in docs/types"
+    },
+    {
+      "source": "lib/vibe_guru/investigation/policy/rules.ex",
+      "target": "lib/vibe_guru/investigation/policy.ex",
+      "relation": "references_module",
+      "basis": "static module/alias reference; may occur in docs/types"
+    },
+    {
+      "source": "lib/vibe_guru/investigation/policy/rules.ex",
+      "target": "lib/vibe_guru/investigation/state.ex",
+      "relation": "references_module",
+      "basis": "static module/alias reference; may occur in docs/types"
+    },
+    {
+      "source": "lib/vibe_guru/investigation/probes.ex",
+      "target": "lib/vibe_guru/probes/heap/snapshot.ex",
+      "relation": "references_module",
+      "basis": "static module/alias reference; may occur in docs/types"
+    },
+    {
+      "source": "lib/vibe_guru/investigation/probes.ex",
+      "target": "lib/vibe_guru/stack_profile.ex",
+      "relation": "references_module",
+      "basis": "static module/alias reference; may occur in docs/types"
+    },
+    {
+      "source": "lib/vibe_guru/investigation/state.ex",
+      "target": "lib/vibe_guru/finding.ex",
+      "relation": "references_module",
+      "basis": "static module/alias reference; may occur in docs/types"
+    },
+    {
+      "source": "lib/vibe_guru/pipeline.ex",
+      "target": "lib/vibe_guru/analyzers/census.ex",
+      "relation": "references_module",
+      "basis": "static module/alias reference; may occur in docs/types"
+    },
+    {
+      "source": "lib/vibe_guru/pipeline.ex",
+      "target": "lib/vibe_guru/analyzers/journey.ex",
+      "relation": "references_module",
+      "basis": "static module/alias reference; may occur in docs/types"
+    },
+    {
+      "source": "lib/vibe_guru/pipeline.ex",
+      "target": "lib/vibe_guru/analyzers/memory.ex",
+      "relation": "references_module",
+      "basis": "static module/alias reference; may occur in docs/types"
+    },
+    {
+      "source": "lib/vibe_guru/pipeline.ex",
+      "target": "lib/vibe_guru/analyzers/runtime.ex",
+      "relation": "references_module",
+      "basis": "static module/alias reference; may occur in docs/types"
+    },
+    {
+      "source": "lib/vibe_guru/pipeline.ex",
+      "target": "lib/vibe_guru/census_targets.ex",
+      "relation": "references_module",
+      "basis": "static module/alias reference; may occur in docs/types"
+    },
+    {
+      "source": "lib/vibe_guru/pipeline.ex",
+      "target": "lib/vibe_guru/coverage.ex",
+      "relation": "references_module",
+      "basis": "static module/alias reference; may occur in docs/types"
+    },
+    {
+      "source": "lib/vibe_guru/pipeline.ex",
+      "target": "lib/vibe_guru/detector.ex",
+      "relation": "references_module",
+      "basis": "static module/alias reference; may occur in docs/types"
+    },
+    {
+      "source": "lib/vibe_guru/pipeline.ex",
+      "target": "lib/vibe_guru/finding.ex",
+      "relation": "references_module",
+      "basis": "static module/alias reference; may occur in docs/types"
+    },
+    {
+      "source": "lib/vibe_guru/pipeline.ex",
+      "target": "lib/vibe_guru/probes/memory/client.ex",
+      "relation": "references_module",
+      "basis": "static module/alias reference; may occur in docs/types"
+    },
+    {
+      "source": "lib/vibe_guru/pipeline.ex",
+      "target": "lib/vibe_guru/reporter.ex",
+      "relation": "references_module",
+      "basis": "static module/alias reference; may occur in docs/types"
+    },
+    {
+      "source": "lib/vibe_guru/pipeline.ex",
+      "target": "lib/vibe_guru/result.ex",
+      "relation": "references_module",
+      "basis": "static module/alias reference; may occur in docs/types"
+    },
+    {
+      "source": "lib/vibe_guru/probe.ex",
+      "target": "lib/vibe_guru/evidence.ex",
+      "relation": "references_module",
+      "basis": "static module/alias reference; may occur in docs/types"
+    },
+    {
+      "source": "lib/vibe_guru/probe.ex",
+      "target": "lib/vibe_guru/stack_profile.ex",
+      "relation": "references_module",
+      "basis": "static module/alias reference; may occur in docs/types"
+    },
+    {
+      "source": "lib/vibe_guru/probes/heap/snapshot.ex",
+      "target": "lib/vibe_guru/driver.ex",
+      "relation": "references_module",
+      "basis": "static module/alias reference; may occur in docs/types"
+    },
+    {
+      "source": "lib/vibe_guru/probes/heap/snapshot.ex",
+      "target": "lib/vibe_guru/stack_profile.ex",
+      "relation": "references_module",
+      "basis": "static module/alias reference; may occur in docs/types"
+    },
+    {
+      "source": "lib/vibe_guru/probes/memory/client.ex",
+      "target": "lib/vibe_guru/driver.ex",
+      "relation": "references_module",
+      "basis": "static module/alias reference; may occur in docs/types"
+    },
+    {
+      "source": "lib/vibe_guru/probes/memory/client.ex",
+      "target": "lib/vibe_guru/evidence.ex",
+      "relation": "references_module",
+      "basis": "static module/alias reference; may occur in docs/types"
+    },
+    {
+      "source": "lib/vibe_guru/probes/memory/client.ex",
+      "target": "lib/vibe_guru/probe.ex",
+      "relation": "references_module",
+      "basis": "static module/alias reference; may occur in docs/types"
+    },
+    {
+      "source": "lib/vibe_guru/project.ex",
+      "target": "lib/vibe_guru/detector.ex",
+      "relation": "references_module",
+      "basis": "static module/alias reference; may occur in docs/types"
+    },
+    {
+      "source": "lib/vibe_guru/project.ex",
+      "target": "lib/vibe_guru/detector/stack.ex",
+      "relation": "references_module",
+      "basis": "static module/alias reference; may occur in docs/types"
+    },
+    {
+      "source": "lib/vibe_guru/reporter.ex",
+      "target": "lib/vibe_guru/finding.ex",
+      "relation": "references_module",
+      "basis": "static module/alias reference; may occur in docs/types"
+    },
+    {
+      "source": "lib/vibe_guru/reporter.ex",
+      "target": "lib/vibe_guru/reporters/json.ex",
+      "relation": "references_module",
+      "basis": "static module/alias reference; may occur in docs/types"
+    },
+    {
+      "source": "lib/vibe_guru/reporter.ex",
+      "target": "lib/vibe_guru/reporters/markdown.ex",
+      "relation": "references_module",
+      "basis": "static module/alias reference; may occur in docs/types"
+    },
+    {
+      "source": "lib/vibe_guru/reporters/html.ex",
+      "target": "lib/vibe_guru/reporter.ex",
+      "relation": "references_module",
+      "basis": "static module/alias reference; may occur in docs/types"
+    },
+    {
+      "source": "lib/vibe_guru/reporters/html.ex",
+      "target": "lib/vibe_guru/reporters/json.ex",
+      "relation": "references_module",
+      "basis": "static module/alias reference; may occur in docs/types"
+    },
+    {
+      "source": "lib/vibe_guru/reporters/html.ex",
+      "target": "lib/vibe_guru/result.ex",
+      "relation": "references_module",
+      "basis": "static module/alias reference; may occur in docs/types"
+    },
+    {
+      "source": "lib/vibe_guru/reporters/json.ex",
+      "target": "lib/vibe_guru/coverage.ex",
+      "relation": "references_module",
+      "basis": "static module/alias reference; may occur in docs/types"
+    },
+    {
+      "source": "lib/vibe_guru/reporters/json.ex",
+      "target": "lib/vibe_guru/finding.ex",
+      "relation": "references_module",
+      "basis": "static module/alias reference; may occur in docs/types"
+    },
+    {
+      "source": "lib/vibe_guru/reporters/json.ex",
+      "target": "lib/vibe_guru/reporter.ex",
+      "relation": "references_module",
+      "basis": "static module/alias reference; may occur in docs/types"
+    },
+    {
+      "source": "lib/vibe_guru/reporters/json.ex",
+      "target": "lib/vibe_guru/result.ex",
+      "relation": "references_module",
+      "basis": "static module/alias reference; may occur in docs/types"
+    },
+    {
+      "source": "lib/vibe_guru/reporters/json.ex",
+      "target": "lib/vibe_guru/stack_profile.ex",
+      "relation": "references_module",
+      "basis": "static module/alias reference; may occur in docs/types"
+    },
+    {
+      "source": "lib/vibe_guru/reporters/markdown.ex",
+      "target": "lib/vibe_guru/coverage.ex",
+      "relation": "references_module",
+      "basis": "static module/alias reference; may occur in docs/types"
+    },
+    {
+      "source": "lib/vibe_guru/reporters/markdown.ex",
+      "target": "lib/vibe_guru/reporter.ex",
+      "relation": "references_module",
+      "basis": "static module/alias reference; may occur in docs/types"
+    },
+    {
+      "source": "lib/vibe_guru/reporters/markdown.ex",
+      "target": "lib/vibe_guru/result.ex",
+      "relation": "references_module",
+      "basis": "static module/alias reference; may occur in docs/types"
+    },
+    {
+      "source": "lib/vibe_guru/reporters/markdown.ex",
+      "target": "lib/vibe_guru/stack_profile.ex",
+      "relation": "references_module",
+      "basis": "static module/alias reference; may occur in docs/types"
+    },
+    {
+      "source": "lib/vibe_guru/result.ex",
+      "target": "lib/vibe_guru/evidence.ex",
+      "relation": "references_module",
+      "basis": "static module/alias reference; may occur in docs/types"
+    },
+    {
+      "source": "lib/vibe_guru/stack_profile.ex",
+      "target": "lib/vibe_guru/detector.ex",
+      "relation": "references_module",
+      "basis": "static module/alias reference; may occur in docs/types"
+    },
+    {
+      "source": "local-dashboard",
+      "target": "dashboard/activity.json",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "local-dashboard",
+      "target": "dashboard/app.js",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "local-dashboard",
+      "target": "dashboard/index.html",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "local-dashboard",
+      "target": "dashboard/styles.css",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "local-dashboard",
+      "target": "dashboard/vectors.json",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "local-dashboard",
+      "target": "evaluation",
+      "relation": "displays saved campaign outcomes, vector scope and evidence relationships",
+      "basis": "manually verified architecture"
+    },
+    {
+      "source": "mcp",
+      "target": "elixir-engine",
+      "relation": "spawns CLI and reads findings JSON",
+      "basis": "manually verified architecture"
+    },
+    {
+      "source": "mcp",
+      "target": "mcp/engine.js",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "mcp",
+      "target": "mcp/render.js",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "mcp",
+      "target": "mcp/report.js",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "mcp",
+      "target": "mcp/server.js",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "mcp/engine.js",
+      "target": "mcp/report.js",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "mcp/engine.js",
+      "target": "scripts/lib/launch.js",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "mcp/engine.js",
+      "target": "scripts/lib/platform.js",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "mcp/engine.js",
+      "target": "scripts/lib/setup.js",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "mcp/render.js",
+      "target": "mcp/report.js",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "mcp/server.js",
+      "target": "mcp/engine.js",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "mcp/server.js",
+      "target": "mcp/render.js",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "mcp/server.js",
+      "target": "package.json",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "mcp/server.js",
+      "target": "scripts/lib/telemetry.js",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "mix.exs",
+      "target": "lib/vibe_guru/application.ex",
+      "relation": "references_module",
+      "basis": "static module/alias reference; may occur in docs/types"
+    },
+    {
+      "source": "mix.exs",
+      "target": "lib/vibe_guru/cli.ex",
+      "relation": "references_module",
+      "basis": "static module/alias reference; may occur in docs/types"
+    },
+    {
+      "source": "public-site",
+      "target": "example-reports",
+      "relation": "links to the fixture demonstration report",
+      "basis": "manually verified architecture"
+    },
+    {
+      "source": "public-site",
+      "target": "site/README.md",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "public-site",
+      "target": "site/app.js",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "public-site",
+      "target": "site/enquiry-template.txt",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "public-site",
+      "target": "site/index.html",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "public-site",
+      "target": "site/styles.css",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "root-config",
+      "target": ".formatter.exs",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "root-config",
+      "target": ".gitignore",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "root-config",
+      "target": "LICENSE",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "root-config",
+      "target": "mix.exs",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "root-config",
+      "target": "mix.lock",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "root-config",
+      "target": "package-lock.json",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "root-config",
+      "target": "package.json",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "scripts/adversarial-lab.mjs",
+      "target": "scripts/lib/test-history.mjs",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "scripts/adversarial-reports.mjs",
+      "target": "benchmarks/report-corruption.mjs",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "scripts/adversarial-reports.mjs",
+      "target": "scripts/lib/test-history.mjs",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "scripts/checks.mjs",
+      "target": "scripts/lib/test-history.mjs",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "scripts/dashboard.mjs",
+      "target": "scripts/lib/dashboard-data.mjs",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "scripts/dashboard.mjs",
+      "target": "scripts/lib/test-history.mjs",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "scripts/lab.mjs",
+      "target": "benchmarks/assessment.mjs",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "scripts/lab.mjs",
+      "target": "scripts/lib/lab-ports.mjs",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "scripts/lib/dashboard-data.mjs",
+      "target": "scripts/lib/test-history.mjs",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "scripts/lib/dashboard-data.mjs",
+      "target": "scripts/lib/timing.mjs",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "scripts/lib/doctor.js",
+      "target": "package.json",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "scripts/lib/doctor.js",
+      "target": "scripts/lib/launch.js",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "scripts/lib/doctor.js",
+      "target": "scripts/lib/platform.js",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "scripts/lib/doctor.js",
+      "target": "scripts/lib/setup.js",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "scripts/lib/setup.js",
+      "target": "package.json",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "scripts/lib/setup.js",
+      "target": "scripts/lib/download.js",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "scripts/lib/setup.js",
+      "target": "scripts/lib/platform.js",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "scripts/lib/telemetry-cli.js",
+      "target": "scripts/lib/telemetry.js",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "scripts/lib/telemetry.js",
+      "target": "mcp/report.js",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "scripts/lib/telemetry.js",
+      "target": "package.json",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "scripts/package-smoke.mjs",
+      "target": "scripts/lib/test-history.mjs",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "scripts/postinstall.js",
+      "target": "scripts/lib/setup.js",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "scripts/release-check.mjs",
+      "target": "scripts/lib/setup.js",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "scripts/sample-report.exs",
+      "target": "lib/vibe_guru/reporters/html.ex",
+      "relation": "references_module",
+      "basis": "static module/alias reference; may occur in docs/types"
+    },
+    {
+      "source": "scripts/test-node.mjs",
+      "target": "scripts/lib/test-history.mjs",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "test-app/conflict-workbench/app.js",
+      "target": "test-app/conflict-workbench/model.mjs",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "test-app/conflict-workbench/server.mjs",
+      "target": "test-app/conflict-workbench/model.mjs",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "test-app/src/App.jsx",
+      "target": "test-app/src/pages/BadFetch.jsx",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "test-app/src/App.jsx",
+      "target": "test-app/src/pages/Charts.jsx",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "test-app/src/App.jsx",
+      "target": "test-app/src/pages/Clean.jsx",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "test-app/src/App.jsx",
+      "target": "test-app/src/pages/Crash.jsx",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "test-app/src/App.jsx",
+      "target": "test-app/src/pages/Detached.jsx",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "test-app/src/App.jsx",
+      "target": "test-app/src/pages/Grow.jsx",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "test-app/src/App.jsx",
+      "target": "test-app/src/pages/Home.jsx",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "test-app/src/App.jsx",
+      "target": "test-app/src/pages/Listeners.jsx",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "test-app/src/App.jsx",
+      "target": "test-app/src/pages/LogError.jsx",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "test-app/src/App.jsx",
+      "target": "test-app/src/pages/Login.jsx",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "test-app/src/App.jsx",
+      "target": "test-app/src/pages/Observers.jsx",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "test-app/src/App.jsx",
+      "target": "test-app/src/pages/Protected.jsx",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "test-app/src/App.jsx",
+      "target": "test-app/src/pages/RenderLoop.jsx",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "test-app/src/main.jsx",
+      "target": "test-app/src/App.jsx",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "test-node/adversarial.test.js",
+      "target": "benchmarks/report-corruption.mjs",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "test-node/adversarial.test.js",
+      "target": "driver-node/lib/flow.js",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "test-node/adversarial.test.js",
+      "target": "mcp/report.js",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "test-node/adversarial.test.js",
+      "target": "test-app/async-workbench/server.mjs",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "test-node/adversarial.test.js",
+      "target": "test-node/helpers/valid-report.js",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "test-node/campaign.test.js",
+      "target": "benchmarks/assessment.mjs",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "test-node/campaign.test.js",
+      "target": "mcp/report.js",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "test-node/campaign.test.js",
+      "target": "test-node/helpers/valid-report.js",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "test-node/conflicting-writes.test.js",
+      "target": "benchmarks/lab/conflicting-writes.mjs",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "test-node/conflicting-writes.test.js",
+      "target": "test-app/conflict-workbench/model.mjs",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "test-node/conflicting-writes.test.js",
+      "target": "test-app/conflict-workbench/server.mjs",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "test-node/crawl.test.js",
+      "target": "driver-node/lib/crawl.js",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "test-node/crawl.test.js",
+      "target": "test-node/helpers/fake-page.js",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "test-node/dashboard.test.js",
+      "target": "scripts/dashboard.mjs",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "test-node/dashboard.test.js",
+      "target": "scripts/lib/dashboard-data.mjs",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "test-node/dashboard.test.js",
+      "target": "scripts/lib/test-history.mjs",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "test-node/dashboard.test.js",
+      "target": "test-node/helpers/valid-report.js",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "test-node/doctor.test.js",
+      "target": "scripts/lib/doctor.js",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "test-node/engine-security.test.js",
+      "target": "mcp/engine.js",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "test-node/flow.test.js",
+      "target": "driver-node/lib/flow.js",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "test-node/installation.test.js",
+      "target": "scripts/lib/download.js",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "test-node/installation.test.js",
+      "target": "scripts/lib/launch.js",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "test-node/installation.test.js",
+      "target": "scripts/lib/setup.js",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "test-node/lab-ports.test.js",
+      "target": "scripts/lib/lab-ports.mjs",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "test-node/reconnect.test.js",
+      "target": "benchmarks/assessment.mjs",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "test-node/reconnect.test.js",
+      "target": "benchmarks/desktop/multiplayer-reconnect.mjs",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "test-node/reconnect.test.js",
+      "target": "mcp/report.js",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "test-node/reconnect.test.js",
+      "target": "test-node/helpers/valid-report.js",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "test-node/render.test.js",
+      "target": "mcp/render.js",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "test-node/render.test.js",
+      "target": "test-node/fixtures/findings.json",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "test-node/render.test.js",
+      "target": "test-node/helpers/valid-report.js",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "test-node/response-order.test.js",
+      "target": "benchmarks/response-order.mjs",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "test-node/sampler.test.js",
+      "target": "driver-node/lib/sampler.js",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "test-node/sampler.test.js",
+      "target": "test-node/helpers/fake-page.js",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "test-node/server.test.js",
+      "target": "package.json",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "test-node/snapshot-run.test.js",
+      "target": "driver-node/lib/snapshot-run.js",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "test-node/snapshot.test.js",
+      "target": "driver-node/lib/snapshot.js",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "test-node/storage-resilience.test.js",
+      "target": "benchmarks/lab/storage-resilience.mjs",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "test-node/storage-resilience.test.js",
+      "target": "driver-node/lib/flow.js",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "test-node/storage-resilience.test.js",
+      "target": "test-app/storage-workbench/server.mjs",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "test-node/telemetry.test.js",
+      "target": "scripts/lib/telemetry-cli.js",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "test-node/telemetry.test.js",
+      "target": "scripts/lib/telemetry.js",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "test-node/telemetry.test.js",
+      "target": "test-node/helpers/valid-report.js",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "test-node/timing.test.js",
+      "target": "scripts/lib/timing.mjs",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "test-node/validity.test.js",
+      "target": "driver-node/lib/observer.js",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "test-node/validity.test.js",
+      "target": "mcp/render.js",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "test-node/validity.test.js",
+      "target": "mcp/report.js",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "test-node/validity.test.js",
+      "target": "test-node/helpers/valid-report.js",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "test-node/write-integrity.test.js",
+      "target": "benchmarks/lab/write-integrity.mjs",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "test-node/write-integrity.test.js",
+      "target": "test-app/write-integrity/server.mjs",
+      "relation": "imports",
+      "basis": "literal import/require"
+    },
+    {
+      "source": "test/test_helper.exs",
+      "target": "test/support/dashboard_formatter.ex",
+      "relation": "references_module",
+      "basis": "static module/alias reference; may occur in docs/types"
+    },
+    {
+      "source": "test/vibe_guru/analyzers/census_test.exs",
+      "target": "lib/vibe_guru/analyzers/census.ex",
+      "relation": "references_module",
+      "basis": "static module/alias reference; may occur in docs/types"
+    },
+    {
+      "source": "test/vibe_guru/analyzers/census_test.exs",
+      "target": "lib/vibe_guru/evidence.ex",
+      "relation": "references_module",
+      "basis": "static module/alias reference; may occur in docs/types"
+    },
+    {
+      "source": "test/vibe_guru/analyzers/census_test.exs",
+      "target": "lib/vibe_guru/finding.ex",
+      "relation": "references_module",
+      "basis": "static module/alias reference; may occur in docs/types"
+    },
+    {
+      "source": "test/vibe_guru/analyzers/journey_test.exs",
+      "target": "lib/vibe_guru/analyzers/journey.ex",
+      "relation": "references_module",
+      "basis": "static module/alias reference; may occur in docs/types"
+    },
+    {
+      "source": "test/vibe_guru/analyzers/journey_test.exs",
+      "target": "lib/vibe_guru/evidence.ex",
+      "relation": "references_module",
+      "basis": "static module/alias reference; may occur in docs/types"
+    },
+    {
+      "source": "test/vibe_guru/analyzers/memory_test.exs",
+      "target": "lib/vibe_guru/analyzers/memory.ex",
+      "relation": "references_module",
+      "basis": "static module/alias reference; may occur in docs/types"
+    },
+    {
+      "source": "test/vibe_guru/analyzers/memory_test.exs",
+      "target": "lib/vibe_guru/evidence.ex",
+      "relation": "references_module",
+      "basis": "static module/alias reference; may occur in docs/types"
+    },
+    {
+      "source": "test/vibe_guru/analyzers/runtime_test.exs",
+      "target": "lib/vibe_guru/analyzers/runtime.ex",
+      "relation": "references_module",
+      "basis": "static module/alias reference; may occur in docs/types"
+    },
+    {
+      "source": "test/vibe_guru/analyzers/runtime_test.exs",
+      "target": "lib/vibe_guru/evidence.ex",
+      "relation": "references_module",
+      "basis": "static module/alias reference; may occur in docs/types"
+    },
+    {
+      "source": "test/vibe_guru/analyzers/runtime_test.exs",
+      "target": "lib/vibe_guru/finding.ex",
+      "relation": "references_module",
+      "basis": "static module/alias reference; may occur in docs/types"
+    },
+    {
+      "source": "test/vibe_guru/auth_test.exs",
+      "target": "lib/vibe_guru/auth.ex",
+      "relation": "references_module",
+      "basis": "static module/alias reference; may occur in docs/types"
+    },
+    {
+      "source": "test/vibe_guru/census_targets_test.exs",
+      "target": "lib/vibe_guru/census_targets.ex",
+      "relation": "references_module",
+      "basis": "static module/alias reference; may occur in docs/types"
+    },
+    {
+      "source": "test/vibe_guru/census_targets_test.exs",
+      "target": "lib/vibe_guru/stack_profile.ex",
+      "relation": "references_module",
+      "basis": "static module/alias reference; may occur in docs/types"
+    },
+    {
+      "source": "test/vibe_guru/coverage_test.exs",
+      "target": "lib/vibe_guru/coverage.ex",
+      "relation": "references_module",
+      "basis": "static module/alias reference; may occur in docs/types"
+    },
+    {
+      "source": "test/vibe_guru/coverage_test.exs",
+      "target": "lib/vibe_guru/evidence.ex",
+      "relation": "references_module",
+      "basis": "static module/alias reference; may occur in docs/types"
+    },
+    {
+      "source": "test/vibe_guru/dashboard_formatter_test.exs",
+      "target": "test/support/dashboard_formatter.ex",
+      "relation": "references_module",
+      "basis": "static module/alias reference; may occur in docs/types"
+    },
+    {
+      "source": "test/vibe_guru/detector/routes_test.exs",
+      "target": "lib/vibe_guru/detector/routes.ex",
+      "relation": "references_module",
+      "basis": "static module/alias reference; may occur in docs/types"
+    },
+    {
+      "source": "test/vibe_guru/driver_security_test.exs",
+      "target": "lib/vibe_guru/driver.ex",
+      "relation": "references_module",
+      "basis": "static module/alias reference; may occur in docs/types"
+    },
+    {
+      "source": "test/vibe_guru/finding_test.exs",
+      "target": "lib/vibe_guru/finding.ex",
+      "relation": "references_module",
+      "basis": "static module/alias reference; may occur in docs/types"
+    },
+    {
+      "source": "test/vibe_guru/investigation/investigation_test.exs",
+      "target": "lib/vibe_guru/evidence.ex",
+      "relation": "references_module",
+      "basis": "static module/alias reference; may occur in docs/types"
+    },
+    {
+      "source": "test/vibe_guru/investigation/investigation_test.exs",
+      "target": "lib/vibe_guru/finding.ex",
+      "relation": "references_module",
+      "basis": "static module/alias reference; may occur in docs/types"
+    },
+    {
+      "source": "test/vibe_guru/investigation/investigation_test.exs",
+      "target": "lib/vibe_guru/investigation.ex",
+      "relation": "references_module",
+      "basis": "static module/alias reference; may occur in docs/types"
+    },
+    {
+      "source": "test/vibe_guru/investigation/investigation_test.exs",
+      "target": "lib/vibe_guru/investigation/state.ex",
+      "relation": "references_module",
+      "basis": "static module/alias reference; may occur in docs/types"
+    },
+    {
+      "source": "test/vibe_guru/investigation/investigation_test.exs",
+      "target": "lib/vibe_guru/probes/heap/snapshot.ex",
+      "relation": "references_module",
+      "basis": "static module/alias reference; may occur in docs/types"
+    },
+    {
+      "source": "test/vibe_guru/investigation/rules_test.exs",
+      "target": "lib/vibe_guru/finding.ex",
+      "relation": "references_module",
+      "basis": "static module/alias reference; may occur in docs/types"
+    },
+    {
+      "source": "test/vibe_guru/investigation/rules_test.exs",
+      "target": "lib/vibe_guru/investigation/policy/rules.ex",
+      "relation": "references_module",
+      "basis": "static module/alias reference; may occur in docs/types"
+    },
+    {
+      "source": "test/vibe_guru/investigation/rules_test.exs",
+      "target": "lib/vibe_guru/investigation/state.ex",
+      "relation": "references_module",
+      "basis": "static module/alias reference; may occur in docs/types"
+    },
+    {
+      "source": "test/vibe_guru/pipeline_test.exs",
+      "target": "lib/vibe_guru/config.ex",
+      "relation": "references_module",
+      "basis": "static module/alias reference; may occur in docs/types"
+    },
+    {
+      "source": "test/vibe_guru/pipeline_test.exs",
+      "target": "lib/vibe_guru/driver.ex",
+      "relation": "references_module",
+      "basis": "static module/alias reference; may occur in docs/types"
+    },
+    {
+      "source": "test/vibe_guru/pipeline_test.exs",
+      "target": "lib/vibe_guru/pipeline.ex",
+      "relation": "references_module",
+      "basis": "static module/alias reference; may occur in docs/types"
+    },
+    {
+      "source": "test/vibe_guru/pipeline_test.exs",
+      "target": "lib/vibe_guru/reporters/json.ex",
+      "relation": "references_module",
+      "basis": "static module/alias reference; may occur in docs/types"
+    },
+    {
+      "source": "test/vibe_guru/pipeline_test.exs",
+      "target": "lib/vibe_guru/result.ex",
+      "relation": "references_module",
+      "basis": "static module/alias reference; may occur in docs/types"
+    },
+    {
+      "source": "test/vibe_guru/probes/heap_snapshot_test.exs",
+      "target": "lib/vibe_guru/investigation/probes.ex",
+      "relation": "references_module",
+      "basis": "static module/alias reference; may occur in docs/types"
+    },
+    {
+      "source": "test/vibe_guru/probes/heap_snapshot_test.exs",
+      "target": "lib/vibe_guru/probes/heap/snapshot.ex",
+      "relation": "references_module",
+      "basis": "static module/alias reference; may occur in docs/types"
+    },
+    {
+      "source": "test/vibe_guru/probes/heap_snapshot_test.exs",
+      "target": "lib/vibe_guru/stack_profile.ex",
+      "relation": "references_module",
+      "basis": "static module/alias reference; may occur in docs/types"
+    },
+    {
+      "source": "tests",
+      "target": "browser-driver",
+      "relation": "validates crawl/sampler/snapshot",
+      "basis": "manually verified architecture"
+    },
+    {
+      "source": "tests",
+      "target": "elixir-engine",
+      "relation": "validates",
+      "basis": "manually verified architecture"
+    },
+    {
+      "source": "tests",
+      "target": "investigation",
+      "relation": "validates with synthetic probe results",
+      "basis": "manually verified architecture"
+    },
+    {
+      "source": "tests",
+      "target": "local-dashboard",
+      "relation": "validates collectors, event refresh, test recording and report access",
+      "basis": "manually verified architecture"
+    },
+    {
+      "source": "tests",
+      "target": "mcp",
+      "relation": "validates rendering and real stdio protocol",
+      "basis": "manually verified architecture"
+    },
+    {
+      "source": "tests",
+      "target": "test-node/adversarial.test.js",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "tests",
+      "target": "test-node/campaign.test.js",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "tests",
+      "target": "test-node/conflicting-writes.test.js",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "tests",
+      "target": "test-node/crawl.test.js",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "tests",
+      "target": "test-node/dashboard.test.js",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "tests",
+      "target": "test-node/doctor.test.js",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "tests",
+      "target": "test-node/engine-security.test.js",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "tests",
+      "target": "test-node/fixtures/findings.json",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "tests",
+      "target": "test-node/flow.test.js",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "tests",
+      "target": "test-node/helpers/fake-page.js",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "tests",
+      "target": "test-node/helpers/valid-report.js",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "tests",
+      "target": "test-node/installation.test.js",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "tests",
+      "target": "test-node/lab-ports.test.js",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "tests",
+      "target": "test-node/reconnect.test.js",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "tests",
+      "target": "test-node/render.test.js",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "tests",
+      "target": "test-node/response-order.test.js",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "tests",
+      "target": "test-node/sampler.test.js",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "tests",
+      "target": "test-node/server.test.js",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "tests",
+      "target": "test-node/snapshot-run.test.js",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "tests",
+      "target": "test-node/snapshot.test.js",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "tests",
+      "target": "test-node/storage-resilience.test.js",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "tests",
+      "target": "test-node/telemetry.test.js",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "tests",
+      "target": "test-node/timing.test.js",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "tests",
+      "target": "test-node/validity.test.js",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "tests",
+      "target": "test-node/write-integrity.test.js",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "tests",
+      "target": "test/fixtures/security-driver.cjs",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "tests",
+      "target": "test/fixtures/valid-driver.cjs",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "tests",
+      "target": "test/support/dashboard_formatter.ex",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "tests",
+      "target": "test/test_helper.exs",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "tests",
+      "target": "test/vibe_guru/analyzers/census_test.exs",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "tests",
+      "target": "test/vibe_guru/analyzers/journey_test.exs",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "tests",
+      "target": "test/vibe_guru/analyzers/memory_test.exs",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "tests",
+      "target": "test/vibe_guru/analyzers/runtime_test.exs",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "tests",
+      "target": "test/vibe_guru/auth_test.exs",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "tests",
+      "target": "test/vibe_guru/census_targets_test.exs",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "tests",
+      "target": "test/vibe_guru/coverage_test.exs",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "tests",
+      "target": "test/vibe_guru/dashboard_formatter_test.exs",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "tests",
+      "target": "test/vibe_guru/detector/routes_test.exs",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "tests",
+      "target": "test/vibe_guru/driver_security_test.exs",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "tests",
+      "target": "test/vibe_guru/finding_test.exs",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "tests",
+      "target": "test/vibe_guru/investigation/investigation_test.exs",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "tests",
+      "target": "test/vibe_guru/investigation/rules_test.exs",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "tests",
+      "target": "test/vibe_guru/pipeline_test.exs",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "tests",
+      "target": "test/vibe_guru/probes/heap_snapshot_test.exs",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "tests",
+      "target": "test/vibe_guru_test.exs",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "tooling-distribution",
+      "target": "bin/vibeguru.js",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "tooling-distribution",
+      "target": "elixir-engine",
+      "relation": "launches packaged binary",
+      "basis": "manually verified architecture"
+    },
+    {
+      "source": "tooling-distribution",
+      "target": "local-dashboard",
+      "relation": "serves localhost dashboard and discovers current test artifacts",
+      "basis": "manually verified architecture"
+    },
+    {
+      "source": "tooling-distribution",
+      "target": "mcp",
+      "relation": "intercepts mcp command",
+      "basis": "manually verified architecture"
+    },
+    {
+      "source": "tooling-distribution",
+      "target": "scripts/adversarial-lab.mjs",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "tooling-distribution",
+      "target": "scripts/adversarial-reports.mjs",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "tooling-distribution",
+      "target": "scripts/checks.mjs",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "tooling-distribution",
+      "target": "scripts/context-map.py",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "tooling-distribution",
+      "target": "scripts/dashboard.mjs",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "tooling-distribution",
+      "target": "scripts/desktop-prepare.py",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "tooling-distribution",
+      "target": "scripts/lab.mjs",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "tooling-distribution",
+      "target": "scripts/lib/dashboard-data.mjs",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "tooling-distribution",
+      "target": "scripts/lib/doctor.js",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "tooling-distribution",
+      "target": "scripts/lib/download.js",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "tooling-distribution",
+      "target": "scripts/lib/lab-ports.mjs",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "tooling-distribution",
+      "target": "scripts/lib/launch.js",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "tooling-distribution",
+      "target": "scripts/lib/platform.js",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "tooling-distribution",
+      "target": "scripts/lib/setup.js",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "tooling-distribution",
+      "target": "scripts/lib/telemetry-cli.js",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "tooling-distribution",
+      "target": "scripts/lib/telemetry.js",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "tooling-distribution",
+      "target": "scripts/lib/test-history.mjs",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "tooling-distribution",
+      "target": "scripts/lib/timing.mjs",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "tooling-distribution",
+      "target": "scripts/package-smoke.mjs",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "tooling-distribution",
+      "target": "scripts/postinstall.js",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "tooling-distribution",
+      "target": "scripts/release-check.mjs",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "tooling-distribution",
+      "target": "scripts/sample-report.exs",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "tooling-distribution",
+      "target": "scripts/test-node.mjs",
+      "relation": "contains",
+      "basis": "path"
+    },
+    {
+      "source": "tooling-distribution",
+      "target": "scripts/verify-fixtures.mjs",
+      "relation": "contains",
+      "basis": "path"
+    }
+  ]
+}

@@ -1,21 +1,8 @@
 defmodule VibeGuru.Investigation.Policy.Rules do
   @moduledoc """
-  The hand-written policy: free, instant, and identical on every run.
-
-  Worked example — `/charts`, which produces three findings today that are one bug:
-
-      symptom   route_heap_growth @ /charts, 178.8KB per visit, 4 of 4 visits
-      step 1    census.client   cheapest probe that can settle anything
-                                → MutationObserver +2/visit; Chart not visible
-                                  (module-scoped import, so the census cannot see it)
-      step 2    heap.snapshot   the only probe that reaches module-scoped classes
-                                → 4 retained Chart instances
-      conclude  retained_library_object — chart.destroy() is never called,
-                which explains the heap growth, the listener leak AND the
-                retained MutationObservers
-
-  Three findings, one cause, one fix. That collapse is the whole point of investigating
-  rather than reporting.
+  The hand-written experimental policy: deterministic probe selection and explicitly
+  qualified hypotheses. Constructor hints guide measurement; counts do not establish
+  ownership, a source location, a specific fix, or a common cause for sibling findings.
 
   ## The algorithm
 
@@ -40,32 +27,33 @@ defmodule VibeGuru.Investigation.Policy.Rules do
 
   @cost_order %{"cheap" => 0, "medium" => 1, "expensive" => 2, cheap: 0, medium: 1, expensive: 2}
 
-  # What a settled hypothesis means in words a developer can act on. Library-specific
-  # detail is filled in from `facts` where the detector knows enough to be specific.
+  # A selected hypothesis is still unverified. Library presence informs measurement,
+  # never ownership, source attribution or a specific cleanup change.
   @causes %{
     retained_library_object: %{
-      what: "a library object is retained on every visit",
-      fix: "dispose it in the unmount path"
+      what: "measurements support an object-retention hypothesis; ownership is unverified",
+      fix: "trace retaining references before selecting a cleanup change"
     },
     retained_global_instance: %{
-      what: "a global resource is created on mount and never released",
-      fix: "release it in the effect cleanup"
+      what: "measurements support a retained-resource hypothesis; its lifetime is unverified",
+      fix: "inspect resource ownership and expected lifetime before changing cleanup"
     },
     unreleased_subscription: %{
-      what: "a subscription or listener outlives the component that created it",
-      fix: "unsubscribe in the effect cleanup"
+      what: "measurements support a subscription-retention hypothesis; the owner is unverified",
+      fix: "trace listener or subscription ownership and verify a candidate cleanup change"
     },
     retained_dom_subtree: %{
-      what: "DOM nodes are held after unmount",
-      fix: "drop the references that keep the detached nodes alive"
+      what:
+        "measurements support a DOM-retention hypothesis; retaining references are unverified",
+      fix: "inspect retaining paths and distinguish detached nodes from expected live state"
     },
     unbounded_cache: %{
-      what: "a module-scoped structure grows on every visit and is never cleared",
-      fix: "bound the structure, or clear it when the view unmounts"
+      what: "measurements support a container-growth hypothesis; cache ownership is unverified",
+      fix: "inspect container owners and expected cache bounds before changing behavior"
     },
     runaway_render: %{
-      what: "the component re-renders continuously while mounted",
-      fix: "break the state-update cycle in the effect"
+      what: "measurements support excessive DOM activity; a render cycle is unverified",
+      fix: "profile updates and inspect the state-update cycle before selecting a fix"
     }
   }
 
@@ -99,7 +87,8 @@ defmodule VibeGuru.Investigation.Policy.Rules do
   defp stalled?(%State{history: []}), do: false
 
   defp stalled?(%State{history: history}) do
-    not (history |> List.last() |> Map.get(:changed, false))
+    last = List.last(history)
+    last[:source] != :survey and not Map.get(last, :changed, false)
   end
 
   # --- choosing -----------------------------------------------------------
@@ -178,46 +167,25 @@ defmodule VibeGuru.Investigation.Policy.Rules do
 
     template =
       Map.get(@causes, id, %{
-        what: "an object is retained per visit",
-        fix: "release it on unmount"
+        what: "measurements support a retention hypothesis; ownership is unverified",
+        fix: "collect retaining-path evidence before selecting a cleanup change"
       })
 
     %{
       id: id,
-      what: specific(id, state) || template.what,
+      what: template.what,
       where: state.symptom.route,
-      fix: specific_fix(id, state) || template.fix,
+      location_kind: :observed_route,
+      status: :hypothesis,
+      verified: false,
+      fix: template.fix,
       explains: explains(state),
       because: because
     }
   end
 
-  # Every finding on this route that this cause accounts for, including the symptom that
-  # started the investigation. Reporting one cause instead of three findings is the
-  # difference between a list someone triages and something they can act on.
+  # Co-location does not establish a shared cause. Keep other findings independent.
   defp explains(%State{} = state) do
-    [state.symptom | state.siblings]
-    |> Enum.map(&"#{&1.signature}@#{&1.route}")
-    |> Enum.uniq()
+    [state.symptom.finding_id]
   end
-
-  defp specific(:retained_library_object, state) do
-    case constructor_hint(state) do
-      nil -> nil
-      class -> "a #{class} instance is created on every visit and never released"
-    end
-  end
-
-  defp specific(_, _), do: nil
-
-  defp specific_fix(:retained_library_object, state) do
-    case constructor_hint(state) do
-      "Chart" -> "call chart.destroy() in the effect cleanup"
-      "WebGLRenderer" -> "call renderer.dispose() and lose the WebGL context in the cleanup"
-      "ECharts" -> "call chart.dispose() in the effect cleanup"
-      _ -> nil
-    end
-  end
-
-  defp specific_fix(_, _), do: nil
 end

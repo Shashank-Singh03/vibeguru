@@ -4,7 +4,7 @@ defmodule VibeGuru.CLI.Presenter do
   control flow and the wording/format is consistent in one place.
   """
 
-  alias VibeGuru.{Config, Coverage, Finding}
+  alias VibeGuru.{Config, Coverage, Finding, Result}
 
   @rule String.duplicate("─", 60)
   @severity_order [:critical, :high, :medium, :low, :info]
@@ -66,6 +66,8 @@ This file is equivalent to being logged in — it is gitignored automatically.")
       "Detected: #{profile.stack}/#{profile.bundler || "?"} · router #{profile.router || "?"} · chart libs #{inspect(profile.chart_libs)}"
     )
 
+    IO.puts("\n#{result.verdict} — #{Result.message(result.verdict)}")
+    Enum.each(result.validity_reasons, &IO.puts("  measurement limit: #{&1}"))
     print_findings(findings, coverage)
     print_coverage(coverage)
     print_outputs(out_dir)
@@ -87,7 +89,7 @@ This file is equivalent to being logged in — it is gitignored automatically.")
   @doc "Print a friendly explanation for a failure reason and return a halt code."
   @spec error(term()) :: {:halt, non_neg_integer()}
   def error(reason) do
-    IO.puts(:stderr, "\n✗ #{explain(reason)}")
+    IO.puts(:stderr, "\n✗ ERROR — #{explain(reason)}")
     {:halt, 2}
   end
 
@@ -103,14 +105,16 @@ This file is equivalent to being logged in — it is gitignored automatically.")
   @spec usage() :: {:halt, non_neg_integer()}
   def usage do
     IO.puts("""
-    Vibe Guru — runtime + memory analysis for vibe coders
+    Vibe Guru — scoped runtime and repeated-use checks for React applications
 
     Usage:
       vibeguru init [--root DIR] [--url URL] [--port N]
           Detect the app and write vibeguru.json.
 
       vibeguru run [--root DIR] [--out DIR] [--cycles N] [--routes N] [--flow FILE] [--quiet]
-          Start the app if needed, analyze it, and write CLAUDE.md + reports.
+          Start the app if needed, analyze it, and write JSON, Markdown and HTML reports.
+
+    Exit codes: 0 PASS, 1 FAIL (high/critical), 3 INCONCLUSIVE, 2 ERROR, 64 usage.
 
       vibeguru auth [--root DIR] [--url URL] [--timeout MS]
           Sign in once in a real browser; later runs reuse the session so they can
@@ -125,15 +129,8 @@ This file is equivalent to being logged in — it is gitignored automatically.")
 
   # --- internals ----------------------------------------------------------
 
-  defp print_findings([], coverage) do
-    if Coverage.low?(coverage) do
-      IO.puts("\n⚠ No issues found in the routes that could be exercised — but coverage was low.")
-    else
-      IO.puts(
-        "\n✓ No issues found. Every route returned to baseline after GC and none misbehaved."
-      )
-    end
-  end
+  defp print_findings([], _coverage),
+    do: IO.puts("\nNo findings crossed the configured thresholds.")
 
   defp print_findings(findings, _coverage) do
     IO.puts("\nFound #{length(findings)} issue(s): #{counts(findings)}\n")
@@ -164,6 +161,7 @@ This file is equivalent to being logged in — it is gitignored automatically.")
     IO.puts("  • CLAUDE.md                (hand this to your coding agent)")
     IO.puts("  • vibeguru-report.md       (human-readable)")
     IO.puts("  • vibeguru-findings.json   (machine-readable)")
+    IO.puts("  • vibeguru-report.html     (evidence, trends and comparison)")
   end
 
   defp counts(findings) do
@@ -190,7 +188,8 @@ This file is equivalent to being logged in — it is gitignored automatically.")
   defp explain({:session_write_failed, reason}),
     do: "Could not save the session: #{inspect(reason)}."
 
-  defp explain(:node_not_found), do: "Node.js was not found on PATH. Install Node 18+ and retry."
+  defp explain(:node_not_found), do: "Node.js was not found on PATH. Install Node 20+ and retry."
+  defp explain(:driver_timeout), do: "The browser driver exceeded the total run deadline."
 
   defp explain(:no_target),
     do: "No reachable URL and no dev_command in vibeguru.json. Set one or start your app."

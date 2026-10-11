@@ -1,26 +1,43 @@
 {
   "name": "vibeguru",
-  "version": "0.1.2",
-  "description": "Runtime verification for coding agents. Runs your web app in a real browser and reports what actually breaks \u00e2\u20ac\u201d exceptions, render loops, failed requests, memory leaks \u00e2\u20ac\u201d as deterministic findings. No LLM in the analysis loop.",
+  "version": "0.2.0",
+  "description": "Scoped runtime and repeated-use checks for React applications, with retained evidence and CLI/MCP verdicts.",
   "bin": {
     "vibeguru": "bin/vibeguru.js"
   },
   "type": "commonjs",
   "files": [
     "bin/",
-    "scripts/",
+    "scripts/postinstall.js",
+    "scripts/release-check.mjs",
+    "scripts/lib/doctor.js",
+    "scripts/lib/download.js",
+    "scripts/lib/launch.js",
+    "scripts/lib/platform.js",
+    "scripts/lib/setup.js",
+    "scripts/lib/telemetry.js",
+    "scripts/lib/telemetry-cli.js",
     "mcp/",
     "driver-node/index.js",
     "driver-node/lib/",
-    "driver-node/package.json"
+    "driver-node/package.json",
+    "docs/GETTING_STARTED.md",
+    "docs/TELEMETRY.md"
   ],
   "scripts": {
     "postinstall": "node scripts/postinstall.js",
-    "test": "node scripts/test-node.mjs"
+    "test": "node scripts/test-node.mjs",
+    "check": "node scripts/checks.mjs",
+    "test:elixir": "node scripts/checks.mjs elixir",
+    "dashboard": "node --watch scripts/dashboard.mjs",
+    "lab:adversarial": "node scripts/adversarial-lab.mjs",
+    "test:package": "node scripts/package-smoke.mjs",
+    "release:check": "node scripts/release-check.mjs",
+    "prepublishOnly": "node scripts/release-check.mjs"
   },
   "dependencies": {
-    "@modelcontextprotocol/sdk": "^1.30.0",
-    "playwright": "^1.48.0",
+    "@modelcontextprotocol/sdk": "^1.32.1",
+    "playwright": "1.63.0",
     "zod": "^4.6.1"
   },
   "engines": {

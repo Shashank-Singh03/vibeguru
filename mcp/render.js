@@ -16,6 +16,7 @@ const MAX_HINT = 260;
 const MAX_FINDINGS = 30;
 
 const SEVERITY_ORDER = ["critical", "high", "medium", "low", "info"];
+const { assessReport } = require("./report");
 
 function truncate(text, limit) {
   if (!text) return "";
@@ -63,12 +64,14 @@ function renderFinding(finding) {
 
   const fix = [finding.fix?.summary, finding.fix?.hint].filter(Boolean).join(". ");
   if (fix) lines.push(`  fix    ${truncate(fix, MAX_HINT)}`);
+  if (finding.metrics?.attribution === "observed_route") lines.push("  route  observed here; originating route unverified (may be an earlier view)");
 
   return lines.join("\n");
 }
 
 /** "9 of 10 routes (90%)" — the denominator is the point. */
 function describeCoverage(coverage) {
+  if (coverage.mode === "flow") return `${coverage.flow_completed} of ${coverage.flow_planned} recorded flow cycles completed (${coverage.flow_failures} failed)`;
   const visited = (coverage.visited || []).length;
   const known = coverage.routes_known ?? visited;
   const pct = Math.round((coverage.ratio ?? 1) * 100);
@@ -111,37 +114,38 @@ function coverageGaps(coverage) {
  * reading further: whether the change it just made is safe to call done.
  */
 function renderReport(report, { cycles, wroteReport, outDir } = {}) {
+  const assessment = assessReport(report);
+  if (assessment.verdict === "ERROR") return `ERROR — ${assessment.reasons.join("; ") || "Execution failed."}`;
   const findings = Array.isArray(report.findings) ? report.findings : [];
   const target = describeTarget(report);
 
   const coverage = report.coverage || null;
 
-  if (findings.length === 0) {
+  if (findings.length === 0 && assessment.verdict !== "FAIL") {
     // A pass is only a pass if the run actually saw the app. An agent told "PASS"
     // after three of nineteen routes were reached will report work as verified that
     // was never looked at — so the verdict itself changes, not just a footnote.
-    if (coverage && coverage.low) {
+    if (assessment.verdict === "INCONCLUSIVE") {
       return [
-        `INCONCLUSIVE — no issues found, but only ${describeCoverage(coverage)}.`,
+        `INCONCLUSIVE — required checks were incomplete${target ? ` in ${target}` : ""}.`,
         "",
-        "Nothing was wrong with what could be reached, which is not the same as the app",
-        "being healthy. Treat this as unverified rather than passing.",
+        "The tested scope is unverified. No findings is not the same as the app being healthy.",
+        ...assessment.reasons.map(r => `  limit  ${r}`),
         ...coverageGaps(coverage),
       ].join("\n");
     }
 
     return [
-      `PASS — no issues found${target ? ` in ${target}` : ""}.`,
+      `PASS — No blocking issues detected within the tested scope${target ? ` in ${target}` : ""}.`,
       "",
-      "Every route returned memory to baseline after forced GC, and none threw, logged an",
-      "error, or failed a request while it was exercised.",
+      "Required scoped measurements completed. This does not establish business correctness.",
       ...coverageGaps(coverage),
     ].join("\n");
   }
 
   const shown = findings.slice(0, MAX_FINDINGS);
   const head = [
-    `FAIL — ${findings.length} finding${findings.length === 1 ? "" : "s"} (${severityTally(findings)})${
+    `${assessment.verdict} — ${findings.length} finding${findings.length === 1 ? "" : "s"} (${severityTally(findings)})${
       target ? ` in ${target}` : ""
     }.`,
     cycles ? `Measured over ${cycles} mount/unmount cycles per route.` : "",
@@ -155,9 +159,11 @@ function renderReport(report, { cycles, wroteReport, outDir } = {}) {
     tail.push(`…and ${findings.length - shown.length} more, ordered by severity.`);
   }
   tail.push("Fix the most severe first, then call verify_runtime again to confirm they are gone.");
+  tail.push(...assessment.reasons.map(r => `  limit  ${r}`));
+  if (report.filtered) tail.push(`Filtered view: ${findings.length} shown of ${report.run_findings.length}; verdict covers the full run.`);
   tail.push(...coverageGaps(coverage));
   if (wroteReport && outDir) {
-    tail.push(`Full report written to ${outDir} (CLAUDE.md, vibeguru-report.md, vibeguru-findings.json).`);
+    tail.push(`Full report written to ${outDir} (CLAUDE.md, vibeguru-report.md, vibeguru-report.html, vibeguru-findings.json).`);
   }
 
   return [...head, body, ...tail].join("\n");
@@ -165,6 +171,7 @@ function renderReport(report, { cycles, wroteReport, outDir } = {}) {
 
 /** Filter a report's findings in place-ish, returning a new report object. */
 function filterFindings(report, { severity, route } = {}) {
+  if (!report || !Array.isArray(report.findings)) return report;
   let findings = Array.isArray(report.findings) ? report.findings : [];
 
   if (severity) {
@@ -175,10 +182,10 @@ function filterFindings(report, { severity, route } = {}) {
   }
 
   if (route) {
-    findings = findings.filter((f) => f.location?.route === route);
+    findings = findings.filter((f) => f.location?.route === route || f.metrics?.routes?.split(/,\s*/).includes(route));
   }
 
-  return { ...report, findings };
+  return { ...report, findings, run_findings: report.run_findings || report.findings, filtered: Boolean(severity || route) };
 }
 
 module.exports = { renderReport, renderFinding, filterFindings, SEVERITY_ORDER };

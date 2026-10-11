@@ -92,7 +92,7 @@ defmodule VibeGuru.Analyzers.Runtime do
 
   # --- observed events ----------------------------------------------------
 
-  defp event_finding(%{data: data, context: ctx}, cycles) do
+  defp event_finding(%{data: data, context: ctx, id: evidence_id}, cycles) do
     type = data["type"]
     message = data["message"] || ""
     count = data["count"] || 1
@@ -111,18 +111,26 @@ defmodule VibeGuru.Analyzers.Runtime do
             severity,
             confidence(count, cycles),
             title(signature, route),
-            summary(signature, message, count, routes),
+            summary(signature, message, count, routes) <> attribution_note(data),
             %{
               occurrences: count,
               routes: Enum.join(routes, ", "),
               message: truncate(message),
-              source: data["frame"] || data["url"] || "unknown"
+              source: data["frame"] || data["url"] || "unknown",
+              attribution: data["attribution"] || "legacy_unverified"
             },
             fix_for(signature, data)
           )
+          |> Map.put(:evidence_refs, [evidence_id])
         ]
     end
   end
+
+  defp attribution_note(%{"attribution" => "observed_route"}),
+    do:
+      " Route records where the event was observed; its originating route is unverified and may be an earlier view."
+
+  defp attribution_note(_), do: ""
 
   # An uncaught exception is the white-screen class of failure, so it outranks
   # everything else. 4xx is the app asking for something that isn't there —
@@ -212,26 +220,24 @@ defmodule VibeGuru.Analyzers.Runtime do
 
   defp summary(:uncaught_exception, message, count, routes) do
     "An uncaught exception was thrown #{occurrences(count)} while exercising " <>
-      "#{route_list(routes)}: #{truncate(message)}. Whatever was rendering when it threw " <>
-      "did not finish, so the user sees a blank or partial view."
+      "#{route_list(routes)}: #{truncate(message)}. Reproduce the event and check whether " <>
+      "it interrupts rendering or the agreed user journey."
   end
 
   defp summary(:console_error, message, count, routes) do
     "The app logged an error #{occurrences(count)} on #{route_list(routes)}: " <>
-      "#{truncate(message)}. The page kept running, so this is a defect the app knows " <>
-      "about and swallowed rather than a hard crash."
+      "#{truncate(message)}. Inspect the source and determine the effect on the user journey."
   end
 
   defp summary(:failed_request, message, count, routes) do
     "A network request failed #{occurrences(count)} on #{route_list(routes)}: " <>
-      "#{truncate(message)}. Any view depending on that response renders empty, stale, " <>
-      "or stuck in a loading state."
+      "#{truncate(message)}. Check dependent views and whether the application handles the failure."
   end
 
   defp summary(:http_error, message, count, routes) do
     "The server answered with an error status #{occurrences(count)} on " <>
-      "#{route_list(routes)}: #{truncate(message)}. Either the client is calling the " <>
-      "wrong path or the endpoint does not exist yet."
+      "#{route_list(routes)}: #{truncate(message)}. Check whether the response is expected, " <>
+      "then verify the client path and server behavior."
   end
 
   defp fix_for(:uncaught_exception, data) do

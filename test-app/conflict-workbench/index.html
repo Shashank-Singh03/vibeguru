@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Conflict workbench</title><link rel="stylesheet" href="/styles.css"></head>
+<body><main><header><p>LOCAL RELIABILITY FIXTURE</p><h1>Shared document</h1><p id="identity"></p></header>
+<p id="status" role="status" data-state="loading" data-settled="0" data-last-status="0">Loading document</p>
+<p id="error" role="alert" hidden></p>
+<section><h2>Open isolated document</h2><label for="namespace">Document namespace</label><input id="namespace" maxlength="100">
+<button id="open" type="button">Open document</button></section>
+<section><h2>Local draft</h2><p>Loaded version <strong id="base-version">0</strong></p>
+<form id="document-form"><label for="title">Title</label><input id="title" name="title" maxlength="200" required>
+<label for="note">Note</label><textarea id="note" name="note" maxlength="2000" rows="4"></textarea>
+<p>Pending fields: <span id="pending-fields">none</span></p><div class="actions">
+<button id="save" type="submit">Save document</button><button id="reload" type="button">Reload document</button></div></form>
+<div id="conflict" hidden><h3>Version conflict</h3><p id="conflict-message"></p>
+<button id="reconcile" type="button">Reconcile conflict</button></div></section>
+<section><h2>Latest observed server document</h2><p>Version <strong id="server-version">0</strong></p>
+<dl><dt>Title</dt><dd id="server-title"></dd><dt>Note</dt><dd id="server-note"></dd></dl></section>
+<section><h2>Write receipts</h2><ol id="receipts"></ol></section>
+<footer>Two fields in one in-memory process. Reconciliation preserves distinct local fields; no same-field merge or durable storage guarantee.</footer>
+</main><script type="module" src="/app.js"></script></body></html>

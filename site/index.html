@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="A focused frontend runtime and repeated-use check for React applications. Measured evidence, human review, and one confirmation rerun. Founding pilot: $300 USD.">
+    <meta name="theme-color" content="#112620">
+    <title>Vibe Guru — Check the app beyond the first click</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header">
+      <a class="brand" href="#" aria-label="Vibe Guru home"><span class="brand-mark" aria-hidden="true">vg<span>.</span></span><span>Vibe Guru</span></a>
+      <nav aria-label="Main navigation">
+        <a href="#checks">The check</a>
+        <a href="#pilot">The pilot</a>
+        <a class="nav-cta" href="#enquiry">Prepare a brief <span aria-hidden="true">↗</span></a>
+      </nav>
+    </header>
+
+    <main id="main">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <p class="eyebrow"><span class="status-dot" aria-hidden="true"></span> Frontend runtime &amp; repeated-use checks</p>
+          <h1 id="hero-title">The first click works.<br><em>What about the fiftieth?</em></h1>
+          <p class="hero-description">Before handing over your React app, check the routes and journeys that matter for runtime failures and resources that keep growing with use.</p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="#pilot">Explore the $300 pilot <span aria-hidden="true">↗</span></a>
+            <a class="text-link" href="../examples/sample-report.html">Read a sample report <span aria-hidden="true">→</span></a>
+          </div>
+          <p class="hero-note">One app. Agreed coverage. Measured findings, reviewed by a person.</p>
+        </div>
+        <div class="evidence-card" aria-label="What a finding includes">
+          <div class="card-top"><span class="mono">EVIDENCE, BEFORE ADVICE</span><span class="card-indicator" aria-hidden="true">↗</span></div>
+          <div class="evidence-heading"><span class="issue-pill">Repeated use</span><h2>Does this resource<br>outlive the view?</h2></div>
+          <div class="measurement" aria-hidden="true"><span class="measurement-line"></span><span class="measurement-point point-1"></span><span class="measurement-point point-2"></span><span class="measurement-point point-3"></span><span class="measurement-point point-4"></span><span class="measurement-point point-5"></span></div>
+          <div class="measurement-labels"><span>mount → unmount → collect</span><span>repeat</span></div>
+          <dl class="evidence-detail"><div><dt>Observe</dt><dd>Exceptions, failed requests, retained counters</dd></div><div><dt>Review</dt><dd>Reproduce the signal and assess likely causes</dd></div><div><dt>Confirm</dt><dd>Rerun the same check after your fix</dd></div></dl>
+          <p class="card-footnote">Illustration of the process. Actual results appear in the linked fixture report.</p>
+        </div>
+      </section>
+
+      <div class="scope-strip" aria-label="Pilot boundaries"><span>Built for React web apps</span><span>Local or staging checks</span><span>Human-reviewed evidence</span><span>Clear coverage &amp; limits</span></div>
+
+      <section class="section checks-section" id="checks" aria-labelledby="checks-title">
+        <div class="section-intro"><p class="eyebrow">A second look before handover</p><h2 id="checks-title">Small failures.<br>Long sessions. Real evidence.</h2><p>Especially useful for dashboards, admin tools, and apps with charts, observers, sockets, or complex views.</p></div>
+        <div class="check-grid">
+          <article class="check-card"><span class="check-number">01 / RUNTIME</span><h3>Catch what breaks<br>while it runs.</h3><p>Observe uncaught exceptions, console errors, failed requests, and suspicious rendering activity during the agreed exercise.</p></article>
+          <article class="check-card"><span class="check-number">02 / RETENTION</span><h3>Check what stays<br>after you leave.</h3><p>Repeat view entry and exit, then measure after garbage collection. Review persistent growth in heap, counters, and accessible resource instances.</p></article>
+          <article class="check-card"><span class="check-number">03 / COVERAGE</span><h3>Know what was<br>actually checked.</h3><p>Agree the routes and two journeys up front. Record what ran, what was blocked, and where the evidence is incomplete.</p></article>
+        </div>
+      </section>
+
+      <section class="section process-section" aria-labelledby="process-title">
+        <div class="section-heading"><p class="eyebrow">From a signal to a next step</p><h2 id="process-title">A report your team<br>can act on.</h2></div>
+        <ol class="process-list"><li><span class="step-number">1</span><div><h3>Define the check</h3><p>Choose a stable app version, test account, up to 10 routes, and two important journeys. We confirm fit and access before the pilot starts.</p></div></li><li><span class="step-number">2</span><div><h3>Measure and investigate</h3><p>Run browser measurements and explicitly agreed journey assertions. A person reviews findings, expected noise, and coverage gaps.</p></div></li><li><span class="step-number">3</span><div><h3>Report, then rerun</h3><p>Receive reproduction steps, evidence, likely next actions, and clear limits. After your team makes changes, one confirmation rerun is included.</p></div></li></ol>
+      </section>
+
+      <section class="sample-section" aria-labelledby="sample-title"><div><p class="eyebrow">See the output first</p><h2 id="sample-title">Open the evidence.</h2><p>The sample comes from this project's deliberately broken React fixture. It demonstrates the report format and known defects; it is not a customer case study.</p></div><a class="button button-light" href="../examples/sample-report.html">Open fixture report <span aria-hidden="true">↗</span></a></section>
+
+      <section class="section pilot-section" id="pilot" aria-labelledby="pilot-title">
+        <div class="pilot-copy"><p class="eyebrow">A focused founding pilot</p><h2 id="pilot-title">An independent check.<br>A defined scope.</h2><p>For agencies and small teams handing over a React web app. Start with one project and decide whether the result earns a place in your delivery workflow.</p><div class="fit-note"><h3>A good fit</h3><p>You have an app that runs, a test environment you can share safely, and a developer who can review or fix confirmed issues.</p></div></div>
+        <div class="price-card"><div class="price-heading"><span class="mono">FOUNDING PILOT</span><span class="pilot-badge">Per project</span></div><p class="price">$300 <span>USD</span></p><p class="price-description">Price experiment for the first scoped engagements. No subscription.</p><ul class="included-list"><li>One React web application</li><li>Up to 10 agreed routes</li><li>Two agreed user journeys</li><li>Up to six hours of delivery effort</li><li>Human-reviewed findings and coverage report</li><li>One confirmation rerun within that effort cap</li></ul><a class="button button-primary" href="#enquiry">Prepare your pilot brief <span aria-hidden="true">↗</span></a><p class="price-note">Scope and scheduling are agreed before payment. Fix implementation and additional investigation are separately scoped.</p></div>
+      </section>
+
+      <section class="section limits-section" aria-labelledby="limits-title"><div class="section-heading"><p class="eyebrow">Confidence has boundaries</p><h2 id="limits-title">The result covers<br>the check we agree.</h2></div><div class="limits-content"><p>A clean result means no supported issues were found in the completed, valid checks. It does not prove every feature is correct or every user session is healthy.</p><ul><li>Journey outcomes need explicit assertions and human review; automatic route visits are not functional acceptance tests.</li><li>Retention signals suggest where to investigate. A resource count alone does not prove the exact cause or fix.</li><li>This pilot excludes security testing, backend load testing, accessibility audits, full cross-browser testing, and continuous monitoring.</li><li>Blocked routes, failed measurements, and incomplete journeys are reported as limits rather than silently counted as success.</li></ul></div></section>
+
+      <section class="section enquiry-section" id="enquiry" aria-labelledby="enquiry-title"><div class="enquiry-copy"><p class="eyebrow">Start with the right questions</p><h2 id="enquiry-title">What are you<br>about to hand over?</h2><p>Prepare a short brief with the application, your two journeys, and the failure you most want to avoid.</p><p class="local-note"><span aria-hidden="true">↓</span> This form creates a text file on your device. Nothing is submitted or sent, and no account or payment is created. Share the downloaded brief with the founder through your existing contact channel.</p><p class="contact-note">A direct booking/contact channel is not configured in this local preview.</p></div>
+        <form id="enquiry-form" class="enquiry-form"><div class="field-grid"><div class="field"><label for="name">Your name <span>(required)</span></label><input id="name" name="name" autocomplete="name" required maxlength="100"></div><div class="field"><label for="email">Email <span>(required)</span></label><input id="email" name="email" type="email" autocomplete="email" required maxlength="200"></div></div><div class="field"><label for="company">Agency or team</label><input id="company" name="company" autocomplete="organization" maxlength="150"></div><div class="field"><label for="app-url">App or staging URL <span>(optional)</span></label><input id="app-url" name="app_url" type="url" placeholder="https://staging.example.com" maxlength="500" aria-describedby="url-hint"><p class="field-hint" id="url-hint">A URL is for the brief only. This page does not open or scan your app.</p></div><div class="field"><label for="journeys">Two journeys and your main concern <span>(required)</span></label><textarea id="journeys" name="journeys" rows="4" required maxlength="2000" placeholder="For example: open the reporting dashboard and filter results; switch between customer views. We want to check failures or growth after repeated use."></textarea></div><div class="field"><label for="timeline">Target handover date or timing</label><input id="timeline" name="timeline" maxlength="150" placeholder="For example: late October; staging available next week"></div><button class="button button-primary" type="submit">Download enquiry brief <span aria-hidden="true">↓</span></button><p id="form-status" class="form-status" role="status" aria-live="polite"></p><noscript><p>JavaScript is required to generate the download. Use the <a href="enquiry-template.txt" download>plain-text brief template</a> instead.</p></noscript></form>
+      </section>
+    </main>
+
+    <footer class="site-footer"><a class="brand" href="#"><span class="brand-mark" aria-hidden="true">vg<span>.</span></span><span>Vibe Guru</span></a><p>Measured checks. Clear limits.</p><a href="https://github.com/Shashank-Singh03/vibeguru">Explore the open-source engine <span aria-hidden="true">↗</span></a><p class="footer-note">Local preview · Offer and public contact details need review before publishing.</p></footer>
+  </body>
+</html>

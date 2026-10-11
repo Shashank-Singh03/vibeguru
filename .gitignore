@@ -58,3 +58,8 @@ playwright-report/
 /test-app/vibeguru-report.md
 /test-app/vibeguru-findings.json
 handover.md
+
+# Local Python caches and npm package archives.
+__pycache__/
+*.py[cod]
+vibeguru-*.tgz

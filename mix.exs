@@ -4,7 +4,7 @@ defmodule VibeGuru.MixProject do
   def project do
     [
       app: :vibe_guru,
-      version: "0.1.2",
+      version: "0.2.0",
       elixir: "~> 1.18",
       start_permanent: Mix.env() == :prod,
       escript: escript(),
@@ -21,8 +21,8 @@ defmodule VibeGuru.MixProject do
   end
 
   # Self-contained binaries (bundle ERTS + BEAM, no Erlang/Elixir on the user's
-  # machine). Burrito cross-compiles via Zig; CI builds one target per OS runner
-  # (set BURRITO_TARGET) and uploads the result to GitHub Releases, where the
+  # machine). Burrito cross-compiles via Zig on Linux; separate native runners
+  # smoke-test every target before GitHub Release publication, where the
   # `npx vibeguru` wrapper fetches the right one. The boot path is in
   # VibeGuru.Application.start/2 (release mode -> VibeGuru.CLI.boot/0).
   defp releases do

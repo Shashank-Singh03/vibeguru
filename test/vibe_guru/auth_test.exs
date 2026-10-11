@@ -44,9 +44,7 @@ defmodule VibeGuru.AuthTest do
       assert decoded == state()
     end
 
-    test "the directory ignores itself, so a live session cannot be committed", %{root: root} do
-      # This is the security property, not a nicety: the file is equivalent to being
-      # logged in, and it must be safe even in a repo whose .gitignore we never touch.
+    test "the directory ignores itself to reduce accidental live-session commits", %{root: root} do
       {:ok, _} = Auth.save(root, state())
 
       ignore = Path.join([root, ".vibeguru", ".gitignore"])
@@ -70,6 +68,49 @@ defmodule VibeGuru.AuthTest do
       refute File.dir?(Path.join(root, ".vibeguru"))
       assert {:ok, _} = Auth.save(root, state())
       assert File.dir?(Path.join(root, ".vibeguru"))
+    end
+
+    @tag skip: match?({:win32, _}, :os.type())
+    test "Unix session directory and file are private, including after replacement", %{root: root} do
+      import Bitwise
+      dir = Path.join(root, ".vibeguru")
+      File.mkdir_p!(dir)
+      File.chmod!(dir, 0o755)
+      assert {:ok, session} = Auth.save(root, state())
+      assert band(File.stat!(dir).mode, 0o777) == 0o700
+      assert band(File.stat!(session).mode, 0o777) == 0o600
+      File.chmod!(session, 0o644)
+      assert {:ok, ^session} = Auth.save(root, state())
+      assert band(File.stat!(session).mode, 0o777) == 0o600
+      assert Enum.sort(File.ls!(dir)) == [".gitignore", "auth.json"]
+    end
+
+    @tag skip: match?({:win32, _}, :os.type())
+    test "a linked session directory is rejected without changing its target", %{root: root} do
+      target = Path.join(root, "external")
+      File.mkdir!(target)
+      File.ln_s!(target, Path.join(root, ".vibeguru"))
+
+      assert {:error, {:session_write_failed, :unsafe_session_directory}} =
+               Auth.save(root, state())
+
+      assert File.ls!(target) == []
+    end
+
+    @tag skip: match?({:win32, _}, :os.type())
+    test "atomic session and ignore-file replacement never follows existing file links", %{
+      root: root
+    } do
+      dir = Path.join(root, ".vibeguru")
+      File.mkdir_p!(dir)
+      target = Path.join(root, "untouched.txt")
+      File.write!(target, "keep")
+      File.ln_s!(target, Path.join(dir, "auth.json"))
+      File.ln_s!(target, Path.join(dir, ".gitignore"))
+      assert {:ok, _} = Auth.save(root, state())
+      assert File.read!(target) == "keep"
+      assert File.lstat!(Path.join(dir, "auth.json")).type == :regular
+      assert File.lstat!(Path.join(dir, ".gitignore")).type == :regular
     end
   end
 end

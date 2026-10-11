@@ -1,0 +1,519 @@
+{
+  "schema_version": 1,
+  "recorded_at": "2026-10-09T16:35:06.227Z",
+  "campaign_id": "campaign-1791563501809-4f117771",
+  "label": "Adversarial reliability lab",
+  "workspace": "reports/adversarial-evaluation-1791563501741",
+  "cases": 20,
+  "cycles": 120,
+  "expected_matched": 18,
+  "expected_total": 18,
+  "verdicts": {
+    "PASS": 10,
+    "FAIL": 8,
+    "INCONCLUSIVE": 2,
+    "ERROR": 0
+  },
+  "assertions_passed": 420,
+  "assertions_failed": 36,
+  "evidence_graph": {
+    "nodes": 1338,
+    "edges": 1456,
+    "observations": 324
+  },
+  "write_outcomes": [
+    {
+      "app": "write-vulnerable",
+      "variant": "write-single",
+      "cycles": 6,
+      "orders_per_intent": 1,
+      "attempts_per_intent": 1,
+      "overlap_cycles": 0,
+      "cleanup_verified_cycles": 6
+    },
+    {
+      "app": "write-vulnerable",
+      "variant": "write-double",
+      "cycles": 6,
+      "orders_per_intent": 2,
+      "attempts_per_intent": 2,
+      "overlap_cycles": 6,
+      "cleanup_verified_cycles": 6
+    },
+    {
+      "app": "write-vulnerable",
+      "variant": "write-retry",
+      "cycles": 6,
+      "orders_per_intent": 2,
+      "attempts_per_intent": 2,
+      "overlap_cycles": 0,
+      "cleanup_verified_cycles": 6
+    },
+    {
+      "app": "write-candidate",
+      "variant": "write-single",
+      "cycles": 6,
+      "orders_per_intent": 1,
+      "attempts_per_intent": 1,
+      "overlap_cycles": 0,
+      "cleanup_verified_cycles": 6
+    },
+    {
+      "app": "write-candidate",
+      "variant": "write-double",
+      "cycles": 6,
+      "orders_per_intent": 1,
+      "attempts_per_intent": 2,
+      "overlap_cycles": 6,
+      "cleanup_verified_cycles": 6
+    },
+    {
+      "app": "write-candidate",
+      "variant": "write-retry",
+      "cycles": 6,
+      "orders_per_intent": 1,
+      "attempts_per_intent": 2,
+      "overlap_cycles": 0,
+      "cleanup_verified_cycles": 6
+    }
+  ],
+  "results": [
+    {
+      "app": "navigation-vulnerable",
+      "variant": "nav-complete",
+      "verdict": "PASS",
+      "expected_met": true,
+      "cycles": 6,
+      "assertions_passed": 18,
+      "assertions_failed": 0,
+      "execution_identity_stable": true,
+      "source_kind": "synthetic",
+      "findings": []
+    },
+    {
+      "app": "navigation-vulnerable",
+      "variant": "nav-pending",
+      "verdict": "FAIL",
+      "expected_met": true,
+      "cycles": 6,
+      "assertions_passed": 12,
+      "assertions_failed": 6,
+      "execution_identity_stable": true,
+      "source_kind": "synthetic",
+      "findings": [
+        {
+          "signature": "journey_assertion_failed",
+          "assertion_id": "pending-view-isolation"
+        }
+      ]
+    },
+    {
+      "app": "navigation-vulnerable",
+      "variant": "interrupted",
+      "verdict": "INCONCLUSIVE",
+      "expected_met": null,
+      "cycles": 6,
+      "assertions_passed": 12,
+      "assertions_failed": 0,
+      "execution_identity_stable": true,
+      "source_kind": "synthetic",
+      "findings": []
+    },
+    {
+      "app": "navigation-candidate",
+      "variant": "nav-complete",
+      "verdict": "PASS",
+      "expected_met": true,
+      "cycles": 6,
+      "assertions_passed": 18,
+      "assertions_failed": 0,
+      "execution_identity_stable": true,
+      "source_kind": "control",
+      "findings": []
+    },
+    {
+      "app": "navigation-candidate",
+      "variant": "nav-pending",
+      "verdict": "PASS",
+      "expected_met": true,
+      "cycles": 6,
+      "assertions_passed": 18,
+      "assertions_failed": 0,
+      "execution_identity_stable": true,
+      "source_kind": "control",
+      "findings": []
+    },
+    {
+      "app": "navigation-candidate",
+      "variant": "interrupted",
+      "verdict": "INCONCLUSIVE",
+      "expected_met": null,
+      "cycles": 6,
+      "assertions_passed": 12,
+      "assertions_failed": 0,
+      "execution_identity_stable": true,
+      "source_kind": "control",
+      "findings": []
+    },
+    {
+      "app": "http-vulnerable",
+      "variant": "http-normal",
+      "verdict": "PASS",
+      "expected_met": true,
+      "cycles": 6,
+      "assertions_passed": 18,
+      "assertions_failed": 0,
+      "execution_identity_stable": true,
+      "source_kind": "synthetic",
+      "findings": []
+    },
+    {
+      "app": "http-vulnerable",
+      "variant": "http-503",
+      "verdict": "FAIL",
+      "expected_met": true,
+      "cycles": 6,
+      "assertions_passed": 12,
+      "assertions_failed": 6,
+      "execution_identity_stable": true,
+      "source_kind": "synthetic",
+      "findings": [
+        {
+          "signature": "failed_request",
+          "assertion_id": null
+        },
+        {
+          "signature": "journey_assertion_failed",
+          "assertion_id": "recovery-usable"
+        }
+      ]
+    },
+    {
+      "app": "http-vulnerable",
+      "variant": "http-disconnect",
+      "verdict": "FAIL",
+      "expected_met": true,
+      "cycles": 6,
+      "assertions_passed": 12,
+      "assertions_failed": 6,
+      "execution_identity_stable": true,
+      "source_kind": "synthetic",
+      "findings": [
+        {
+          "signature": "failed_request",
+          "assertion_id": null
+        },
+        {
+          "signature": "journey_assertion_failed",
+          "assertion_id": "recovery-usable"
+        }
+      ]
+    },
+    {
+      "app": "http-vulnerable",
+      "variant": "http-malformed",
+      "verdict": "FAIL",
+      "expected_met": true,
+      "cycles": 6,
+      "assertions_passed": 12,
+      "assertions_failed": 6,
+      "execution_identity_stable": true,
+      "source_kind": "synthetic",
+      "findings": [
+        {
+          "signature": "journey_assertion_failed",
+          "assertion_id": "recovery-usable"
+        }
+      ]
+    },
+    {
+      "app": "http-candidate",
+      "variant": "http-normal",
+      "verdict": "PASS",
+      "expected_met": true,
+      "cycles": 6,
+      "assertions_passed": 18,
+      "assertions_failed": 0,
+      "execution_identity_stable": true,
+      "source_kind": "control",
+      "findings": []
+    },
+    {
+      "app": "http-candidate",
+      "variant": "http-503",
+      "verdict": "FAIL",
+      "expected_met": true,
+      "cycles": 6,
+      "assertions_passed": 18,
+      "assertions_failed": 0,
+      "execution_identity_stable": true,
+      "source_kind": "control",
+      "findings": [
+        {
+          "signature": "failed_request",
+          "assertion_id": null
+        }
+      ]
+    },
+    {
+      "app": "http-candidate",
+      "variant": "http-disconnect",
+      "verdict": "FAIL",
+      "expected_met": true,
+      "cycles": 6,
+      "assertions_passed": 18,
+      "assertions_failed": 0,
+      "execution_identity_stable": true,
+      "source_kind": "control",
+      "findings": [
+        {
+          "signature": "failed_request",
+          "assertion_id": null
+        }
+      ]
+    },
+    {
+      "app": "http-candidate",
+      "variant": "http-malformed",
+      "verdict": "PASS",
+      "expected_met": true,
+      "cycles": 6,
+      "assertions_passed": 18,
+      "assertions_failed": 0,
+      "execution_identity_stable": true,
+      "source_kind": "control",
+      "findings": []
+    },
+    {
+      "app": "write-vulnerable",
+      "variant": "write-single",
+      "verdict": "PASS",
+      "expected_met": true,
+      "cycles": 6,
+      "assertions_passed": 36,
+      "assertions_failed": 0,
+      "execution_identity_stable": true,
+      "source_kind": "synthetic",
+      "findings": []
+    },
+    {
+      "app": "write-vulnerable",
+      "variant": "write-double",
+      "verdict": "FAIL",
+      "expected_met": true,
+      "cycles": 6,
+      "assertions_passed": 30,
+      "assertions_failed": 6,
+      "execution_identity_stable": true,
+      "source_kind": "synthetic",
+      "findings": [
+        {
+          "signature": "journey_assertion_failed",
+          "assertion_id": "single-persisted-order"
+        }
+      ]
+    },
+    {
+      "app": "write-vulnerable",
+      "variant": "write-retry",
+      "verdict": "FAIL",
+      "expected_met": true,
+      "cycles": 6,
+      "assertions_passed": 30,
+      "assertions_failed": 6,
+      "execution_identity_stable": true,
+      "source_kind": "synthetic",
+      "findings": [
+        {
+          "signature": "journey_assertion_failed",
+          "assertion_id": "single-persisted-order"
+        }
+      ]
+    },
+    {
+      "app": "write-candidate",
+      "variant": "write-single",
+      "verdict": "PASS",
+      "expected_met": true,
+      "cycles": 6,
+      "assertions_passed": 36,
+      "assertions_failed": 0,
+      "execution_identity_stable": true,
+      "source_kind": "control",
+      "findings": []
+    },
+    {
+      "app": "write-candidate",
+      "variant": "write-double",
+      "verdict": "PASS",
+      "expected_met": true,
+      "cycles": 6,
+      "assertions_passed": 36,
+      "assertions_failed": 0,
+      "execution_identity_stable": true,
+      "source_kind": "control",
+      "findings": []
+    },
+    {
+      "app": "write-candidate",
+      "variant": "write-retry",
+      "verdict": "PASS",
+      "expected_met": true,
+      "cycles": 6,
+      "assertions_passed": 36,
+      "assertions_failed": 0,
+      "execution_identity_stable": true,
+      "source_kind": "control",
+      "findings": []
+    }
+  ],
+  "comparisons": [
+    {
+      "baseline_app": "navigation-vulnerable",
+      "candidate_app": "navigation-candidate",
+      "variant": "nav-complete",
+      "baseline_verdict": "PASS",
+      "candidate_verdict": "PASS",
+      "removed": [],
+      "remaining": [],
+      "introduced": [],
+      "comparable_execution": true,
+      "full_scoped_candidate_pass": true
+    },
+    {
+      "baseline_app": "navigation-vulnerable",
+      "candidate_app": "navigation-candidate",
+      "variant": "nav-pending",
+      "baseline_verdict": "FAIL",
+      "candidate_verdict": "PASS",
+      "removed": [
+        "[\"journey.client\",\"journey_assertion_failed\",\"/?mode=broken\",\"pending-view-isolation\"]"
+      ],
+      "remaining": [],
+      "introduced": [],
+      "comparable_execution": true,
+      "full_scoped_candidate_pass": true
+    },
+    {
+      "baseline_app": "navigation-vulnerable",
+      "candidate_app": "navigation-candidate",
+      "variant": "interrupted",
+      "baseline_verdict": "INCONCLUSIVE",
+      "candidate_verdict": "INCONCLUSIVE",
+      "removed": [],
+      "remaining": [],
+      "introduced": [],
+      "comparable_execution": true,
+      "full_scoped_candidate_pass": false
+    },
+    {
+      "baseline_app": "http-vulnerable",
+      "candidate_app": "http-candidate",
+      "variant": "http-normal",
+      "baseline_verdict": "PASS",
+      "candidate_verdict": "PASS",
+      "removed": [],
+      "remaining": [],
+      "introduced": [],
+      "comparable_execution": true,
+      "full_scoped_candidate_pass": true
+    },
+    {
+      "baseline_app": "http-vulnerable",
+      "candidate_app": "http-candidate",
+      "variant": "http-503",
+      "baseline_verdict": "FAIL",
+      "candidate_verdict": "FAIL",
+      "removed": [
+        "[\"journey.client\",\"journey_assertion_failed\",\"/?mode=broken\",\"recovery-usable\"]"
+      ],
+      "remaining": [
+        "[\"runtime.client\",\"failed_request\",\"flow\",\"HTTP 503 — http://127.0.0.1:65324/api/recover\"]"
+      ],
+      "introduced": [],
+      "comparable_execution": true,
+      "full_scoped_candidate_pass": false
+    },
+    {
+      "baseline_app": "http-vulnerable",
+      "candidate_app": "http-candidate",
+      "variant": "http-disconnect",
+      "baseline_verdict": "FAIL",
+      "candidate_verdict": "FAIL",
+      "removed": [
+        "[\"journey.client\",\"journey_assertion_failed\",\"/?mode=broken\",\"recovery-usable\"]"
+      ],
+      "remaining": [
+        "[\"runtime.client\",\"failed_request\",\"flow\",\"net::ERR_CONTENT_LENGTH_MISMATCH — http://127.0.0.1:65324/api/recover\"]"
+      ],
+      "introduced": [],
+      "comparable_execution": true,
+      "full_scoped_candidate_pass": false
+    },
+    {
+      "baseline_app": "http-vulnerable",
+      "candidate_app": "http-candidate",
+      "variant": "http-malformed",
+      "baseline_verdict": "FAIL",
+      "candidate_verdict": "PASS",
+      "removed": [
+        "[\"journey.client\",\"journey_assertion_failed\",\"/?mode=broken\",\"recovery-usable\"]"
+      ],
+      "remaining": [],
+      "introduced": [],
+      "comparable_execution": true,
+      "full_scoped_candidate_pass": true
+    },
+    {
+      "baseline_app": "write-vulnerable",
+      "candidate_app": "write-candidate",
+      "variant": "write-single",
+      "baseline_verdict": "PASS",
+      "candidate_verdict": "PASS",
+      "removed": [],
+      "remaining": [],
+      "introduced": [],
+      "comparable_execution": true,
+      "full_scoped_candidate_pass": true
+    },
+    {
+      "baseline_app": "write-vulnerable",
+      "candidate_app": "write-candidate",
+      "variant": "write-double",
+      "baseline_verdict": "FAIL",
+      "candidate_verdict": "PASS",
+      "removed": [
+        "[\"journey.client\",\"journey_assertion_failed\",\"/?mode=vulnerable&namespace=write-8f76f25c-7a1a-495c-b65e-b8035fdd1114\",\"single-persisted-order\"]"
+      ],
+      "remaining": [],
+      "introduced": [],
+      "comparable_execution": true,
+      "full_scoped_candidate_pass": true
+    },
+    {
+      "baseline_app": "write-vulnerable",
+      "candidate_app": "write-candidate",
+      "variant": "write-retry",
+      "baseline_verdict": "FAIL",
+      "candidate_verdict": "PASS",
+      "removed": [
+        "[\"journey.client\",\"journey_assertion_failed\",\"/?mode=vulnerable&namespace=write-608b6671-9d50-49e8-9844-1e44dfe96e05\",\"single-persisted-order\"]"
+      ],
+      "remaining": [],
+      "introduced": [],
+      "comparable_execution": true,
+      "full_scoped_candidate_pass": true
+    }
+  ],
+  "limitations": [
+    "Synthetic injected faults are labelled; detection rate is not real-world precision or overall product accuracy.",
+    "Normal app findings require independent triage; an unmodified app is not a known-clean control.",
+    "Only declared workflows and conditions were exercised; no LLM/Jev policy, automated minimizer or full causal diagnosis was evaluated.",
+    "Gateway and swap-station backends are mocked; authentication, hardware control and full integrations are outside scope.",
+    "Purpose-built vulnerable/corrected fixtures; no new naturally occurring customer defect is claimed.",
+    "Navigation has a 300ms post-response window. Recovery has a 600ms UI deadline and an explicit disabled-button reset between cycles.",
+    "HTTP 503 and transport faults remain app runtime findings even when the recovery expectation matches.",
+    "Writes use one isolated in-memory process; no durable database, distributed locking or ambiguous lost-response recovery is evaluated.",
+    "Candidate modes are manually authored in the same fixture source; this is not autonomous source repair."
+  ]
+}

@@ -127,13 +127,13 @@ export async function plan(page, config) {
 
     if (taken.has(filled)) continue;
     taken.add(filled);
-    routes.push({ path: filled, hrefAttr: linkFor.get(filled) || null, source: "declared" });
+    routes.push({ path: filled, hrefAttr: linkFor.get(filled) || null, source: "declared", expectedSelector: config.routeExpectations?.[filled] });
   }
 
   for (const d of discovered) {
     if (taken.has(d.path)) continue;
     taken.add(d.path);
-    routes.push({ path: d.path, hrefAttr: d.hrefAttr, source: "discovered" });
+    routes.push({ path: d.path, hrefAttr: d.hrefAttr, source: "discovered", expectedSelector: config.routeExpectations?.[d.path] });
   }
 
   // Over the cap, keep the first N and say so rather than silently truncating.
@@ -156,7 +156,9 @@ export async function plan(page, config) {
  */
 export async function visitRoute(page, route, settleMs) {
   const before = page.url();
+  const token = await documentToken(page);
   let navigated = false;
+  let historyFallback = false;
 
   if (route.hrefAttr) {
     const sel = `a[href="${route.hrefAttr.replace(/"/g, '\\"')}"]`;
@@ -169,6 +171,7 @@ export async function visitRoute(page, route, settleMs) {
   }
 
   if (!navigated) {
+    historyFallback = true;
     try {
       await page.evaluate((path) => {
         window.history.pushState({}, "", path);
@@ -184,11 +187,23 @@ export async function visitRoute(page, route, settleMs) {
   await page.waitForTimeout(settleMs);
 
   const landed = await page.evaluate(() => location.pathname + location.hash).catch(() => null);
-  const result = verifyLanding(route, landed);
+  let result = verifyLanding(route, landed);
+  if (result.ok && route.expectedSelector) {
+    try { await page.locator(route.expectedSelector).first().waitFor({ state: "visible", timeout: 3000 }); }
+    catch { result = { ok: false, reason: "render_unverified", detail: `expected view selector not visible: ${route.expectedSelector}` }; }
+  } else if (result.ok && historyFallback && route.path !== new URL(before).pathname) {
+    result = { ok: false, reason: "render_unverified", detail: "history fallback changed the URL; configure routeExpectations to verify the rendered view" };
+  }
+  const mountedToken = await documentToken(page);
 
   // Always try to get home, even after a failed landing, so the next route starts
   // from a known state rather than wherever the app diverted us.
-  await returnHome(page, before, settleMs);
+  const home = await returnHome(page, before, settleMs);
+  const returnedToken = await documentToken(page);
+  if (token == null || mountedToken == null || returnedToken == null || token !== mountedToken || token !== returnedToken) {
+    return { ok: false, reason: "document_reloaded", detail: "document reload reset the retained-state chain", retentionInvalid: true };
+  }
+  if (!home) return { ok: false, reason: "home_state_unverified", detail: "could not restore the starting URL", retentionInvalid: true };
 
   return result;
 }
@@ -216,9 +231,11 @@ function verifyLanding(route, landed) {
 async function returnHome(page, homeUrl, settleMs) {
   try {
     await page.goBack({ waitUntil: "networkidle", timeout: 5000 });
-  } catch {
+  } catch { /* Verify below even when goBack resolves without restoring home. */ }
+  if (page.url() !== homeUrl) {
     // History back can fail if the app replaced state; push home directly.
-    const path = new URL(homeUrl).pathname;
+    const home = new URL(homeUrl);
+    const path = home.pathname + home.search + home.hash;
     await page
       .evaluate((p) => {
         window.history.pushState({}, "", p);
@@ -228,4 +245,12 @@ async function returnHome(page, homeUrl, settleMs) {
   }
 
   await page.waitForTimeout(settleMs);
+  return page.url() === homeUrl;
+}
+
+export async function documentToken(page) {
+  return page.evaluate(() => {
+    window.__vibeguru_doc_token ||= Math.random().toString(36);
+    return window.__vibeguru_doc_token;
+  }).catch(() => null);
 }

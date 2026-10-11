@@ -11,14 +11,14 @@ defmodule VibeGuru.Probes.Heap.Snapshot do
   investigation loop reaches for it only after something cheaper has narrowed the
   question to one route.
 
-  Returns the shape the loop wants — a result with hypothesis updates — rather than
-  `Evidence`, because nothing downstream re-analyzes it. The measurement is the answer.
+  Returns the captured observations and qualified hypothesis updates. Constructor
+  counts do not establish retaining paths, ownership, a source line or a specific fix.
   """
 
   alias VibeGuru.Driver
 
-  # Growth in one of these is a container filling up rather than an object nobody
-  # released. Different hypothesis, different fix.
+  # Growing container instance counts are an investigation lead, not proof that any
+  # particular cache is unbounded or that its entries are responsible for other growth.
   @containers ~w(Map Set WeakMap WeakSet)
 
   @default_visits 3
@@ -41,6 +41,7 @@ defmodule VibeGuru.Probes.Heap.Snapshot do
       "settleMs" => Keyword.get(opts, :settle_ms, 500),
       "headless" => Keyword.get(opts, :headless, true),
       "constructorHints" => focus |> Map.get(:constructor_hint) |> List.wrap(),
+      "routeExpectations" => Keyword.get(opts, :route_expectations, %{}),
       "storageState" => Keyword.get(opts, :storage_state)
     }
 
@@ -62,94 +63,112 @@ defmodule VibeGuru.Probes.Heap.Snapshot do
   """
   @spec interpret([map()], map() | nil, map()) :: map()
   def interpret(events, result, focus \\ %{}) do
-    growth = growth_from(events)
-    hint = Map.get(focus, :constructor_hint)
+    captured = Enum.filter(events, &(is_map(&1) and &1["kind"] == "heap_census"))
+
+    data =
+      case captured do
+        [%{"data" => data}] when is_map(data) -> data
+        _ -> %{}
+      end
+
+    growth = data["growth"]
+    reasons = measurement_reasons(captured, data, result, focus)
+    complete = reasons == []
 
     %{
-      cost_ms: (result && Map.get(result, "durationMs")) || 0,
-      summary: summarize(growth),
-      growth: growth,
-      updates: updates(growth, hint)
+      cost_ms:
+        if(is_map(result) and is_number(result["durationMs"]),
+          do: max(result["durationMs"], 0),
+          else: 0
+        ),
+      summary:
+        if(complete,
+          do: summarize(growth),
+          else: "snapshot measurement unavailable: " <> Enum.join(reasons, ", ")
+        ),
+      growth: if(is_map(growth), do: growth, else: %{}),
+      evidence: captured,
+      completion: result,
+      measurement_validity: %{
+        status: if(complete, do: :complete, else: :unavailable),
+        reasons: reasons
+      },
+      updates: if(complete, do: updates(growth), else: %{})
     }
   end
 
-  defp growth_from(events) do
-    events
-    |> Enum.find(%{}, &(Map.get(&1, "kind") == "heap_census"))
-    |> Map.get("data", %{})
-    |> Map.get("growth", %{})
+  defp measurement_reasons(captured, data, result, focus) do
+    result = if is_map(result), do: result, else: %{}
+
+    route =
+      case captured do
+        [%{"context" => context}] when is_map(context) -> context["route"]
+        _ -> nil
+      end
+
+    []
+    |> reason(length(captured) != 1, "missing_or_duplicate_heap_census")
+    |> reason(not valid_growth?(data["growth"]), "missing_or_invalid_growth")
+    |> reason(result["ok"] != true, "driver_completion_unconfirmed")
+    |> reason(data["gcOk"] != true or result["gcOk"] != true, "snapshot_gc_unconfirmed")
+    |> reason(
+      data["navigationOk"] != true or result["navigationOk"] != true,
+      "snapshot_navigation_unconfirmed"
+    )
+    |> reason(
+      not is_integer(data["visits"]) or data["visits"] < 1 or
+        data["visitsCompleted"] != data["visits"] or
+        result["visitsCompleted"] != data["visits"] or result["visits"] != data["visits"],
+      "incomplete_snapshot_visits"
+    )
+    |> reason(
+      not is_binary(route) or route == "" or route != result["route"] or
+        (Map.has_key?(focus, :route) and route != focus.route),
+      "snapshot_route_mismatch"
+    )
   end
 
-  # Nothing grew across the whole heap. That is a real answer, not an absence of one:
-  # the snapshot saw everything, so it rules both object-retention hypotheses out.
-  defp updates(growth, _hint) when map_size(growth) == 0 do
-    %{
-      retained_library_object: {:eliminated, "no constructor grew across visits"},
-      unbounded_cache: {:eliminated, "no container grew across visits"}
-    }
+  defp valid_growth?(growth) when is_map(growth) do
+    Enum.all?(growth, fn {class, detail} ->
+      is_binary(class) and class != "" and is_map(detail) and
+        is_integer(detail["retained"]) and detail["retained"] > 0 and
+        is_number(detail["perVisit"]) and detail["perVisit"] >= 0 and
+        is_number(detail["bytes"])
+    end)
   end
 
-  defp updates(growth, hint) do
+  defp valid_growth?(_), do: false
+  defp reason(reasons, true, value), do: reasons ++ [value]
+  defp reason(reasons, _, _), do: reasons
+
+  # This is a ranked constructor summary, not a complete retaining graph. No observed
+  # growth cannot eliminate retention; co-growth cannot establish common ownership.
+  defp updates(growth) do
     {containers, objects} = Enum.split_with(growth, fn {class, _} -> class in @containers end)
-    confirmed = confirmed_class(objects, hint)
 
     %{}
-    |> object_update(objects, hint)
-    |> container_update(containers, confirmed)
-  end
-
-  # The class the investigation suspected, when the snapshot found it. Everything else
-  # that grew alongside is then likely to be its internals rather than a second problem.
-  defp confirmed_class(objects, hint) do
-    if hint && Enum.any?(objects, fn {class, _} -> class == hint end), do: hint, else: nil
-  end
-
-  defp object_update(updates, [], _hint),
-    do: Map.put(updates, :retained_library_object, {:eliminated, "no object constructor grew"})
-
-  defp object_update(updates, objects, hint) do
-    # The class the investigation already suspected wins, even if something else grew
-    # more — a bigger number elsewhere is not a better answer to the question asked.
-    {class, detail} =
-      Enum.find(objects, fn {class, _} -> class == hint end) ||
-        Enum.max_by(objects, fn {_class, g} -> g["retained"] end)
-
-    Map.put(
-      updates,
+    |> support(
+      objects,
       :retained_library_object,
-      {:supported, "#{detail["retained"]} #{class} instance(s) retained across visits"}
+      "object constructor counts increased; retaining paths and ownership are unverified"
     )
-  end
-
-  defp container_update(updates, [], _confirmed),
-    do: Map.put(updates, :unbounded_cache, {:eliminated, "no container grew"})
-
-  # Containers held BY a confirmed object are that object's internals, not a separate
-  # cache. Chart.js keeps Maps and Sets inside every chart, so a retained chart drags
-  # them along — calling that a second bug would send someone hunting for a cache that
-  # does not exist. Stated explicitly so the claim can be argued with.
-  defp container_update(updates, containers, confirmed) when is_binary(confirmed) do
-    names = names_of(containers)
-
-    Map.put(
-      updates,
+    |> support(
+      containers,
       :unbounded_cache,
-      {:eliminated, "#{names} growth is consistent with the retained #{confirmed}'s internals"}
+      "container counts increased; cache ownership and bounds are unverified"
     )
   end
 
-  defp container_update(updates, containers, _confirmed),
-    do:
-      Map.put(
-        updates,
-        :unbounded_cache,
-        {:supported, "#{names_of(containers)} grew across visits"}
-      )
+  defp support(updates, [], _hypothesis, _description), do: updates
+
+  defp support(updates, entries, hypothesis, description),
+    do: Map.put(updates, hypothesis, {:supported, names_of(entries) <> ": " <> description})
 
   defp names_of(containers),
     do: containers |> Enum.map(fn {class, _} -> class end) |> Enum.sort() |> Enum.join(", ")
 
-  defp summarize(growth) when map_size(growth) == 0, do: "nothing retained across visits"
+  defp summarize(growth) when map_size(growth) == 0,
+    do: "no growth in the compared constructor summary; retention remains unresolved"
 
   defp summarize(growth) do
     growth

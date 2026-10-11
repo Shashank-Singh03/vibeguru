@@ -7,22 +7,39 @@
 const fs = require("fs");
 const path = require("path");
 const { execFileSync } = require("child_process");
+const { createHash, randomUUID } = require("crypto");
 
 const { assetName, binaryPath, downloadUrl } = require("./platform");
 const { download } = require("./download");
 const { version } = require("../../package.json");
+// Release hosting is a deliberate trust decision. Add a new distribution host
+// here when its authenticated publication path has been reviewed.
+const RELEASE_HOSTS = Object.freeze(["github.com", "release-assets.githubusercontent.com", "objects.githubusercontent.com", "github-releases.githubusercontent.com"]);
 
 // Returns the path to the ready-to-run binary, downloading it if missing.
 async function ensureBinary({ force = false } = {}) {
   const dest = binaryPath();
+  const metadata = `${dest}.json`;
 
-  if (!force && fs.existsSync(dest)) {
-    return dest;
+  if (!force && fs.existsSync(dest) && fs.existsSync(metadata)) {
+    try {
+      const stored = JSON.parse(fs.readFileSync(metadata, "utf8"));
+      if (stored.version === version && stored.sha256 === createHash("sha256").update(fs.readFileSync(dest)).digest("hex")) return dest;
+    } catch { /* Retry incomplete or outdated caches. */ }
   }
 
   process.stderr.write(`vibeguru: downloading ${assetName()} (v${version})\n`);
-  await download(downloadUrl(version), dest);
+  const manifest = `${dest}.${randomUUID()}.sums`;
+  let sha256;
+  try {
+    await download(new URL("SHA256SUMS", downloadUrl(version)).href, manifest, { maxBytes: 1024 * 1024, allowedHosts: RELEASE_HOSTS });
+    sha256 = checksumFor(fs.readFileSync(manifest, "utf8"), assetName());
+    await download(downloadUrl(version), dest, { sha256, allowedHosts: RELEASE_HOSTS });
+  } finally {
+    fs.rmSync(manifest, { force: true });
+  }
   if (process.platform !== "win32") fs.chmodSync(dest, 0o755);
+  fs.writeFileSync(metadata, JSON.stringify({ version, sha256 }));
 
   return dest;
 }
@@ -49,4 +66,9 @@ function isChromiumInstalled() {
   }
 }
 
-module.exports = { ensureBinary, ensureChromium, isChromiumInstalled };
+function checksumFor(manifest, asset) {
+  const line = manifest.split(/\r?\n/).map(l => l.trim().split(/\s+/)).find(parts => parts[1]?.replace(/^\*/, "") === asset);
+  if (!line || !/^[a-f0-9]{64}$/i.test(line[0])) throw new Error(`Release checksum missing for ${asset}.`);
+  return line[0].toLowerCase();
+}
+module.exports = { ensureBinary, ensureChromium, isChromiumInstalled, checksumFor, RELEASE_HOSTS };

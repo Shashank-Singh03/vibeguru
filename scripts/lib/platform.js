@@ -54,4 +54,4 @@ function downloadUrl(version) {
   return `https://github.com/${REPO}/releases/download/v${version}/${assetName()}`;
 }
 
-module.exports = { REPO, packageRoot, platformKey, assetName, binaryPath, driverPath, downloadUrl };
+module.exports = { REPO, ASSETS, packageRoot, platformKey, assetName, binaryPath, driverPath, downloadUrl };

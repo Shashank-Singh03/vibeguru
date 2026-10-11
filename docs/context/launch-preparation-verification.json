@@ -1,0 +1,1868 @@
+{
+  "reviewed_date": "2026-10-11",
+  "source_revision": "e115945177fa2dd8b325325e01d0801a90ffba7453d5e76249052f40998de9cb",
+  "source_unchanged_after_checks": true,
+  "git": {
+    "staged_count": 0,
+    "commit": "2f6429988a98b7ddc2833f9d312880b6fdd59353",
+    "branch": "feat/census-probe",
+    "publication": "none; user handles privacy/push"
+  },
+  "full_check": {
+    "schema_version": 1,
+    "id": "1791726472050-6f982e78",
+    "suite": "Full repository check",
+    "command": "npm run check",
+    "status": "PASS",
+    "started_at": "2026-10-11T13:47:52.050Z",
+    "finished_at": "2026-10-11T13:48:20.483Z",
+    "duration_ms": 28433,
+    "tests": null,
+    "passed": null,
+    "failed": null,
+    "skipped": null,
+    "failures": [],
+    "log_path": null,
+    "source_revision": "e115945177fa2dd8b325325e01d0801a90ffba7453d5e76249052f40998de9cb",
+    "stages": [
+      {
+        "id": "1791726472172-3799bed0",
+        "suite": "Formatting",
+        "status": "PASS",
+        "duration_ms": 989,
+        "log_path": "reports/test-history/1791726472172-3799bed0.log",
+        "exit_code": 0
+      },
+      {
+        "id": "1791726473163-3846b18c",
+        "suite": "Compile",
+        "status": "PASS",
+        "duration_ms": 1859,
+        "log_path": "reports/test-history/1791726473163-3846b18c.log",
+        "exit_code": 0
+      },
+      {
+        "id": "1791726475024-bda62df2",
+        "suite": "Elixir command",
+        "status": "PASS",
+        "duration_ms": 11597,
+        "log_path": "reports/test-history/1791726475024-bda62df2.log",
+        "exit_code": 0
+      },
+      {
+        "id": "1791726486622-feeadcee",
+        "suite": "Node command",
+        "status": "PASS",
+        "duration_ms": 13859,
+        "log_path": "reports/test-history/1791726486622-feeadcee.log",
+        "exit_code": 0
+      }
+    ],
+    "exit_code": 0
+  },
+  "node_suite": {
+    "schema_version": 1,
+    "id": "1791726486872-e477f0ae",
+    "suite": "Node tests",
+    "command": "npm test",
+    "status": "PASS",
+    "started_at": "2026-10-11T13:48:06.873Z",
+    "finished_at": "2026-10-11T13:48:20.468Z",
+    "duration_ms": 13595,
+    "tests": 188,
+    "passed": 188,
+    "failed": 0,
+    "skipped": 0,
+    "failures": [],
+    "log_path": "reports/test-history/1791726486872-e477f0ae.tap",
+    "source_revision": "e115945177fa2dd8b325325e01d0801a90ffba7453d5e76249052f40998de9cb",
+    "scope": "repository",
+    "runner_concurrency": 4,
+    "exit_code": 0
+  },
+  "elixir_suite": {
+    "command": "mix test",
+    "id": "elixir-1791726476646-269",
+    "scope": "repository",
+    "status": "PASS",
+    "started_at": "2026-10-11T13:47:57.087000Z",
+    "failed": 0,
+    "failures": [],
+    "schema_version": 1,
+    "suite": "Elixir tests",
+    "finished_at": "2026-10-11T13:48:06.597000Z",
+    "duration_ms": 9950,
+    "tests": 204,
+    "passed": 200,
+    "skipped": 4,
+    "doctests": 1,
+    "log_path": null,
+    "source_revision": "e115945177fa2dd8b325325e01d0801a90ffba7453d5e76249052f40998de9cb"
+  },
+  "package_smoke": {
+    "version": "0.2.0",
+    "platform": "win32:x64",
+    "mode": "escript",
+    "passed": true,
+    "node": "v24.0.0",
+    "duration_ms": 192676,
+    "timings": [
+      {
+        "name": "npm pack",
+        "duration_ms": 1343,
+        "exit_code": 0,
+        "expected_exit": 0
+      },
+      {
+        "name": "npm install",
+        "duration_ms": 5630,
+        "exit_code": 0,
+        "expected_exit": 0
+      },
+      {
+        "name": "CLI doctor",
+        "duration_ms": 544,
+        "exit_code": 0,
+        "expected_exit": 0
+      },
+      {
+        "name": "CLI usage",
+        "duration_ms": 885,
+        "exit_code": 64,
+        "expected_exit": 64
+      },
+      {
+        "name": "CLI init",
+        "duration_ms": 1409,
+        "exit_code": 0,
+        "expected_exit": 0
+      },
+      {
+        "name": "CLI memory:client",
+        "duration_ms": 80964,
+        "exit_code": 1,
+        "expected_exit": 1
+      },
+      {
+        "name": "fixture verifier",
+        "duration_ms": 88,
+        "exit_code": 0,
+        "expected_exit": 0
+      },
+      {
+        "name": "CLI memory:client",
+        "duration_ms": 5920,
+        "exit_code": 0,
+        "expected_exit": 0
+      },
+      {
+        "name": "CLI memory:client",
+        "duration_ms": 5104,
+        "exit_code": 3,
+        "expected_exit": 3
+      },
+      {
+        "name": "CLI memory:client",
+        "duration_ms": 2308,
+        "exit_code": 2,
+        "expected_exit": 2
+      }
+    ],
+    "package_files": 30,
+    "package_size_bytes": 59809,
+    "source_revision": "e115945177fa2dd8b325325e01d0801a90ffba7453d5e76249052f40998de9cb",
+    "execution_identity_stable": true,
+    "binary_sha256": "9326a976247dbbe1374d11db570dc8f0bf1f82eb048dd16b1788919334eaaa48",
+    "checks": [
+      "production-package-boundary",
+      "fresh-tarball-install",
+      "CLI-doctor",
+      "CLI-init",
+      "CLI-usage-64",
+      "CLI-FAIL-1",
+      "clean-flow-PASS-0",
+      "failed-flow-INCONCLUSIVE-3",
+      "execution-ERROR-2",
+      "MCP-handshake-and-verify",
+      "filtered-verdict",
+      "fixture-signatures-and-control"
+    ]
+  },
+  "package_log": "reports/security-review-2026-10-11/package-final.log",
+  "prior_check_failure": {
+    "schema_version": 1,
+    "id": "1791726291960-bed765e4",
+    "suite": "Full repository check",
+    "command": "npm run check",
+    "status": "ERROR",
+    "started_at": "2026-10-11T13:44:51.960Z",
+    "finished_at": "2026-10-11T13:45:23.153Z",
+    "duration_ms": 31193,
+    "tests": null,
+    "passed": null,
+    "failed": null,
+    "skipped": null,
+    "failures": [
+      {
+        "name": "Node command",
+        "message": "See reports/test-history/1791726306695-6d0f3401.log"
+      }
+    ],
+    "log_path": null,
+    "source_revision": "5c0a8fc97615838cf38e36b7fbbbbc8467d67c197f1cba6c319dacf9d0272547",
+    "stages": [
+      {
+        "id": "1791726292112-92587d10",
+        "suite": "Formatting",
+        "status": "PASS",
+        "duration_ms": 1143,
+        "log_path": "reports/test-history/1791726292112-92587d10.log",
+        "exit_code": 0
+      },
+      {
+        "id": "1791726293257-cf4374db",
+        "suite": "Compile",
+        "status": "PASS",
+        "duration_ms": 2024,
+        "log_path": "reports/test-history/1791726293257-cf4374db.log",
+        "exit_code": 0
+      },
+      {
+        "id": "1791726295283-985bb6ac",
+        "suite": "Elixir command",
+        "status": "PASS",
+        "duration_ms": 11410,
+        "log_path": "reports/test-history/1791726295283-985bb6ac.log",
+        "exit_code": 0
+      },
+      {
+        "id": "1791726306695-6d0f3401",
+        "suite": "Node command",
+        "status": "ERROR",
+        "duration_ms": 16456,
+        "log_path": "reports/test-history/1791726306695-6d0f3401.log",
+        "exit_code": 1
+      }
+    ],
+    "exit_code": 1
+  },
+  "security": {
+    "review": "reports/security-review-2026-10-11/SECURITY_REVIEW.md",
+    "integration_addendum": "reports/security-review-2026-10-11/INTEGRATION_ADDENDUM.md",
+    "npm_known_advisories": 0,
+    "unix_only_checks_skipped": 4,
+    "zero_day_assurance": false
+  },
+  "dashboard": {
+    "summary": {
+      "campaigns": 31,
+      "cases": 224,
+      "pass": 86,
+      "fail": 102,
+      "inconclusive": 36,
+      "error": 0,
+      "expected_matched": 133,
+      "expected_total": 134,
+      "assertions_passed": 4632,
+      "assertions_failed": 295,
+      "active_vectors": 13
+    },
+    "timing": {
+      "suite_groups": [
+        {
+          "suite": "Full repository check",
+          "samples": 3,
+          "median_ms": 28433,
+          "p95_ms": 31193,
+          "min_ms": 23427,
+          "max_ms": 31193,
+          "pass": 2,
+          "failed": 1,
+          "latest": {
+            "id": "1791726472050-6f982e78",
+            "duration_ms": 28433,
+            "status": "PASS",
+            "stale": false,
+            "source_revision": "e115945177fa2dd8b325325e01d0801a90ffba7453d5e76249052f40998de9cb",
+            "started_at": "2026-10-11T13:47:52.050Z",
+            "stages": [
+              {
+                "id": "1791726472172-3799bed0",
+                "suite": "Formatting",
+                "status": "PASS",
+                "duration_ms": 989,
+                "log_path": "reports/test-history/1791726472172-3799bed0.log",
+                "exit_code": 0
+              },
+              {
+                "id": "1791726473163-3846b18c",
+                "suite": "Compile",
+                "status": "PASS",
+                "duration_ms": 1859,
+                "log_path": "reports/test-history/1791726473163-3846b18c.log",
+                "exit_code": 0
+              },
+              {
+                "id": "1791726475024-bda62df2",
+                "suite": "Elixir command",
+                "status": "PASS",
+                "duration_ms": 11597,
+                "log_path": "reports/test-history/1791726475024-bda62df2.log",
+                "exit_code": 0
+              },
+              {
+                "id": "1791726486622-feeadcee",
+                "suite": "Node command",
+                "status": "PASS",
+                "duration_ms": 13859,
+                "log_path": "reports/test-history/1791726486622-feeadcee.log",
+                "exit_code": 0
+              }
+            ],
+            "log_path": null
+          },
+          "history": [
+            {
+              "id": "1791725971988-c15e9c8c",
+              "duration_ms": 23427,
+              "status": "PASS",
+              "started_at": "2026-10-11T13:39:31.988Z"
+            },
+            {
+              "id": "1791726291960-bed765e4",
+              "duration_ms": 31193,
+              "status": "ERROR",
+              "started_at": "2026-10-11T13:44:51.960Z"
+            },
+            {
+              "id": "1791726472050-6f982e78",
+              "duration_ms": 28433,
+              "status": "PASS",
+              "started_at": "2026-10-11T13:47:52.050Z"
+            }
+          ]
+        },
+        {
+          "suite": "Formatting",
+          "samples": 12,
+          "median_ms": 895,
+          "p95_ms": 6473,
+          "min_ms": 730,
+          "max_ms": 6473,
+          "pass": 12,
+          "failed": 0,
+          "latest": {
+            "id": "1791726472172-3799bed0",
+            "duration_ms": 989,
+            "status": "PASS",
+            "stale": false,
+            "source_revision": "e115945177fa2dd8b325325e01d0801a90ffba7453d5e76249052f40998de9cb",
+            "started_at": "2026-10-11T13:47:52.172Z",
+            "stages": [],
+            "log_path": "reports/test-history/1791726472172-3799bed0.log"
+          },
+          "history": [
+            {
+              "id": "1791561925091-958d74ff",
+              "duration_ms": 923,
+              "status": "PASS",
+              "started_at": "2026-10-09T16:05:25.091Z"
+            },
+            {
+              "id": "1791562150760-b89d312f",
+              "duration_ms": 887,
+              "status": "PASS",
+              "started_at": "2026-10-09T16:09:10.761Z"
+            },
+            {
+              "id": "1791563915015-77859d81",
+              "duration_ms": 903,
+              "status": "PASS",
+              "started_at": "2026-10-09T16:38:35.016Z"
+            },
+            {
+              "id": "1791563973766-91f419d6",
+              "duration_ms": 823,
+              "status": "PASS",
+              "started_at": "2026-10-09T16:39:33.766Z"
+            },
+            {
+              "id": "1791569153364-d18b64e8",
+              "duration_ms": 6473,
+              "status": "PASS",
+              "started_at": "2026-10-09T18:05:53.364Z"
+            },
+            {
+              "id": "1791571966002-a7ed542b",
+              "duration_ms": 779,
+              "status": "PASS",
+              "started_at": "2026-10-09T18:52:46.002Z"
+            },
+            {
+              "id": "1791608847527-ca6c9128",
+              "duration_ms": 735,
+              "status": "PASS",
+              "started_at": "2026-10-10T05:07:27.527Z"
+            },
+            {
+              "id": "1791612873033-9588e9a8",
+              "duration_ms": 953,
+              "status": "PASS",
+              "started_at": "2026-10-10T06:14:33.034Z"
+            },
+            {
+              "id": "1791613317493-30a65ceb",
+              "duration_ms": 730,
+              "status": "PASS",
+              "started_at": "2026-10-10T06:21:57.493Z"
+            },
+            {
+              "id": "1791725972121-13eb6c29",
+              "duration_ms": 848,
+              "status": "PASS",
+              "started_at": "2026-10-11T13:39:32.121Z"
+            },
+            {
+              "id": "1791726292112-92587d10",
+              "duration_ms": 1143,
+              "status": "PASS",
+              "started_at": "2026-10-11T13:44:52.112Z"
+            },
+            {
+              "id": "1791726472172-3799bed0",
+              "duration_ms": 989,
+              "status": "PASS",
+              "started_at": "2026-10-11T13:47:52.172Z"
+            }
+          ]
+        },
+        {
+          "suite": "Compile",
+          "samples": 12,
+          "median_ms": 1183.5,
+          "p95_ms": 2308,
+          "min_ms": 786,
+          "max_ms": 2308,
+          "pass": 12,
+          "failed": 0,
+          "latest": {
+            "id": "1791726473163-3846b18c",
+            "duration_ms": 1859,
+            "status": "PASS",
+            "stale": false,
+            "source_revision": "e115945177fa2dd8b325325e01d0801a90ffba7453d5e76249052f40998de9cb",
+            "started_at": "2026-10-11T13:47:53.163Z",
+            "stages": [],
+            "log_path": "reports/test-history/1791726473163-3846b18c.log"
+          },
+          "history": [
+            {
+              "id": "1791561926016-477d6817",
+              "duration_ms": 1150,
+              "status": "PASS",
+              "started_at": "2026-10-09T16:05:26.016Z"
+            },
+            {
+              "id": "1791562151649-92a868d5",
+              "duration_ms": 864,
+              "status": "PASS",
+              "started_at": "2026-10-09T16:09:11.650Z"
+            },
+            {
+              "id": "1791563915921-375235d1",
+              "duration_ms": 1235,
+              "status": "PASS",
+              "started_at": "2026-10-09T16:38:35.921Z"
+            },
+            {
+              "id": "1791563974590-5b4ec75f",
+              "duration_ms": 858,
+              "status": "PASS",
+              "started_at": "2026-10-09T16:39:34.590Z"
+            },
+            {
+              "id": "1791569159841-7dc6a496",
+              "duration_ms": 2308,
+              "status": "PASS",
+              "started_at": "2026-10-09T18:05:59.841Z"
+            },
+            {
+              "id": "1791571966782-7a9c4284",
+              "duration_ms": 829,
+              "status": "PASS",
+              "started_at": "2026-10-09T18:52:46.782Z"
+            },
+            {
+              "id": "1791608848263-0e24b8ee",
+              "duration_ms": 791,
+              "status": "PASS",
+              "started_at": "2026-10-10T05:07:28.263Z"
+            },
+            {
+              "id": "1791612873988-f0f47dd2",
+              "duration_ms": 1217,
+              "status": "PASS",
+              "started_at": "2026-10-10T06:14:33.988Z"
+            },
+            {
+              "id": "1791613318224-345e5074",
+              "duration_ms": 786,
+              "status": "PASS",
+              "started_at": "2026-10-10T06:21:58.224Z"
+            },
+            {
+              "id": "1791725972971-f0e58ab1",
+              "duration_ms": 1325,
+              "status": "PASS",
+              "started_at": "2026-10-11T13:39:32.971Z"
+            },
+            {
+              "id": "1791726293257-cf4374db",
+              "duration_ms": 2024,
+              "status": "PASS",
+              "started_at": "2026-10-11T13:44:53.257Z"
+            },
+            {
+              "id": "1791726473163-3846b18c",
+              "duration_ms": 1859,
+              "status": "PASS",
+              "started_at": "2026-10-11T13:47:53.163Z"
+            }
+          ]
+        },
+        {
+          "suite": "Elixir command",
+          "samples": 12,
+          "median_ms": 11624.5,
+          "p95_ms": 15169,
+          "min_ms": 8955,
+          "max_ms": 15169,
+          "pass": 12,
+          "failed": 0,
+          "latest": {
+            "id": "1791726475024-bda62df2",
+            "duration_ms": 11597,
+            "status": "PASS",
+            "stale": false,
+            "source_revision": "e115945177fa2dd8b325325e01d0801a90ffba7453d5e76249052f40998de9cb",
+            "started_at": "2026-10-11T13:47:55.024Z",
+            "stages": [],
+            "log_path": "reports/test-history/1791726475024-bda62df2.log"
+          },
+          "history": [
+            {
+              "id": "1791561927168-0783241b",
+              "duration_ms": 10184,
+              "status": "PASS",
+              "started_at": "2026-10-09T16:05:27.168Z"
+            },
+            {
+              "id": "1791562152515-85b59673",
+              "duration_ms": 8955,
+              "status": "PASS",
+              "started_at": "2026-10-09T16:09:12.515Z"
+            },
+            {
+              "id": "1791563917157-43eb19bc",
+              "duration_ms": 13215,
+              "status": "PASS",
+              "started_at": "2026-10-09T16:38:37.157Z"
+            },
+            {
+              "id": "1791563975449-600922aa",
+              "duration_ms": 10844,
+              "status": "PASS",
+              "started_at": "2026-10-09T16:39:35.449Z"
+            },
+            {
+              "id": "1791569162155-20df8fb6",
+              "duration_ms": 11652,
+              "status": "PASS",
+              "started_at": "2026-10-09T18:06:02.155Z"
+            },
+            {
+              "id": "1791571967612-8e0fec45",
+              "duration_ms": 12153,
+              "status": "PASS",
+              "started_at": "2026-10-09T18:52:47.612Z"
+            },
+            {
+              "id": "1791608849055-62ee4c46",
+              "duration_ms": 14077,
+              "status": "PASS",
+              "started_at": "2026-10-10T05:07:29.055Z"
+            },
+            {
+              "id": "1791612875207-63fc117e",
+              "duration_ms": 15169,
+              "status": "PASS",
+              "started_at": "2026-10-10T06:14:35.207Z"
+            },
+            {
+              "id": "1791613319012-b1828390",
+              "duration_ms": 14128,
+              "status": "PASS",
+              "started_at": "2026-10-10T06:21:59.012Z"
+            },
+            {
+              "id": "1791725974298-dd6627d0",
+              "duration_ms": 11080,
+              "status": "PASS",
+              "started_at": "2026-10-11T13:39:34.298Z"
+            },
+            {
+              "id": "1791726295283-985bb6ac",
+              "duration_ms": 11410,
+              "status": "PASS",
+              "started_at": "2026-10-11T13:44:55.283Z"
+            },
+            {
+              "id": "1791726475024-bda62df2",
+              "duration_ms": 11597,
+              "status": "PASS",
+              "started_at": "2026-10-11T13:47:55.024Z"
+            }
+          ]
+        },
+        {
+          "suite": "Node command",
+          "samples": 12,
+          "median_ms": 10200.5,
+          "p95_ms": 17477,
+          "min_ms": 3651,
+          "max_ms": 17477,
+          "pass": 10,
+          "failed": 2,
+          "latest": {
+            "id": "1791726486622-feeadcee",
+            "duration_ms": 13859,
+            "status": "PASS",
+            "stale": false,
+            "source_revision": "e115945177fa2dd8b325325e01d0801a90ffba7453d5e76249052f40998de9cb",
+            "started_at": "2026-10-11T13:48:06.622Z",
+            "stages": [],
+            "log_path": "reports/test-history/1791726486622-feeadcee.log"
+          },
+          "history": [
+            {
+              "id": "1791561937354-a8cd0af6",
+              "duration_ms": 3939,
+              "status": "PASS",
+              "started_at": "2026-10-09T16:05:37.354Z"
+            },
+            {
+              "id": "1791562161471-0d1f73b9",
+              "duration_ms": 3651,
+              "status": "PASS",
+              "started_at": "2026-10-09T16:09:21.471Z"
+            },
+            {
+              "id": "1791563930375-332595ea",
+              "duration_ms": 11275,
+              "status": "ERROR",
+              "started_at": "2026-10-09T16:38:50.375Z"
+            },
+            {
+              "id": "1791563986297-c9a922b0",
+              "duration_ms": 11778,
+              "status": "PASS",
+              "started_at": "2026-10-09T16:39:46.297Z"
+            },
+            {
+              "id": "1791569173809-457366a1",
+              "duration_ms": 9364,
+              "status": "PASS",
+              "started_at": "2026-10-09T18:06:13.809Z"
+            },
+            {
+              "id": "1791571979767-09f368e0",
+              "duration_ms": 8786,
+              "status": "PASS",
+              "started_at": "2026-10-09T18:52:59.767Z"
+            },
+            {
+              "id": "1791608863133-ad3b87d0",
+              "duration_ms": 10370,
+              "status": "PASS",
+              "started_at": "2026-10-10T05:07:43.133Z"
+            },
+            {
+              "id": "1791612890378-ffc81654",
+              "duration_ms": 17477,
+              "status": "PASS",
+              "started_at": "2026-10-10T06:14:50.378Z"
+            },
+            {
+              "id": "1791613333144-7c13d7f9",
+              "duration_ms": 9137,
+              "status": "PASS",
+              "started_at": "2026-10-10T06:22:13.144Z"
+            },
+            {
+              "id": "1791725985380-0fd2bcc3",
+              "duration_ms": 10031,
+              "status": "PASS",
+              "started_at": "2026-10-11T13:39:45.380Z"
+            },
+            {
+              "id": "1791726306695-6d0f3401",
+              "duration_ms": 16456,
+              "status": "ERROR",
+              "started_at": "2026-10-11T13:45:06.695Z"
+            },
+            {
+              "id": "1791726486622-feeadcee",
+              "duration_ms": 13859,
+              "status": "PASS",
+              "started_at": "2026-10-11T13:48:06.622Z"
+            }
+          ]
+        },
+        {
+          "suite": "Elixir tests",
+          "samples": 3,
+          "median_ms": 9911,
+          "p95_ms": 9950,
+          "min_ms": 9872,
+          "max_ms": 9950,
+          "pass": 3,
+          "failed": 0,
+          "latest": {
+            "id": "elixir-1791726476646-269",
+            "duration_ms": 9950,
+            "status": "PASS",
+            "stale": false,
+            "source_revision": "e115945177fa2dd8b325325e01d0801a90ffba7453d5e76249052f40998de9cb",
+            "started_at": "2026-10-11T13:47:57.087000Z",
+            "stages": [],
+            "log_path": null
+          },
+          "history": [
+            {
+              "id": "elixir-1791725975439-463",
+              "duration_ms": 9911,
+              "status": "PASS",
+              "started_at": "2026-10-11T13:39:35.843000Z"
+            },
+            {
+              "id": "elixir-1791726296785-5578",
+              "duration_ms": 9872,
+              "status": "PASS",
+              "started_at": "2026-10-11T13:44:57.228000Z"
+            },
+            {
+              "id": "elixir-1791726476646-269",
+              "duration_ms": 9950,
+              "status": "PASS",
+              "started_at": "2026-10-11T13:47:57.087000Z"
+            }
+          ]
+        },
+        {
+          "suite": "Node tests",
+          "samples": 14,
+          "median_ms": 9400,
+          "p95_ms": 17234,
+          "min_ms": 3442,
+          "max_ms": 17234,
+          "pass": 11,
+          "failed": 3,
+          "latest": {
+            "id": "1791726486872-e477f0ae",
+            "duration_ms": 13595,
+            "status": "PASS",
+            "stale": false,
+            "source_revision": "e115945177fa2dd8b325325e01d0801a90ffba7453d5e76249052f40998de9cb",
+            "started_at": "2026-10-11T13:48:06.873Z",
+            "stages": [],
+            "log_path": "reports/test-history/1791726486872-e477f0ae.tap"
+          },
+          "history": [
+            {
+              "id": "1791562161668-853c5dc4",
+              "duration_ms": 3442,
+              "status": "PASS",
+              "started_at": "2026-10-09T16:09:21.668Z"
+            },
+            {
+              "id": "1791562932635-489a68ae",
+              "duration_ms": 7651,
+              "status": "FAIL",
+              "started_at": "2026-10-09T16:22:12.637Z"
+            },
+            {
+              "id": "1791563930666-7972438c",
+              "duration_ms": 10961,
+              "status": "FAIL",
+              "started_at": "2026-10-09T16:38:50.667Z"
+            },
+            {
+              "id": "1791563986534-2f0cb70d",
+              "duration_ms": 11525,
+              "status": "PASS",
+              "started_at": "2026-10-09T16:39:46.534Z"
+            },
+            {
+              "id": "1791569174150-d3164be3",
+              "duration_ms": 9002,
+              "status": "PASS",
+              "started_at": "2026-10-09T18:06:14.151Z"
+            },
+            {
+              "id": "1791571980019-725c636d",
+              "duration_ms": 8518,
+              "status": "PASS",
+              "started_at": "2026-10-09T18:53:00.019Z"
+            },
+            {
+              "id": "1791608863336-45c4eb17",
+              "duration_ms": 10154,
+              "status": "PASS",
+              "started_at": "2026-10-10T05:07:43.336Z"
+            },
+            {
+              "id": "1791612890605-a354cffd",
+              "duration_ms": 17234,
+              "status": "PASS",
+              "started_at": "2026-10-10T06:14:50.605Z"
+            },
+            {
+              "id": "1791613333478-83597d70",
+              "duration_ms": 8787,
+              "status": "PASS",
+              "started_at": "2026-10-10T06:22:13.478Z"
+            },
+            {
+              "id": "1791725985599-f9f1a90a",
+              "duration_ms": 9798,
+              "status": "PASS",
+              "started_at": "2026-10-11T13:39:45.599Z"
+            },
+            {
+              "id": "1791726306947-0dd97bed",
+              "duration_ms": 16191,
+              "status": "FAIL",
+              "started_at": "2026-10-11T13:45:06.948Z"
+            },
+            {
+              "id": "1791726486872-e477f0ae",
+              "duration_ms": 13595,
+              "status": "PASS",
+              "started_at": "2026-10-11T13:48:06.873Z"
+            }
+          ]
+        },
+        {
+          "suite": "Package smoke",
+          "samples": 2,
+          "median_ms": 196978,
+          "p95_ms": 201029,
+          "min_ms": 192927,
+          "max_ms": 201029,
+          "pass": 2,
+          "failed": 0,
+          "latest": {
+            "id": "1791726568970-a37d0fd6",
+            "duration_ms": 192927,
+            "status": "PASS",
+            "stale": false,
+            "source_revision": "e115945177fa2dd8b325325e01d0801a90ffba7453d5e76249052f40998de9cb",
+            "started_at": "2026-10-11T13:49:28.970Z",
+            "stages": [],
+            "log_path": "reports/package-smoke-win32-x64.json"
+          },
+          "history": [
+            {
+              "id": "1791726020608-2e97494e",
+              "duration_ms": 201029,
+              "status": "PASS",
+              "started_at": "2026-10-11T13:40:20.609Z"
+            },
+            {
+              "id": "1791726568970-a37d0fd6",
+              "duration_ms": 192927,
+              "status": "PASS",
+              "started_at": "2026-10-11T13:49:28.970Z"
+            }
+          ]
+        },
+        {
+          "suite": "Elixir tests · scope unknown · 13 tests",
+          "samples": 2,
+          "median_ms": 535.5,
+          "p95_ms": 671,
+          "min_ms": 400,
+          "max_ms": 671,
+          "pass": 2,
+          "failed": 0,
+          "latest": {
+            "id": "elixir-1791725588898-8",
+            "duration_ms": 400,
+            "status": "PASS",
+            "stale": true,
+            "source_revision": "7f80f16cee8c5356d152b3c44aaf5f89c4fa061f90dbbca432ba623e9d64d050",
+            "started_at": "2026-10-11T13:33:09.132000Z",
+            "stages": [],
+            "log_path": null
+          },
+          "history": [
+            {
+              "id": "elixir-1791725521217-7",
+              "duration_ms": 671,
+              "status": "PASS",
+              "started_at": "2026-10-11T13:32:01.575000Z"
+            },
+            {
+              "id": "elixir-1791725588898-8",
+              "duration_ms": 400,
+              "status": "PASS",
+              "started_at": "2026-10-11T13:33:09.132000Z"
+            }
+          ]
+        },
+        {
+          "suite": "Elixir tests · scope unknown · 12 tests",
+          "samples": 1,
+          "median_ms": 682,
+          "p95_ms": 682,
+          "min_ms": 682,
+          "max_ms": 682,
+          "pass": 1,
+          "failed": 0,
+          "latest": {
+            "id": "elixir-1791725468389-900",
+            "duration_ms": 682,
+            "status": "PASS",
+            "stale": true,
+            "source_revision": "ebee18d211078c7312aeef2ce06651e24ad84c08bea7a83895578d975a32d621",
+            "started_at": "2026-10-11T13:31:08.706000Z",
+            "stages": [],
+            "log_path": null
+          },
+          "history": [
+            {
+              "id": "elixir-1791725468389-900",
+              "duration_ms": 682,
+              "status": "PASS",
+              "started_at": "2026-10-11T13:31:08.706000Z"
+            }
+          ]
+        },
+        {
+          "suite": "Elixir tests · scope unknown · 198 tests",
+          "samples": 4,
+          "median_ms": 12488.5,
+          "p95_ms": 13088,
+          "min_ms": 11152,
+          "max_ms": 13088,
+          "pass": 4,
+          "failed": 0,
+          "latest": {
+            "id": "elixir-1791613320013-258",
+            "duration_ms": 13088,
+            "status": "PASS",
+            "stale": true,
+            "source_revision": "d5229f4348ab04cc973255849e6a2394fdf9b6e2d0c1a0ad3f82ff0bbc2a7247",
+            "started_at": "2026-10-10T06:22:00.279000Z",
+            "stages": [],
+            "log_path": null
+          },
+          "history": [
+            {
+              "id": "elixir-1791571968582-4",
+              "duration_ms": 11152,
+              "status": "PASS",
+              "started_at": "2026-10-09T18:52:48.843000Z"
+            },
+            {
+              "id": "elixir-1791608850780-265",
+              "duration_ms": 12325,
+              "status": "PASS",
+              "started_at": "2026-10-10T05:07:31.014000Z"
+            },
+            {
+              "id": "elixir-1791612877658-4",
+              "duration_ms": 12652,
+              "status": "PASS",
+              "started_at": "2026-10-10T06:14:38.009000Z"
+            },
+            {
+              "id": "elixir-1791613320013-258",
+              "duration_ms": 13088,
+              "status": "PASS",
+              "started_at": "2026-10-10T06:22:00.279000Z"
+            }
+          ]
+        },
+        {
+          "suite": "Evidence corruption corpus",
+          "samples": 10,
+          "median_ms": 128.5,
+          "p95_ms": 201,
+          "min_ms": 114,
+          "max_ms": 201,
+          "pass": 7,
+          "failed": 3,
+          "latest": {
+            "id": "1791571998382-7205533f",
+            "duration_ms": 125,
+            "status": "PASS",
+            "stale": true,
+            "source_revision": "084a8e926aabcaa1a139ea74f778c9ed3a08a3e8a46d60d24443abf6237671d9",
+            "started_at": "2026-10-09T18:53:18.382Z",
+            "stages": [],
+            "log_path": "reports/test-history/1791571998382-7205533f.log"
+          },
+          "history": [
+            {
+              "id": "1791563211142-27d36dd8",
+              "duration_ms": 151,
+              "status": "FAIL",
+              "started_at": "2026-10-09T16:26:51.143Z"
+            },
+            {
+              "id": "1791563237532-870946b1",
+              "duration_ms": 114,
+              "status": "PASS",
+              "started_at": "2026-10-09T16:27:17.532Z"
+            },
+            {
+              "id": "1791563706284-93056e9d",
+              "duration_ms": 117,
+              "status": "PASS",
+              "started_at": "2026-10-09T16:35:06.285Z"
+            },
+            {
+              "id": "1791564065033-e4c9b8c6",
+              "duration_ms": 136,
+              "status": "PASS",
+              "started_at": "2026-10-09T16:41:05.033Z"
+            },
+            {
+              "id": "1791569169469-bcfb1105",
+              "duration_ms": 125,
+              "status": "PASS",
+              "started_at": "2026-10-09T18:06:09.469Z"
+            },
+            {
+              "id": "1791570625381-2ac76c85",
+              "duration_ms": 132,
+              "status": "FAIL",
+              "started_at": "2026-10-09T18:30:25.381Z"
+            },
+            {
+              "id": "1791570682761-fa8bf526",
+              "duration_ms": 119,
+              "status": "PASS",
+              "started_at": "2026-10-09T18:31:22.761Z"
+            },
+            {
+              "id": "1791571528458-d8313a37",
+              "duration_ms": 145,
+              "status": "FAIL",
+              "started_at": "2026-10-09T18:45:28.458Z"
+            },
+            {
+              "id": "1791571627484-f91d2152",
+              "duration_ms": 201,
+              "status": "PASS",
+              "started_at": "2026-10-09T18:47:07.484Z"
+            },
+            {
+              "id": "1791571998382-7205533f",
+              "duration_ms": 125,
+              "status": "PASS",
+              "started_at": "2026-10-09T18:53:18.382Z"
+            }
+          ]
+        },
+        {
+          "suite": "Elixir tests · scope unknown · 16 tests",
+          "samples": 1,
+          "median_ms": 10806,
+          "p95_ms": 10806,
+          "min_ms": 10806,
+          "max_ms": 10806,
+          "pass": 1,
+          "failed": 0,
+          "latest": {
+            "id": "elixir-1791571530862-66",
+            "duration_ms": 10806,
+            "status": "PASS",
+            "stale": true,
+            "source_revision": "ce3c05a2ba4b4698569eb2c1922642337031bb2c78a198496c2c8647cc6df268",
+            "started_at": "2026-10-09T18:45:31.027000Z",
+            "stages": [],
+            "log_path": null
+          },
+          "history": [
+            {
+              "id": "elixir-1791571530862-66",
+              "duration_ms": 10806,
+              "status": "PASS",
+              "started_at": "2026-10-09T18:45:31.027000Z"
+            }
+          ]
+        },
+        {
+          "suite": "Elixir tests · scope unknown · 15 tests",
+          "samples": 1,
+          "median_ms": 10587,
+          "p95_ms": 10587,
+          "min_ms": 10587,
+          "max_ms": 10587,
+          "pass": 1,
+          "failed": 0,
+          "latest": {
+            "id": "elixir-1791570658845-11",
+            "duration_ms": 10587,
+            "status": "PASS",
+            "stale": true,
+            "source_revision": "499a8689197c121a77ebc797ebfd6e52ce6fe3ae392c4cba30ea03d8ba8751f5",
+            "started_at": "2026-10-09T18:30:59.029000Z",
+            "stages": [],
+            "log_path": null
+          },
+          "history": [
+            {
+              "id": "elixir-1791570658845-11",
+              "duration_ms": 10587,
+              "status": "PASS",
+              "started_at": "2026-10-09T18:30:59.029000Z"
+            }
+          ]
+        },
+        {
+          "suite": "Elixir tests · scope unknown · 196 tests",
+          "samples": 3,
+          "median_ms": 10495,
+          "p95_ms": 12014,
+          "min_ms": 9809,
+          "max_ms": 12014,
+          "pass": 3,
+          "failed": 0,
+          "latest": {
+            "id": "elixir-1791569163271-901",
+            "duration_ms": 10495,
+            "status": "PASS",
+            "stale": true,
+            "source_revision": "17927b6fa6a792b043efe35cb964f41368fe24ff8db919588f23af31c2bbc657",
+            "started_at": "2026-10-09T18:06:03.557000Z",
+            "stages": [],
+            "log_path": null
+          },
+          "history": [
+            {
+              "id": "elixir-1791563918313-5698",
+              "duration_ms": 12014,
+              "status": "PASS",
+              "started_at": "2026-10-09T16:38:38.663000Z"
+            },
+            {
+              "id": "elixir-1791563976438-1100",
+              "duration_ms": 9809,
+              "status": "PASS",
+              "started_at": "2026-10-09T16:39:36.708000Z"
+            },
+            {
+              "id": "elixir-1791569163271-901",
+              "duration_ms": 10495,
+              "status": "PASS",
+              "started_at": "2026-10-09T18:06:03.557000Z"
+            }
+          ]
+        },
+        {
+          "suite": "Elixir tests · scope unknown · 14 tests",
+          "samples": 1,
+          "median_ms": 11739,
+          "p95_ms": 11739,
+          "min_ms": 11739,
+          "max_ms": 11739,
+          "pass": 1,
+          "failed": 0,
+          "latest": {
+            "id": "elixir-1791563336399-5324",
+            "duration_ms": 11739,
+            "status": "PASS",
+            "stale": true,
+            "source_revision": "50c83afc0f0ca9fa7574914de719e4c0fedd83e8b3ea0572d64347699fd28f80",
+            "started_at": "2026-10-09T16:28:56.602000Z",
+            "stages": [],
+            "log_path": null
+          },
+          "history": [
+            {
+              "id": "elixir-1791563336399-5324",
+              "duration_ms": 11739,
+              "status": "PASS",
+              "started_at": "2026-10-09T16:28:56.602000Z"
+            }
+          ]
+        },
+        {
+          "suite": "Elixir tests · scope unknown · 195 tests",
+          "samples": 2,
+          "median_ms": 8512,
+          "p95_ms": 9101,
+          "min_ms": 7923,
+          "max_ms": 9101,
+          "pass": 2,
+          "failed": 0,
+          "latest": {
+            "id": "elixir-1791562153521-587",
+            "duration_ms": 7923,
+            "status": "PASS",
+            "stale": true,
+            "source_revision": "3cbb4a7dfc6964d83d664decc1ea7148f5e4a365ecf5ded5a994c74170dcb5d8",
+            "started_at": "2026-10-09T16:09:13.812000Z",
+            "stages": [],
+            "log_path": null
+          },
+          "history": [
+            {
+              "id": "elixir-1791561928217-7",
+              "duration_ms": 9101,
+              "status": "PASS",
+              "started_at": "2026-10-09T16:05:28.487000Z"
+            },
+            {
+              "id": "elixir-1791562153521-587",
+              "duration_ms": 7923,
+              "status": "PASS",
+              "started_at": "2026-10-09T16:09:13.812000Z"
+            }
+          ]
+        },
+        {
+          "suite": "Elixir tests · scope unknown · 2 tests",
+          "samples": 1,
+          "median_ms": 772,
+          "p95_ms": 772,
+          "min_ms": 772,
+          "max_ms": 772,
+          "pass": 1,
+          "failed": 0,
+          "latest": {
+            "id": "elixir-1791561585644-3971",
+            "duration_ms": 772,
+            "status": "PASS",
+            "stale": true,
+            "source_revision": "2fd7638b49f117885730b0c7312e8f951b98dbfdf7a6fbec2441405c2dc02334",
+            "started_at": "2026-10-09T15:59:45.927000Z",
+            "stages": [],
+            "log_path": null
+          },
+          "history": [
+            {
+              "id": "elixir-1791561585644-3971",
+              "duration_ms": 772,
+              "status": "PASS",
+              "started_at": "2026-10-09T15:59:45.927000Z"
+            }
+          ]
+        },
+        {
+          "suite": "Elixir tests · scope unknown · 3 tests",
+          "samples": 1,
+          "median_ms": 573,
+          "p95_ms": 573,
+          "min_ms": 573,
+          "max_ms": 573,
+          "pass": 1,
+          "failed": 0,
+          "latest": {
+            "id": "elixir-1791560903283-19",
+            "duration_ms": 573,
+            "status": "PASS",
+            "stale": true,
+            "source_revision": "225c3a2e43f9c151afd6fa55814b87eec0f4255951c68d5328c36bb719e60002",
+            "started_at": "2026-10-09T15:48:23.733000Z",
+            "stages": [],
+            "log_path": null
+          },
+          "history": [
+            {
+              "id": "elixir-1791560903283-19",
+              "duration_ms": 573,
+              "status": "PASS",
+              "started_at": "2026-10-09T15:48:23.733000Z"
+            }
+          ]
+        }
+      ],
+      "unmeasured_suites": 0,
+      "browser_groups": [
+        {
+          "app": "standalone",
+          "variant": "observed",
+          "cycles": 3,
+          "samples": 6,
+          "median_ms": 3134.5,
+          "p95_ms": 4868,
+          "min_ms": 2837,
+          "max_ms": 4868,
+          "pass": 5,
+          "fail": 1
+        },
+        {
+          "app": "gateway-race-original",
+          "variant": "race-ordered",
+          "cycles": 6,
+          "samples": 4,
+          "median_ms": 9739,
+          "p95_ms": 11753,
+          "min_ms": 9204,
+          "max_ms": 11753,
+          "pass": 4,
+          "fail": 0
+        },
+        {
+          "app": "http-candidate",
+          "variant": "http-503",
+          "cycles": 6,
+          "samples": 4,
+          "median_ms": 5517,
+          "p95_ms": 6122,
+          "min_ms": 5262,
+          "max_ms": 6122,
+          "pass": 0,
+          "fail": 4
+        },
+        {
+          "app": "http-candidate",
+          "variant": "http-disconnect",
+          "cycles": 6,
+          "samples": 4,
+          "median_ms": 5591.5,
+          "p95_ms": 5949,
+          "min_ms": 5285,
+          "max_ms": 5949,
+          "pass": 0,
+          "fail": 4
+        },
+        {
+          "app": "http-candidate",
+          "variant": "http-malformed",
+          "cycles": 6,
+          "samples": 4,
+          "median_ms": 5485.5,
+          "p95_ms": 5904,
+          "min_ms": 5371,
+          "max_ms": 5904,
+          "pass": 4,
+          "fail": 0
+        },
+        {
+          "app": "http-candidate",
+          "variant": "http-normal",
+          "cycles": 6,
+          "samples": 4,
+          "median_ms": 5207,
+          "p95_ms": 5569,
+          "min_ms": 4900,
+          "max_ms": 5569,
+          "pass": 4,
+          "fail": 0
+        },
+        {
+          "app": "http-vulnerable",
+          "variant": "http-normal",
+          "cycles": 6,
+          "samples": 4,
+          "median_ms": 5169,
+          "p95_ms": 5347,
+          "min_ms": 5009,
+          "max_ms": 5347,
+          "pass": 4,
+          "fail": 0
+        },
+        {
+          "app": "navigation-candidate",
+          "variant": "nav-complete",
+          "cycles": 6,
+          "samples": 4,
+          "median_ms": 8212,
+          "p95_ms": 9014,
+          "min_ms": 7256,
+          "max_ms": 9014,
+          "pass": 4,
+          "fail": 0
+        },
+        {
+          "app": "navigation-candidate",
+          "variant": "nav-pending",
+          "cycles": 6,
+          "samples": 4,
+          "median_ms": 8112.5,
+          "p95_ms": 8877,
+          "min_ms": 7264,
+          "max_ms": 8877,
+          "pass": 4,
+          "fail": 0
+        },
+        {
+          "app": "navigation-vulnerable",
+          "variant": "nav-complete",
+          "cycles": 6,
+          "samples": 4,
+          "median_ms": 8454,
+          "p95_ms": 8769,
+          "min_ms": 7535,
+          "max_ms": 8769,
+          "pass": 4,
+          "fail": 0
+        },
+        {
+          "app": "write-candidate",
+          "variant": "write-double",
+          "cycles": 6,
+          "samples": 3,
+          "median_ms": 6029,
+          "p95_ms": 6883,
+          "min_ms": 5740,
+          "max_ms": 6883,
+          "pass": 3,
+          "fail": 0
+        },
+        {
+          "app": "write-candidate",
+          "variant": "write-retry",
+          "cycles": 6,
+          "samples": 3,
+          "median_ms": 6417,
+          "p95_ms": 7592,
+          "min_ms": 6280,
+          "max_ms": 7592,
+          "pass": 3,
+          "fail": 0
+        },
+        {
+          "app": "write-candidate",
+          "variant": "write-single",
+          "cycles": 6,
+          "samples": 3,
+          "median_ms": 5534,
+          "p95_ms": 6070,
+          "min_ms": 5464,
+          "max_ms": 6070,
+          "pass": 3,
+          "fail": 0
+        },
+        {
+          "app": "write-vulnerable",
+          "variant": "write-single",
+          "cycles": 6,
+          "samples": 3,
+          "median_ms": 5543,
+          "p95_ms": 6514,
+          "min_ms": 5541,
+          "max_ms": 6514,
+          "pass": 3,
+          "fail": 0
+        },
+        {
+          "app": "gateway-race-candidate",
+          "variant": "race-ordered",
+          "cycles": 6,
+          "samples": 3,
+          "median_ms": 9219,
+          "p95_ms": 9396,
+          "min_ms": 9163,
+          "max_ms": 9396,
+          "pass": 3,
+          "fail": 0
+        },
+        {
+          "app": "gateway-race-candidate",
+          "variant": "race-reordered",
+          "cycles": 6,
+          "samples": 3,
+          "median_ms": 9302,
+          "p95_ms": 9333,
+          "min_ms": 9221,
+          "max_ms": 9333,
+          "pass": 3,
+          "fail": 0
+        },
+        {
+          "app": "multiplayer-reconnect",
+          "variant": "baseline",
+          "cycles": 6,
+          "samples": 3,
+          "median_ms": 7198,
+          "p95_ms": 7657,
+          "min_ms": 7165,
+          "max_ms": 7657,
+          "pass": 3,
+          "fail": 0
+        },
+        {
+          "app": "multiplayer-reconnect",
+          "variant": "fixed",
+          "cycles": 6,
+          "samples": 3,
+          "median_ms": 7297,
+          "p95_ms": 7653,
+          "min_ms": 7024,
+          "max_ms": 7653,
+          "pass": 3,
+          "fail": 0
+        },
+        {
+          "app": "conflict-candidate",
+          "variant": "conflict-reversed",
+          "cycles": 6,
+          "samples": 2,
+          "median_ms": 9151,
+          "p95_ms": 9256,
+          "min_ms": 9046,
+          "max_ms": 9256,
+          "pass": 2,
+          "fail": 0
+        },
+        {
+          "app": "conflict-candidate",
+          "variant": "conflict-serial",
+          "cycles": 6,
+          "samples": 2,
+          "median_ms": 9058.5,
+          "p95_ms": 9243,
+          "min_ms": 8874,
+          "max_ms": 9243,
+          "pass": 2,
+          "fail": 0
+        },
+        {
+          "app": "conflict-candidate",
+          "variant": "conflict-stale",
+          "cycles": 6,
+          "samples": 2,
+          "median_ms": 9261.5,
+          "p95_ms": 9275,
+          "min_ms": 9248,
+          "max_ms": 9275,
+          "pass": 2,
+          "fail": 0
+        },
+        {
+          "app": "conflict-vulnerable",
+          "variant": "conflict-serial",
+          "cycles": 6,
+          "samples": 2,
+          "median_ms": 8948.5,
+          "p95_ms": 9015,
+          "min_ms": 8882,
+          "max_ms": 9015,
+          "pass": 2,
+          "fail": 0
+        },
+        {
+          "app": "storage-candidate",
+          "variant": "storage-corrupt",
+          "cycles": 6,
+          "samples": 2,
+          "median_ms": 5904,
+          "p95_ms": 6019,
+          "min_ms": 5789,
+          "max_ms": 6019,
+          "pass": 2,
+          "fail": 0
+        },
+        {
+          "app": "storage-candidate",
+          "variant": "storage-denied",
+          "cycles": 6,
+          "samples": 2,
+          "median_ms": 6015,
+          "p95_ms": 6090,
+          "min_ms": 5940,
+          "max_ms": 6090,
+          "pass": 2,
+          "fail": 0
+        },
+        {
+          "app": "storage-candidate",
+          "variant": "storage-normal",
+          "cycles": 6,
+          "samples": 2,
+          "median_ms": 5786,
+          "p95_ms": 5940,
+          "min_ms": 5632,
+          "max_ms": 5940,
+          "pass": 2,
+          "fail": 0
+        },
+        {
+          "app": "storage-candidate",
+          "variant": "storage-quota",
+          "cycles": 6,
+          "samples": 2,
+          "median_ms": 6201.5,
+          "p95_ms": 6312,
+          "min_ms": 6091,
+          "max_ms": 6312,
+          "pass": 2,
+          "fail": 0
+        },
+        {
+          "app": "storage-candidate",
+          "variant": "storage-shape",
+          "cycles": 6,
+          "samples": 2,
+          "median_ms": 5760.5,
+          "p95_ms": 5800,
+          "min_ms": 5721,
+          "max_ms": 5800,
+          "pass": 2,
+          "fail": 0
+        },
+        {
+          "app": "storage-vulnerable",
+          "variant": "storage-normal",
+          "cycles": 6,
+          "samples": 2,
+          "median_ms": 6222,
+          "p95_ms": 6413,
+          "min_ms": 6031,
+          "max_ms": 6413,
+          "pass": 2,
+          "fail": 0
+        },
+        {
+          "app": "robot-main",
+          "variant": "configuration-no-pdf",
+          "cycles": 6,
+          "samples": 1,
+          "median_ms": 69655,
+          "p95_ms": 69655,
+          "min_ms": 69655,
+          "max_ms": 69655,
+          "pass": 0,
+          "fail": 1
+        },
+        {
+          "app": "robot-main",
+          "variant": "configuration-long",
+          "cycles": 12,
+          "samples": 1,
+          "median_ms": 136355,
+          "p95_ms": 136355,
+          "min_ms": 136355,
+          "max_ms": 136355,
+          "pass": 0,
+          "fail": 1
+        },
+        {
+          "app": "robot-main",
+          "variant": "projects",
+          "cycles": 6,
+          "samples": 1,
+          "median_ms": 14629,
+          "p95_ms": 14629,
+          "min_ms": 14629,
+          "max_ms": 14629,
+          "pass": 1,
+          "fail": 0
+        },
+        {
+          "app": "robot-main",
+          "variant": "configuration",
+          "cycles": 6,
+          "samples": 1,
+          "median_ms": 74363,
+          "p95_ms": 74363,
+          "min_ms": 74363,
+          "max_ms": 74363,
+          "pass": 0,
+          "fail": 1
+        },
+        {
+          "app": "robot-main",
+          "variant": "missing-provider",
+          "cycles": 6,
+          "samples": 1,
+          "median_ms": 60883,
+          "p95_ms": 60883,
+          "min_ms": 60883,
+          "max_ms": 60883,
+          "pass": 0,
+          "fail": 1
+        },
+        {
+          "app": "robot-frontend",
+          "variant": "public-roundtrip",
+          "cycles": 6,
+          "samples": 1,
+          "median_ms": 17225,
+          "p95_ms": 17225,
+          "min_ms": 17225,
+          "max_ms": 17225,
+          "pass": 1,
+          "fail": 0
+        },
+        {
+          "app": "gateway-long-natural",
+          "variant": "baseline",
+          "cycles": 24,
+          "samples": 1,
+          "median_ms": 22348,
+          "p95_ms": 22348,
+          "min_ms": 22348,
+          "max_ms": 22348,
+          "pass": 1,
+          "fail": 0
+        },
+        {
+          "app": "gateway-natural",
+          "variant": "baseline",
+          "cycles": 6,
+          "samples": 1,
+          "median_ms": 11746,
+          "p95_ms": 11746,
+          "min_ms": 11746,
+          "max_ms": 11746,
+          "pass": 0,
+          "fail": 1
+        },
+        {
+          "app": "multiplayer-natural",
+          "variant": "baseline",
+          "cycles": 6,
+          "samples": 1,
+          "median_ms": 7966,
+          "p95_ms": 7966,
+          "min_ms": 7966,
+          "max_ms": 7966,
+          "pass": 1,
+          "fail": 0
+        },
+        {
+          "app": "multiplayer-reconnect-natural",
+          "variant": "baseline",
+          "cycles": 6,
+          "samples": 1,
+          "median_ms": 7429,
+          "p95_ms": 7429,
+          "min_ms": 7429,
+          "max_ms": 7429,
+          "pass": 1,
+          "fail": 0
+        },
+        {
+          "app": "gateway",
+          "variant": "baseline",
+          "cycles": 24,
+          "samples": 1,
+          "median_ms": 32019,
+          "p95_ms": 32019,
+          "min_ms": 32019,
+          "max_ms": 32019,
+          "pass": 1,
+          "fail": 0
+        },
+        {
+          "app": "gateway",
+          "variant": "fixed",
+          "cycles": 24,
+          "samples": 1,
+          "median_ms": 31515,
+          "p95_ms": 31515,
+          "min_ms": 31515,
+          "max_ms": 31515,
+          "pass": 1,
+          "fail": 0
+        },
+        {
+          "app": "gateway",
+          "variant": "baseline",
+          "cycles": 6,
+          "samples": 1,
+          "median_ms": 10009,
+          "p95_ms": 10009,
+          "min_ms": 10009,
+          "max_ms": 10009,
+          "pass": 0,
+          "fail": 1
+        },
+        {
+          "app": "gateway",
+          "variant": "fixed",
+          "cycles": 6,
+          "samples": 1,
+          "median_ms": 10107,
+          "p95_ms": 10107,
+          "min_ms": 10107,
+          "max_ms": 10107,
+          "pass": 1,
+          "fail": 0
+        },
+        {
+          "app": "multiplayer",
+          "variant": "fixed",
+          "cycles": 6,
+          "samples": 1,
+          "median_ms": 10403,
+          "p95_ms": 10403,
+          "min_ms": 10403,
+          "max_ms": 10403,
+          "pass": 1,
+          "fail": 0
+        }
+      ],
+      "incomplete_browser_cases": 123,
+      "limitations": [
+        "Full checks are measured wall time; nested suite durations are not added to their parent commands.",
+        "Browser samples require complete assessed measurements and journeys; FAIL alone does not establish completion. Incomplete cases are counted separately.",
+        "Elixir runs without explicit repository scope are separated by recorded test count; historical focused runs are not assumed to be full suites.",
+        "Historical local samples differ in source, load and cache state. These are observations, not customer latency guarantees.",
+        "p95 uses nearest rank; with fewer than twenty samples it often equals the maximum."
+      ]
+    },
+    "warnings": []
+  },
+  "website": {
+    "directory": "C:/Users/Shashank/vibeguru-website",
+    "url": "http://127.0.0.1:4546",
+    "git_initialized": false,
+    "browser_qa": {
+      "checkedAt": "2026-10-11T13:43:20.812Z",
+      "baseUrl": "http://127.0.0.1:4546",
+      "status": "PASS",
+      "checks": [
+        "Real unpublished manifest: both copy controls and all four downloads disabled.",
+        "Mouse/keyboard tabs preserve ARIA selection, focus and matching panel visibility.",
+        "Responsive checks at 390px and 320px: no horizontal page overflow; MCP tab usable.",
+        "Privacy page loads with no script or analytics SDK.",
+        "No browser exceptions or external network requests on the real site.",
+        "Malformed manifest fails closed with an explicit availability error.",
+        "Synthetic partial release cannot enable npm commands or any platform downloads.",
+        "Preview server handles HEAD, rejects POST and encoded backslash traversal, and emits nosniff."
+      ],
+      "externalRequests": 0,
+      "browserExceptions": 0,
+      "screenshots": [
+        "reports/portal-desktop.png",
+        "reports/portal-mobile.png"
+      ],
+      "limitations": [
+        "No deployed host, public download, native installation or real release was tested.",
+        "Manifest error/partial-release checks use synthetic intercepted responses only."
+      ]
+    }
+  },
+  "telemetry": {
+    "project_id": 658479,
+    "project_url": "https://us.posthog.com/project/658479/home",
+    "host": "https://us.i.posthog.com",
+    "enabled": false,
+    "missing": "public Project API key; live ingestion and founder charts unverified",
+    "external_test_events_sent": 0
+  },
+  "limitations": [
+    "Windows escript smoke requires Erlang; not a native release or public download test.",
+    "Four Unix-only permission/link checks remain skipped on Windows.",
+    "Historical timing includes different revisions and failures; no production SLA.",
+    "One startup timeout retained; four-worker final run passes with unchanged scenario deadlines."
+  ]
+}

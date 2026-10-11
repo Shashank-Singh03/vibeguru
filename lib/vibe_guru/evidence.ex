@@ -28,6 +28,10 @@ defmodule VibeGuru.Evidence do
           | :runtime_event
           | :coverage
           | :census
+          | :run_result
+          | :journey_assertion
+          | :journey_result
+          | :experiment_observation
   @type phase :: :baseline | :cycle | :cooldown | nil
 
   @type t :: %__MODULE__{
@@ -54,8 +58,8 @@ defmodule VibeGuru.Evidence do
   @doc """
   Build an Evidence, auto-assigning a stable id when one is not supplied.
 
-  The id is derived from probe + kind + (phase/cycle) so repeated runs produce
-  stable, referenceable ids that `Finding.evidence_refs` can point at.
+  Includes context and content so different routes and events cannot share an id.
+  The driver adapter also adds a sequence to distinguish identical repeated records.
   """
   @spec new(atom(), kind(), keyword()) :: t()
   def new(probe_id, kind, opts \\ []) do
@@ -69,7 +73,17 @@ defmodule VibeGuru.Evidence do
           |> Enum.reject(&is_nil/1)
           |> Enum.map_join("_", &to_string/1)
 
-        ["ev", to_string(probe_id), to_string(kind), suffix]
+        digest =
+          :crypto.hash(
+            :sha256,
+            :erlang.term_to_binary(
+              {Keyword.get(opts, :context, %{}), Keyword.get(opts, :data, %{})}
+            )
+          )
+          |> Base.encode16(case: :lower)
+          |> binary_part(0, 16)
+
+        ["ev", to_string(probe_id), to_string(kind), suffix, digest]
         |> Enum.reject(&(&1 == ""))
         |> Enum.join("_")
       end)

@@ -1,0 +1,835 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-09",
+  "platform": {
+    "os": "Windows",
+    "node": "v24.0.0",
+    "chromium": "153.0.8010.12"
+  },
+  "git": {
+    "head": "2f6429988a98b7ddc2833f9d312880b6fdd59353",
+    "committed": false,
+    "staged": false
+  },
+  "originals": {
+    "inventoried_files": 124,
+    "verified_unchanged": true,
+    "exclusions": [
+      "Git metadata",
+      "dependencies",
+      "build outputs",
+      "environment/key files",
+      "symlinks"
+    ]
+  },
+  "verification": {
+    "elixir_tests": 191,
+    "doctests": 1,
+    "node_tests": 96,
+    "format": "PASS",
+    "compile_warnings_as_errors": "PASS",
+    "saved_main_report_verdicts_revalidated": 27,
+    "fresh_windows_package_smoke": {
+      "version": "0.2.0",
+      "platform": "win32:x64",
+      "mode": "escript",
+      "passed": true,
+      "node": "v24.0.0",
+      "binary_sha256": "151a021f9def12c559c6051e144e208f7a1bca6354ea8b5a0c81713976eae5e7",
+      "checks": [
+        "fresh-tarball-install",
+        "CLI-init",
+        "CLI-usage-64",
+        "CLI-FAIL-1",
+        "clean-flow-PASS-0",
+        "failed-flow-INCONCLUSIVE-3",
+        "execution-ERROR-2",
+        "MCP-handshake-and-verify",
+        "filtered-verdict",
+        "fixture-signatures-and-control"
+      ]
+    }
+  },
+  "main_campaign": {
+    "campaign_id": "campaign-1791533841508-8ed96020",
+    "created_at": "2026-10-09T08:23:33.044Z",
+    "engine_sha256": "2dda165325d5cc88d008205984298854f7a021abd4e64d5980cf80acd6141a02",
+    "cases": 27,
+    "expected_injected_signals": 24,
+    "detected_injected_signals": 24,
+    "fault_cases": 18,
+    "fully_detected_fault_cases": 18,
+    "injected_signal_detection_rate": 1,
+    "execution_errors": 0,
+    "baseline_control_alerts": [
+      {
+        "app": "gateway",
+        "variant": "baseline",
+        "findings": [
+          {
+            "signature": "route_heap_growth",
+            "severity": "high",
+            "metrics": {
+              "heap_bytes_per_visit": 156686,
+              "heap_bytes_total_retained": 783428,
+              "heap_recovery_ratio": 0.052
+            }
+          }
+        ]
+      }
+    ],
+    "interrupted_runs": [
+      {
+        "app": "gateway",
+        "verdict": "INCONCLUSIVE"
+      },
+      {
+        "app": "swap-station",
+        "verdict": "INCONCLUSIVE"
+      },
+      {
+        "app": "multiplayer",
+        "verdict": "INCONCLUSIVE"
+      }
+    ],
+    "comparisons": [
+      {
+        "app": "gateway",
+        "variant": "partial-fixed",
+        "baseline_verdict": "FAIL",
+        "candidate_verdict": "FAIL",
+        "removed": [
+          "[\"runtime.client\",\"uncaught_exception\",\"flow\",\"vibeguru_lab_runtime_defect\"]",
+          "[\"memory.client\",\"listener_leak\",\"gateway-navigation\",\"\"]"
+        ],
+        "remaining": [
+          "[\"memory.client\",\"route_heap_growth\",\"gateway-navigation\",\"\"]"
+        ],
+        "introduced": [],
+        "comparable_execution": true,
+        "full_scoped_candidate_pass": false
+      },
+      {
+        "app": "gateway",
+        "variant": "invalid-fix",
+        "baseline_verdict": "FAIL",
+        "candidate_verdict": "FAIL",
+        "removed": [
+          "[\"runtime.client\",\"uncaught_exception\",\"flow\",\"vibeguru_lab_runtime_defect\"]",
+          "[\"memory.client\",\"listener_leak\",\"gateway-navigation\",\"\"]",
+          "[\"memory.client\",\"route_heap_growth\",\"gateway-navigation\",\"\"]"
+        ],
+        "remaining": [],
+        "introduced": [
+          "[\"journey.client\",\"journey_assertion_failed\",\"/apis\",\"api-list-visible\"]"
+        ],
+        "comparable_execution": true,
+        "full_scoped_candidate_pass": false
+      },
+      {
+        "app": "gateway",
+        "variant": "fixed",
+        "baseline_verdict": "FAIL",
+        "candidate_verdict": "PASS",
+        "removed": [
+          "[\"runtime.client\",\"uncaught_exception\",\"flow\",\"vibeguru_lab_runtime_defect\"]",
+          "[\"memory.client\",\"listener_leak\",\"gateway-navigation\",\"\"]",
+          "[\"memory.client\",\"route_heap_growth\",\"gateway-navigation\",\"\"]"
+        ],
+        "remaining": [],
+        "introduced": [],
+        "comparable_execution": true,
+        "full_scoped_candidate_pass": true
+      },
+      {
+        "app": "swap-station",
+        "variant": "partial-fixed",
+        "baseline_verdict": "FAIL",
+        "candidate_verdict": "FAIL",
+        "removed": [
+          "[\"runtime.client\",\"uncaught_exception\",\"flow\",\"vibeguru_lab_runtime_defect\"]",
+          "[\"memory.client\",\"listener_leak\",\"swap-access-navigation\",\"\"]"
+        ],
+        "remaining": [
+          "[\"memory.client\",\"route_heap_growth\",\"swap-access-navigation\",\"\"]"
+        ],
+        "introduced": [],
+        "comparable_execution": true,
+        "full_scoped_candidate_pass": false
+      },
+      {
+        "app": "swap-station",
+        "variant": "invalid-fix",
+        "baseline_verdict": "FAIL",
+        "candidate_verdict": "FAIL",
+        "removed": [
+          "[\"runtime.client\",\"uncaught_exception\",\"flow\",\"vibeguru_lab_runtime_defect\"]",
+          "[\"memory.client\",\"listener_leak\",\"swap-access-navigation\",\"\"]",
+          "[\"memory.client\",\"route_heap_growth\",\"swap-access-navigation\",\"\"]"
+        ],
+        "remaining": [],
+        "introduced": [
+          "[\"journey.client\",\"journey_assertion_failed\",\"/brokers\",\"broker-list-visible\"]"
+        ],
+        "comparable_execution": true,
+        "full_scoped_candidate_pass": false
+      },
+      {
+        "app": "swap-station",
+        "variant": "fixed",
+        "baseline_verdict": "FAIL",
+        "candidate_verdict": "INCONCLUSIVE",
+        "removed": [
+          "[\"runtime.client\",\"uncaught_exception\",\"flow\",\"vibeguru_lab_runtime_defect\"]",
+          "[\"memory.client\",\"listener_leak\",\"swap-access-navigation\",\"\"]",
+          "[\"memory.client\",\"route_heap_growth\",\"swap-access-navigation\",\"\"]"
+        ],
+        "remaining": [],
+        "introduced": [],
+        "comparable_execution": true,
+        "full_scoped_candidate_pass": false
+      },
+      {
+        "app": "multiplayer",
+        "variant": "partial-fixed",
+        "baseline_verdict": "FAIL",
+        "candidate_verdict": "FAIL",
+        "removed": [
+          "[\"runtime.client\",\"uncaught_exception\",\"flow\",\"vibeguru_lab_runtime_defect\"]",
+          "[\"memory.client\",\"listener_leak\",\"multiplayer-interactions\",\"\"]"
+        ],
+        "remaining": [
+          "[\"memory.client\",\"route_heap_growth\",\"multiplayer-interactions\",\"\"]"
+        ],
+        "introduced": [],
+        "comparable_execution": true,
+        "full_scoped_candidate_pass": false
+      },
+      {
+        "app": "multiplayer",
+        "variant": "invalid-fix",
+        "baseline_verdict": "FAIL",
+        "candidate_verdict": "FAIL",
+        "removed": [
+          "[\"runtime.client\",\"uncaught_exception\",\"flow\",\"vibeguru_lab_runtime_defect\"]",
+          "[\"memory.client\",\"listener_leak\",\"multiplayer-interactions\",\"\"]",
+          "[\"memory.client\",\"route_heap_growth\",\"multiplayer-interactions\",\"\"]"
+        ],
+        "remaining": [],
+        "introduced": [
+          "[\"journey.client\",\"journey_assertion_failed\",\"/\",\"room-visible\"]"
+        ],
+        "comparable_execution": true,
+        "full_scoped_candidate_pass": false
+      },
+      {
+        "app": "multiplayer",
+        "variant": "fixed",
+        "baseline_verdict": "FAIL",
+        "candidate_verdict": "PASS",
+        "removed": [
+          "[\"runtime.client\",\"uncaught_exception\",\"flow\",\"vibeguru_lab_runtime_defect\"]",
+          "[\"memory.client\",\"listener_leak\",\"multiplayer-interactions\",\"\"]",
+          "[\"memory.client\",\"route_heap_growth\",\"multiplayer-interactions\",\"\"]"
+        ],
+        "remaining": [],
+        "introduced": [],
+        "comparable_execution": true,
+        "full_scoped_candidate_pass": true
+      }
+    ],
+    "limitations": [
+      "Synthetic injected faults are labelled; detection rate is not real-world precision or overall product accuracy.",
+      "Normal app findings require independent triage; an unmodified app is not a known-clean control.",
+      "Only declared workflows and conditions were exercised; no LLM/Jev policy, automated minimizer or full causal diagnosis was evaluated.",
+      "Gateway and swap-station backends are mocked; authentication, hardware control and full integrations are outside scope."
+    ]
+  },
+  "main_case_results": [
+    {
+      "app": "gateway",
+      "variant": "baseline",
+      "assessment": {
+        "verdict": "FAIL",
+        "reasons": []
+      },
+      "expectedSignals": [],
+      "detected": [],
+      "missed": [],
+      "passed_assertions": 12,
+      "failed_assertions": 0
+    },
+    {
+      "app": "gateway",
+      "variant": "listener-leak",
+      "assessment": {
+        "verdict": "FAIL",
+        "reasons": []
+      },
+      "expectedSignals": [
+        "listener_leak"
+      ],
+      "detected": [
+        "listener_leak"
+      ],
+      "missed": [],
+      "passed_assertions": 12,
+      "failed_assertions": 0
+    },
+    {
+      "app": "gateway",
+      "variant": "heap-leak",
+      "assessment": {
+        "verdict": "FAIL",
+        "reasons": []
+      },
+      "expectedSignals": [
+        "route_heap_growth"
+      ],
+      "detected": [
+        "route_heap_growth"
+      ],
+      "missed": [],
+      "passed_assertions": 12,
+      "failed_assertions": 0
+    },
+    {
+      "app": "gateway",
+      "variant": "runtime-error",
+      "assessment": {
+        "verdict": "FAIL",
+        "reasons": []
+      },
+      "expectedSignals": [
+        "uncaught_exception"
+      ],
+      "detected": [
+        "uncaught_exception"
+      ],
+      "missed": [],
+      "passed_assertions": 12,
+      "failed_assertions": 0
+    },
+    {
+      "app": "gateway",
+      "variant": "combined",
+      "assessment": {
+        "verdict": "FAIL",
+        "reasons": []
+      },
+      "expectedSignals": [
+        "listener_leak",
+        "route_heap_growth",
+        "uncaught_exception"
+      ],
+      "detected": [
+        "listener_leak",
+        "route_heap_growth",
+        "uncaught_exception"
+      ],
+      "missed": [],
+      "passed_assertions": 12,
+      "failed_assertions": 0
+    },
+    {
+      "app": "gateway",
+      "variant": "partial-fixed",
+      "assessment": {
+        "verdict": "FAIL",
+        "reasons": []
+      },
+      "expectedSignals": [
+        "route_heap_growth"
+      ],
+      "detected": [
+        "route_heap_growth"
+      ],
+      "missed": [],
+      "passed_assertions": 12,
+      "failed_assertions": 0
+    },
+    {
+      "app": "gateway",
+      "variant": "invalid-fix",
+      "assessment": {
+        "verdict": "FAIL",
+        "reasons": [
+          "failed_interactions",
+          "incomplete_flow",
+          "scope: failed_interactions, incomplete_flow",
+          "memory.client: failed_interactions, incomplete_flow",
+          "runtime.client: failed_interactions, incomplete_flow",
+          "census.client: failed_interactions, incomplete_flow"
+        ]
+      },
+      "expectedSignals": [
+        "journey_assertion_failed"
+      ],
+      "detected": [
+        "journey_assertion_failed"
+      ],
+      "missed": [],
+      "passed_assertions": 6,
+      "failed_assertions": 6
+    },
+    {
+      "app": "gateway",
+      "variant": "fixed",
+      "assessment": {
+        "verdict": "PASS",
+        "reasons": []
+      },
+      "expectedSignals": [],
+      "detected": [],
+      "missed": [],
+      "passed_assertions": 12,
+      "failed_assertions": 0
+    },
+    {
+      "app": "gateway",
+      "variant": "interrupted",
+      "assessment": {
+        "verdict": "INCONCLUSIVE",
+        "reasons": [
+          "incomplete_journey_assertions",
+          "failed_interactions",
+          "incomplete_flow",
+          "scope: incomplete_journey_assertions, failed_interactions, incomplete_flow",
+          "memory.client: incomplete_journey_assertions, failed_interactions, incomplete_flow",
+          "runtime.client: incomplete_journey_assertions, failed_interactions, incomplete_flow",
+          "census.client: incomplete_journey_assertions, failed_interactions, incomplete_flow",
+          "engine_reported_inconclusive"
+        ]
+      },
+      "expectedSignals": [],
+      "detected": [],
+      "missed": [],
+      "passed_assertions": 6,
+      "failed_assertions": 0
+    },
+    {
+      "app": "swap-station",
+      "variant": "baseline",
+      "assessment": {
+        "verdict": "INCONCLUSIVE",
+        "reasons": [
+          "unavailable_census_targets",
+          "census.client: unavailable_census_targets",
+          "engine_reported_inconclusive"
+        ]
+      },
+      "expectedSignals": [],
+      "detected": [],
+      "missed": [],
+      "passed_assertions": 12,
+      "failed_assertions": 0
+    },
+    {
+      "app": "swap-station",
+      "variant": "listener-leak",
+      "assessment": {
+        "verdict": "FAIL",
+        "reasons": [
+          "unavailable_census_targets",
+          "census.client: unavailable_census_targets"
+        ]
+      },
+      "expectedSignals": [
+        "listener_leak"
+      ],
+      "detected": [
+        "listener_leak"
+      ],
+      "missed": [],
+      "passed_assertions": 12,
+      "failed_assertions": 0
+    },
+    {
+      "app": "swap-station",
+      "variant": "heap-leak",
+      "assessment": {
+        "verdict": "FAIL",
+        "reasons": [
+          "unavailable_census_targets",
+          "census.client: unavailable_census_targets"
+        ]
+      },
+      "expectedSignals": [
+        "route_heap_growth"
+      ],
+      "detected": [
+        "route_heap_growth"
+      ],
+      "missed": [],
+      "passed_assertions": 12,
+      "failed_assertions": 0
+    },
+    {
+      "app": "swap-station",
+      "variant": "runtime-error",
+      "assessment": {
+        "verdict": "FAIL",
+        "reasons": [
+          "unavailable_census_targets",
+          "census.client: unavailable_census_targets"
+        ]
+      },
+      "expectedSignals": [
+        "uncaught_exception"
+      ],
+      "detected": [
+        "uncaught_exception"
+      ],
+      "missed": [],
+      "passed_assertions": 12,
+      "failed_assertions": 0
+    },
+    {
+      "app": "swap-station",
+      "variant": "combined",
+      "assessment": {
+        "verdict": "FAIL",
+        "reasons": [
+          "unavailable_census_targets",
+          "census.client: unavailable_census_targets"
+        ]
+      },
+      "expectedSignals": [
+        "listener_leak",
+        "route_heap_growth",
+        "uncaught_exception"
+      ],
+      "detected": [
+        "listener_leak",
+        "route_heap_growth",
+        "uncaught_exception"
+      ],
+      "missed": [],
+      "passed_assertions": 12,
+      "failed_assertions": 0
+    },
+    {
+      "app": "swap-station",
+      "variant": "partial-fixed",
+      "assessment": {
+        "verdict": "FAIL",
+        "reasons": [
+          "unavailable_census_targets",
+          "census.client: unavailable_census_targets"
+        ]
+      },
+      "expectedSignals": [
+        "route_heap_growth"
+      ],
+      "detected": [
+        "route_heap_growth"
+      ],
+      "missed": [],
+      "passed_assertions": 12,
+      "failed_assertions": 0
+    },
+    {
+      "app": "swap-station",
+      "variant": "invalid-fix",
+      "assessment": {
+        "verdict": "FAIL",
+        "reasons": [
+          "failed_interactions",
+          "incomplete_flow",
+          "unavailable_census_targets",
+          "scope: failed_interactions, incomplete_flow",
+          "memory.client: failed_interactions, incomplete_flow",
+          "runtime.client: failed_interactions, incomplete_flow",
+          "census.client: failed_interactions, incomplete_flow, unavailable_census_targets"
+        ]
+      },
+      "expectedSignals": [
+        "journey_assertion_failed"
+      ],
+      "detected": [
+        "journey_assertion_failed"
+      ],
+      "missed": [],
+      "passed_assertions": 6,
+      "failed_assertions": 6
+    },
+    {
+      "app": "swap-station",
+      "variant": "fixed",
+      "assessment": {
+        "verdict": "INCONCLUSIVE",
+        "reasons": [
+          "unavailable_census_targets",
+          "census.client: unavailable_census_targets",
+          "engine_reported_inconclusive"
+        ]
+      },
+      "expectedSignals": [],
+      "detected": [],
+      "missed": [],
+      "passed_assertions": 12,
+      "failed_assertions": 0
+    },
+    {
+      "app": "swap-station",
+      "variant": "interrupted",
+      "assessment": {
+        "verdict": "INCONCLUSIVE",
+        "reasons": [
+          "incomplete_journey_assertions",
+          "failed_interactions",
+          "incomplete_flow",
+          "unavailable_census_targets",
+          "scope: incomplete_journey_assertions, failed_interactions, incomplete_flow",
+          "memory.client: incomplete_journey_assertions, failed_interactions, incomplete_flow",
+          "runtime.client: incomplete_journey_assertions, failed_interactions, incomplete_flow",
+          "census.client: incomplete_journey_assertions, failed_interactions, incomplete_flow, unavailable_census_targets",
+          "engine_reported_inconclusive"
+        ]
+      },
+      "expectedSignals": [],
+      "detected": [],
+      "missed": [],
+      "passed_assertions": 6,
+      "failed_assertions": 0
+    },
+    {
+      "app": "multiplayer",
+      "variant": "baseline",
+      "assessment": {
+        "verdict": "PASS",
+        "reasons": []
+      },
+      "expectedSignals": [],
+      "detected": [],
+      "missed": [],
+      "passed_assertions": 24,
+      "failed_assertions": 0
+    },
+    {
+      "app": "multiplayer",
+      "variant": "listener-leak",
+      "assessment": {
+        "verdict": "FAIL",
+        "reasons": []
+      },
+      "expectedSignals": [
+        "listener_leak"
+      ],
+      "detected": [
+        "listener_leak"
+      ],
+      "missed": [],
+      "passed_assertions": 24,
+      "failed_assertions": 0
+    },
+    {
+      "app": "multiplayer",
+      "variant": "heap-leak",
+      "assessment": {
+        "verdict": "FAIL",
+        "reasons": []
+      },
+      "expectedSignals": [
+        "route_heap_growth"
+      ],
+      "detected": [
+        "route_heap_growth"
+      ],
+      "missed": [],
+      "passed_assertions": 24,
+      "failed_assertions": 0
+    },
+    {
+      "app": "multiplayer",
+      "variant": "runtime-error",
+      "assessment": {
+        "verdict": "FAIL",
+        "reasons": []
+      },
+      "expectedSignals": [
+        "uncaught_exception"
+      ],
+      "detected": [
+        "uncaught_exception"
+      ],
+      "missed": [],
+      "passed_assertions": 24,
+      "failed_assertions": 0
+    },
+    {
+      "app": "multiplayer",
+      "variant": "combined",
+      "assessment": {
+        "verdict": "FAIL",
+        "reasons": []
+      },
+      "expectedSignals": [
+        "listener_leak",
+        "route_heap_growth",
+        "uncaught_exception"
+      ],
+      "detected": [
+        "listener_leak",
+        "route_heap_growth",
+        "uncaught_exception"
+      ],
+      "missed": [],
+      "passed_assertions": 24,
+      "failed_assertions": 0
+    },
+    {
+      "app": "multiplayer",
+      "variant": "partial-fixed",
+      "assessment": {
+        "verdict": "FAIL",
+        "reasons": []
+      },
+      "expectedSignals": [
+        "route_heap_growth"
+      ],
+      "detected": [
+        "route_heap_growth"
+      ],
+      "missed": [],
+      "passed_assertions": 24,
+      "failed_assertions": 0
+    },
+    {
+      "app": "multiplayer",
+      "variant": "invalid-fix",
+      "assessment": {
+        "verdict": "FAIL",
+        "reasons": [
+          "failed_interactions",
+          "incomplete_flow",
+          "scope: failed_interactions, incomplete_flow",
+          "memory.client: failed_interactions, incomplete_flow",
+          "runtime.client: failed_interactions, incomplete_flow",
+          "census.client: failed_interactions, incomplete_flow"
+        ]
+      },
+      "expectedSignals": [
+        "journey_assertion_failed"
+      ],
+      "detected": [
+        "journey_assertion_failed"
+      ],
+      "missed": [],
+      "passed_assertions": 18,
+      "failed_assertions": 6
+    },
+    {
+      "app": "multiplayer",
+      "variant": "fixed",
+      "assessment": {
+        "verdict": "PASS",
+        "reasons": []
+      },
+      "expectedSignals": [],
+      "detected": [],
+      "missed": [],
+      "passed_assertions": 24,
+      "failed_assertions": 0
+    },
+    {
+      "app": "multiplayer",
+      "variant": "interrupted",
+      "assessment": {
+        "verdict": "INCONCLUSIVE",
+        "reasons": [
+          "incomplete_journey_assertions",
+          "failed_interactions",
+          "incomplete_flow",
+          "scope: incomplete_journey_assertions, failed_interactions, incomplete_flow",
+          "memory.client: incomplete_journey_assertions, failed_interactions, incomplete_flow",
+          "runtime.client: incomplete_journey_assertions, failed_interactions, incomplete_flow",
+          "census.client: incomplete_journey_assertions, failed_interactions, incomplete_flow",
+          "engine_reported_inconclusive"
+        ]
+      },
+      "expectedSignals": [],
+      "detected": [],
+      "missed": [],
+      "passed_assertions": 18,
+      "failed_assertions": 0
+    }
+  ],
+  "gateway_controls": [
+    {
+      "campaign": "campaign-1791533381677-550b3e6e",
+      "case": "gateway-baseline",
+      "cycles": 6,
+      "verdict": "PASS",
+      "average_heap_delta_after_cycle_one": 149302.4,
+      "last_five_average_heap_delta": 149302.4
+    },
+    {
+      "campaign": "campaign-1791533381677-550b3e6e",
+      "case": "gateway-fixed",
+      "cycles": 6,
+      "verdict": "FAIL",
+      "average_heap_delta_after_cycle_one": 151057.4,
+      "last_five_average_heap_delta": 151057.4
+    },
+    {
+      "campaign": "campaign-1791533841508-8ed96020",
+      "case": "gateway-baseline",
+      "cycles": 6,
+      "verdict": "FAIL",
+      "average_heap_delta_after_cycle_one": 156685.6,
+      "last_five_average_heap_delta": 156685.6
+    },
+    {
+      "campaign": "campaign-1791533841508-8ed96020",
+      "case": "gateway-fixed",
+      "cycles": 6,
+      "verdict": "PASS",
+      "average_heap_delta_after_cycle_one": 149429.6,
+      "last_five_average_heap_delta": 149429.6
+    },
+    {
+      "campaign": "campaign-1791534229579-23c63202",
+      "case": "gateway-baseline",
+      "cycles": 6,
+      "verdict": "FAIL",
+      "average_heap_delta_after_cycle_one": 150265.8,
+      "last_five_average_heap_delta": 150265.8
+    },
+    {
+      "campaign": "campaign-1791534229579-23c63202",
+      "case": "gateway-fixed",
+      "cycles": 6,
+      "verdict": "PASS",
+      "average_heap_delta_after_cycle_one": 138516.0,
+      "last_five_average_heap_delta": 138516.0
+    },
+    {
+      "campaign": "campaign-1791534262112-962e3a03",
+      "case": "gateway-baseline",
+      "cycles": 24,
+      "verdict": "PASS",
+      "average_heap_delta_after_cycle_one": 39839.86956521739,
+      "last_five_average_heap_delta": 10359.2
+    },
+    {
+      "campaign": "campaign-1791534262112-962e3a03",
+      "case": "gateway-fixed",
+      "cycles": 24,
+      "verdict": "PASS",
+      "average_heap_delta_after_cycle_one": 37280.04347826087,
+      "last_five_average_heap_delta": -6767.2
+    }
+  ],
+  "functional_reproduction": {
+    "campaign": "campaign-1791534334201-274939b4",
+    "check": "create-api-form",
+    "failed_cycles": 6,
+    "verdict": "FAIL",
+    "injection_score_included": false,
+    "condition": "GET /admin/apis/new returns controlled 404; source maps creation URL to existing API detail view"
+  },
+  "current_engine_sha256": "151a021f9def12c559c6051e144e208f7a1bca6354ea8b5a0c81713976eae5e7",
+  "report_validator_sha256": "a1f7534ed6c51b46ac3b61386f340403df2f2c25c195b83539a991a7a4abcd27",
+  "interpretation": "Controlled injection detection, not real-world accuracy; independent root-cause/precision validation remains required."
+}

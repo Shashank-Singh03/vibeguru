@@ -49,6 +49,15 @@ try {
 }
 
 const findings = report.findings || [];
+if (report.schema_version !== 2 || report.verdict !== "FAIL") fail("Fixture must produce schema 2 FAIL.");
+if (!Array.isArray(report.evidence) || report.evidence_count !== report.evidence.length) fail("Evidence must be retained and counted.");
+const evidenceIds = new Set((report.evidence || []).map(e => e.id));
+if (evidenceIds.size !== (report.evidence || []).length) fail("Evidence ids are duplicated.");
+if (new Set(findings.map(f => f.id)).size !== findings.length) fail("Finding ids are duplicated.");
+for (const finding of findings) {
+  if (!finding.evidence_refs?.length || finding.evidence_refs.some(id => !evidenceIds.has(id))) fail(`Invalid evidence references: ${finding.id}`);
+  if (finding.metrics?.attribution === "observed_route" && !finding.summary.includes("originating route is unverified")) fail(`Unqualified runtime attribution: ${finding.id}`);
+}
 const signatures = [...new Set(findings.map((f) => f.signature))];
 
 console.log(`findings   : ${findings.length}`);

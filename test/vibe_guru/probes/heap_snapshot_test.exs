@@ -5,7 +5,31 @@ defmodule VibeGuru.Probes.Heap.SnapshotTest do
   alias VibeGuru.Probes.Heap.Snapshot
 
   defp events(growth) do
-    [%{"kind" => "heap_census", "data" => %{"growth" => growth, "visits" => 3}}]
+    [
+      %{
+        "kind" => "heap_census",
+        "context" => %{"route" => "/charts"},
+        "data" => %{
+          "growth" => growth,
+          "visits" => 3,
+          "visitsCompleted" => 3,
+          "gcOk" => true,
+          "navigationOk" => true
+        }
+      }
+    ]
+  end
+
+  defp completion do
+    %{
+      "ok" => true,
+      "route" => "/charts",
+      "visits" => 3,
+      "visitsCompleted" => 3,
+      "gcOk" => true,
+      "navigationOk" => true,
+      "durationMs" => 2900
+    }
   end
 
   defp grew(retained, per_visit \\ nil),
@@ -16,45 +40,46 @@ defmodule VibeGuru.Probes.Heap.SnapshotTest do
     }
 
   describe "interpreting a snapshot" do
-    test "a retained class supports the library-object hypothesis and names it" do
-      result = Snapshot.interpret(events(%{"Chart" => grew(4)}), %{"durationMs" => 2900})
+    test "measured growth supports a qualified lead and preserves observations" do
+      captured = events(%{"Chart" => grew(4)})
+      result = Snapshot.interpret(captured, completion(), %{route: "/charts"})
 
       assert {:supported, because} = result.updates.retained_library_object
-      assert because =~ "4 Chart instance"
+      assert because =~ "Chart"
+      assert because =~ "ownership are unverified"
+      refute because =~ "destroy"
       assert result.cost_ms == 2900
       assert result.summary =~ "Chart +4"
+      assert result.evidence == captured
+      assert result.completion == completion()
+      assert result.measurement_validity.status == :complete
     end
 
-    test "nothing growing rules out both object hypotheses" do
-      # The snapshot saw the whole heap, so "nothing grew" is an answer rather than an
-      # absence of one — which is what lets the loop conclude instead of stalling.
-      result = Snapshot.interpret(events(%{}), %{"durationMs" => 2700})
+    test "no growth in a ranked summary does not eliminate retention hypotheses" do
+      result = Snapshot.interpret(events(%{}), completion())
 
-      assert {:eliminated, _} = result.updates.retained_library_object
-      assert {:eliminated, _} = result.updates.unbounded_cache
-      assert result.summary == "nothing retained across visits"
+      assert result.updates == %{}
+      assert result.measurement_validity.status == :complete
+      assert result.summary =~ "remains unresolved"
     end
 
-    test "a growing container is a cache, not an unreleased object" do
-      result = Snapshot.interpret(events(%{"Map" => grew(3)}), nil)
+    test "container growth is a lead and does not rule out unrelated object retention" do
+      result = Snapshot.interpret(events(%{"Map" => grew(3)}), completion())
 
       assert {:supported, because} = result.updates.unbounded_cache
       assert because =~ "Map"
-      assert {:eliminated, _} = result.updates.retained_library_object
+      assert because =~ "bounds are unverified"
+      refute Map.has_key?(result.updates, :retained_library_object)
     end
 
     test "objects and containers are reported separately when nothing was suspected" do
-      result = Snapshot.interpret(events(%{"Chart" => grew(4), "Set" => grew(2)}), nil)
+      result = Snapshot.interpret(events(%{"Chart" => grew(4), "Set" => grew(2)}), completion())
 
       assert {:supported, _} = result.updates.retained_library_object
       assert {:supported, _} = result.updates.unbounded_cache
     end
 
-    test "containers inside a confirmed object are not a second bug" do
-      # Real /charts data: chart.js keeps Maps and Sets inside every chart, so a retained
-      # chart drags them along. Reporting an unbounded cache as well would send someone
-      # hunting for something that does not exist — and would leave two hypotheses
-      # supported, which stops the loop from concluding at all.
+    test "a constructor hint cannot attribute co-growing containers to that object" do
       result =
         Snapshot.interpret(
           events(%{
@@ -63,43 +88,84 @@ defmodule VibeGuru.Probes.Heap.SnapshotTest do
             "Map" => grew(54),
             "Set" => grew(135)
           }),
-          nil,
+          completion(),
           %{constructor_hint: "Chart"}
         )
 
       assert {:supported, _} = result.updates.retained_library_object
-      assert {:eliminated, because} = result.updates.unbounded_cache
-      assert because =~ "internals"
-      assert because =~ "Chart"
+      assert {:supported, because} = result.updates.unbounded_cache
+      assert because =~ "Map, Set"
+      refute because =~ "internals"
+      refute Enum.any?(result.updates, fn {_, {status, _}} -> status == :eliminated end)
     end
 
-    test "the suspected class wins over a bigger number elsewhere" do
-      # A larger count somewhere else is not a better answer to the question that was
-      # asked. The investigation came here to settle Chart.
+    test "a constructor hint cannot hide growth of another measured class" do
       result =
         Snapshot.interpret(
           events(%{"Chart" => grew(2), "Sprite" => grew(50)}),
-          nil,
+          completion(),
           %{constructor_hint: "Chart"}
         )
 
       assert {:supported, because} = result.updates.retained_library_object
       assert because =~ "Chart"
-      refute because =~ "Sprite"
+      assert because =~ "Sprite"
     end
 
-    test "with no hint, the largest growth is reported" do
-      result = Snapshot.interpret(events(%{"Small" => grew(1), "Big" => grew(9)}), nil)
+    test "all measured growth contributes to the hypothesis" do
+      result = Snapshot.interpret(events(%{"Small" => grew(1), "Big" => grew(9)}), completion())
 
       assert {:supported, because} = result.updates.retained_library_object
       assert because =~ "Big"
+      assert because =~ "Small"
     end
 
     test "a run that produced no snapshot evidence does not crash" do
       result = Snapshot.interpret([], nil)
 
-      assert {:eliminated, _} = result.updates.retained_library_object
+      assert result.updates == %{}
+      assert result.measurement_validity.status == :unavailable
+      assert "missing_or_duplicate_heap_census" in result.measurement_validity.reasons
       assert result.cost_ms == 0
+    end
+
+    test "failed or unconfirmed GC, navigation and visit completion cannot update hypotheses" do
+      for {field, value, reason} <- [
+            {"gcOk", false, "snapshot_gc_unconfirmed"},
+            {"navigationOk", false, "snapshot_navigation_unconfirmed"},
+            {"visitsCompleted", 2, "incomplete_snapshot_visits"}
+          ] do
+        [event] = events(%{"Chart" => grew(4)})
+        invalid = put_in(event, ["data", field], value)
+        result = Snapshot.interpret([invalid], completion())
+        assert result.updates == %{}
+        assert reason in result.measurement_validity.reasons
+        assert result.evidence == [invalid]
+
+        result = Snapshot.interpret([event], Map.delete(completion(), field))
+        assert result.updates == %{}
+        assert reason in result.measurement_validity.reasons
+      end
+    end
+
+    test "wrong route, malformed context, duplicate and malformed growth stay unavailable" do
+      [event] = events(%{"Chart" => grew(4)})
+
+      for captured <- [
+            [put_in(event, ["context", "route"], "/other")],
+            [%{event | "context" => "invalid"}],
+            [event, event],
+            [put_in(event, ["data", "growth"], %{"Chart" => %{"retained" => "4"}})],
+            [put_in(event, ["data", "growth"], nil)]
+          ] do
+        result = Snapshot.interpret(captured, completion(), %{route: "/charts"})
+        assert result.updates == %{}
+        assert result.measurement_validity.status == :unavailable
+      end
+
+      result = Snapshot.interpret([event], %{completion() | "ok" => false})
+      assert "driver_completion_unconfirmed" in result.measurement_validity.reasons
+      assert result.updates == %{}
     end
   end
 

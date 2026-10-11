@@ -1,0 +1,383 @@
+[
+  {
+    "id": "source-sync-review-2026-10-11",
+    "at": "2026-10-11T14:36:32.413039+00:00",
+    "kind": "maintenance",
+    "title": "Reviewed source snapshot for explicitly authorized Git synchronization",
+    "description": "Fetched all five upstream branches: no divergence; current census branch contains the other tips. Preserve branch histories and raw local evidence. Exclude generated Python caches and an unrelated personal prompt. Full repository checks must run before and after the source commit; Git push does not establish a native release or live analytics.",
+    "vector_ids": [],
+    "files": [
+      ".gitignore",
+      "PROJECT_CONTEXT.md",
+      "docs/context/GIT_SYNC.md"
+    ],
+    "evidence_paths": [
+      "docs/context/GIT_SYNC.md",
+      "reports/test-history/"
+    ]
+  },
+  {
+    "id": "local-launch-security-telemetry-timing-2026-10-11",
+    "at": "2026-10-11T13:39:17.559891+00:00",
+    "kind": "implementation",
+    "title": "Local launch preparation: opt-in analytics, installation checks, security and timing",
+    "description": "Added default-off allowlisted PostHog metadata and feedback, doctor and CLI/MCP guide; hardened downloads, explicit MCP project execution and session/temp-file handling. Separate local portal keeps unpublished downloads gated. Full-check wall time and scoped timing summaries preserve incomplete and stale evidence. User handles repo privacy/pushing; no Git publication. Final checks and real ingestion status are retained in launch/timing context.",
+    "vector_ids": [],
+    "files": [
+      "docs/context/LAUNCH_PREPARATION.md",
+      "docs/context/TEST_TIMING.md",
+      "docs/GETTING_STARTED.md",
+      "docs/TELEMETRY.md",
+      "scripts/lib/telemetry.js",
+      "scripts/lib/doctor.js",
+      "scripts/lib/timing.mjs",
+      "scripts/checks.mjs",
+      "mcp/engine.js",
+      "lib/vibe_guru/auth.ex",
+      "lib/vibe_guru/driver.ex"
+    ],
+    "evidence_paths": [
+      "reports/security-review-2026-10-11/SECURITY_REVIEW.md",
+      "docs/context/launch-preparation-verification.json"
+    ]
+  },
+  {
+    "id": "robot-main-real-backend-evaluation",
+    "at": "2026-10-10T06:20:41.349Z",
+    "kind": "validation",
+    "title": "Robot main tested with a real isolated backend and normal UI authentication",
+    "description": "Six retained browser cases: 1 PASS, 4 FAIL, 1 INCONCLUSIVE. Five completed cases passed 426 supplied assertions; the initial locator mismatch retains 48 unverified slots. Form node/listener growth repeated over twelve cycles and persisted without PDF preview. Missing-provider recovery remained an overall FAIL; independent state showed no jobs or uploaded/output files. Original source unchanged, no commits.",
+    "vector_ids": [
+      "memory-retention",
+      "listener-lifecycle",
+      "runtime-failures",
+      "journey-outcomes",
+      "http-recovery"
+    ],
+    "files": [
+      "docs/context/ROBOT_MAIN_EVALUATION.md",
+      "docs/context/RATE_LIMIT_INVENTORY.md",
+      "dashboard/vectors.json"
+    ],
+    "evidence_paths": [
+      "docs/context/robot-main-evaluation-results.json",
+      "reports/robot-main-evaluation-1791611919310/campaign-1791612536984-robot-main/summary.json",
+      "reports/robot-main-evaluation-1791611919310/campaign-1791612782906-robot-main/summary.json",
+      "reports/robot-main-evaluation-1791611919310/campaign-1791612976708-robot-main/summary.json"
+    ]
+  },
+  {
+    "id": "real-robot-public-evaluation",
+    "at": "2026-10-10T05:03:49.960Z",
+    "kind": "validation",
+    "title": "Previously untested robot frontend built and exercised locally",
+    "description": "Fresh ignored Next production build passed unchanged. Six public-UI cycles passed all forty-eight supplied assertions with forty-eight observations and no findings. Theme, dialog tabs and restoration were exercised; no API/external traffic or form submissions occurred. Backend, login, AI generation and robot hardware remain untested. Actual captured evidence was registered in the dashboard without changing verdicts.",
+    "vector_ids": [
+      "memory-retention",
+      "runtime-failures",
+      "journey-outcomes"
+    ],
+    "files": [
+      "docs/context/REAL_APP_EVALUATION.md"
+    ],
+    "evidence_paths": [
+      "docs/context/robot-public-evaluation-results.json",
+      "reports/robot-real-evaluation-1791608219060/campaign-1791608605394-robot-public/summary.json"
+    ]
+  },
+  {
+    "id": "real-app-source-only-rates",
+    "at": "2026-10-10T04:58:38.397Z",
+    "kind": "validation",
+    "title": "Rate controls inventoried in source without traffic tests",
+    "description": "Gateway backend contains Redis token-bucket enforcement with admin exemptions and fail-open paths. No request-frequency limiter was found in the reviewed swap-station or multiplayer source. Source presence is separate from deployed enforcement; no load, rate-limit or auth-bypass test ran, and no security vector was marked implemented.",
+    "vector_ids": [],
+    "files": [
+      "docs/context/RATE_LIMIT_INVENTORY.md"
+    ],
+    "evidence_paths": [
+      "docs/context/RATE_LIMIT_INVENTORY.md"
+    ]
+  },
+  {
+    "id": "real-app-natural-rerun",
+    "at": "2026-10-10T04:58:38.397Z",
+    "kind": "validation",
+    "title": "Three unchanged-source local apps rerun with the hardened engine",
+    "description": "Eight cases exercised sixty-six cycles without seeded leaks or JavaScript exceptions: four PASS, three FAIL and one INCONCLUSIVE. Gateway response-order and Create API defects reproduced; a short heap alert remained visible while the longer control passed. Multiplayer delivery/reconnect passed; swap-station retained unavailable constructor measurements. All eight declared expectations matched, which is not an application success-rate claim.",
+    "vector_ids": [
+      "memory-retention",
+      "journey-outcomes",
+      "response-order",
+      "reconnect-convergence"
+    ],
+    "files": [
+      "docs/context/REAL_APP_EVALUATION.md",
+      "benchmarks/desktop/gateway.mjs",
+      "benchmarks/desktop/gateway-race.mjs",
+      "benchmarks/desktop/gateway-create.mjs",
+      "benchmarks/desktop/multiplayer-reconnect.mjs"
+    ],
+    "evidence_paths": [
+      "docs/context/real-app-evaluation-results.json",
+      "reports/real-app-evaluation-1791608163661/campaign-1791608203042-3e4603ef/summary.json"
+    ]
+  },
+  {
+    "id": "state-resilience-validation",
+    "at": "2026-10-09T18:52:06Z",
+    "kind": "validation",
+    "title": "Thirty-six-case state-resilience campaign completed",
+    "description": "The final source-stable campaign exercised 216 attempted cycles: all 34 declared outcomes matched, two interruptions stayed INCONCLUSIVE and no execution errors occurred. Actual app verdicts were 20 PASS and 14 FAIL. Verified sixty storage cleanups, thirty-six conflict cleanups, every owned fixture startup and all evidence-graph links. Corrected storage/conflict cases passed; vulnerable lost-update and storage cases retained their failed assertions.",
+    "vector_ids": [
+      "storage-resilience",
+      "conflicting-writes",
+      "journey-outcomes"
+    ],
+    "files": [
+      "benchmarks/lab/storage-resilience.mjs",
+      "benchmarks/lab/conflicting-writes.mjs",
+      "scripts/lab.mjs",
+      "scripts/adversarial-lab.mjs"
+    ],
+    "evidence_paths": [
+      "docs/context/STATE_RESILIENCE.md",
+      "docs/context/state-resilience-results.json",
+      "reports/adversarial-evaluation-1791571663998/campaign-1791571664078-9ed62316/summary.json"
+    ]
+  },
+  {
+    "id": "state-preservation-hardening",
+    "at": "2026-10-09T18:47:08Z",
+    "kind": "implementation",
+    "title": "Removed completion bypass and strengthened experiment isolation",
+    "description": "Removing both completion records and their protocol flag can no longer produce a clean flow verdict. Storage checks now preserve old target bytes and unrelated state before retry; cleanup errors retain their actual cause. Test-server startup requires an available port and an owned fixture listen handshake. Saved failing corpus evidence remains visible.",
+    "vector_ids": [
+      "storage-resilience",
+      "conflicting-writes",
+      "journey-outcomes"
+    ],
+    "files": [
+      "mcp/report.js",
+      "lib/vibe_guru/result.ex",
+      "benchmarks/lab/storage-resilience.mjs",
+      "scripts/lib/lab-ports.mjs",
+      "scripts/lab.mjs"
+    ],
+    "evidence_paths": [
+      "reports/adversarial-evidence/1791571528458-d8313a37.json",
+      "reports/adversarial-evidence/1791571627484-f91d2152.json",
+      "docs/context/STATE_RESILIENCE.md"
+    ]
+  },
+  {
+    "id": "state-resilience-iteration",
+    "at": "2026-10-09T18:36:00Z",
+    "kind": "implementation",
+    "title": "Storage recovery and two-client lost-update experiments",
+    "description": "Added cold-start draft corruption, scoped access/quota exceptions, visible failed-write recovery and versioned two-client reconciliation. Hardened cycle completion evidence after two false-clean corruption cases. Vector cards now graph their own target assertions, with missing or duplicated records marked unverified; the overview shows every exercised vector.",
+    "vector_ids": [
+      "storage-resilience",
+      "conflicting-writes"
+    ],
+    "files": [
+      "test-app/storage-workbench/app.js",
+      "benchmarks/lab/storage-resilience.mjs",
+      "test-app/conflict-workbench/server.mjs",
+      "benchmarks/lab/conflicting-writes.mjs",
+      "lib/vibe_guru/result.ex",
+      "mcp/report.js",
+      "benchmarks/assessment.mjs",
+      "scripts/lib/dashboard-data.mjs",
+      "dashboard/app.js"
+    ],
+    "evidence_paths": [
+      "reports/adversarial-evidence/1791570625381-2ac76c85.json",
+      "reports/adversarial-evidence/1791570682761-fa8bf526.json"
+    ]
+  },
+  {
+    "id": "adversarial-dashboard-qa",
+    "at": "2026-10-09T18:05:14Z",
+    "kind": "validation",
+    "title": "Adversarial evidence verified in the dashboard",
+    "description": "Real Chromium checks passed against 129 saved cases, including all three new vector drilldowns, fifteen artifact links, live SSE updates and four mobile panels. Recovery with passing assertions and blocking runtime findings now has an accurate explanation. Positioned scrolling tables contain hidden accessibility labels without widening the mobile page.",
+    "vector_ids": [
+      "pending-navigation",
+      "http-recovery",
+      "write-integrity"
+    ],
+    "files": [
+      "dashboard/app.js",
+      "dashboard/styles.css"
+    ],
+    "evidence_paths": [
+      "reports/dashboard-browser-qa.json",
+      "docs/context/ADVERSARIAL_EVALUATION.md"
+    ]
+  },
+  {
+    "id": "adversarial-validation",
+    "at": "2026-10-09T16:35:06Z",
+    "kind": "validation",
+    "title": "Twenty-case adversarial campaign completed",
+    "description": "Two new isolated fixture apps exercised 120 cycles: all 18 declared outcomes matched, two deliberate interruptions stayed INCONCLUSIVE and no execution errors occurred. Six vulnerable cases failed targeted assertions; corrected HTTP recovery retained the injected runtime faults. All write namespaces were verified empty after each cycle. A separate 30-case evidence-corruption corpus now passes after retaining its failing before-state.",
+    "vector_ids": [
+      "pending-navigation",
+      "http-recovery",
+      "write-integrity",
+      "journey-outcomes",
+      "runtime-failures"
+    ],
+    "files": [
+      "benchmarks/lab/pending-navigation.mjs",
+      "benchmarks/lab/http-recovery.mjs",
+      "benchmarks/lab/write-integrity.mjs",
+      "benchmarks/report-corruption.mjs"
+    ],
+    "evidence_paths": [
+      "docs/context/ADVERSARIAL_EVALUATION.md",
+      "docs/context/adversarial-evaluation-results.json",
+      "reports/adversarial-evidence/1791563211142-27d36dd8.json",
+      "reports/adversarial-evidence/1791563706284-93056e9d.json"
+    ]
+  },
+  {
+    "id": "adversarial-expansion",
+    "at": "2026-10-09T16:34:00Z",
+    "kind": "implementation",
+    "title": "Three new vectors and stronger evidence contracts",
+    "description": "Added pending-view isolation, real HTTP failure/retry and authoritative write-integrity scenarios, plus a repeatable lab command. Fixed false-PASS gaps for undeclared/malformed assertions and omitted runtime findings. Campaigns hash execution source before and after each case; changed source invalidates experiment success. No original Desktop source was changed.",
+    "vector_ids": [
+      "pending-navigation",
+      "http-recovery",
+      "write-integrity"
+    ],
+    "files": [
+      "test-app/async-workbench/server.mjs",
+      "test-app/write-integrity/server.mjs",
+      "scripts/adversarial-lab.mjs",
+      "scripts/adversarial-reports.mjs",
+      "driver-node/lib/flow.js",
+      "lib/vibe_guru/result.ex",
+      "mcp/report.js",
+      "scripts/lab.mjs",
+      "scripts/lib/dashboard-data.mjs"
+    ],
+    "evidence_paths": [
+      "docs/context/ADVERSARIAL_EVALUATION.md"
+    ]
+  },
+  {
+    "id": "local-dashboard",
+    "at": "2026-10-09T16:02:35Z",
+    "kind": "implementation",
+    "title": "Live test and vector dashboard",
+    "description": "Added a local evidence console with campaign charts, failure details, assertion cycles, incident graphs, vector coverage and working-tree area graphs. Node and ExUnit tests now save durable suite records; source freshness, automatic refresh and vector-growth rules keep the dashboard useful as work continues.",
+    "vector_ids": [
+      "memory-retention",
+      "listener-lifecycle",
+      "runtime-failures",
+      "constructor-retention",
+      "journey-outcomes",
+      "route-navigation",
+      "response-order",
+      "reconnect-convergence"
+    ],
+    "files": [
+      "dashboard/index.html",
+      "dashboard/app.js",
+      "dashboard/styles.css",
+      "scripts/dashboard.mjs",
+      "scripts/lib/dashboard-data.mjs",
+      "scripts/lib/test-history.mjs",
+      "scripts/checks.mjs",
+      "test/support/dashboard_formatter.ex"
+    ],
+    "evidence_paths": [
+      "docs/context/DASHBOARD.md"
+    ]
+  },
+  {
+    "id": "network-experiments",
+    "at": "2026-10-09T12:35:00Z",
+    "kind": "implementation",
+    "title": "Timing and recovery experiments",
+    "description": "Added response gates, retained state observations, real reconnect convergence and cross-build candidate comparisons. Gateway source candidate changes stay in a disposable copy.",
+    "vector_ids": [
+      "response-order",
+      "reconnect-convergence"
+    ],
+    "files": [
+      "benchmarks/desktop/gateway-race.mjs",
+      "benchmarks/desktop/multiplayer-reconnect.mjs",
+      "driver-node/lib/flow.js",
+      "scripts/lab.mjs"
+    ],
+    "evidence_paths": [
+      "docs/context/NETWORK_EVALUATION.md",
+      "docs/context/network-evaluation-results.json"
+    ]
+  },
+  {
+    "id": "cleanup-validity",
+    "at": "2026-10-09T12:34:00Z",
+    "kind": "implementation",
+    "title": "Expected failures cannot hide broken cleanup",
+    "description": "Missing prerequisite assertions, generic execution errors and failed negative-control restoration reject experiment success while preserving already-observed app failures.",
+    "vector_ids": [
+      "journey-outcomes",
+      "reconnect-convergence"
+    ],
+    "files": [
+      "benchmarks/assessment.mjs",
+      "test-node/campaign.test.js",
+      "test-node/reconnect.test.js"
+    ],
+    "evidence_paths": [
+      "docs/context/NETWORK_EVALUATION.md"
+    ]
+  },
+  {
+    "id": "desktop-campaigns",
+    "at": "2026-10-09T08:25:00Z",
+    "kind": "validation",
+    "title": "Three isolated Desktop applications evaluated",
+    "description": "Gateway, swap-station and multiplayer copies exercised under normal, injected-fault, partial-removal and interrupted conditions. Strong synthetic signal detection is separate from real-world accuracy.",
+    "vector_ids": [
+      "memory-retention",
+      "listener-lifecycle",
+      "runtime-failures",
+      "constructor-retention",
+      "journey-outcomes"
+    ],
+    "files": [
+      "benchmarks/desktop/gateway.mjs",
+      "benchmarks/desktop/swap-station.mjs",
+      "benchmarks/desktop/multiplayer.mjs"
+    ],
+    "evidence_paths": [
+      "docs/context/DESKTOP_EVALUATION.md",
+      "docs/context/desktop-evaluation-results.json"
+    ]
+  },
+  {
+    "id": "reliability-direction",
+    "at": "2026-10-09T07:00:00Z",
+    "kind": "plan",
+    "title": "Reliability lab direction",
+    "description": "Grow reusable experiment vectors, retain reproductions and verify candidate fixes. Adaptive Jev planning, minimization and autonomous repair remain proposed.",
+    "vector_ids": [
+      "pending-navigation",
+      "http-recovery",
+      "write-integrity",
+      "responsiveness"
+    ],
+    "files": [
+      "docs/context/NORTH_STAR.md"
+    ],
+    "evidence_paths": [
+      "docs/context/NORTH_STAR.md"
+    ]
+  }
+]

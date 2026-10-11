@@ -1,0 +1,581 @@
+{
+  "schema_version": 1,
+  "recorded_at": "2026-10-09T18:52:05.880Z",
+  "campaign_id": "campaign-1791571664078-9ed62316",
+  "workspace": "reports/adversarial-evaluation-1791571663998",
+  "cases": 36,
+  "cycles": 216,
+  "expected_matched": 34,
+  "expected_total": 34,
+  "verdicts": {
+    "PASS": 20,
+    "FAIL": 14,
+    "INCONCLUSIVE": 2,
+    "ERROR": 0
+  },
+  "assertions_passed": 876,
+  "assertions_failed": 72,
+  "owned_server_startup_proofs": 36,
+  "storage_cleanup_proofs": 60,
+  "conflict_cleanup_proofs": 36,
+  "evidence_graph": {
+    "nodes": 2661,
+    "edges": 2937,
+    "observations": 708
+  },
+  "state_outcomes": [
+    {
+      "app": "storage-vulnerable",
+      "variant": "storage-normal",
+      "cycles": 6,
+      "read_recovered": 6,
+      "failed_write_honest": 6,
+      "persisted_after_retry": 6,
+      "blocked_write_preserved_existing_bytes": 6,
+      "unrelated_storage_preserved": 6
+    },
+    {
+      "app": "storage-vulnerable",
+      "variant": "storage-corrupt",
+      "cycles": 6,
+      "read_recovered": 0,
+      "failed_write_honest": 0,
+      "persisted_after_retry": 0,
+      "blocked_write_preserved_existing_bytes": 6,
+      "unrelated_storage_preserved": 6
+    },
+    {
+      "app": "storage-vulnerable",
+      "variant": "storage-shape",
+      "cycles": 6,
+      "read_recovered": 0,
+      "failed_write_honest": 6,
+      "persisted_after_retry": 6,
+      "blocked_write_preserved_existing_bytes": 6,
+      "unrelated_storage_preserved": 6
+    },
+    {
+      "app": "storage-vulnerable",
+      "variant": "storage-denied",
+      "cycles": 6,
+      "read_recovered": 0,
+      "failed_write_honest": 0,
+      "persisted_after_retry": 0,
+      "blocked_write_preserved_existing_bytes": 0,
+      "unrelated_storage_preserved": 6
+    },
+    {
+      "app": "storage-vulnerable",
+      "variant": "storage-quota",
+      "cycles": 6,
+      "read_recovered": 6,
+      "failed_write_honest": 0,
+      "persisted_after_retry": 6,
+      "blocked_write_preserved_existing_bytes": 6,
+      "unrelated_storage_preserved": 6
+    },
+    {
+      "app": "storage-candidate",
+      "variant": "storage-normal",
+      "cycles": 6,
+      "read_recovered": 6,
+      "failed_write_honest": 6,
+      "persisted_after_retry": 6,
+      "blocked_write_preserved_existing_bytes": 6,
+      "unrelated_storage_preserved": 6
+    },
+    {
+      "app": "storage-candidate",
+      "variant": "storage-corrupt",
+      "cycles": 6,
+      "read_recovered": 6,
+      "failed_write_honest": 6,
+      "persisted_after_retry": 6,
+      "blocked_write_preserved_existing_bytes": 6,
+      "unrelated_storage_preserved": 6
+    },
+    {
+      "app": "storage-candidate",
+      "variant": "storage-shape",
+      "cycles": 6,
+      "read_recovered": 6,
+      "failed_write_honest": 6,
+      "persisted_after_retry": 6,
+      "blocked_write_preserved_existing_bytes": 6,
+      "unrelated_storage_preserved": 6
+    },
+    {
+      "app": "storage-candidate",
+      "variant": "storage-denied",
+      "cycles": 6,
+      "read_recovered": 6,
+      "failed_write_honest": 6,
+      "persisted_after_retry": 6,
+      "blocked_write_preserved_existing_bytes": 6,
+      "unrelated_storage_preserved": 6
+    },
+    {
+      "app": "storage-candidate",
+      "variant": "storage-quota",
+      "cycles": 6,
+      "read_recovered": 6,
+      "failed_write_honest": 6,
+      "persisted_after_retry": 6,
+      "blocked_write_preserved_existing_bytes": 6,
+      "unrelated_storage_preserved": 6
+    },
+    {
+      "app": "conflict-vulnerable",
+      "variant": "conflict-serial",
+      "cycles": 6,
+      "both_edits_preserved": 6,
+      "conflict_rejections": 0
+    },
+    {
+      "app": "conflict-vulnerable",
+      "variant": "conflict-stale",
+      "cycles": 6,
+      "both_edits_preserved": 0,
+      "conflict_rejections": 0
+    },
+    {
+      "app": "conflict-vulnerable",
+      "variant": "conflict-reversed",
+      "cycles": 6,
+      "both_edits_preserved": 0,
+      "conflict_rejections": 0
+    },
+    {
+      "app": "conflict-candidate",
+      "variant": "conflict-serial",
+      "cycles": 6,
+      "both_edits_preserved": 6,
+      "conflict_rejections": 0
+    },
+    {
+      "app": "conflict-candidate",
+      "variant": "conflict-stale",
+      "cycles": 6,
+      "both_edits_preserved": 6,
+      "conflict_rejections": 6
+    },
+    {
+      "app": "conflict-candidate",
+      "variant": "conflict-reversed",
+      "cycles": 6,
+      "both_edits_preserved": 6,
+      "conflict_rejections": 6
+    }
+  ],
+  "results": [
+    {
+      "app": "navigation-vulnerable",
+      "variant": "nav-complete",
+      "verdict": "PASS",
+      "expected": true,
+      "assertions_passed": 18,
+      "assertions_failed": 0,
+      "findings": [],
+      "evidence": "reports/adversarial-evaluation-1791571663998/campaign-1791571664078-9ed62316/navigation-vulnerable-nav-complete/vibeguru-findings.json"
+    },
+    {
+      "app": "navigation-vulnerable",
+      "variant": "nav-pending",
+      "verdict": "FAIL",
+      "expected": true,
+      "assertions_passed": 12,
+      "assertions_failed": 6,
+      "findings": [
+        "journey_assertion_failed"
+      ],
+      "evidence": "reports/adversarial-evaluation-1791571663998/campaign-1791571664078-9ed62316/navigation-vulnerable-nav-pending/vibeguru-findings.json"
+    },
+    {
+      "app": "navigation-vulnerable",
+      "variant": "interrupted",
+      "verdict": "INCONCLUSIVE",
+      "expected": null,
+      "assertions_passed": 12,
+      "assertions_failed": 0,
+      "findings": [],
+      "evidence": "reports/adversarial-evaluation-1791571663998/campaign-1791571664078-9ed62316/navigation-vulnerable-interrupted/vibeguru-findings.json"
+    },
+    {
+      "app": "navigation-candidate",
+      "variant": "nav-complete",
+      "verdict": "PASS",
+      "expected": true,
+      "assertions_passed": 18,
+      "assertions_failed": 0,
+      "findings": [],
+      "evidence": "reports/adversarial-evaluation-1791571663998/campaign-1791571664078-9ed62316/navigation-candidate-nav-complete/vibeguru-findings.json"
+    },
+    {
+      "app": "navigation-candidate",
+      "variant": "nav-pending",
+      "verdict": "PASS",
+      "expected": true,
+      "assertions_passed": 18,
+      "assertions_failed": 0,
+      "findings": [],
+      "evidence": "reports/adversarial-evaluation-1791571663998/campaign-1791571664078-9ed62316/navigation-candidate-nav-pending/vibeguru-findings.json"
+    },
+    {
+      "app": "navigation-candidate",
+      "variant": "interrupted",
+      "verdict": "INCONCLUSIVE",
+      "expected": null,
+      "assertions_passed": 12,
+      "assertions_failed": 0,
+      "findings": [],
+      "evidence": "reports/adversarial-evaluation-1791571663998/campaign-1791571664078-9ed62316/navigation-candidate-interrupted/vibeguru-findings.json"
+    },
+    {
+      "app": "http-vulnerable",
+      "variant": "http-normal",
+      "verdict": "PASS",
+      "expected": true,
+      "assertions_passed": 18,
+      "assertions_failed": 0,
+      "findings": [],
+      "evidence": "reports/adversarial-evaluation-1791571663998/campaign-1791571664078-9ed62316/http-vulnerable-http-normal/vibeguru-findings.json"
+    },
+    {
+      "app": "http-vulnerable",
+      "variant": "http-503",
+      "verdict": "FAIL",
+      "expected": true,
+      "assertions_passed": 12,
+      "assertions_failed": 6,
+      "findings": [
+        "failed_request",
+        "journey_assertion_failed"
+      ],
+      "evidence": "reports/adversarial-evaluation-1791571663998/campaign-1791571664078-9ed62316/http-vulnerable-http-503/vibeguru-findings.json"
+    },
+    {
+      "app": "http-vulnerable",
+      "variant": "http-disconnect",
+      "verdict": "FAIL",
+      "expected": true,
+      "assertions_passed": 12,
+      "assertions_failed": 6,
+      "findings": [
+        "failed_request",
+        "journey_assertion_failed"
+      ],
+      "evidence": "reports/adversarial-evaluation-1791571663998/campaign-1791571664078-9ed62316/http-vulnerable-http-disconnect/vibeguru-findings.json"
+    },
+    {
+      "app": "http-vulnerable",
+      "variant": "http-malformed",
+      "verdict": "FAIL",
+      "expected": true,
+      "assertions_passed": 12,
+      "assertions_failed": 6,
+      "findings": [
+        "journey_assertion_failed"
+      ],
+      "evidence": "reports/adversarial-evaluation-1791571663998/campaign-1791571664078-9ed62316/http-vulnerable-http-malformed/vibeguru-findings.json"
+    },
+    {
+      "app": "http-candidate",
+      "variant": "http-normal",
+      "verdict": "PASS",
+      "expected": true,
+      "assertions_passed": 18,
+      "assertions_failed": 0,
+      "findings": [],
+      "evidence": "reports/adversarial-evaluation-1791571663998/campaign-1791571664078-9ed62316/http-candidate-http-normal/vibeguru-findings.json"
+    },
+    {
+      "app": "http-candidate",
+      "variant": "http-503",
+      "verdict": "FAIL",
+      "expected": true,
+      "assertions_passed": 18,
+      "assertions_failed": 0,
+      "findings": [
+        "failed_request"
+      ],
+      "evidence": "reports/adversarial-evaluation-1791571663998/campaign-1791571664078-9ed62316/http-candidate-http-503/vibeguru-findings.json"
+    },
+    {
+      "app": "http-candidate",
+      "variant": "http-disconnect",
+      "verdict": "FAIL",
+      "expected": true,
+      "assertions_passed": 18,
+      "assertions_failed": 0,
+      "findings": [
+        "failed_request"
+      ],
+      "evidence": "reports/adversarial-evaluation-1791571663998/campaign-1791571664078-9ed62316/http-candidate-http-disconnect/vibeguru-findings.json"
+    },
+    {
+      "app": "http-candidate",
+      "variant": "http-malformed",
+      "verdict": "PASS",
+      "expected": true,
+      "assertions_passed": 18,
+      "assertions_failed": 0,
+      "findings": [],
+      "evidence": "reports/adversarial-evaluation-1791571663998/campaign-1791571664078-9ed62316/http-candidate-http-malformed/vibeguru-findings.json"
+    },
+    {
+      "app": "write-vulnerable",
+      "variant": "write-single",
+      "verdict": "PASS",
+      "expected": true,
+      "assertions_passed": 36,
+      "assertions_failed": 0,
+      "findings": [],
+      "evidence": "reports/adversarial-evaluation-1791571663998/campaign-1791571664078-9ed62316/write-vulnerable-write-single/vibeguru-findings.json"
+    },
+    {
+      "app": "write-vulnerable",
+      "variant": "write-double",
+      "verdict": "FAIL",
+      "expected": true,
+      "assertions_passed": 30,
+      "assertions_failed": 6,
+      "findings": [
+        "journey_assertion_failed"
+      ],
+      "evidence": "reports/adversarial-evaluation-1791571663998/campaign-1791571664078-9ed62316/write-vulnerable-write-double/vibeguru-findings.json"
+    },
+    {
+      "app": "write-vulnerable",
+      "variant": "write-retry",
+      "verdict": "FAIL",
+      "expected": true,
+      "assertions_passed": 30,
+      "assertions_failed": 6,
+      "findings": [
+        "journey_assertion_failed"
+      ],
+      "evidence": "reports/adversarial-evaluation-1791571663998/campaign-1791571664078-9ed62316/write-vulnerable-write-retry/vibeguru-findings.json"
+    },
+    {
+      "app": "write-candidate",
+      "variant": "write-single",
+      "verdict": "PASS",
+      "expected": true,
+      "assertions_passed": 36,
+      "assertions_failed": 0,
+      "findings": [],
+      "evidence": "reports/adversarial-evaluation-1791571663998/campaign-1791571664078-9ed62316/write-candidate-write-single/vibeguru-findings.json"
+    },
+    {
+      "app": "write-candidate",
+      "variant": "write-double",
+      "verdict": "PASS",
+      "expected": true,
+      "assertions_passed": 36,
+      "assertions_failed": 0,
+      "findings": [],
+      "evidence": "reports/adversarial-evaluation-1791571663998/campaign-1791571664078-9ed62316/write-candidate-write-double/vibeguru-findings.json"
+    },
+    {
+      "app": "write-candidate",
+      "variant": "write-retry",
+      "verdict": "PASS",
+      "expected": true,
+      "assertions_passed": 36,
+      "assertions_failed": 0,
+      "findings": [],
+      "evidence": "reports/adversarial-evaluation-1791571663998/campaign-1791571664078-9ed62316/write-candidate-write-retry/vibeguru-findings.json"
+    },
+    {
+      "app": "storage-vulnerable",
+      "variant": "storage-normal",
+      "verdict": "PASS",
+      "expected": true,
+      "assertions_passed": 24,
+      "assertions_failed": 0,
+      "findings": [],
+      "evidence": "reports/adversarial-evaluation-1791571663998/campaign-1791571664078-9ed62316/storage-vulnerable-storage-normal/vibeguru-findings.json"
+    },
+    {
+      "app": "storage-vulnerable",
+      "variant": "storage-corrupt",
+      "verdict": "FAIL",
+      "expected": true,
+      "assertions_passed": 18,
+      "assertions_failed": 6,
+      "findings": [
+        "uncaught_exception",
+        "journey_assertion_failed"
+      ],
+      "evidence": "reports/adversarial-evaluation-1791571663998/campaign-1791571664078-9ed62316/storage-vulnerable-storage-corrupt/vibeguru-findings.json"
+    },
+    {
+      "app": "storage-vulnerable",
+      "variant": "storage-shape",
+      "verdict": "FAIL",
+      "expected": true,
+      "assertions_passed": 18,
+      "assertions_failed": 6,
+      "findings": [
+        "journey_assertion_failed"
+      ],
+      "evidence": "reports/adversarial-evaluation-1791571663998/campaign-1791571664078-9ed62316/storage-vulnerable-storage-shape/vibeguru-findings.json"
+    },
+    {
+      "app": "storage-vulnerable",
+      "variant": "storage-denied",
+      "verdict": "FAIL",
+      "expected": true,
+      "assertions_passed": 18,
+      "assertions_failed": 6,
+      "findings": [
+        "uncaught_exception",
+        "journey_assertion_failed"
+      ],
+      "evidence": "reports/adversarial-evaluation-1791571663998/campaign-1791571664078-9ed62316/storage-vulnerable-storage-denied/vibeguru-findings.json"
+    },
+    {
+      "app": "storage-vulnerable",
+      "variant": "storage-quota",
+      "verdict": "FAIL",
+      "expected": true,
+      "assertions_passed": 18,
+      "assertions_failed": 6,
+      "findings": [
+        "uncaught_exception",
+        "journey_assertion_failed"
+      ],
+      "evidence": "reports/adversarial-evaluation-1791571663998/campaign-1791571664078-9ed62316/storage-vulnerable-storage-quota/vibeguru-findings.json"
+    },
+    {
+      "app": "storage-candidate",
+      "variant": "storage-normal",
+      "verdict": "PASS",
+      "expected": true,
+      "assertions_passed": 24,
+      "assertions_failed": 0,
+      "findings": [],
+      "evidence": "reports/adversarial-evaluation-1791571663998/campaign-1791571664078-9ed62316/storage-candidate-storage-normal/vibeguru-findings.json"
+    },
+    {
+      "app": "storage-candidate",
+      "variant": "storage-corrupt",
+      "verdict": "PASS",
+      "expected": true,
+      "assertions_passed": 24,
+      "assertions_failed": 0,
+      "findings": [],
+      "evidence": "reports/adversarial-evaluation-1791571663998/campaign-1791571664078-9ed62316/storage-candidate-storage-corrupt/vibeguru-findings.json"
+    },
+    {
+      "app": "storage-candidate",
+      "variant": "storage-shape",
+      "verdict": "PASS",
+      "expected": true,
+      "assertions_passed": 24,
+      "assertions_failed": 0,
+      "findings": [],
+      "evidence": "reports/adversarial-evaluation-1791571663998/campaign-1791571664078-9ed62316/storage-candidate-storage-shape/vibeguru-findings.json"
+    },
+    {
+      "app": "storage-candidate",
+      "variant": "storage-denied",
+      "verdict": "PASS",
+      "expected": true,
+      "assertions_passed": 24,
+      "assertions_failed": 0,
+      "findings": [],
+      "evidence": "reports/adversarial-evaluation-1791571663998/campaign-1791571664078-9ed62316/storage-candidate-storage-denied/vibeguru-findings.json"
+    },
+    {
+      "app": "storage-candidate",
+      "variant": "storage-quota",
+      "verdict": "PASS",
+      "expected": true,
+      "assertions_passed": 24,
+      "assertions_failed": 0,
+      "findings": [],
+      "evidence": "reports/adversarial-evaluation-1791571663998/campaign-1791571664078-9ed62316/storage-candidate-storage-quota/vibeguru-findings.json"
+    },
+    {
+      "app": "conflict-vulnerable",
+      "variant": "conflict-serial",
+      "verdict": "PASS",
+      "expected": true,
+      "assertions_passed": 42,
+      "assertions_failed": 0,
+      "findings": [],
+      "evidence": "reports/adversarial-evaluation-1791571663998/campaign-1791571664078-9ed62316/conflict-vulnerable-conflict-serial/vibeguru-findings.json"
+    },
+    {
+      "app": "conflict-vulnerable",
+      "variant": "conflict-stale",
+      "verdict": "FAIL",
+      "expected": true,
+      "assertions_passed": 36,
+      "assertions_failed": 6,
+      "findings": [
+        "journey_assertion_failed"
+      ],
+      "evidence": "reports/adversarial-evaluation-1791571663998/campaign-1791571664078-9ed62316/conflict-vulnerable-conflict-stale/vibeguru-findings.json"
+    },
+    {
+      "app": "conflict-vulnerable",
+      "variant": "conflict-reversed",
+      "verdict": "FAIL",
+      "expected": true,
+      "assertions_passed": 36,
+      "assertions_failed": 6,
+      "findings": [
+        "journey_assertion_failed"
+      ],
+      "evidence": "reports/adversarial-evaluation-1791571663998/campaign-1791571664078-9ed62316/conflict-vulnerable-conflict-reversed/vibeguru-findings.json"
+    },
+    {
+      "app": "conflict-candidate",
+      "variant": "conflict-serial",
+      "verdict": "PASS",
+      "expected": true,
+      "assertions_passed": 42,
+      "assertions_failed": 0,
+      "findings": [],
+      "evidence": "reports/adversarial-evaluation-1791571663998/campaign-1791571664078-9ed62316/conflict-candidate-conflict-serial/vibeguru-findings.json"
+    },
+    {
+      "app": "conflict-candidate",
+      "variant": "conflict-stale",
+      "verdict": "PASS",
+      "expected": true,
+      "assertions_passed": 42,
+      "assertions_failed": 0,
+      "findings": [],
+      "evidence": "reports/adversarial-evaluation-1791571663998/campaign-1791571664078-9ed62316/conflict-candidate-conflict-stale/vibeguru-findings.json"
+    },
+    {
+      "app": "conflict-candidate",
+      "variant": "conflict-reversed",
+      "verdict": "PASS",
+      "expected": true,
+      "assertions_passed": 42,
+      "assertions_failed": 0,
+      "findings": [
+        "http_error"
+      ],
+      "evidence": "reports/adversarial-evaluation-1791571663998/campaign-1791571664078-9ed62316/conflict-candidate-conflict-reversed/vibeguru-findings.json"
+    }
+  ],
+  "limitations": [
+    "Synthetic injected faults are labelled; detection rate is not real-world precision or overall product accuracy.",
+    "Normal app findings require independent triage; an unmodified app is not a known-clean control.",
+    "Only declared workflows and conditions were exercised; no LLM/Jev policy, automated minimizer or full causal diagnosis was evaluated.",
+    "Gateway and swap-station backends are mocked; authentication, hardware control and full integrations are outside scope.",
+    "Purpose-built vulnerable/corrected fixtures; no new naturally occurring customer defect is claimed.",
+    "Navigation has a 300ms post-response window. Recovery has a 600ms UI deadline and an explicit disabled-button reset between cycles.",
+    "HTTP 503 and transport faults remain app runtime findings even when the recovery expectation matches.",
+    "Writes use one isolated in-memory process; no durable database, distributed locking or ambiguous lost-response recovery is evaluated.",
+    "Storage corruption uses real browser bytes; access denial and quota errors are scoped injected DOMExceptions, not actual exhausted browser quota.",
+    "Storage cold starts use same-origin iframe documents; the main measurement document stays loaded. Explicit retry follows controlled fault removal.",
+    "Conflict checks use two isolated clients, distinct field edits, and acknowledged stale-write schedules against one in-memory versioned server; secondary-client runtime has separately bounded observation.",
+    "Candidate modes are manually authored in the same fixture source; this is not autonomous source repair."
+  ]
+}

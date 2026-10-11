@@ -15,9 +15,9 @@ defmodule VibeGuru.Auth do
   ## The saved file is a live session
 
   `.vibeguru/auth.json` is equivalent to being logged in. Anyone holding it is
-  logged in. So the directory ships with its own `.gitignore` containing `*` — a
-  self-ignoring directory, which protects the file without editing (or depending on)
-  the project's own ignore rules.
+  logged in. The directory has owner-only Unix permissions and its own `.gitignore`
+  containing `*`, reducing accidental commits without editing the project's rules.
+  Git force-add can override ignores. Windows ACLs still depend on the user's profile.
   """
 
   alias VibeGuru.Driver
@@ -98,19 +98,60 @@ defmodule VibeGuru.Auth do
   defp write_session(root, state) do
     dir = Path.join(root, @dir)
 
-    with :ok <- File.mkdir_p(dir),
-         :ok <- protect(dir),
-         :ok <- File.write(Path.join(dir, @session_file), Jason.encode!(state, pretty: true)) do
-      {:ok, path(root)}
-    else
-      {:error, reason} -> {:error, {:session_write_failed, reason}}
+    temp =
+      Path.join(
+        dir,
+        ".auth-#{Base.url_encode64(:crypto.strong_rand_bytes(16), padding: false)}.tmp"
+      )
+
+    try do
+      with :ok <- File.mkdir_p(dir),
+           {:ok, %{type: :directory}} <- File.lstat(dir),
+           :ok <- private_mode(dir, 0o700),
+           :ok <- protect(dir),
+           :ok <- write_private(temp, Jason.encode!(state, pretty: true)),
+           :ok <- File.rename(temp, path(root)) do
+        {:ok, path(root)}
+      else
+        {:ok, _} -> {:error, {:session_write_failed, :unsafe_session_directory}}
+        {:error, reason} -> {:error, {:session_write_failed, reason}}
+      end
+    after
+      File.rm(temp)
     end
   end
 
-  # A self-ignoring directory. Committing a live session to a repo would be a real
-  # security incident, and this guarantees it without touching the project's own
-  # .gitignore or relying on the user having read a warning.
+  defp write_private(path, body) do
+    with {:ok, file} <- File.open(path, [:write, :binary, :exclusive]) do
+      try do
+        with :ok <- private_mode(path, 0o600), do: IO.binwrite(file, body)
+      after
+        File.close(file)
+      end
+    end
+  end
+
+  defp private_mode(path, mode) do
+    case :os.type() do
+      {:win32, _} -> :ok
+      _ -> File.chmod(path, mode)
+    end
+  end
+
+  # Prevent ordinary accidental adds. A user can still explicitly force-add files.
   defp protect(dir) do
-    File.write(Path.join(dir, ".gitignore"), "# Contains a live session. Never commit.\n*\n")
+    temp =
+      Path.join(
+        dir,
+        ".ignore-#{Base.url_encode64(:crypto.strong_rand_bytes(16), padding: false)}.tmp"
+      )
+
+    try do
+      with :ok <- write_private(temp, "# Contains a live session. Never commit.\n*\n"),
+           :ok <- File.rename(temp, Path.join(dir, ".gitignore")),
+           do: :ok
+    after
+      File.rm(temp)
+    end
   end
 end

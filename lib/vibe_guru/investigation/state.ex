@@ -14,10 +14,9 @@ defmodule VibeGuru.Investigation.State do
       `module_scoped_imports` is true, a policy should not have to work out that
       `census.client` cannot see library classes here — the fact tells it.
 
-    * **Summaries, never raw evidence.** A run emits 44+ samples. `symptom.measurement`
-      is prose because the decision turns on magnitude and consistency, not on the delta
-      chain. Sending the chain would cost more than the browser driving this exists to
-      replace.
+    * **Keep the observations behind a judgment.** `symptom.measurement` is a concise
+      summary; history also preserves the probe measurements and survey observations
+      needed to audit why a hypothesis stayed open or gained support.
 
   See `docs/ARCHITECTURE-investigation.md` for the wire format and the reasoning.
   """
@@ -39,9 +38,7 @@ defmodule VibeGuru.Investigation.State do
 
   @enforce_keys [:symptom]
   defstruct symptom: nil,
-            # Other findings on the same target. A cause that explains three findings at
-            # once is the difference between a report someone triages and one they act on,
-            # and a policy cannot claim that without seeing the siblings.
+            # Other findings on the same target are context, not a shared-cause claim.
             siblings: [],
             facts: %{},
             hypotheses: [],
@@ -86,6 +83,7 @@ defmodule VibeGuru.Investigation.State do
   defp symptom(%Finding{} = f) do
     %{
       signature: f.signature,
+      finding_id: f.id,
       route: Map.get(f.location, :route, "/"),
       severity: f.severity,
       measurement: f.summary
@@ -127,8 +125,11 @@ defmodule VibeGuru.Investigation.State do
 
     step = %{
       probe: probe_id,
+      source: :probe,
       cost_ms: Map.get(result, :cost_ms, 0),
       result: Map.get(result, :summary, ""),
+      measurement: Map.drop(result, [:cost_ms, :summary, :updates]),
+      updates: updates,
       changed: hypotheses != state.hypotheses
     }
 

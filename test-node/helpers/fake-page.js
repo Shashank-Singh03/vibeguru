@@ -51,6 +51,7 @@ function fakePage({ path = "/", links = [], clickFails = false, guard = {}, muta
 
     locator: (sel) => ({
       first: () => ({
+        waitFor: async () => {},
         click: async () => {
           calls.clicks.push(sel);
           if (clickFails) throw new Error("element is not visible");
@@ -69,6 +70,7 @@ function fakePage({ path = "/", links = [], clickFails = false, guard = {}, muta
         enter(arg);
         return undefined;
       }
+      if (src.includes("__vibeguru_doc_token")) return "same-document";
       if (src.includes("location.pathname")) return current;
       if (src.includes("__vibeguru_mutations")) return mutations;
       if (src.includes("performance") || src.includes("canvas")) {
