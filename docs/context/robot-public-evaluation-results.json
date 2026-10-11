@@ -1,0 +1,29 @@
+{
+  "reviewed_date": "2026-10-10",
+  "campaign_id": "campaign-1791608605394-robot-public",
+  "app": "robot-frontend",
+  "scope": "Public UI only",
+  "verdict": "PASS",
+  "cycles": 6,
+  "passed_assertions": 48,
+  "failed_assertions": 0,
+  "declared_expectation_matched": true,
+  "retained_observations": 48,
+  "graph_nodes": 123,
+  "graph_edges": 122,
+  "integrity": {
+    "execution_stable": true,
+    "source_snapshot_stable": true,
+    "artifacts_stable": true,
+    "lab_stable": true
+  },
+  "report": "reports/robot-real-evaluation-1791608219060/campaign-1791608605394-robot-public/robot-frontend-public-roundtrip/vibeguru-findings.json",
+  "limitations": [
+    "One real Desktop frontend source copy; six repeated cycles are not independent applications or customers.",
+    "Only the signed-out root landing, theme roundtrip, modal tab rendering and close are exercised.",
+    "No authentication attempts, bypass, rate-limit/load test, real credentials or API service.",
+    "No robot program generation, backend jobs, AI providers, files, hardware, export or authenticated admin/editor workflows.",
+    "No cross-document theme persistence test; no reload during memory measurement.",
+    "API, external-origin, non-GET/HEAD requests and all WebSockets are blocked and counted, never fulfilled as a fake success."
+  ]
+}

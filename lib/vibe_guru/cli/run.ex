@@ -7,7 +7,7 @@ defmodule VibeGuru.CLI.Run do
   Also hosts the low-level `memory:client <url>` entry, which skips config and autostart.
   """
 
-  alias VibeGuru.{Config, DevServer, Pipeline}
+  alias VibeGuru.{Auth, Config, DevServer, Pipeline, Result}
   alias VibeGuru.CLI.Presenter
 
   @switches [
@@ -115,7 +115,11 @@ defmodule VibeGuru.CLI.Run do
     case Pipeline.memory_client(url, run_opts) do
       {:ok, result} ->
         Presenter.summary(result, Keyword.fetch!(run_opts, :out_dir))
-        exit_code(result.findings)
+
+        case Result.exit_code(result.verdict) do
+          0 -> :ok
+          code -> {:halt, code}
+        end
 
       {:error, reason} ->
         Presenter.error(reason)
@@ -131,8 +135,13 @@ defmodule VibeGuru.CLI.Run do
       settle_ms: Keyword.get(opts, :settle, config.settle_ms),
       routes_limit: Keyword.get(opts, :routes, config.routes_limit),
       flow: Keyword.get(opts, :flow, config.flow),
+      route_params: config.route_params,
+      route_expectations: config.route_expectations,
+      census_targets: config.census_targets,
+      thresholds: config.thresholds,
       headless: Keyword.get(opts, :headless, true),
       timeout_ms: Keyword.get(opts, :timeout, 600_000),
+      storage_state: Auth.session(root),
       on_log: Presenter.log_fn(Keyword.get(opts, :quiet, false))
     ]
   end
@@ -140,8 +149,4 @@ defmodule VibeGuru.CLI.Run do
   defp target_url(%Config{url: url}) when is_binary(url), do: url
   defp target_url(%Config{port: port}) when is_integer(port), do: "http://localhost:#{port}"
   defp target_url(_), do: nil
-
-  defp exit_code(findings) do
-    if Enum.any?(findings, &(&1.severity in [:critical, :high])), do: {:halt, 1}, else: :ok
-  end
 end

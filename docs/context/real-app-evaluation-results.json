@@ -1,0 +1,315 @@
+{
+  "reviewed_date": "2026-10-10",
+  "timezone": "Asia/Calcutta",
+  "campaign_id": "campaign-1791608203042-3e4603ef",
+  "scope": "Three unchanged-source local founder applications; frontend fixtures for gateway/swap-station and a real local multiplayer server.",
+  "totals": {
+    "cases": 8,
+    "attempted_cycles": 66,
+    "verdicts": {
+      "PASS": 4,
+      "FAIL": 3,
+      "INCONCLUSIVE": 1,
+      "ERROR": 0
+    },
+    "passed_assertions": 156,
+    "failed_assertions": 12,
+    "declared_expectations_matched": 8,
+    "declared_expectations": 8,
+    "injected_signals": 0,
+    "graph_nodes": 513,
+    "graph_edges": 547,
+    "experiment_observations": 66
+  },
+  "cases": [
+    {
+      "app": "gateway-natural",
+      "variant": "baseline",
+      "verdict": "FAIL",
+      "reasons": [],
+      "cycles": 6,
+      "passed_assertions": 12,
+      "failed_assertions": 0,
+      "checks": [
+        "metrics-loaded",
+        "api-list-visible"
+      ],
+      "findings": [
+        {
+          "signature": "route_heap_growth",
+          "severity": "high",
+          "metrics": {
+            "heap_bytes_per_visit": 156468,
+            "heap_bytes_total_retained": 782340,
+            "heap_recovery_ratio": 0.052
+          }
+        }
+      ],
+      "source_kind": "observed",
+      "heap_delta_between_cycle_samples": {
+        "intervals": 5,
+        "average_bytes": 156468,
+        "last_five_average_bytes": 156468
+      },
+      "report": "reports/real-app-evaluation-1791608163661/campaign-1791608203042-3e4603ef/gateway-natural-baseline/vibeguru-findings.json",
+      "capsule": "reports/real-app-evaluation-1791608163661/campaign-1791608203042-3e4603ef/gateway-natural-baseline/incident-capsule.json"
+    },
+    {
+      "app": "swap-station-natural",
+      "variant": "baseline",
+      "verdict": "INCONCLUSIVE",
+      "reasons": [
+        "unavailable_census_targets",
+        "census.client: unavailable_census_targets",
+        "engine_reported_inconclusive"
+      ],
+      "cycles": 6,
+      "passed_assertions": 12,
+      "failed_assertions": 0,
+      "checks": [
+        "access-table-visible",
+        "broker-list-visible"
+      ],
+      "findings": [],
+      "source_kind": "observed",
+      "heap_delta_between_cycle_samples": {
+        "intervals": 5,
+        "average_bytes": 40532,
+        "last_five_average_bytes": 40532
+      },
+      "report": "reports/real-app-evaluation-1791608163661/campaign-1791608203042-3e4603ef/swap-station-natural-baseline/vibeguru-findings.json",
+      "capsule": "reports/real-app-evaluation-1791608163661/campaign-1791608203042-3e4603ef/swap-station-natural-baseline/incident-capsule.json"
+    },
+    {
+      "app": "multiplayer-natural",
+      "variant": "baseline",
+      "verdict": "PASS",
+      "reasons": [],
+      "cycles": 6,
+      "passed_assertions": 24,
+      "failed_assertions": 0,
+      "checks": [
+        "connected",
+        "peer-received-name",
+        "peer-received-reaction",
+        "room-visible"
+      ],
+      "findings": [],
+      "source_kind": "observed",
+      "heap_delta_between_cycle_samples": {
+        "intervals": 5,
+        "average_bytes": 20031,
+        "last_five_average_bytes": 20031
+      },
+      "report": "reports/real-app-evaluation-1791608163661/campaign-1791608203042-3e4603ef/multiplayer-natural-baseline/vibeguru-findings.json",
+      "capsule": "reports/real-app-evaluation-1791608163661/campaign-1791608203042-3e4603ef/multiplayer-natural-baseline/incident-capsule.json"
+    },
+    {
+      "app": "gateway-long-natural",
+      "variant": "baseline",
+      "verdict": "PASS",
+      "reasons": [],
+      "cycles": 24,
+      "passed_assertions": 48,
+      "failed_assertions": 0,
+      "checks": [
+        "metrics-loaded",
+        "api-list-visible"
+      ],
+      "findings": [],
+      "source_kind": "observed",
+      "heap_delta_between_cycle_samples": {
+        "intervals": 23,
+        "average_bytes": 40591,
+        "last_five_average_bytes": -354
+      },
+      "report": "reports/real-app-evaluation-1791608163661/campaign-1791608203042-3e4603ef/gateway-long-natural-baseline/vibeguru-findings.json",
+      "capsule": "reports/real-app-evaluation-1791608163661/campaign-1791608203042-3e4603ef/gateway-long-natural-baseline/incident-capsule.json"
+    },
+    {
+      "app": "gateway-race-original",
+      "variant": "race-ordered",
+      "verdict": "PASS",
+      "reasons": [],
+      "cycles": 6,
+      "passed_assertions": 12,
+      "failed_assertions": 0,
+      "checks": [
+        "newer-refresh-rendered",
+        "latest-refresh-wins"
+      ],
+      "findings": [],
+      "source_kind": "existing-behavior",
+      "heap_delta_between_cycle_samples": {
+        "intervals": 5,
+        "average_bytes": 55027,
+        "last_five_average_bytes": 55027
+      },
+      "report": "reports/real-app-evaluation-1791608163661/campaign-1791608203042-3e4603ef/gateway-race-original-race-ordered/vibeguru-findings.json",
+      "capsule": "reports/real-app-evaluation-1791608163661/campaign-1791608203042-3e4603ef/gateway-race-original-race-ordered/incident-capsule.json"
+    },
+    {
+      "app": "gateway-race-original",
+      "variant": "race-reordered",
+      "verdict": "FAIL",
+      "reasons": [
+        "failed_interactions",
+        "incomplete_flow",
+        "scope: failed_interactions, incomplete_flow",
+        "memory.client: failed_interactions, incomplete_flow",
+        "runtime.client: failed_interactions, incomplete_flow",
+        "census.client: failed_interactions, incomplete_flow"
+      ],
+      "cycles": 6,
+      "passed_assertions": 6,
+      "failed_assertions": 6,
+      "checks": [
+        "newer-refresh-rendered",
+        "latest-refresh-wins"
+      ],
+      "findings": [
+        {
+          "signature": "journey_assertion_failed",
+          "severity": "high",
+          "metrics": {
+            "assertion_id": "latest-refresh-wins",
+            "failed_cycles": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ]
+          }
+        }
+      ],
+      "source_kind": "existing-behavior",
+      "heap_delta_between_cycle_samples": {
+        "intervals": 5,
+        "average_bytes": 53064,
+        "last_five_average_bytes": 53064
+      },
+      "report": "reports/real-app-evaluation-1791608163661/campaign-1791608203042-3e4603ef/gateway-race-original-race-reordered/vibeguru-findings.json",
+      "capsule": "reports/real-app-evaluation-1791608163661/campaign-1791608203042-3e4603ef/gateway-race-original-race-reordered/incident-capsule.json"
+    },
+    {
+      "app": "gateway-create-natural",
+      "variant": "baseline",
+      "verdict": "FAIL",
+      "reasons": [
+        "failed_interactions",
+        "incomplete_flow",
+        "scope: failed_interactions, incomplete_flow",
+        "memory.client: failed_interactions, incomplete_flow",
+        "runtime.client: failed_interactions, incomplete_flow",
+        "census.client: failed_interactions, incomplete_flow"
+      ],
+      "cycles": 6,
+      "passed_assertions": 0,
+      "failed_assertions": 6,
+      "checks": [
+        "create-api-form"
+      ],
+      "findings": [
+        {
+          "signature": "console_error",
+          "severity": "high",
+          "metrics": {
+            "message": "Failed to load data: AxiosError: Request failed with status code 404 at UO (http://127.0.0.1:65335/assets/index-CCxt_4dk.js:69:12158) at XMLHttpRequest.v (http://127.0.0.1:65335/assets/index-CCxt_4dk.…",
+            "source": "http://127.0.0.1:65335/assets/index-CCxt_4dk.js:74:8730",
+            "routes": "flow",
+            "attribution": "observed_route",
+            "occurrences": 6
+          }
+        },
+        {
+          "signature": "journey_assertion_failed",
+          "severity": "high",
+          "metrics": {
+            "assertion_id": "create-api-form",
+            "failed_cycles": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ]
+          }
+        },
+        {
+          "signature": "http_error",
+          "severity": "medium",
+          "metrics": {
+            "message": "HTTP 404 — http://localhost:8080/admin/apis/new",
+            "source": "http://localhost:8080/admin/apis/new",
+            "routes": "flow",
+            "attribution": "request_origin",
+            "occurrences": 6
+          }
+        }
+      ],
+      "source_kind": "existing-behavior",
+      "heap_delta_between_cycle_samples": {
+        "intervals": 5,
+        "average_bytes": 90545,
+        "last_five_average_bytes": 90545
+      },
+      "report": "reports/real-app-evaluation-1791608163661/campaign-1791608203042-3e4603ef/gateway-create-natural-baseline/vibeguru-findings.json",
+      "capsule": "reports/real-app-evaluation-1791608163661/campaign-1791608203042-3e4603ef/gateway-create-natural-baseline/incident-capsule.json"
+    },
+    {
+      "app": "multiplayer-reconnect-natural",
+      "variant": "baseline",
+      "verdict": "PASS",
+      "reasons": [],
+      "cycles": 6,
+      "passed_assertions": 42,
+      "failed_assertions": 0,
+      "checks": [
+        "initial-roster-agreement",
+        "disconnect-observed",
+        "peer-change-acknowledged",
+        "transport-reconnected",
+        "rejoin-snapshot-current",
+        "identity-preserved",
+        "roster-converged"
+      ],
+      "findings": [
+        {
+          "signature": "slow_recovery",
+          "severity": "low",
+          "metrics": {
+            "growth": 6,
+            "metric": "nodes",
+            "recovery_ratio": 0.667
+          }
+        }
+      ],
+      "source_kind": "observed",
+      "heap_delta_between_cycle_samples": {
+        "intervals": 5,
+        "average_bytes": 17256,
+        "last_five_average_bytes": 17256
+      },
+      "report": "reports/real-app-evaluation-1791608163661/campaign-1791608203042-3e4603ef/multiplayer-reconnect-natural-baseline/vibeguru-findings.json",
+      "capsule": "reports/real-app-evaluation-1791608163661/campaign-1791608203042-3e4603ef/multiplayer-reconnect-natural-baseline/incident-capsule.json"
+    }
+  ],
+  "manifest": "reports/real-app-evaluation-1791608163661/manifest.json",
+  "summary": "reports/real-app-evaluation-1791608163661/campaign-1791608203042-3e4603ef/summary.json",
+  "limitations": [
+    "Synthetic injected faults are labelled; detection rate is not real-world precision or overall product accuracy.",
+    "Normal app findings require independent triage; an unmodified app is not a known-clean control.",
+    "Only declared workflows and conditions were exercised; no LLM/Jev policy, automated minimizer or full causal diagnosis was evaluated.",
+    "Gateway and swap-station backends are mocked; authentication, hardware control and full integrations are outside scope.",
+    "Three existing founder projects, not independent customer apps; source snapshots match their original inventoried files.",
+    "No seeded listeners, arrays, runtime exceptions or broken-source modes. Existing response-order and reconnect experiments deliberately control transport timing.",
+    "Gateway and swap-station exercise real frontend code with fixture HTTP; their real backends are not exercised.",
+    "Swap-station uses the previously declared synthetic local role for UI setup; login and authorization are not tested.",
+    "No rate-limit enforcement, load, security or auth-bypass tests. Source-only rate-limit findings are recorded separately.",
+    "These are bounded authored workflows, not a whole-application success rate or automatic defect discovery."
+  ],
+  "rate_controls": "Manual source inventory only: docs/context/RATE_LIMIT_INVENTORY.md"
+}

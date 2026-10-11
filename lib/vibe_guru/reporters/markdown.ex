@@ -9,7 +9,7 @@ defmodule VibeGuru.Reporter.Markdown do
 
   @behaviour VibeGuru.Reporter
 
-  alias VibeGuru.StackProfile
+  alias VibeGuru.{Coverage, StackProfile, Result}
 
   @impl true
   def id, do: :markdown
@@ -20,18 +20,30 @@ defmodule VibeGuru.Reporter.Markdown do
     profile = config[:profile]
     vector = Map.get(config, :vector, "memory.client")
 
+    coverage = Map.get(config, :coverage)
+
+    assessment =
+      Map.get_lazy(config, :assessment, fn ->
+        Result.assess(findings, config[:evidence] || [], coverage, %{})
+      end)
+
     report_path = Path.join(out_dir, "vibeguru-report.md")
     claude_path = Path.join(out_dir, "CLAUDE.md")
 
-    with :ok <- File.write(report_path, human_report(findings, profile, vector)),
-         :ok <- File.write(claude_path, claude_md(findings, vector)) do
+    with :ok <-
+           File.write(report_path, human_report(findings, profile, vector, coverage, assessment)),
+         :ok <-
+           File.write(
+             claude_path,
+             result_block(assessment) <> claude_md(findings, vector, coverage)
+           ) do
       {:ok, %{report: report_path, claude: claude_path}}
     end
   end
 
   # --- human report -------------------------------------------------------
 
-  defp human_report(findings, profile, vector) do
+  defp human_report(findings, profile, vector, coverage, assessment) do
     """
     # Vibe Guru Report — #{vector}
 
@@ -40,18 +52,28 @@ defmodule VibeGuru.Reporter.Markdown do
 
     ## Summary
 
+    #{result_block(assessment)}
     #{summary_table(findings)}
+    #{coverage_block(coverage)}
 
     ## Findings
 
-    #{if findings == [], do: "No issues found. 🎉", else: Enum.map_join(findings, "\n", &finding_section/1)}
+    #{if findings == [], do: "No findings detected within the measured scope.", else: Enum.map_join(findings, "\n", &finding_section/1)}
+
+    ## Interpretation and reproduction
+
+    Findings are heuristic interpretations of the retained evidence in `vibeguru-findings.json`.
+    Route coverage checks navigation, not business correctness. Source frames are clues;
+    asynchronous events may originate in an earlier view. Reproduce the finding using the
+    reported URL, routes, cycles and settle time, apply a reviewed fix, then repeat under
+    the same conditions. Business outcomes are evaluated only where an explicit
+    journey assertion was supplied; other outcomes still require verification.
     """
   end
 
   defp summary_table([]),
     do:
-      "**No issues found.** Every route returned memory to baseline after GC, and none " <>
-        "threw, logged an error, or failed a request while it was exercised."
+      "No findings crossed the configured thresholds. Check validity and coverage before relying on this result."
 
   defp summary_table(findings) do
     counts = Enum.frequencies_by(findings, & &1.severity)
@@ -79,30 +101,35 @@ defmodule VibeGuru.Reporter.Markdown do
     - #{f.summary}
     - **Metrics:** #{format_metrics(f.metrics)}
     - **Fix:** #{f.fix[:summary]} — #{f.fix[:hint]}
+    - **Evidence references:** #{Enum.join(f.evidence_refs, ", ")}
     """
   end
 
   # --- CLAUDE.md (agent-readable) -----------------------------------------
 
-  defp claude_md([], _vector) do
+  defp claude_md(findings, vector, coverage),
+    do: claude_body(findings, vector) <> coverage_block(coverage)
+
+  defp claude_body([], _vector) do
     """
     # Vibe Guru
 
-    Vibe Guru exercised this app in a real browser and found **no issues**. No action needed.
+    No findings crossed the configured thresholds. Read the verdict, validity and coverage
+    above before reporting this scoped verification as complete.
     """
   end
 
-  defp claude_md(findings, _vector) do
+  defp claude_body(findings, _vector) do
     """
     # Vibe Guru findings
 
-    Vibe Guru ran this app in a real browser: it visited every route it could reach,
-    mounted and unmounted each one repeatedly, and recorded what actually happened —
+    Vibe Guru ran the configured routes or supplied journey in a real browser and
+    recorded what happened within that scope —
     what the app retained after forced garbage collection, what it logged, what it
     threw, and what it requested.
 
-    Every issue below was **measured, not inferred**, and each carries its own
-    evidence and its own next action. Work through them top to bottom; they are
+    Each finding interprets measured evidence; suspected causes require reproduction
+    and human triage. Work through them top to bottom; they are
     ordered most severe first. Re-run `vibeguru run` afterwards to confirm a fix.
 
     #{Enum.with_index(findings, 1) |> Enum.map_join("\n", fn {f, i} -> claude_item(f, i) end)}
@@ -121,6 +148,30 @@ defmodule VibeGuru.Reporter.Markdown do
 
   # --- helpers ------------------------------------------------------------
 
+  defp result_block(assessment) do
+    reasons = Enum.map_join(assessment.validity_reasons, "\n", &"- `#{&1}`")
+
+    "**#{assessment.verdict}** — #{Result.message(assessment.verdict)}\n\n" <>
+      if(reasons == "", do: "", else: "### Measurement limits\n\n#{reasons}\n\n") <>
+      "Run conditions: `#{Jason.encode!(assessment.run)}`\n\n"
+  end
+
+  # Stated in the agent-facing file too: an agent that treats a low-coverage pass
+  # as "done" will report work as verified that was never looked at.
+  defp coverage_block(nil), do: ""
+
+  defp coverage_block(coverage) do
+    gaps =
+      case Coverage.gaps(coverage) do
+        [] -> ""
+        list -> "\n" <> Enum.map_join(list, "\n", &"- #{&1}")
+      end
+
+    header = if Coverage.low?(coverage), do: "## Coverage (low)", else: "## Coverage"
+
+    "\n#{header}\n\n#{Coverage.summary(coverage)}#{gaps}\n"
+  end
+
   defp profile_line(%StackProfile{} = p) do
     libs = if p.chart_libs == [], do: "none", else: Enum.join(p.chart_libs, ", ")
 
@@ -133,7 +184,10 @@ defmodule VibeGuru.Reporter.Markdown do
 
   defp format_metrics(metrics) do
     metrics
-    |> Enum.map_join(", ", fn {k, v} -> "#{k}=#{v}" end)
+    |> Enum.map_join(", ", fn {k, v} ->
+      value = if is_list(v) or is_map(v), do: Jason.encode!(v), else: to_string(v)
+      "#{k}=#{value}"
+    end)
   end
 
   defp now, do: DateTime.utc_now() |> DateTime.to_iso8601()

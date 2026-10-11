@@ -1,0 +1,30 @@
+VIBE GURU — FOUNDING PILOT ENQUIRY BRIEF
+
+This template has not been submitted or sent. Save a copy, fill it in, and
+share it with the founder through your existing contact channel.
+
+Name:
+Email:
+Agency or team:
+App or staging URL (optional):
+Target handover date or timing:
+
+Journey 1 and expected outcome:
+
+Journey 2 and expected outcome:
+
+Main runtime or repeated-use concern:
+
+Proposed scope, subject to fit and agreement:
+$300 USD founding-pilot price experiment, per project.
+One React web application; up to 10 agreed routes; two agreed journeys.
+Up to six hours of delivery effort, including one confirmation rerun.
+Human-reviewed runtime/retention findings and coverage report.
+Journey assertions are agreed explicitly and checked separately.
+Fix implementation and additional investigation are separately scoped.
+
+Scheduling, access and scope are agreed before payment. This is not a
+security audit, backend load test, complete functional acceptance test,
+accessibility audit, cross-browser certification, or continuous monitor.
+
+Do not include passwords, cookies, session tokens or private customer data.

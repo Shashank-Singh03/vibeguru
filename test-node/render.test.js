@@ -9,21 +9,22 @@ const assert = require("node:assert/strict");
 const path = require("path");
 
 const { renderReport, renderFinding, filterFindings } = require("../mcp/render");
+const { validReport } = require("./helpers/valid-report");
 
-const report = require("./fixtures/findings.json");
+const report = validReport({ cycles: 4, routes: ["/", "/render-loop", "/log-error"], findings: require("./fixtures/findings.json").findings });
 const [loop, consoleErr, slow] = report.findings;
 
 // The prose blocks are hard-wrapped, so assert against a flattened copy.
 const flat = (s) => s.replace(/\s+/g, " ");
 
 test("a clean run reports PASS and says what was actually checked", () => {
-  const out = renderReport({ ...report, findings: [] });
+  const out = renderReport({ ...report, verdict: "PASS", findings: [] });
 
   assert.match(out, /^PASS/);
   assert.match(out, /react\/vite at http:\/\/localhost:5173/);
   // The all-clear has to name the guarantee, or it reads as "we didn't look".
-  assert.match(flat(out), /returned memory to baseline/);
-  assert.match(flat(out), /threw, logged an error, or failed a request/);
+  assert.match(flat(out), /No blocking issues detected within the tested scope/);
+  assert.match(flat(out), /does not establish business correctness/);
 });
 
 test("a failing run leads with the verdict and the severity tally", () => {
@@ -67,11 +68,10 @@ test("long prose is truncated so one finding cannot flood the context", () => {
   assert.match(out, /…/);
 });
 
-test("the whole report stays small enough to be worth calling", () => {
-  // The pitch is a verdict for ~1-2k tokens rather than ~114k of browser driving.
-  // ~4 chars/token, so a 3-finding report has no business exceeding a few thousand.
+test("the whole report stays bounded for an agent to read", () => {
+  // Detailed measurements stay in the evidence file; the text should be actionable.
   const out = renderReport(report, { cycles: 4 });
-  assert.ok(out.length < 2600, `report was ${out.length} chars; the token claim is the product`);
+  assert.ok(out.length < 2600, `report was ${out.length} chars`);
 });
 
 test("output tells the agent what to do next", () => {
@@ -119,8 +119,57 @@ test("filtering leaves the original report untouched", () => {
   assert.equal(report.findings.length, 3, "filtering must not mutate the cached run");
 });
 
-test("a malformed report degrades to PASS rather than throwing", () => {
+test("a malformed report reports ERROR without throwing", () => {
   // A truncated or half-written findings file must not take the server down.
-  assert.doesNotThrow(() => renderReport({}));
-  assert.doesNotThrow(() => renderReport({ findings: null }));
+  assert.match(renderReport({}), /^ERROR/);
+  assert.match(renderReport({ findings: null }), /^ERROR/);
+});
+
+// --- coverage -------------------------------------------------------------
+
+const lowCoverageReport = validReport({ routes: ["/"], unreachable: [
+    { path: "/admin", reason: "auth_required" },
+    { path: "/billing", reason: "auth_required" },
+    { path: "/users/[id]", reason: "dynamic" },
+  ] });
+const lowCoverage = lowCoverageReport.coverage;
+
+test("a clean run with low coverage is INCONCLUSIVE, not PASS", () => {
+  // The whole point: an agent told PASS after seeing a fraction of the app will
+  // report work as verified that was never looked at.
+  const out = renderReport(lowCoverageReport);
+
+  assert.match(out, /^INCONCLUSIVE/);
+  assert.doesNotMatch(out, /^PASS/m);
+  assert.match(flat(out), /not the same as the app being healthy/);
+});
+
+test("a clean run with full coverage still passes", () => {
+  const out = renderReport(validReport({ routes: ["/", "/a"] }));
+  assert.match(out, /^PASS/);
+});
+
+test("a run with missing coverage is inconclusive", () => {
+  // Missing scope cannot establish a clean verdict.
+  const out = renderReport({ ...report, verdict: "PASS", findings: [], coverage: null });
+  assert.match(out, /^INCONCLUSIVE/);
+});
+
+test("coverage gaps are grouped by cause, biggest first", () => {
+  const out = renderReport(lowCoverageReport);
+
+  assert.match(out, /Coverage: 1 of 4 routes reached \(25%\)/);
+  const auth = out.indexOf("2 need authentication");
+  const dyn = out.indexOf("1 take a dynamic segment");
+  assert.ok(auth !== -1 && dyn !== -1, "both causes should be listed");
+  assert.ok(auth < dyn, "the larger gap should be reported first");
+});
+
+test("coverage is reported alongside findings too", () => {
+  const out = renderReport({ ...report, coverage: null }, { cycles: 4 });
+  assert.doesNotMatch(out, /Coverage:/, "no coverage data means no coverage line");
+
+  const withCov = renderReport({ ...report, coverage: lowCoverage }, { cycles: 4 });
+  assert.match(withCov, /Coverage: 1 of 4 routes reached/);
+  assert.match(withCov, /^FAIL/);
 });

@@ -10,8 +10,9 @@ name: release
 #
 # To cut a release:
 #   1. bump version in package.json + mix.exs
-#   2. git tag v0.1.0 && git push --tags   (this workflow builds + publishes assets)
-#   3. npm publish                          (publishes the wrapper that downloads them)
+#   2. manually run this workflow and review all four native smoke results
+#   3. push the matching version tag (rebuilds, validates, then publishes assets)
+#   4. npm publish (prepublishOnly verifies the exact release and smoke proof)
 
 on:
   push:
@@ -32,15 +33,29 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Verify source and tag versions
+        run: |
+          node -e 'const fs=require("fs");const v=require("./package.json").version;const m=fs.readFileSync("mix.exs","utf8").match(/version: "([^"]+)"/)[1];if(v!==m||(process.env.GITHUB_REF.startsWith("refs/tags/")&&process.env.GITHUB_REF!=="refs/tags/v"+v))throw Error("Source/tag version mismatch")'
+
       # PINNED, and it has to stay that way. Burrito cross-compiles by downloading a
-      # prebuilt ERTS for each target from a third-party CDN (beam-machine-universal),
-      # keyed on the EXACT OTP patch this runner has. A floating "27" resolves to the
-      # newest patch, which regularly outruns that CDN: 27.3.4.17 has an official
-      # Windows installer but no Linux or macOS build there, so the mac target 404s
-      # after a full compile. 27.3.4.16 is the newest with all three.
+      # prebuilt ERTS for each target, keyed on the EXACT OTP patch this runner has:
+      # Linux and macOS from a third-party CDN (beam-machine-universal), Windows from
+      # erlang/otp's GitHub releases.
       #
-      # To bump: check the target below returns 200 for linux, macos AND windows
-      # before changing it. The next step asserts this at runtime anyway.
+      # The failure this pin prevents: a floating "27" resolves to whatever patch
+      # setup-beam has newest, and those publishers lag behind it. A v0.1.2 build died
+      # exactly that way — setup-beam gave 27.3.4.17, the CDN had no macOS build for it
+      # yet, and the mac target 404'd after a full compile. That gap has since closed
+      # (27.3.4.17 now serves all three), which is the point: the set of usable patches
+      # changes underneath an unpinned build, so the version that ships is chosen here
+      # rather than by whoever published last.
+      #
+      # To bump: change it and let the next step tell you. It asks all three publishers
+      # whether they actually have that patch, before anything compiles.
       - uses: erlef/setup-beam@v1
         with:
           otp-version: "27.3.4.16"
@@ -77,22 +92,42 @@ jobs:
           CDN="https://beam-machine-universal.b-cdn.net/OTP-$OTP"
           Q="?please-respect-my-bandwidth-costs=thank-you&openssl=3.5.1&musl=1.2.5"
 
-          fail=0
-          for pair in "linux:$CDN/linux/x86_64/any/otp_${OTP}_linux_any_x86_64.tar.gz$Q" "macos:$CDN/macos/universal/otp_${OTP}_macos_universal.tar.gz$Q"; do
-            name=${pair%%:*}
-            url=${pair#*:}
-            code=$(curl -s -o /dev/null -w "%{http_code}" --max-time 30 "$url" || echo 000)
-            echo "  $name -> $code"
+          # Windows ERTS does NOT come from the CDN. Burrito pulls the official
+          # installer from erlang/otp's own GitHub releases, which is a different host
+          # on a different release cadence, so it can 404 independently of the other
+          # two. 27.3.4.17 was the case in that direction — Windows published, CDN not
+          # — and the reverse is just as possible. Checking two targets out of three is
+          # how the third one's 404 gets discovered by `mix release` instead of here.
+          GH="https://github.com/erlang/otp/releases/download/OTP-$OTP"
+
+          # -I so this asks whether the asset exists instead of downloading hundreds of
+          # megabytes to find out, and -L because the GitHub download redirects.
+          check() {
+            code=$(curl -sIL -o /dev/null -w "%{http_code}" --max-time 30 "$2" || echo 000)
+            echo "  $1 -> $code"
             [ "$code" = "200" ] || fail=1
-          done
+          }
+
+          fail=0
+          check linux   "$CDN/linux/x86_64/any/otp_${OTP}_linux_any_x86_64.tar.gz$Q"
+          check macos   "$CDN/macos/universal/otp_${OTP}_macos_universal.tar.gz$Q"
+          check windows "$GH/otp_win64_$OTP.exe"
 
           if [ "$fail" -ne 0 ]; then
-            echo "::error title=No prebuilt ERTS for OTP $OTP::beam-machine-universal has not built OTP $OTP for every target, so Burrito cannot cross-compile. Pin otp-version in this workflow to a patch that is fully published (27.3.4.16 was, at the time of writing)."
+            echo "::error title=No prebuilt ERTS for OTP $OTP::A prebuilt ERTS for OTP $OTP is missing for at least one target (see the per-target codes above), so Burrito cannot cross-compile. Linux and macOS come from beam-machine-universal, Windows from erlang/otp GitHub releases. Pin otp-version in this workflow to a patch published on both (27.3.4.16 was, at the time of writing)."
             exit 1
           fi
 
       - name: Fetch deps
         run: mix deps.get --check-locked
+
+      - name: Check source contracts before building assets
+        run: |
+          npm ci --ignore-scripts
+          npm test
+          mix format --check-formatted
+          MIX_ENV=test mix compile --warnings-as-errors
+          MIX_ENV=test mix test
 
       - name: Verify Burrito toolchain
         run: |
@@ -158,6 +193,10 @@ jobs:
           mv burrito_out/vibeguru_macos_arm    dist/vibeguru-macos-arm64
           ls -la dist
 
+      - name: Create checksum manifest
+        run: |
+          node -e 'const fs=require("fs"),c=require("crypto");const rows=fs.readdirSync("dist").sort().map(n=>c.createHash("sha256").update(fs.readFileSync("dist/"+n)).digest("hex")+"  "+n);fs.writeFileSync("dist/SHA256SUMS",rows.join("\n")+"\n")'
+
       # Always uploaded — grab them from the run's "Artifacts" section. This makes a
       # manual (workflow_dispatch) run a safe build-only dry run with no tag needed.
       - uses: actions/upload-artifact@v4
@@ -166,10 +205,78 @@ jobs:
           path: dist/*
           if-no-files-found: error
 
-      # Publishing a GitHub Release needs a tag to attach to, so this runs ONLY on a
-      # v* tag push — never on a manual run (that's the "requires a tag" error you hit).
+  native-smoke:
+    needs: release
+    name: native package smoke (${{ matrix.platform }})
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - runner: ubuntu-24.04
+            platform: linux-x64
+            asset: vibeguru-linux-x64
+          - runner: windows-2022
+            platform: windows-x64
+            asset: vibeguru-windows-x64.exe
+          - runner: macos-15-intel
+            platform: macos-x64
+            asset: vibeguru-macos-x64
+          - runner: macos-15
+            platform: macos-arm64
+            asset: vibeguru-macos-arm64
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+      - uses: actions/download-artifact@v4
+        with:
+          name: vibeguru-binaries
+          path: dist
+      - name: Install test dependencies
+        run: |
+          npm ci --ignore-scripts
+          npm ci --ignore-scripts --prefix test-app
+          npx playwright install --with-deps chromium
+      - name: Verify asset checksum and permissions
+        run: |
+          node -e 'const fs=require("fs"),c=require("crypto");const n=process.argv[1];const expected=fs.readFileSync("dist/SHA256SUMS","utf8").split("\n").find(l=>l.endsWith("  "+n)).split("  ")[0];const actual=c.createHash("sha256").update(fs.readFileSync("dist/"+n)).digest("hex");if(actual!==expected)throw Error("Checksum mismatch");if(process.platform!=="win32")fs.chmodSync("dist/"+n,0o755)' '${{ matrix.asset }}'
+      - name: Fresh packaged CLI and MCP checks
+        run: node scripts/package-smoke.mjs --binary "dist/${{ matrix.asset }}" --require-native --out "reports/native-${{ matrix.platform }}.json"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: smoke-${{ matrix.platform }}
+          path: reports/native-${{ matrix.platform }}.json
+          if-no-files-found: error
+
+  publish-release:
+    needs: [release, native-smoke]
+    if: startsWith(github.ref, 'refs/tags/')
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - uses: actions/download-artifact@v4
+        with:
+          name: vibeguru-binaries
+          path: dist
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: smoke-*
+          path: smoke
+          merge-multiple: true
+      - name: Collect passing native results
+        run: |
+          node -e 'const fs=require("fs"),p=require("./package.json");const results=fs.readdirSync("smoke").map(n=>JSON.parse(fs.readFileSync("smoke/"+n,"utf8")));if(results.length!==4||results.some(r=>!r.passed||r.mode!=="native"||r.version!==p.version))throw Error("Incomplete native validation");fs.writeFileSync("dist/smoke-results.json",JSON.stringify({version:p.version,commit:process.env.GITHUB_SHA,platforms:results},null,2))'
       - uses: softprops/action-gh-release@v2
-        if: startsWith(github.ref, 'refs/tags/')
         with:
           files: dist/*
           fail_on_unmatched_files: true

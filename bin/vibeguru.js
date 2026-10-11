@@ -6,15 +6,16 @@
 // forward argv + stdio, and mirror its exit code. The Elixir/Burrito binary needs
 // no Erlang on the user's machine; Node is already present (they ran us via npx).
 
-const fs = require("fs");
 const { spawn } = require("child_process");
 
-const { binaryPath, driverPath } = require("../scripts/lib/platform");
+const { driverPath } = require("../scripts/lib/platform");
 const { ensureBinary, ensureChromium, isChromiumInstalled } = require("../scripts/lib/setup");
+const { launchSpec, binaryOverride } = require("../scripts/lib/launch");
+const { telemetryCommand, startCliRun } = require("../scripts/lib/telemetry-cli");
 
 // Commands that drive a browser. `init` is here too so the explicit setup step
 // fetches Chromium up front, per the project's "init auto-fetches the browser" goal.
-const BROWSER_COMMANDS = new Set(["init", "run", "memory:client"]);
+const BROWSER_COMMANDS = new Set(["init", "run", "memory:client", "auth"]);
 
 // `mcp` is handled in Node rather than forwarded: it speaks the Model Context
 // Protocol over stdio and drives the same binary underneath, one analysis per
@@ -26,9 +27,8 @@ function startMcpServer() {
 }
 
 async function resolveBinary() {
-  const cached = binaryPath();
-  if (fs.existsSync(cached)) return cached;
-
+  const override = binaryOverride();
+  if (override) return override;
   // postinstall may have been skipped (--ignore-scripts) or have failed offline.
   return ensureBinary();
 }
@@ -47,37 +47,66 @@ function ensureBrowserFor(argv) {
 }
 
 async function main() {
+  if (process.argv[2] === "doctor") {
+    process.exitCode = await require("../scripts/lib/doctor").runDoctor();
+    return;
+  }
+  if (process.argv[2] === "telemetry") {
+    try { process.exitCode = await telemetryCommand(process.argv.slice(3)); }
+    catch (err) { process.stderr.write(`vibeguru: ${err.message}\n`); process.exitCode = 64; }
+    return;
+  }
   if (process.argv[2] === "mcp") {
     startMcpServer();
     return;
   }
 
+  // The MCP server owns its own lifecycle events; its child calls the engine
+  // binary directly, so the same run is never counted by both entry points.
+  const run = startCliRun(process.argv.slice(2));
+  await run?.started;
   let bin;
 
   try {
     bin = await resolveBinary();
   } catch (err) {
     process.stderr.write(`vibeguru: could not obtain the platform binary.\n  ${err.message}\n`);
-    process.exit(1);
+    await run?.finish({ code: 2, errorCategory: "setup" });
+    process.exit(2);
     return;
   }
 
   ensureBrowserFor(process.argv.slice(2));
 
-  const child = spawn(bin, process.argv.slice(2), {
-    stdio: "inherit",
-    env: { ...process.env, VIBEGURU_DRIVER_PATH: driverPath() },
-  });
-
-  child.on("error", (err) => {
+  let child;
+  try {
+    const launch = launchSpec(bin, process.argv.slice(2));
+    child = spawn(launch.command, launch.args, {
+      stdio: "inherit",
+      windowsHide: true,
+      env: { ...process.env, VIBEGURU_DRIVER_PATH: driverPath() },
+    });
+  } catch (err) {
     process.stderr.write(`vibeguru: failed to launch binary: ${err.message}\n`);
-    process.exit(1);
+    await run?.finish({ code: 2, errorCategory: "launch" });
+    process.exitCode = 2;
+    return;
+  }
+
+  child.on("error", async (err) => {
+    process.stderr.write(`vibeguru: failed to launch binary: ${err.message}\n`);
+    await run?.finish({ code: 2, errorCategory: "launch" });
+    process.exit(2);
   });
 
-  child.on("exit", (code, signal) => {
+  child.on("exit", async (code, signal) => {
+    await run?.finish({ code: code ?? 2, signal });
     if (signal) process.kill(process.pid, signal);
-    else process.exit(code ?? 0);
+    else process.exit(code ?? 2);
   });
 }
 
-main();
+main().catch((err) => {
+  process.stderr.write(`vibeguru: execution failed: ${err.message}\n`);
+  process.exitCode = 2;
+});

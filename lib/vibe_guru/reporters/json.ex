@@ -7,7 +7,7 @@ defmodule VibeGuru.Reporter.Json do
 
   @behaviour VibeGuru.Reporter
 
-  alias VibeGuru.{Finding, StackProfile}
+  alias VibeGuru.{Coverage, Finding, StackProfile, Result}
 
   @impl true
   def id, do: :json
@@ -17,21 +17,36 @@ defmodule VibeGuru.Reporter.Json do
     out_dir = Map.fetch!(config, :out_dir)
     path = Path.join(out_dir, "vibeguru-findings.json")
 
-    payload = %{
-      tool: "vibeguru",
-      schema_version: 1,
-      vector: Map.get(config, :vector, "memory.client"),
-      generated_at: DateTime.utc_now() |> DateTime.to_iso8601(),
-      profile: profile_map(config[:profile]),
-      summary: summary(findings),
-      evidence_count: length(Map.get(config, :evidence, [])),
-      findings: Enum.map(findings, &Finding.to_map/1)
-    }
+    payload = payload(findings, config)
 
     case File.write(path, Jason.encode!(payload, pretty: true)) do
       :ok -> {:ok, path}
       {:error, reason} -> {:error, reason}
     end
+  end
+
+  def payload(findings, config) do
+    evidence = Map.get(config, :evidence, [])
+
+    assessment =
+      Map.get_lazy(config, :assessment, fn ->
+        Result.assess(findings, evidence, config[:coverage], %{})
+      end)
+
+    Map.merge(
+      %{
+        tool: "vibeguru",
+        vector: Map.get(config, :vector, "memory.client"),
+        generated_at: DateTime.utc_now() |> DateTime.to_iso8601(),
+        profile: profile_map(config[:profile]),
+        summary: summary(findings),
+        coverage: Coverage.to_map(Map.get(config, :coverage)),
+        evidence_count: length(Map.get(config, :evidence, [])),
+        evidence: Result.evidence_maps(evidence),
+        findings: Enum.map(findings, &Finding.to_map/1)
+      },
+      assessment
+    )
   end
 
   defp profile_map(%StackProfile{} = p), do: StackProfile.to_map(p)

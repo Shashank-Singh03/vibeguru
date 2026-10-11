@@ -69,12 +69,22 @@ test("verify_runtime advertises when to call it and what it costs", async () => 
     assert.match(verify.description, /minute/i, "an agent should know this is not instant");
 
     const props = verify.inputSchema.properties;
-    assert.deepEqual(Object.keys(props).sort(), ["cycles", "root", "routes", "url", "write_report"]);
+    assert.deepEqual(Object.keys(props).sort(), ["allow_project_execution", "cycles", "root", "routes", "url", "write_report"]);
     // Nothing is required: the useful default is "analyze the project I'm in".
     assert.ok(!verify.inputSchema.required || verify.inputSchema.required.length === 0);
   } finally {
     await close();
   }
+});
+
+test("config-driven MCP analysis requires explicit trust before executing repository code", async () => {
+  const { client, close } = await connect();
+  try {
+    const res = await client.callTool({ name: "verify_runtime", arguments: { root: REPO_ROOT } });
+    assert.equal(res.isError, true);
+    assert.match(res.content[0].text, /allow_project_execution=true/);
+    assert.match(res.content[0].text, /already-running URL/);
+  } finally { await close(); }
 });
 
 test("read_findings explains why it exists rather than re-running", async () => {

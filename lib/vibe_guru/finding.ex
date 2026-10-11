@@ -9,7 +9,8 @@ defmodule VibeGuru.Finding do
   the measured numbers; **no LLM is involved at generation time** (zero API cost).
 
   We never claim the exact buggy line. We name the *signature*, the *numbers*, and the
-  most likely *file/component* (via source maps), then hand it to the user's agent.
+  available runtime source clues, then hand it to the user's agent. Memory findings
+  do not currently establish source-map attribution or a confirmed retaining cause.
   """
 
   @type severity :: :critical | :high | :medium | :low | :info

@@ -64,12 +64,13 @@ export async function observe(page) {
     const text = String(message ?? "");
     if (!text || isNoise(text)) return;
 
-    const key = `${type}::${signature(text)}`;
+    const key = `${type}::${signature(text)}::${extra.frame || extra.url || ""}`;
     const hit = seen.get(key);
 
     if (hit) {
       hit.count += 1;
       hit.routes.add(route);
+      if (extra.attribution === "observed_route") hit.attribution = "observed_route";
       return;
     }
 
@@ -108,7 +109,7 @@ export async function observe(page) {
 
   // Uncaught exceptions — the white-screen class of failure.
   page.on("pageerror", (err) => {
-    record("page_error", err?.message || String(err), { frame: topFrame(err?.stack) });
+    record("page_error", err?.message || String(err), { frame: topFrame(err?.stack), attribution: "observed_route" });
   });
 
   // console.error only. Warnings are too noisy in dev to be actionable.
@@ -120,7 +121,7 @@ export async function observe(page) {
     // If the message points at a URL we issued a request for, blame the route that
     // issued it rather than the route that happens to be mounted now.
     const route = (loc?.url && urlOrigin.get(loc.url)) ?? currentRoute;
-    record("console_error", msg.text(), { frame }, route);
+    record("console_error", msg.text(), { frame, attribution: loc?.url && urlOrigin.has(loc.url) ? "request_origin" : "observed_route" }, route);
   });
 
   // Network failures: transport-level (DNS, refused, aborted).
@@ -128,7 +129,7 @@ export async function observe(page) {
     const failure = req.failure?.()?.errorText || "request failed";
     // Aborted requests are normal during client-side nav teardown.
     if (/ERR_ABORTED/i.test(failure)) return;
-    record("request_failed", `${failure} — ${req.url()}`, { url: req.url() }, originOf(req));
+    record("request_failed", `${failure} — ${req.url()}`, { url: req.url(), attribution: "request_origin" }, originOf(req));
   });
 
   // Application-level HTTP failures.
@@ -138,7 +139,7 @@ export async function observe(page) {
     record(
       "http_error",
       `HTTP ${status} — ${res.url()}`,
-      { url: res.url(), status },
+      { url: res.url(), status, attribution: "request_origin" },
       originOf(res.request())
     );
   });
@@ -193,6 +194,7 @@ export async function observe(page) {
         frame: e.frame ?? null,
         url: e.url ?? null,
         status: e.status ?? null,
+        attribution: e.attribution ?? "observed_route",
       }));
     },
   };

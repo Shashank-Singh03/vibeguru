@@ -148,11 +148,11 @@ defmodule VibeGuru.Analyzers.MemoryTest do
       assert finding.metrics.listeners_per_visit == 2
     end
 
-    test "the chart-library hint only appears when the stack has one" do
+    test "a detected chart library is an investigation hint, not a cleanup prescription" do
       evidences = chain([{"/charts", [listeners: 5]}], 6)
 
       plain = evidences |> analyze() |> for_route("/charts") |> hd()
-      refute plain.fix.hint =~ "chart.destroy()"
+      refute plain.fix.hint =~ "chart library was detected"
 
       charted =
         evidences
@@ -160,7 +160,12 @@ defmodule VibeGuru.Analyzers.MemoryTest do
         |> for_route("/charts")
         |> hd()
 
-      assert charted.fix.hint =~ "chart.destroy()"
+      assert charted.fix.hint =~ "chart library was detected"
+      assert charted.fix.hint =~ "verify whether it owns the growing listeners"
+      refute charted.fix.hint =~ "chart.destroy()"
+      assert charted.summary =~ "expected lifetime remain unverified"
+      refute charted.summary =~ "never removed"
+      refute charted.summary =~ "monotonically"
     end
   end
 
@@ -175,9 +180,29 @@ defmodule VibeGuru.Analyzers.MemoryTest do
       assert finding.metrics.heap_bytes_per_visit == 200_000
     end
 
-    test "heap growth explained by retained nodes is not reported twice" do
-      # A detached-node leak necessarily grows the heap. Reporting both would send
-      # an agent chasing two bugs where there is one.
+    test "a just-over-floor flow observation preserves detection without claiming a cause or unmount" do
+      [finding] = chain([{"flow", [heap: 151_057]}], 6) |> analyze() |> for_route("flow")
+      assert finding.signature == :route_heap_growth
+      assert finding.severity == :high
+      assert finding.confidence == :high
+      assert finding.metrics.heap_bytes_per_visit == 151_057
+      assert finding.metrics.heap_bytes_total_retained == 151_057 * 5
+      assert finding.summary =~ "Samples labeled flow"
+
+      assert finding.summary =~
+               "expected steady state and view lifecycle still require verification"
+
+      refute finding.summary =~ "after the view unmounts"
+      assert finding.fix.summary == "Investigate heap growth and expected retention"
+      assert finding.ai_prompt =~ "reproduce against an unchanged control"
+      assert finding.ai_prompt =~ "does not confirm a view unmount or a source location"
+      refute finding.ai_prompt =~ "apply the fix"
+
+      assert [] = chain([{"flow", [heap: 149_999]}], 6) |> analyze() |> for_route("flow")
+    end
+
+    test "heap growth is still suppressed when node growth is also flagged" do
+      # Compatibility suppression does not establish that the two counters share a cause.
       findings =
         chain([{"/detached", [nodes: 3_000, heap: 400_000]}], 6)
         |> analyze()
@@ -203,11 +228,51 @@ defmodule VibeGuru.Analyzers.MemoryTest do
       findings = analyze([heavy | rest])
 
       assert Enum.any?(findings, &(&1.signature == :initial_bundle_heap))
+      finding = Enum.find(findings, &(&1.signature == :initial_bundle_heap))
+      assert finding.summary =~ "before the measured cycles"
+      assert finding.summary =~ "needs investigation"
+      refute finding.summary =~ "Heavy eager imports inflate"
     end
 
     test "a normal baseline heap is not reported" do
       findings = chain([{"/clean", []}], 6) |> analyze()
       refute Enum.any?(findings, &(&1.signature == :initial_bundle_heap))
+    end
+  end
+
+  describe "observation truthfulness" do
+    test "partially consistent DOM growth does not claim detachment or growth on every cycle" do
+      values = %{1 => 2_000, 2 => 4_000, 3 => 3_500, 4 => 5_500, 5 => 5_000, 6 => 7_000}
+
+      evidence =
+        chain([{"editor-saved", []}], 6)
+        |> Enum.map(fn ev ->
+          if ev.phase == :cycle,
+            do: put_in(ev.data["nodes"], @baseline["nodes"] + values[ev.cycle]),
+            else: ev
+        end)
+
+      [finding] = analyze(evidence) |> for_route("editor-saved")
+      assert finding.signature == :detached_dom_leak
+      assert finding.metrics.nodes_per_visit == 1_000
+      assert finding.title == "DOM node count growth associated with editor-saved"
+      assert finding.summary =~ "positive deltas 60%"
+      assert finding.summary =~ "require separate verification"
+      refute finding.summary =~ "Unbounded"
+      refute finding.summary =~ "climbs every cycle"
+      assert finding.fix.hint =~ "inspect whether growing nodes are attached or detached"
+      assert finding.ai_prompt =~ "Investigation suggestions:"
+    end
+
+    test "cooldown recovery does not establish a cache cause or safe retention" do
+      cooldown = %{@baseline | "heapUsed" => 10_600_000}
+      findings = chain([{"flow", [heap: 200_000]}], 6, cooldown: cooldown) |> analyze()
+      finding = Enum.find(findings, &(&1.signature == :slow_recovery))
+      assert finding.metrics.recovery_ratio == 0.5
+      assert finding.summary =~ "by the cooldown sample"
+      assert finding.fix.summary == "Investigate expected retention and cooldown behavior"
+      refute finding.summary =~ "Not a hard leak"
+      refute finding.fix.hint =~ "weak references"
     end
   end
 

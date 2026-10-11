@@ -4,7 +4,7 @@ defmodule VibeGuru.CLI.Presenter do
   control flow and the wording/format is consistent in one place.
   """
 
-  alias VibeGuru.{Config, Finding}
+  alias VibeGuru.{Config, Coverage, Finding, Result}
 
   @rule String.duplicate("─", 60)
   @severity_order [:critical, :high, :medium, :low, :info]
@@ -14,6 +14,33 @@ defmodule VibeGuru.CLI.Presenter do
 
   @spec info(String.t()) :: :ok
   def info(msg), do: IO.puts(msg)
+
+  @doc "Announce the interactive login, and say what it will and will not do."
+  @spec auth_banner(String.t(), boolean()) :: :ok
+  def auth_banner(url, replacing?) do
+    IO.puts("Vibe Guru · sign in → #{url}")
+    if replacing?, do: IO.puts("  a saved session already exists and will be replaced")
+
+    IO.puts("""
+
+    A browser will open. Sign in exactly as you normally would, then close the window.
+    Vibe Guru never asks for, types, or stores your password — it keeps only the
+    session that results, so later runs can reach pages behind the login.
+    """)
+  end
+
+  @doc "Confirm what was saved, and that it is a live credential."
+  @spec auth_saved(map()) :: :ok
+  def auth_saved(%{path: path, cookies: cookies, origins: origins}) do
+    IO.puts("
+#{@rule}")
+    IO.puts("Session saved: #{cookies} cookie(s), #{origins} origin(s)")
+    IO.puts("  #{path}")
+    IO.puts("
+This file is equivalent to being logged in — it is gitignored automatically.")
+    IO.puts("Runs from this directory will now use it. Delete the file to sign out.")
+    IO.puts(@rule)
+  end
 
   @doc "Report what `init` detected and wrote."
   @spec init_done(VibeGuru.Project.t(), Config.t(), Path.t()) :: :ok
@@ -29,14 +56,20 @@ defmodule VibeGuru.CLI.Presenter do
 
   @doc "Print the findings summary and where the reports were written."
   @spec summary(map(), Path.t()) :: :ok
-  def summary(%{findings: findings, profile: profile}, out_dir) do
+  def summary(result, out_dir) do
+    %{findings: findings, profile: profile} = result
+    coverage = Map.get(result, :coverage)
+
     IO.puts("\n#{@rule}")
 
     IO.puts(
       "Detected: #{profile.stack}/#{profile.bundler || "?"} · router #{profile.router || "?"} · chart libs #{inspect(profile.chart_libs)}"
     )
 
-    print_findings(findings)
+    IO.puts("\n#{result.verdict} — #{Result.message(result.verdict)}")
+    Enum.each(result.validity_reasons, &IO.puts("  measurement limit: #{&1}"))
+    print_findings(findings, coverage)
+    print_coverage(coverage)
     print_outputs(out_dir)
     IO.puts(@rule)
   end
@@ -56,7 +89,7 @@ defmodule VibeGuru.CLI.Presenter do
   @doc "Print a friendly explanation for a failure reason and return a halt code."
   @spec error(term()) :: {:halt, non_neg_integer()}
   def error(reason) do
-    IO.puts(:stderr, "\n✗ #{explain(reason)}")
+    IO.puts(:stderr, "\n✗ ERROR — #{explain(reason)}")
     {:halt, 2}
   end
 
@@ -72,14 +105,20 @@ defmodule VibeGuru.CLI.Presenter do
   @spec usage() :: {:halt, non_neg_integer()}
   def usage do
     IO.puts("""
-    Vibe Guru — runtime + memory analysis for vibe coders
+    Vibe Guru — scoped runtime and repeated-use checks for React applications
 
     Usage:
       vibeguru init [--root DIR] [--url URL] [--port N]
           Detect the app and write vibeguru.json.
 
-      vibeguru run [--root DIR] [--out DIR] [--cycles N] [--flow FILE] [--no-headless] [--quiet]
-          Start the app if needed, analyze it, and write CLAUDE.md + reports.
+      vibeguru run [--root DIR] [--out DIR] [--cycles N] [--routes N] [--flow FILE] [--quiet]
+          Start the app if needed, analyze it, and write JSON, Markdown and HTML reports.
+
+    Exit codes: 0 PASS, 1 FAIL (high/critical), 3 INCONCLUSIVE, 2 ERROR, 64 usage.
+
+      vibeguru auth [--root DIR] [--url URL] [--timeout MS]
+          Sign in once in a real browser; later runs reuse the session so they can
+          reach pages behind the login. Your password is never asked for or stored.
 
       vibeguru memory:client <url> [--cycles N] [--flow FILE] [--out DIR]
           Low-level: analyze an already-running URL (no config, no autostart).
@@ -90,11 +129,10 @@ defmodule VibeGuru.CLI.Presenter do
 
   # --- internals ----------------------------------------------------------
 
-  defp print_findings([]) do
-    IO.puts("\n✓ No memory issues found. All routes returned to baseline after GC.")
-  end
+  defp print_findings([], _coverage),
+    do: IO.puts("\nNo findings crossed the configured thresholds.")
 
-  defp print_findings(findings) do
+  defp print_findings(findings, _coverage) do
     IO.puts("\nFound #{length(findings)} issue(s): #{counts(findings)}\n")
     Enum.each(findings, &print_finding/1)
   end
@@ -107,11 +145,23 @@ defmodule VibeGuru.CLI.Presenter do
     )
   end
 
+  defp print_coverage(nil), do: :ok
+
+  defp print_coverage(coverage) do
+    IO.puts("\n#{Coverage.summary(coverage)}")
+
+    case Coverage.gaps(coverage) do
+      [] -> :ok
+      gaps -> Enum.each(gaps, &IO.puts("  · #{&1}"))
+    end
+  end
+
   defp print_outputs(out_dir) do
     IO.puts("\nReports written to #{out_dir}:")
     IO.puts("  • CLAUDE.md                (hand this to your coding agent)")
     IO.puts("  • vibeguru-report.md       (human-readable)")
     IO.puts("  • vibeguru-findings.json   (machine-readable)")
+    IO.puts("  • vibeguru-report.html     (evidence, trends and comparison)")
   end
 
   defp counts(findings) do
@@ -128,7 +178,18 @@ defmodule VibeGuru.CLI.Presenter do
       "Browser driver (driver-node) not found. Tried: #{Enum.join(candidates, ", ")}. " <>
         "Set VIBEGURU_DRIVER_PATH, or run `npm install` in driver-node/."
 
-  defp explain(:node_not_found), do: "Node.js was not found on PATH. Install Node 18+ and retry."
+  defp explain(:no_session_captured),
+    do:
+      "The browser closed before a session could be captured. Run `vibeguru auth` again and sign in before closing it."
+
+  defp explain(:no_config_for_auth),
+    do: "No vibeguru.json found. Run `vibeguru init` first, or pass --url."
+
+  defp explain({:session_write_failed, reason}),
+    do: "Could not save the session: #{inspect(reason)}."
+
+  defp explain(:node_not_found), do: "Node.js was not found on PATH. Install Node 20+ and retry."
+  defp explain(:driver_timeout), do: "The browser driver exceeded the total run deadline."
 
   defp explain(:no_target),
     do: "No reachable URL and no dev_command in vibeguru.json. Set one or start your app."

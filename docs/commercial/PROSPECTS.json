@@ -1,0 +1,391 @@
+{
+  "research_date": "2026-10-08",
+  "timezone": "Asia/Calcutta",
+  "method": "Primary agency pages and indexed primary material; source claims are self-reported and not independently verified.",
+  "contacted": false,
+  "tested_customer_apps": false,
+  "evidence_tiers": {
+    "A": "Explicit primary React web-app association with relevant named application/case",
+    "B": "React/application service evidence; exact app fit pending",
+    "C": "Access or technology/app attribution unresolved"
+  },
+  "counts": {
+    "A": 16,
+    "B": 9,
+    "C": 5
+  },
+  "leads": [
+    {
+      "id": 1,
+      "name": "HELLO PEOPLE",
+      "evidence_tier": "A",
+      "research_priority": "Start",
+      "source_urls": [
+        "https://hellopeople.com.au/technologies/react-development"
+      ],
+      "observed_evidence": "React service page describes a multi-location analytics dashboard with live sales and inventory views.",
+      "next_qualification": "Confirm an upcoming React app handover, test access and who owns existing QA.",
+      "buyer_qualified": false
+    },
+    {
+      "id": 2,
+      "name": "Squash Apps",
+      "evidence_tier": "A",
+      "research_priority": "Start",
+      "source_urls": [
+        "https://squashapps.com/hire-expert-react-developers/"
+      ],
+      "observed_evidence": "Hydesq project description includes a React admin dashboard, floor plans, booking management and utilization reports.",
+      "next_qualification": "Ask about agency handover checks on web dashboards; exclude the React Native employee app.",
+      "buyer_qualified": false
+    },
+    {
+      "id": 3,
+      "name": "Muthu Creatives",
+      "evidence_tier": "A",
+      "research_priority": "Start",
+      "source_urls": [
+        "https://www.muthucreatives.com/portfolio/apex-analytics"
+      ],
+      "observed_evidence": "Apex Analytics portfolio page explicitly lists React/TypeScript and live role-based dashboard views.",
+      "next_qualification": "Founder-led delivery is stated; verify client/project authenticity and current application work rather than marketing websites.",
+      "buyer_qualified": false
+    },
+    {
+      "id": 4,
+      "name": "Vyarah",
+      "evidence_tier": "A",
+      "research_priority": "Start",
+      "source_urls": [
+        "https://www.vyarah.com/work/saas-analytics-dashboard"
+      ],
+      "observed_evidence": "Analytics case page describes a React frontend using Recharts, virtualized tables and WebSocket updates.",
+      "next_qualification": "Confirm the described work is a delivered client app and seek a safe test project; claims are self-reported.",
+      "buyer_qualified": false
+    },
+    {
+      "id": 5,
+      "name": "BuildDigital",
+      "evidence_tier": "A",
+      "research_priority": "Start",
+      "source_urls": [
+        "https://builddigital.net/projects/nexora-agency-dashboard"
+      ],
+      "observed_evidence": "Nexora portfolio page lists a Next.js/React agency dashboard, charts, task boards and WebSocket activity.",
+      "next_qualification": "Confirm delivered-client status and React router fit; do not promise existing Next.js routing support.",
+      "buyer_qualified": false
+    },
+    {
+      "id": 6,
+      "name": "Brocoders",
+      "evidence_tier": "B",
+      "research_priority": "Start",
+      "source_urls": [
+        "https://brocoders.com/technologies/reactjs-development-services/",
+        "https://brocoders.com/case-studies/"
+      ],
+      "observed_evidence": "React services include data visualization and link to agency cases; maintains a React boilerplate.",
+      "next_qualification": "Select a specific recent React browser-app case and ask whether an independent check fills a real gap.",
+      "buyer_qualified": false
+    },
+    {
+      "id": 7,
+      "name": "Codica",
+      "evidence_tier": "B",
+      "research_priority": "Start",
+      "source_urls": [
+        "https://www.codica.com/services/saas-development/",
+        "https://www.codica.com/blog/tag/case-study/page/2/"
+      ],
+      "observed_evidence": "SaaS service page lists React in its frontend stack and describes custom SaaS delivery.",
+      "next_qualification": "Verify a named app's actual frontend and recent handover trigger; its own testing may already cover the need.",
+      "buyer_qualified": false
+    },
+    {
+      "id": 8,
+      "name": "Selleo",
+      "evidence_tier": "A",
+      "research_priority": "Start",
+      "source_urls": [
+        "https://selleo.com/portfolio/"
+      ],
+      "observed_evidence": "Portfolio tags React on B4B payment management and Breezeway property operations applications.",
+      "next_qualification": "Check whether current project teams would use external evidence beyond their own QA and engineering.",
+      "buyer_qualified": false
+    },
+    {
+      "id": 9,
+      "name": "Railsware",
+      "evidence_tier": "A",
+      "research_priority": "Reserve",
+      "source_urls": [
+        "https://railsware.com/services/react-development-services/"
+      ],
+      "observed_evidence": "React service page attributes Calendly frontend adoption and parts of Knowa's communication frontend to React.",
+      "next_qualification": "Sophisticated product engineering is a substitute; qualify a narrow resource-regression gap before pitching.",
+      "buyer_qualified": false
+    },
+    {
+      "id": 10,
+      "name": "Monterail",
+      "evidence_tier": "A",
+      "research_priority": "Reserve",
+      "source_urls": [
+        "https://www.monterail.com/projects/digital-platform-for-neurodivergent-child-care",
+        "https://www.monterail.com/services/react-js-development"
+      ],
+      "observed_evidence": "Dalza case describes web React and mobile React Native with document sharing, chat and user roles.",
+      "next_qualification": "Separate web from mobile; use only safe synthetic healthcare data. Internal QA and scale may make the small offer unsuitable.",
+      "buyer_qualified": false
+    },
+    {
+      "id": 11,
+      "name": "Brainhub",
+      "evidence_tier": "A",
+      "research_priority": "Reserve",
+      "source_urls": [
+        "https://brainhub.eu/case-studies/bigfourcompany"
+      ],
+      "observed_evidence": "Big Four case lists React/TypeScript applications for tax reports, legal entities and complex filtering.",
+      "next_qualification": "Enterprise access and its own specialists may dominate; evaluate partnership or learning rather than assuming a $300 sale.",
+      "buyer_qualified": false
+    },
+    {
+      "id": 12,
+      "name": "10Clouds",
+      "evidence_tier": "A",
+      "research_priority": "Reserve",
+      "source_urls": [
+        "https://10clouds.com/services/forward-deployed-engineers-reactjs/"
+      ],
+      "observed_evidence": "React services describe Quesmed's React web application alongside separate React Native delivery.",
+      "next_qualification": "Identify one web-app delivery team and actual pain; the firm also provides product/engineering services.",
+      "buyer_qualified": false
+    },
+    {
+      "id": 13,
+      "name": "Rootstrap",
+      "evidence_tier": "A",
+      "research_priority": "Reserve",
+      "source_urls": [
+        "https://www.rootstrap.com/expertise/react"
+      ],
+      "observed_evidence": "React page attributes MasterClass payment modernization to React-team work and also mentions task-management delivery.",
+      "next_qualification": "Confirm a suitable current agency project; do not test real payment flows or assume performance work is missing.",
+      "buyer_qualified": false
+    },
+    {
+      "id": 14,
+      "name": "GeekyAnts",
+      "evidence_tier": "A",
+      "research_priority": "Reserve",
+      "source_urls": [
+        "https://geekyants.com/case-studies/asset-management-dashboard"
+      ],
+      "observed_evidence": "Manufacturing asset-management dashboard case explicitly identifies React and data/IoT workflow requirements.",
+      "next_qualification": "Large clients and existing QA services can complicate access; web dashboard only, excluding mobile and backend capacity.",
+      "buyer_qualified": false
+    },
+    {
+      "id": 15,
+      "name": "Aimprosoft",
+      "evidence_tier": "A",
+      "research_priority": "Reserve",
+      "source_urls": [
+        "https://www.aimprosoft.com/wp-content/uploads/2025/06/PR.BUSINESS-Case-Study_compressed.pdf"
+      ],
+      "observed_evidence": "PR.BUSINESS primary case-study PDF describes a React business dashboard for listings, reviews and performance data.",
+      "next_qualification": "Confirm current agency ownership, relevant project version and existing regression checks.",
+      "buyer_qualified": false
+    },
+    {
+      "id": 16,
+      "name": "Netguru",
+      "evidence_tier": "A",
+      "research_priority": "Benchmark",
+      "source_urls": [
+        "https://www.netguru.com/services/product-analytics"
+      ],
+      "observed_evidence": "Product-analytics page describes Babbel's React/Rails admin module for user management, invoicing and engagement data.",
+      "next_qualification": "Established QA/product services and enterprise procurement reduce initial accessibility; useful segment benchmark.",
+      "buyer_qualified": false
+    },
+    {
+      "id": 17,
+      "name": "Radixweb",
+      "evidence_tier": "A",
+      "research_priority": "Benchmark",
+      "source_urls": [
+        "https://radixweb.com/blog/scaling-saas-marketplace-dropshipping-platform"
+      ],
+      "observed_evidence": "TopDawg technical case describes a React SPA with catalog management, imports and dashboards.",
+      "next_qualification": "Confirm a smaller appropriate delivery team and a runtime gap; do not infer the public client has a defect.",
+      "buyer_qualified": false
+    },
+    {
+      "id": 18,
+      "name": "Bitovi",
+      "evidence_tier": "A",
+      "research_priority": "Benchmark",
+      "source_urls": [
+        "https://www.bitovi.com/agile-nodejs-case-study-1",
+        "https://www.bitovi.com/services/frontend/react-consulting"
+      ],
+      "observed_evidence": "Yum case says Bitovi built React apps; engagement includes a substantial ordering platform and frontend engineering.",
+      "next_qualification": "Specialist engineering/consulting is both a possible partner and a direct substitute, not an assumed easy customer.",
+      "buyer_qualified": false
+    },
+    {
+      "id": 19,
+      "name": "Apptension",
+      "evidence_tier": "B",
+      "research_priority": "Reserve",
+      "source_urls": [
+        "https://apptension.com/services",
+        "https://apptension.com/portfolio"
+      ],
+      "observed_evidence": "Maintains a React/Django/AWS SaaS boilerplate; portfolio describes SaaS applications including event experiences.",
+      "next_qualification": "Technology and app evidence come from separate sections; verify React on the exact target case and unmet need.",
+      "buyer_qualified": false
+    },
+    {
+      "id": 20,
+      "name": "Leobit",
+      "evidence_tier": "B",
+      "research_priority": "Reserve",
+      "source_urls": [
+        "https://leobit.com/technologies/react-js-development-services/",
+        "https://leobit.com/projects/"
+      ],
+      "observed_evidence": "React services and solutions page presents reporting/analytics work among a multi-technology portfolio.",
+      "next_qualification": "Match an individual React browser app; avoid assigning the stack of one project to every analytics case.",
+      "buyer_qualified": false
+    },
+    {
+      "id": 21,
+      "name": "The Software House",
+      "evidence_tier": "B",
+      "research_priority": "Benchmark",
+      "source_urls": [
+        "https://tsh.io/services/web-development/react"
+      ],
+      "observed_evidence": "React service page links cases and explicitly offers review and enhancement strategy for React applications.",
+      "next_qualification": "Already sells review services. Could be a benchmark/partner; confirm a specific case and gap before prospect qualification.",
+      "buyer_qualified": false
+    },
+    {
+      "id": 22,
+      "name": "Nearform",
+      "evidence_tier": "B",
+      "research_priority": "Benchmark",
+      "source_urls": [
+        "https://nearform.com/work"
+      ],
+      "observed_evidence": "Work index attaches React tags to several client applications and separately lists supply-chain and quantitative-analysis work.",
+      "next_qualification": "Read a specific linked case before associating analytics work with React; existing expertise is a strong substitute.",
+      "buyer_qualified": false
+    },
+    {
+      "id": 23,
+      "name": "hedgehog lab",
+      "evidence_tier": "B",
+      "research_priority": "Reserve",
+      "source_urls": [
+        "https://hedgehoglab.com/our-work/powering-unparalleled-web-potential/"
+      ],
+      "observed_evidence": "Retail-bank case identifies a React/Contentful web build; sustained dashboard use is not established.",
+      "next_qualification": "Find actual interactive application work, rather than pitching retention checks for a CMS marketing site.",
+      "buyer_qualified": false
+    },
+    {
+      "id": 24,
+      "name": "Rangle",
+      "evidence_tier": "B",
+      "research_priority": "Benchmark",
+      "source_urls": [
+        "https://rangle.io/services",
+        "https://rangle.io/about/what-we-do"
+      ],
+      "observed_evidence": "Service page offers React/Next.js web apps and complex product engineering; a specific data-heavy case is not established here.",
+      "next_qualification": "Choose a relevant current case. Broad specialist services make this a benchmark/partner lead first.",
+      "buyer_qualified": false
+    },
+    {
+      "id": 25,
+      "name": "Miracuves",
+      "evidence_tier": "B",
+      "research_priority": "Verify",
+      "source_urls": [
+        "https://miracuves.com/service/react-development/"
+      ],
+      "observed_evidence": "React page offers admin panels and dashboards; analytics scenario is labeled an example engagement.",
+      "next_qualification": "Obtain a real attributable delivered-client portfolio and app scope. An illustrative engagement is not customer proof.",
+      "buyer_qualified": false
+    },
+    {
+      "id": 26,
+      "name": "Evolvion",
+      "evidence_tier": "C",
+      "research_priority": "Verify",
+      "source_urls": [
+        "https://evolvion.io/case-studies/front",
+        "https://evolvion.io/case-studies"
+      ],
+      "observed_evidence": "Indexed Front case describes a custom React business dashboard; direct fetch timed out during research.",
+      "next_qualification": "Reopen and validate the primary case, delivered-client status and real app before counting as portfolio-matched.",
+      "buyer_qualified": false
+    },
+    {
+      "id": 27,
+      "name": "Digisoft Solution",
+      "evidence_tier": "C",
+      "research_priority": "Verify",
+      "source_urls": [
+        "https://www.digisoftsolution.com/reactjs-development-services",
+        "https://www.digisoftsolution.com/case-studies"
+      ],
+      "observed_evidence": "Indexed React services mention Gardenova AI admin work; direct page extraction was unavailable.",
+      "next_qualification": "Read the attributable individual case and confirm React browser delivery; search text alone is insufficient qualification.",
+      "buyer_qualified": false
+    },
+    {
+      "id": 28,
+      "name": "Pagepro",
+      "evidence_tier": "C",
+      "research_priority": "Verify",
+      "source_urls": [
+        "https://pagepro.co/case-studies/proofed",
+        "https://www.linkedin.com/posts/pagepro_proofed-case-study-activity-7393981186567475200-oMQt"
+      ],
+      "observed_evidence": "Primary Proofed case has a Next.js/React order-management description in an indexed company post; fetched case body was empty.",
+      "next_qualification": "Reopen case content and confirm exact web workflow/router compatibility; do not rely on metadata alone.",
+      "buyer_qualified": false
+    },
+    {
+      "id": 29,
+      "name": "Polcode",
+      "evidence_tier": "C",
+      "research_priority": "Verify",
+      "source_urls": [
+        "https://polcode.com/resources/blog/redesigning-the-polcode-website",
+        "https://polcode.com/projects/how-client-simplified-data-processing-and-improved-customer-onboarding/"
+      ],
+      "observed_evidence": "Indexed company redesign article mentions React/Next.js, but body extraction was inconsistent; data-heavy case found uses Angular.",
+      "next_qualification": "Find a React application client case. Its own marketing website and an Angular dashboard do not establish target fit.",
+      "buyer_qualified": false
+    },
+    {
+      "id": 30,
+      "name": "Codal",
+      "evidence_tier": "C",
+      "research_priority": "Verify",
+      "source_urls": [
+        "https://codal.com/work/baxter/",
+        "https://codal.com/work/leading-american-healthcare-company/"
+      ],
+      "observed_evidence": "Baxter case describes complex data charts and Highcharts, but browser React delivery is not established.",
+      "next_qualification": "Confirm a React web-app portfolio first; available chart case emphasizes a mobile app and cannot prove browser fit.",
+      "buyer_qualified": false
+    }
+  ]
+}

@@ -4,29 +4,28 @@ defmodule VibeGuru.Analyzers.Memory do
 
   ## Method
 
-  The driver samples the app's *retained* state (it forces GC before every sample) at
-  home, tagged with the route just mounted+unmounted. So a **consecutive diff** of the
-  sample chain attributes retained growth to the route that caused it:
+  The driver samples aggregate counters, with GC confirmation recorded separately.
+  Samples are labeled by a route visit or a user-flow checkpoint. A consecutive diff
+  associates growth with that measured interval; it does not identify its cause or
+  establish that a component unmounted:
 
       baseline → c1/clean → c1/detached → … → cN/charts → cooldown
 
-  A clean route leaves ~0 retained per visit; a leaky route leaves a consistent
-  positive delta every cycle. We average those per-route deltas (skipping the warm-up
+  We average those per-label deltas (skipping the warm-up
   first cycle) and flag a route when the average exceeds a per-metric floor *and* the
   growth is consistent across cycles. We additionally compute an overall per-metric
   **recovery ratio** (`(peak - cooldown) / (peak - baseline)`) as a health summary.
 
   ## Signatures emitted in v1
 
-    * `detached_dom_leak`  — a route retains DOM nodes every visit (nodes Δ)
-    * `listener_leak`      — a route retains event listeners every visit (listeners Δ)
-    * `route_heap_growth`  — a route retains JS heap every visit, not explained by nodes
+    * `detached_dom_leak`  — aggregate DOM node growth; detachment is unverified
+    * `listener_leak`      — aggregate listener count growth; ownership is unverified
+    * `route_heap_growth`  — JS heap growth, suppressed when node growth is also flagged
     * `initial_bundle_heap`— baseline heap itself is very large
     * `slow_recovery`      — a metric only partially recovers (advisory)
 
-  `timer_leak`, `canvas_webgl_leak` (precise) and `allocation_hotspot` need heap-snapshot
-  / allocation-sampling evidence and are produced once the v1.1 milestone lands; this
-  analyzer never false-fires them.
+  These compatibility signature names do not establish a leak or a root cause. Timer,
+  GPU and allocation-source claims require additional evidence and are not emitted here.
   """
 
   @behaviour VibeGuru.Analyzer
@@ -177,19 +176,20 @@ defmodule VibeGuru.Analyzers.Memory do
         :detached_dom_leak,
         :high,
         confidence(m.nodes),
-        "Detached DOM nodes retained on #{route}",
-        "Visiting #{route} retains ~#{per_cycle} DOM nodes per visit that survive GC " <>
-          "(node recovery #{pct(rec)}). Unbounded — node count climbs every cycle.",
+        "DOM node count growth associated with #{route}",
+        "Samples labeled #{route} show an average increase of ~#{per_cycle} DOM nodes per measured interval " <>
+          "(positive deltas #{pct(m.nodes.pos_frac)}; node recovery #{pct(rec)}). " <>
+          "Node detachment, retaining references and continued growth beyond this run require separate verification.",
         %{
           nodes_per_visit: per_cycle,
           nodes_total_retained: m.nodes.total,
           node_recovery_ratio: round3(rec)
         },
         %{
-          summary: "Free per-mount allocations and remove references on unmount",
+          summary: "Investigate DOM growth and retaining references",
           hint:
-            "Look for nodes/objects created on mount and pushed into a module-global, ref, or closure that outlives the component. Add cleanup in the useEffect return (or componentWillUnmount).",
-          files_to_check: ["component rendered at route #{route}"]
+            "Compare repeated runs with an unchanged control, inspect whether growing nodes are attached or detached, and trace their retaining paths. Verify expected component lifetimes before proposing cleanup changes.",
+          files_to_check: ["code exercised by route or flow label #{route}"]
         }
       )
     end
@@ -203,14 +203,14 @@ defmodule VibeGuru.Analyzers.Memory do
       per_cycle = round(m.listeners.avg)
 
       base_fix =
-        "Every addEventListener / subscription created on mount must be removed in the " <>
-          "useEffect cleanup (return () => removeEventListener(...))."
+        "Inspect listener targets, owners and expected lifetimes. If an independently verified " <>
+          "listener outlives its owner, check the corresponding removal or subscription cleanup and re-measure."
 
       fix_hint =
         if chart_hint,
           do:
             base_fix <>
-              " This app uses a chart library — if this view renders a chart, also call chart.destroy() in the cleanup; Chart.js attaches its own window resize listener.",
+              " A chart library was detected; verify whether it owns the growing listeners before checking its documented disposal lifecycle.",
           else: base_fix
 
       finding(
@@ -218,18 +218,18 @@ defmodule VibeGuru.Analyzers.Memory do
         :listener_leak,
         :high,
         confidence(m.listeners),
-        "Event listeners leak on #{route}",
-        "Visiting #{route} retains ~#{per_cycle} event listener(s) per visit that are never removed. " <>
-          "jsEventListeners grows monotonically across cycles.",
+        "Listener count growth associated with #{route}",
+        "Samples labeled #{route} show an average listener count increase of ~#{per_cycle} per measured interval " <>
+          "(positive deltas #{pct(m.listeners.pos_frac)}). Listener ownership and expected lifetime remain unverified.",
         %{
           listeners_per_visit: per_cycle,
           listeners_total_retained: m.listeners.total,
           listener_recovery_ratio: round3(overall.listeners.recovery)
         },
         %{
-          summary: "Remove listeners/subscriptions on unmount",
+          summary: "Investigate listener ownership and lifetime",
           hint: fix_hint,
-          files_to_check: ["component rendered at route #{route}"]
+          files_to_check: ["code exercised by route or flow label #{route}"]
         }
       )
     end
@@ -246,19 +246,20 @@ defmodule VibeGuru.Analyzers.Memory do
         :route_heap_growth,
         :high,
         confidence(m.heap),
-        "JS heap retained on #{route}",
-        "Visiting #{route} retains ~#{bytes(per_cycle)} of JS heap per visit that survives GC " <>
-          "(heap recovery #{pct(overall.heap.recovery)}). Memory is held after the view unmounts.",
+        "JS heap growth associated with #{route}",
+        "Samples labeled #{route} show an average JS heap increase of ~#{bytes(per_cycle)} per measured interval " <>
+          "(positive deltas #{pct(m.heap.pos_frac)}; heap recovery #{pct(overall.heap.recovery)}). " <>
+          "Retaining references, expected steady state and view lifecycle still require verification.",
         %{
           heap_bytes_per_visit: per_cycle,
           heap_bytes_total_retained: m.heap.total,
           heap_recovery_ratio: round3(overall.heap.recovery)
         },
         %{
-          summary: "Stop accumulating data in module-globals / stores across mounts",
+          summary: "Investigate heap growth and expected retention",
           hint:
-            "Look for arrays/maps/caches at module scope (or a global store slice) that are appended on mount and never cleared, and for subscriptions/timers that retain large closures.",
-          files_to_check: ["component rendered at route #{route}"]
+            "Compare repeated runs with an unchanged control and inspect heap snapshots or retaining paths. Check caches, stores and subscriptions as candidate sources; verify their expected lifetimes before changing cleanup.",
+          files_to_check: ["code exercised by route or flow label #{route}"]
         }
       )
     end
@@ -274,14 +275,14 @@ defmodule VibeGuru.Analyzers.Memory do
           :initial_bundle_heap,
           :medium,
           :medium,
-          "Large baseline JS heap on first load",
-          "The app uses #{bytes(base_heap)} of JS heap at idle before any interaction. " <>
-            "Heavy eager imports inflate the initial footprint.",
+          "Large baseline JS heap",
+          "The baseline sample records #{bytes(base_heap)} of JS heap before the measured cycles. " <>
+            "The contribution of application data, imports and framework overhead needs investigation.",
           %{baseline_heap_bytes: base_heap},
           %{
-            summary: "Code-split and lazy-load heavy modules",
+            summary: "Investigate the baseline heap composition",
             hint:
-              "Use dynamic import()/React.lazy for routes and heavy libs (charts, editors, maps) so they load on demand.",
+              "Profile the baseline heap and distinguish expected data from avoidable allocations. Consider lazy loading only if the evidence identifies eager modules as a material contributor.",
             files_to_check: ["entry/bootstrap module", "top-level route imports"]
           }
         )
@@ -303,13 +304,14 @@ defmodule VibeGuru.Analyzers.Memory do
         :slow_recovery,
         :low,
         :low,
-        "#{metric_label(name)} recovers slowly after load",
-        "#{metric_label(name)} only recovers #{pct(m.recovery)} after GC. Not a hard leak, but worth a look (cache sizing / retained closures).",
+        "Limited #{metric_label(name)} recovery at cooldown",
+        "#{metric_label(name)} recovers #{pct(m.recovery)} of its baseline-to-peak increase by the cooldown sample. " <>
+          "Expected retention and the required idle period need verification.",
         %{metric: name, recovery_ratio: round3(m.recovery), growth: m.growth},
         %{
-          summary: "Review cache/retention sizing",
+          summary: "Investigate expected retention and cooldown behavior",
           hint:
-            "Bound caches and ensure transient buffers are released; consider weak references for memoized data.",
+            "Compare a longer idle period and repeated control runs. Inspect cache bounds and buffer lifetimes if retaining-path evidence implicates them before proposing a change.",
           files_to_check: []
         }
       )
@@ -337,11 +339,11 @@ defmodule VibeGuru.Analyzers.Memory do
   defp ai_prompt(signature, route, summary, metrics, fix) do
     """
     [Vibe Guru finding: #{signature}]
-    Where: route #{route}
-    Problem: #{summary}
+    Where: route or flow label #{route}
+    Observation: #{summary}
     Evidence: #{format_metrics(metrics)}
-    Fix: #{fix.summary}. #{fix.hint}
-    Action: open the component rendered at #{route}, find the cause described above, apply the fix, and ensure the effect cleanup releases everything acquired on mount.
+    Investigation suggestions: #{fix.summary}. #{fix.hint}
+    Action: verify measurement coverage and GC status, reproduce against an unchanged control, and trace the observed growth to its owner and expected lifetime. A route or flow label does not confirm a view unmount or a source location. Propose a change only when supporting evidence identifies a cause, then repeat the same measurement to check its effect.
     """
     |> String.trim()
   end

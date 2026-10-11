@@ -13,6 +13,8 @@
 
 import { readFile } from "node:fs/promises";
 import { run } from "./lib/run.js";
+import { authenticate } from "./lib/auth.js";
+import { runSnapshot } from "./lib/snapshot-run.js";
 
 function emit(obj) {
   process.stdout.write(JSON.stringify(obj) + "\n");
@@ -38,12 +40,32 @@ function readStdin() {
 function withDefaults(cfg) {
   const out = {
     url: cfg.url,
-    mode: cfg.mode || "auto", // "auto" | "flow"
+    mode: cfg.mode || "auto", // "auto" | "flow" | "auth" | "snapshot"
     cycles: Number.isInteger(cfg.cycles) ? cfg.cycles : 20,
     settleMs: Number.isInteger(cfg.settleMs) ? cfg.settleMs : 500,
     routesLimit: Number.isInteger(cfg.routesLimit) ? cfg.routesLimit : 8,
     headless: cfg.headless !== false,
     flow: cfg.flow || null,
+    // Routes the Elixir detector read out of the app's own source, and values for
+    // any dynamic segments. Both must be listed explicitly: this function builds a
+    // fresh object rather than spreading cfg, so anything not named here is dropped
+    // silently — which is how coverage reported a confident 100% while never
+    // receiving the declared route list at all.
+    declaredRoutes: Array.isArray(cfg.declaredRoutes) ? cfg.declaredRoutes : [],
+    routeParams: cfg.routeParams && typeof cfg.routeParams === "object" ? cfg.routeParams : {},
+    routeExpectations: cfg.routeExpectations && typeof cfg.routeExpectations === "object" ? cfg.routeExpectations : {},
+    // Class names to count live instances of, chosen by the Elixir detector from the
+    // libraries it found. Named explicitly: this function builds a fresh object, so
+    // anything not listed here is dropped silently — which is how declaredRoutes went
+    // missing while coverage cheerfully reported 100%.
+    censusTargets: Array.isArray(cfg.censusTargets) ? cfg.censusTargets : [],
+    // Focused snapshot probe: which route to exercise, and which constructors the
+    // investigation already suspects so they are reported whatever their count.
+    route: cfg.route || null,
+    constructorHints: Array.isArray(cfg.constructorHints) ? cfg.constructorHints : [],
+    // Path to a session saved by `vibeguru auth`; null when there is none.
+    storageState: cfg.storageState || null,
+    timeoutMs: Number.isInteger(cfg.timeoutMs) ? cfg.timeoutMs : null,
   };
   if (!out.url) throw new Error("config.url is required (pass JSON on stdin or a URL as the first argument)");
   return out;
@@ -62,6 +84,17 @@ async function loadRawConfig() {
   return firstPositional ? { url: firstPositional } : {};
 }
 
+function dispatch(cfg, emit) {
+  switch (cfg.mode) {
+    case "auth":
+      return authenticate(cfg, emit);
+    case "snapshot":
+      return runSnapshot(cfg, emit);
+    default:
+      return run(cfg, emit);
+  }
+}
+
 async function main() {
   let cfg;
   try {
@@ -73,7 +106,7 @@ async function main() {
   }
 
   try {
-    const result = await run(cfg, emit);
+    const result = await dispatch(cfg, emit);
     emit({ type: "result", ...result });
     process.exit(0);
   } catch (e) {

@@ -12,7 +12,7 @@
 //
 // Prerequisites on the agent for the engine stages:
 //   * Elixir 1.18+ and Erlang/OTP 27+ on PATH
-//   * Node 18+ on PATH
+//   * Node 20+ on PATH (package.json "engines"; CI proves 20 and 22)
 //   * driver-node dependencies installed (the pipeline does this, including Chromium)
 //   * the "Pipeline Utility Steps" plugin, for readJSON in the fixture-check stage.
 //     Without it that stage fails with "No such DSL method 'readJSON'" — the reference
@@ -135,7 +135,7 @@ pipeline {
             script: """
               set -eu
               ./vibeguru init --root test-app
-              ./vibeguru run  --root test-app --out reports --cycles ${params.CYCLES} --routes 12
+              ./vibeguru run  --root test-app --out reports --cycles ${params.CYCLES} --routes 14
             """
           ).toString()
           echo "vibeguru exit status: ${env.VG_STATUS}"
@@ -154,34 +154,11 @@ pipeline {
 
     stage('Verify fixtures still detected') {
       steps {
-        script {
-          def findings = readJSON file: 'reports/vibeguru-findings.json'
-          def signatures = findings.findings.collect { it.signature }.unique()
-          echo "signatures detected: ${signatures}"
-
-          // The engine must still catch what test-app deliberately does wrong.
-          def required = ['detached_dom_leak', 'listener_leak', 'route_heap_growth']
-          def missing = required.findAll { !signatures.contains(it) }
-          if (missing) {
-            error "Regression: test-app fixtures no longer detected: ${missing}"
-          }
-
-          // ...and must not invent problems on the control route.
-          def onClean = findings.findings.findAll { it.location?.route == '/clean' }
-          if (onClean) {
-            error "False positive: /clean is the control and must stay clean, got ${onClean.size()} finding(s)"
-          }
-
-          // Every consumer of this file — CLAUDE.md, the CLI summary, the MCP server —
-          // tells the reader the list is most-severe-first. Two analyzers each sort
-          // their own output, and concatenating sorted lists does not produce a sorted
-          // one, so this asserts the promise rather than assuming it.
-          def rank = ['critical': 0, 'high': 1, 'medium': 2, 'low': 3, 'info': 4]
-          def ranks = findings.findings.collect { rank[it.severity] ?: 99 }
-          if (ranks != ranks.sort(false)) {
-            error "Findings are not ordered most-severe-first: ${findings.findings.collect { it.severity }}"
-          }
-        }
+        // The expectations live in scripts/verify-fixtures.mjs, not here. Two CI
+        // systems check this repo, and duplicating the assertions in Groovy and in a
+        // workflow guarantees they drift — with the drifted one quietly asserting
+        // less than you think.
+        sh 'node scripts/verify-fixtures.mjs reports/vibeguru-findings.json'
       }
     }
 

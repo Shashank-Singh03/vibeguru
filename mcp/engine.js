@@ -12,14 +12,17 @@ const os = require("os");
 const path = require("path");
 const { spawn } = require("child_process");
 
-const { binaryPath, driverPath } = require("../scripts/lib/platform");
+const { driverPath } = require("../scripts/lib/platform");
 const { ensureBinary, ensureChromium, isChromiumInstalled } = require("../scripts/lib/setup");
+const { launchSpec, binaryOverride } = require("../scripts/lib/launch");
+const { assessReport } = require("./report");
 
 // The CLI's exit codes are a contract: 0 clean, 1 findings present (the CI gate),
-// 2 the run itself failed, 64 bad usage. Only the last two are errors here —
+// 3 incomplete checks, 2 the run itself failed, 64 bad usage. Only the last two are errors here —
 // "found problems" is a successful analysis, and is in fact the common case.
 const EXIT_CLEAN = 0;
 const EXIT_FINDINGS = 1;
+const EXIT_INCONCLUSIVE = 3;
 
 const FINDINGS_FILE = "vibeguru-findings.json";
 
@@ -27,7 +30,7 @@ const FINDINGS_FILE = "vibeguru-findings.json";
 // have a locally built binary and no published release to fetch; without an override
 // the first tool call would try to download a version that does not exist yet.
 async function resolveBinary() {
-  const override = process.env.VIBEGURU_BINARY;
+  const override = binaryOverride();
 
   if (override) {
     if (!fs.existsSync(override)) {
@@ -36,13 +39,13 @@ async function resolveBinary() {
     return override;
   }
 
-  const cached = binaryPath();
-  return fs.existsSync(cached) ? cached : ensureBinary();
+  return ensureBinary();
 }
 
 function runBinary(bin, args, { onLog, cwd }) {
   return new Promise((resolve, reject) => {
-    const child = spawn(bin, args, {
+    const launch = launchSpec(bin, args);
+    const child = spawn(launch.command, launch.args, {
       cwd,
       stdio: ["ignore", "pipe", "pipe"],
       env: { ...process.env, VIBEGURU_DRIVER_PATH: driverPath() },
@@ -67,7 +70,7 @@ function runBinary(bin, args, { onLog, cwd }) {
     });
 
     child.on("error", (err) => reject(new Error(`could not launch vibeguru: ${err.message}`)));
-    child.on("close", (code) => resolve({ code: code ?? 0, stdout, stderr }));
+    child.on("close", (code, signal) => resolve({ code: code ?? 2, signal, stdout, stderr }));
   });
 }
 
@@ -103,13 +106,19 @@ function readFindings(dir) {
  * dev server if it is not up — and `init` is run first when the project has never
  * been set up, because an agent should not have to know about a two-step flow.
  */
-async function analyze({ root, url, cycles, routes, writeReport = false, onLog } = {}) {
+async function analyze({ root, url, cycles, routes, writeReport = false, allowProjectExecution = false, onLog } = {}) {
   const projectRoot = path.resolve(root || process.cwd());
 
   // Check this before fetching anything. A mistyped path is the likeliest bad input,
   // and it should come back as "no such directory" rather than as a download failure.
   if (!fs.existsSync(projectRoot)) {
     throw new Error(`project directory does not exist: ${projectRoot}`);
+  }
+  if (!fs.statSync(projectRoot).isDirectory()) throw new Error("Project root must be a directory.");
+  // A checked-out repo is data until the caller deliberately trusts its scripts.
+  // Config-driven runs may start shell commands and import full-privilege flows.
+  if (!url && allowProjectExecution !== true) {
+    throw new Error("Config-driven analysis can execute project scripts and flows. Use an already-running URL, or explicitly set allow_project_execution=true for a trusted project.");
   }
 
   const bin = await resolveBinary();
@@ -124,6 +133,7 @@ async function analyze({ root, url, cycles, routes, writeReport = false, onLog }
   }
 
   const out = outputDir(projectRoot, writeReport);
+  try {
   const common = ["--out", out, "--cycles", String(cycles), "--routes", String(routes)];
   let result;
 
@@ -145,7 +155,7 @@ async function analyze({ root, url, cycles, routes, writeReport = false, onLog }
     });
   }
 
-  if (result.code !== EXIT_CLEAN && result.code !== EXIT_FINDINGS) {
+  if (![EXIT_CLEAN, EXIT_FINDINGS, EXIT_INCONCLUSIVE].includes(result.code)) {
     throw new Error(lastError(result) || `vibeguru exited with code ${result.code}`);
   }
 
@@ -155,7 +165,22 @@ async function analyze({ root, url, cycles, routes, writeReport = false, onLog }
     throw new Error(`the run finished but wrote no ${FINDINGS_FILE} — check that the app started`);
   }
 
+  const assessment = assessReport(report);
+  const codes = { PASS: 0, FAIL: 1, INCONCLUSIVE: 3, ERROR: 2 };
+  if (assessment.verdict === "ERROR" || codes[assessment.verdict] !== result.code) {
+    throw new Error(`invalid report or verdict/exit mismatch: ${assessment.verdict} / ${result.code}. ${assessment.reasons.join("; ")}`);
+  }
+
   return { report, outDir: out, exitCode: result.code, wroteReport: Boolean(writeReport) };
+  } finally {
+    if (!writeReport) {
+      const resolved = path.resolve(out);
+      if (path.dirname(resolved) !== path.resolve(os.tmpdir()) || !path.basename(resolved).startsWith("vibeguru-mcp-")) {
+        throw new Error("Refusing to remove an output directory outside the MCP scratch location.");
+      }
+      fs.rmSync(resolved, { recursive: true, force: true });
+    }
+  }
 }
 
 // The CLI prints failures as "✗ <explanation>"; surfacing that beats a bare exit code.

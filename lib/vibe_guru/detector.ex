@@ -23,6 +23,10 @@ defmodule VibeGuru.Detector do
     stack_info = Detector.Stack.detect(root)
     fe_info = Detector.Frontend.detect(stack_info, root)
 
+    # Read the app's own routes rather than relying on the crawler to stumble on
+    # them. This is what lets a run say how much of the app it actually saw.
+    declared_routes = Detector.Routes.detect(fe_info.router, root)
+
     %StackProfile{
       root: root,
       url: url,
@@ -32,6 +36,7 @@ defmodule VibeGuru.Detector do
       router: fe_info.router,
       chart_libs: fe_info.chart_libs,
       source_maps: fe_info.source_maps,
+      declared_routes: declared_routes,
       meta: %{dep_count: map_size(stack_info.deps)}
     }
   end

@@ -1,0 +1,308 @@
+{
+  "date": "2026-10-09",
+  "campaign_id": "campaign-1791549232823-8a1b148c",
+  "cases": 9,
+  "declared_expectation_cases": 7,
+  "met_expectations": 7,
+  "execution_errors": 0,
+  "interrupted_runs": [
+    {
+      "app": "gateway-race-original",
+      "verdict": "INCONCLUSIVE"
+    },
+    {
+      "app": "gateway-race-candidate",
+      "verdict": "INCONCLUSIVE"
+    }
+  ],
+  "source_candidate": {
+    "changed_files": [
+      "src/pages/LogsPage.tsx"
+    ],
+    "dependency_locks_identical": true,
+    "manually_authored": true,
+    "original_app_modified": false
+  },
+  "cases_detail": [
+    {
+      "app": "gateway-race-original",
+      "variant": "race-ordered",
+      "verdict": "PASS",
+      "expectation": {
+        "met": true,
+        "mismatches": []
+      },
+      "passed_assertions": 12,
+      "failed_assertions": 0,
+      "observations": 18,
+      "graph": {
+        "nodes": 57,
+        "edges": 56
+      },
+      "build": {
+        "source_snapshot_hash": "eca83066f472387aafe901af97dff0261e2ddc1a28c8a68d13eb1432b254e521",
+        "original_source_inventory_hash": "4234c6d07bf705ec8f14c0759177488e75caac58db92ef2a13976b7ae7140480",
+        "artifact_hash": "7f1c8a5fb2ee1468a33435bd2a44216d15a951b9daa5fe87b5b34f03f11aa3fe",
+        "locks": {
+          "package-lock.json": "a8cf589c17a6bd7d6b69440efe7e5fec781479193951f814cf195e9388679308"
+        }
+      },
+      "engine_sha256": "0c41b04fd733eccee0549cc6554af189115e8ae268daf34a52062e72597e855c",
+      "browser": "153.0.8010.12"
+    },
+    {
+      "app": "gateway-race-original",
+      "variant": "race-reordered",
+      "verdict": "FAIL",
+      "expectation": {
+        "met": true,
+        "mismatches": []
+      },
+      "passed_assertions": 6,
+      "failed_assertions": 6,
+      "observations": 18,
+      "graph": {
+        "nodes": 58,
+        "edges": 80
+      },
+      "build": {
+        "source_snapshot_hash": "eca83066f472387aafe901af97dff0261e2ddc1a28c8a68d13eb1432b254e521",
+        "original_source_inventory_hash": "4234c6d07bf705ec8f14c0759177488e75caac58db92ef2a13976b7ae7140480",
+        "artifact_hash": "7f1c8a5fb2ee1468a33435bd2a44216d15a951b9daa5fe87b5b34f03f11aa3fe",
+        "locks": {
+          "package-lock.json": "a8cf589c17a6bd7d6b69440efe7e5fec781479193951f814cf195e9388679308"
+        }
+      },
+      "engine_sha256": "0c41b04fd733eccee0549cc6554af189115e8ae268daf34a52062e72597e855c",
+      "browser": "153.0.8010.12"
+    },
+    {
+      "app": "gateway-race-original",
+      "variant": "interrupted",
+      "verdict": "INCONCLUSIVE",
+      "expectation": null,
+      "passed_assertions": 6,
+      "failed_assertions": 0,
+      "observations": 12,
+      "graph": {
+        "nodes": 45,
+        "edges": 44
+      },
+      "build": {
+        "source_snapshot_hash": "eca83066f472387aafe901af97dff0261e2ddc1a28c8a68d13eb1432b254e521",
+        "original_source_inventory_hash": "4234c6d07bf705ec8f14c0759177488e75caac58db92ef2a13976b7ae7140480",
+        "artifact_hash": "7f1c8a5fb2ee1468a33435bd2a44216d15a951b9daa5fe87b5b34f03f11aa3fe",
+        "locks": {
+          "package-lock.json": "a8cf589c17a6bd7d6b69440efe7e5fec781479193951f814cf195e9388679308"
+        }
+      },
+      "engine_sha256": "0c41b04fd733eccee0549cc6554af189115e8ae268daf34a52062e72597e855c",
+      "browser": "153.0.8010.12"
+    },
+    {
+      "app": "gateway-race-candidate",
+      "variant": "race-ordered",
+      "verdict": "PASS",
+      "expectation": {
+        "met": true,
+        "mismatches": []
+      },
+      "passed_assertions": 12,
+      "failed_assertions": 0,
+      "observations": 18,
+      "graph": {
+        "nodes": 57,
+        "edges": 56
+      },
+      "build": {
+        "source_snapshot_hash": "f3fc18e2f0a8594cd910e82de19d6c9777e435cd9dbad4e2f2d579dd4bd1ee54",
+        "original_source_inventory_hash": "4234c6d07bf705ec8f14c0759177488e75caac58db92ef2a13976b7ae7140480",
+        "artifact_hash": "c2354f186f522ff6e5ffa2bed8d8db9b73f4c321bc09a972f881157aeaac8f4c",
+        "locks": {
+          "package-lock.json": "a8cf589c17a6bd7d6b69440efe7e5fec781479193951f814cf195e9388679308"
+        }
+      },
+      "engine_sha256": "0c41b04fd733eccee0549cc6554af189115e8ae268daf34a52062e72597e855c",
+      "browser": "153.0.8010.12"
+    },
+    {
+      "app": "gateway-race-candidate",
+      "variant": "race-reordered",
+      "verdict": "PASS",
+      "expectation": {
+        "met": true,
+        "mismatches": []
+      },
+      "passed_assertions": 12,
+      "failed_assertions": 0,
+      "observations": 18,
+      "graph": {
+        "nodes": 57,
+        "edges": 56
+      },
+      "build": {
+        "source_snapshot_hash": "f3fc18e2f0a8594cd910e82de19d6c9777e435cd9dbad4e2f2d579dd4bd1ee54",
+        "original_source_inventory_hash": "4234c6d07bf705ec8f14c0759177488e75caac58db92ef2a13976b7ae7140480",
+        "artifact_hash": "c2354f186f522ff6e5ffa2bed8d8db9b73f4c321bc09a972f881157aeaac8f4c",
+        "locks": {
+          "package-lock.json": "a8cf589c17a6bd7d6b69440efe7e5fec781479193951f814cf195e9388679308"
+        }
+      },
+      "engine_sha256": "0c41b04fd733eccee0549cc6554af189115e8ae268daf34a52062e72597e855c",
+      "browser": "153.0.8010.12"
+    },
+    {
+      "app": "gateway-race-candidate",
+      "variant": "interrupted",
+      "verdict": "INCONCLUSIVE",
+      "expectation": null,
+      "passed_assertions": 6,
+      "failed_assertions": 0,
+      "observations": 12,
+      "graph": {
+        "nodes": 45,
+        "edges": 44
+      },
+      "build": {
+        "source_snapshot_hash": "f3fc18e2f0a8594cd910e82de19d6c9777e435cd9dbad4e2f2d579dd4bd1ee54",
+        "original_source_inventory_hash": "4234c6d07bf705ec8f14c0759177488e75caac58db92ef2a13976b7ae7140480",
+        "artifact_hash": "c2354f186f522ff6e5ffa2bed8d8db9b73f4c321bc09a972f881157aeaac8f4c",
+        "locks": {
+          "package-lock.json": "a8cf589c17a6bd7d6b69440efe7e5fec781479193951f814cf195e9388679308"
+        }
+      },
+      "engine_sha256": "0c41b04fd733eccee0549cc6554af189115e8ae268daf34a52062e72597e855c",
+      "browser": "153.0.8010.12"
+    },
+    {
+      "app": "multiplayer-reconnect",
+      "variant": "baseline",
+      "verdict": "PASS",
+      "expectation": {
+        "met": true,
+        "mismatches": []
+      },
+      "passed_assertions": 42,
+      "failed_assertions": 0,
+      "observations": 30,
+      "graph": {
+        "nodes": 99,
+        "edges": 98
+      },
+      "build": {
+        "source_snapshot_hash": "d7e7d4b5ae2d130d2f24ca338c30dd36d8c0ca9c2278d618d54c2d108b8e9585",
+        "original_source_inventory_hash": "d9a9697e5eec3189d7949ab9103cb9b0e3b0ed192568d8509473b68a0c952989",
+        "artifact_hash": "c361a9175de25273c439b5154cef1082fa7341e4990007a776bfe7345e96ecc3",
+        "locks": {
+          "client/package-lock.json": "8843287b985f414c882b4107cf62831a408cc404df0d9b788c77c97bed0c2ed5",
+          "server/package-lock.json": "4d5f41b17a3b0638bc7cc389c00b943eecc59d21f8bdf2e34c79261c489be55d"
+        }
+      },
+      "engine_sha256": "0c41b04fd733eccee0549cc6554af189115e8ae268daf34a52062e72597e855c",
+      "browser": "153.0.8010.12"
+    },
+    {
+      "app": "multiplayer-reconnect",
+      "variant": "reconnect-broken",
+      "verdict": "FAIL",
+      "expectation": {
+        "met": true,
+        "mismatches": []
+      },
+      "passed_assertions": 36,
+      "failed_assertions": 6,
+      "observations": 36,
+      "graph": {
+        "nodes": 106,
+        "edges": 146
+      },
+      "build": {
+        "source_snapshot_hash": "d7e7d4b5ae2d130d2f24ca338c30dd36d8c0ca9c2278d618d54c2d108b8e9585",
+        "original_source_inventory_hash": "d9a9697e5eec3189d7949ab9103cb9b0e3b0ed192568d8509473b68a0c952989",
+        "artifact_hash": "c361a9175de25273c439b5154cef1082fa7341e4990007a776bfe7345e96ecc3",
+        "locks": {
+          "client/package-lock.json": "8843287b985f414c882b4107cf62831a408cc404df0d9b788c77c97bed0c2ed5",
+          "server/package-lock.json": "4d5f41b17a3b0638bc7cc389c00b943eecc59d21f8bdf2e34c79261c489be55d"
+        }
+      },
+      "engine_sha256": "0c41b04fd733eccee0549cc6554af189115e8ae268daf34a52062e72597e855c",
+      "browser": "153.0.8010.12"
+    },
+    {
+      "app": "multiplayer-reconnect",
+      "variant": "fixed",
+      "verdict": "PASS",
+      "expectation": {
+        "met": true,
+        "mismatches": []
+      },
+      "passed_assertions": 42,
+      "failed_assertions": 0,
+      "observations": 30,
+      "graph": {
+        "nodes": 99,
+        "edges": 98
+      },
+      "build": {
+        "source_snapshot_hash": "d7e7d4b5ae2d130d2f24ca338c30dd36d8c0ca9c2278d618d54c2d108b8e9585",
+        "original_source_inventory_hash": "d9a9697e5eec3189d7949ab9103cb9b0e3b0ed192568d8509473b68a0c952989",
+        "artifact_hash": "c361a9175de25273c439b5154cef1082fa7341e4990007a776bfe7345e96ecc3",
+        "locks": {
+          "client/package-lock.json": "8843287b985f414c882b4107cf62831a408cc404df0d9b788c77c97bed0c2ed5",
+          "server/package-lock.json": "4d5f41b17a3b0638bc7cc389c00b943eecc59d21f8bdf2e34c79261c489be55d"
+        }
+      },
+      "engine_sha256": "0c41b04fd733eccee0549cc6554af189115e8ae268daf34a52062e72597e855c",
+      "browser": "153.0.8010.12"
+    }
+  ],
+  "comparisons": [
+    {
+      "baseline_app": "gateway-race-original",
+      "candidate_app": "gateway-race-candidate",
+      "variant": "race-ordered",
+      "baseline_verdict": "PASS",
+      "candidate_verdict": "PASS",
+      "removed": [],
+      "remaining": [],
+      "introduced": [],
+      "comparable_execution": true,
+      "full_scoped_candidate_pass": true
+    },
+    {
+      "baseline_app": "gateway-race-original",
+      "candidate_app": "gateway-race-candidate",
+      "variant": "race-reordered",
+      "baseline_verdict": "FAIL",
+      "candidate_verdict": "PASS",
+      "removed": [
+        "[\"journey.client\",\"journey_assertion_failed\",\"/logs\",\"latest-refresh-wins\"]"
+      ],
+      "remaining": [],
+      "introduced": [],
+      "comparable_execution": true,
+      "full_scoped_candidate_pass": true
+    },
+    {
+      "baseline_app": "gateway-race-original",
+      "candidate_app": "gateway-race-candidate",
+      "variant": "interrupted",
+      "baseline_verdict": "INCONCLUSIVE",
+      "candidate_verdict": "INCONCLUSIVE",
+      "removed": [],
+      "remaining": [],
+      "introduced": [],
+      "comparable_execution": true,
+      "full_scoped_candidate_pass": false
+    }
+  ],
+  "limitations": [
+    "Synthetic injected faults are labelled; detection rate is not real-world precision or overall product accuracy.",
+    "Normal app findings require independent triage; an unmodified app is not a known-clean control.",
+    "Only declared workflows and conditions were exercised; no LLM/Jev policy, automated minimizer or full causal diagnosis was evaluated.",
+    "Gateway and swap-station backends are mocked; authentication, hardware control and full integrations are outside scope.",
+    "Both gateway requests overlap; controlled HTTP data and all exact-10000ms intervals disabled. State observed for 400ms after both responses finish.",
+    "Multiplayer negative failure is deliberately induced by welcome suppression. Ordinary transport restored in fixed; no multiplayer source patch.",
+    "Manually supplied workflows and expected outcomes; matched experiments are not a real-world accuracy estimate."
+  ]
+}
